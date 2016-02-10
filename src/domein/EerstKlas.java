@@ -7,4 +7,8 @@ public class EerstKlas {
     public void eersteMethode() {
         
     }
+    
+    public void eersteRecursieveMethode(){
+        eersteRecursieveMethode();
+    }
 }
