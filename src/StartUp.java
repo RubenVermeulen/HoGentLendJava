@@ -1,6 +1,5 @@
 import domein.DomeinController;
-import domein.User;
-import gui.LoginFrameController;
+import domein.Gebruikers;
 import gui.MainMenuFrameController;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -19,22 +18,14 @@ public class StartUp extends Application {
         scene.getStylesheets().add("/gui/styles.css");
         stage.setScene(scene);
         stage.show();
-    }
-
-    public static void main(String... args) {
-//        Application.launch(StartUp.class, args);
-
+        
         // Database test
         EntityManagerFactory emf = JPAUtil.getEntityManagerFactory();
         EntityManager em = emf.createEntityManager();
         
         em.getTransaction().begin();
         
-        User user = new User();
-        
-        user.setFirstname("Ruben");
-        user.setLastname("Vermeulen");
-        user.setEmail("ruben.vermeulen.v4419@student.hogent.be");
+        Gebruikers user = new Gebruikers("Ruben", "Vermeulen", "ruben.vermeulen.v4419@student.hogent.be");
         
         em.persist(user);
         
@@ -43,5 +34,9 @@ public class StartUp extends Application {
         em.close();
         emf.close();
         System.out.println("Closed");
+    }
+
+    public static void main(String... args) {
+        Application.launch(StartUp.class, args);
     }
 }
