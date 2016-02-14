@@ -38,4 +38,24 @@ public class Materiaal {
     private String plaats;
     private String doelgroepen; 
     private String leergebieden; 
+    
+    public Materiaal(long id, Firma firma, String foto, String naam, String beschrijving, String artikelnummer, String prijs,
+            int aantal, int aantalOnbeschikbaar, boolean uitleenbaarheid, String plaats, String doelgroepen, String leergebieden
+    ) {
+        this.id = id;
+        this.firma = firma;
+        this.foto = foto;
+        this.naam = naam;
+        this.beschrijving=beschrijving;
+        this.artikelnummer=artikelnummer;
+        this.prijs=prijs;
+        this.aantal=aantal;
+        this.aantalOnbeschikbaar=aantalOnbeschikbaar;
+        this.uitleenbaarheid=uitleenbaarheid;
+        this.plaats=plaats;
+        this.doelgroepen=doelgroepen;
+        this.leergebieden=leergebieden;
+    }
+
+    
 }

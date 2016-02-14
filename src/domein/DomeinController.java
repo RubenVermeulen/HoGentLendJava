@@ -1,5 +1,6 @@
 package domein;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -8,6 +9,7 @@ import util.JPAUtil;
 public class DomeinController {
 
     private GebruikerRepository gebruikerRepo;
+    private MateriaalRepository materiaalRepo;
     private Gebruiker aangemelde;
     
     public DomeinController(){
@@ -56,9 +58,17 @@ public class DomeinController {
     }
     
     
+    public void voegMateriaalToeInBulk(ArrayList<Materiaal> materialen){
+        materiaalRepo.materialenToevoegenInBulk(materialen);
+        }
+        
+        
+    }
+
     
     
     
     
     
-}
+    
+
