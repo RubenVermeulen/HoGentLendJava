@@ -14,10 +14,14 @@ public class StartUp extends Application {
     public void start(Stage stage) {
         DomeinController domCont = new DomeinController();
         //Scene scene = new Scene(new LoginFrameController(domCont));
-        Scene scene = new Scene(new MainMenuFrameController(domCont));
+        MainMenuFrameController mmfc = new MainMenuFrameController(domCont);
+        Scene scene = new Scene(mmfc);
         scene.getStylesheets().add("/gui/styles.css");
         stage.setScene(scene);
         stage.show();
+        // Prefered resolution: 1280 x 768
+        
+        mmfc.setupTemporaryDemoMaterials();
         
         // Database test
         EntityManagerFactory emf = JPAUtil.getEntityManagerFactory();
