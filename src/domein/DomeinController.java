@@ -1,13 +1,34 @@
 package domein;
 
+import java.util.Optional;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import util.JPAUtil;
+
 public class DomeinController {
 
+    private GebruikerRepository gebruikerRepo;
+    private Gebruiker aangemelde;
     
-    //LOGIN DOMEINLAAG
-    public boolean meldAan(String email, String wachtwoord) {
-        return false; 
+    public DomeinController(){
+        gebruikerRepo = new GebruikerRepository();
     }
-    // geeft true terug indien aangemeld, geeft false terug indien niet
+    
+    /**
+     * 
+     * @param email gebruiker email
+     * @param wachtwoord ongeencrypteerd wachtwoord
+     * @return true indien de gebruiker nu is aangemeld, false indien het email en/of wachtwoord verkeerd waren.
+     */
+    public boolean meldAan(String email, String wachtwoord) {
+        Optional<Gebruiker> optGeb = gebruikerRepo.getGebruiker(email, wachtwoord);
+        if (optGeb.isPresent()){
+            aangemelde = optGeb.get();
+            return true;
+        }else{
+            return false;
+        }
+    }
     
     
     

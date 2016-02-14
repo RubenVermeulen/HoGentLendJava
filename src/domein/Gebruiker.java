@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -18,6 +19,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "gebruikers")
+@NamedQuery(
+    name="findAllGebruikers",
+    query="SELECT g FROM Gebruiker g"
+)
 public class Gebruiker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,16 +31,18 @@ public class Gebruiker {
     private String voornaam;
     private String achternaam;
     private String email;
+    private String paswoord;
 
     
     protected Gebruiker() {
-        
+        // default constructor for jpa
     }
 
-    public Gebruiker(String voornaam, String achternaam, String email) {
+    public Gebruiker(String voornaam, String achternaam, String email, String paswoord) {
         this.voornaam = voornaam;
         this.achternaam = achternaam;
         this.email = email;
+        this.paswoord = paswoord;
     }
     
     public long getId() {
@@ -64,5 +71,9 @@ public class Gebruiker {
 
     public void setEmail(String email) {
         this.email = email;
+    }    
+
+    public String getPaswoord() {
+        return paswoord;
     }    
 }

@@ -113,6 +113,7 @@ public class LoginFrameController extends BorderPane {
                 throw new IllegalArgumentException("Emailadres of wachtwoord is incorrect. Gelieve opnieuw te proberen.");
             }
             
+            System.out.println("GELUKT!");
             new MainMenuFrameController(this.dc);
 
             
