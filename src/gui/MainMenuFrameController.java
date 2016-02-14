@@ -26,6 +26,8 @@ public class MainMenuFrameController extends BorderPane {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
+        
+        setupTemporaryDemoMaterials();
 
     }
 
