@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1280.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <right>
+      <GridPane prefHeight="768.0" prefWidth="470.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextField fx:id="txfWachtwoord" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="50.0" right="70.0" />
+               </GridPane.margin>
+            </TextField>
+            <ImageView fx:id="imgLogo" fitHeight="75.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/logo.png" />
+               </image>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </ImageView>
+            <Label fx:id="lblGeefIn" text="Geef uw e-mailadres en wachtwoord in:" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="txfEmailadres" alignment="BOTTOM_LEFT" onKeyTyped="#txfEmailadresOnKey" promptText="E-mailadres" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="50.0" right="70.0" />
+               </GridPane.margin>
+            </TextField>
+            <PasswordField fx:id="pfWachtwoord" onKeyTyped="#pfWachtwoordOnKey" promptText="Wachtwoord" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="50.0" right="70.0" />
+               </GridPane.margin>
+            </PasswordField>
+            <Button fx:id="btnAanmelden" mnemonicParsing="false" onAction="#btnAanmeldenOnAction" prefHeight="35.0" prefWidth="150.0" text="Aanmelden" GridPane.rowIndex="6" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets left="50.0" right="70.0" top="15.0" />
+               </GridPane.margin>
+            </Button>
+            <Label fx:id="lblGeenAccount" prefHeight="37.0" prefWidth="350.0" text="Heb je nog geen account? Neem contact op met de hoofdbeheerder." wrapText="true" GridPane.rowIndex="8">
+               <GridPane.margin>
+                  <Insets left="50.0" right="70.0" />
+               </GridPane.margin>
+            </Label>
+            <Separator prefWidth="200.0" GridPane.rowIndex="7">
+               <GridPane.margin>
+                  <Insets left="50.0" right="70.0" />
+               </GridPane.margin>
+            </Separator>
+            <Label text="WerkTitel" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnSlot" mnemonicParsing="false" onMousePressed="#btnSlotOnAction" onMouseReleased="#btnSlotOnRelease" text="🔒" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets right="70.0" />
+               </GridPane.margin>
+            </Button>
+            <Label fx:id="lblIncorrect" text="Emailadres of wachtwoord is incorrect. Gelieve opnieuw te proberen." textFill="#c60505" visible="false" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+   </right>
+   <left>
+      <ImageView fx:id="imgBackground" fitHeight="768.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER_LEFT">
+         <image>
+            <Image url="@../images/LoginImage.jpg" />
+         </image>
+         <BorderPane.margin>
+            <Insets left="-200.0" />
+         </BorderPane.margin>
+      </ImageView>
+   </left>
+</fx:root>

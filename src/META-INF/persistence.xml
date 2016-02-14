@@ -6,7 +6,7 @@
     <class>domein.Firma</class>
     <class>domein.Gebruikers</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:2076;databaseName=projecten_2"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:57859;databaseName=projecten_2"/>
       <property name="javax.persistence.jdbc.user" value="sa"/>
       <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
       <property name="javax.persistence.jdbc.password" value="Password123"/>
