@@ -18,8 +18,8 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-                  <MenuItem mnemonicParsing="false" text="Uitloggen" />
-              <MenuItem mnemonicParsing="false" text="Afsluiten" />
+                  <MenuItem mnemonicParsing="false" onAction="#menuActionUitloggen" text="Uitloggen" />
+              <MenuItem mnemonicParsing="false" onAction="#menuActionAfsluiten" text="Afsluiten" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">

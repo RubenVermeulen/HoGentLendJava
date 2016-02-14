@@ -36,6 +36,13 @@ public class DomeinController {
     }
     
     /**
+     * Meld de gebruiker af.
+     */
+    public void meldAf(){
+        aangemelde = null;
+    }
+    
+    /**
      * Geeft de gegevens van de aangemelde gebruiker.
      * Indien geen aangemelde gebruiker, geeft arrays van lege strings.
      * @return String[3] - voornaam, achternaam, email

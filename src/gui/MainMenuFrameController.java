@@ -2,12 +2,16 @@ package gui;
 
 import domein.DomeinController;
 import java.io.IOException;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class MainMenuFrameController extends BorderPane {
 
@@ -50,6 +54,21 @@ public class MainMenuFrameController extends BorderPane {
         String[] gebruikerInfo = domCon.geefGegevensAangemeldeGebruiker();
         lblWelkomInfo.setText(String.format("Welkom %s %s!", gebruikerInfo[0], gebruikerInfo[1]));
         lblEmailInfo.setText(String.format("Email: %s", gebruikerInfo[2]));
+    }
+
+    @FXML
+    private void menuActionUitloggen(ActionEvent event) {
+        domCon.meldAf();
+        Stage stage = (Stage) getScene().getWindow();
+        Scene scene = new Scene(new LoginFrameController(domCon));
+        stage.setScene(scene);
+        stage.setTitle("Default");
+        stage.show();
+    }
+
+    @FXML
+    private void menuActionAfsluiten(ActionEvent event) {
+        Platform.exit();
     }
 
 }
