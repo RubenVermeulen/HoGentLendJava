@@ -20,7 +20,7 @@ public class GebruikerRepositoryImpl implements GebruikerRepository {
     @Override
     public Optional<Gebruiker> getGebruiker(String email, String userPass){
         if (email == null || userPass == null){
-            return null; // zal geen gebruikers hebben zonder email of wachtwoord
+            return Optional.empty(); // zal geen gebruikers hebben zonder email of wachtwoord
         }
         Optional<Gebruiker> gebruiker = gebruikers.stream()
                 .filter(g -> g.getEmail().equalsIgnoreCase(email) && passwordEncryptor.checkPassword(userPass, g.getPaswoord()))
