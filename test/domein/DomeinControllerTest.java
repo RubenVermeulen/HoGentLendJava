@@ -69,6 +69,13 @@ public class DomeinControllerTest {
         checkStringArrayAsserts(domCon.geefGegevensAangemeldeGebruiker(),
                 "", "", "");
     }
+    
+    @Test
+    public void testGeefGegevensAangemeldeGebruikerIsLeegNaGeldigMeldAanEnMeldAf() {
+        assertTrue(domCon.meldAan(CORRECT_EMAIL, CORRECT_PASSWORD));
+        checkStringArrayAsserts(domCon.geefGegevensAangemeldeGebruiker(),
+                "", "", "");
+    }
 
     private void checkStringArrayAsserts(String[] actuals, String... expecteds) {
         for (int i = 0; i < expecteds.length; i++) {
