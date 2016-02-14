@@ -58,6 +58,11 @@ public class DomeinController {
     }
     
     
+    /**
+     * 
+     * @param materialen - lijst met de materialen die toegevoegd moeten worden aan het systeem
+     */
+    
     public void voegMateriaalToeInBulk(ArrayList<Materiaal> materialen){
         materiaalRepo.materialenToevoegenInBulk(materialen);
         }
