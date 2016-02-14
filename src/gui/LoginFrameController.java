@@ -78,11 +78,13 @@ public class LoginFrameController extends BorderPane {
     
     @FXML
     private void btnSlotOnAction(MouseEvent event) {
+        txfWachtwoord.setText(pfWachtwoord.getText());
         toggleWachtwoordVisibility(true, false, "🔓");// open slot symbool
     }
 
     @FXML
     private void btnSlotOnRelease(MouseEvent event) {
+        pfWachtwoord.setText(txfWachtwoord.getText());
         toggleWachtwoordVisibility(false, true, "🔒");// gesloten slot symbool
     }
 
@@ -97,7 +99,6 @@ public class LoginFrameController extends BorderPane {
     }
     
     private void toggleWachtwoordVisibility(boolean txfB, boolean pfB, String symbool){
-        pfWachtwoord.setText(txfWachtwoord.getText());
         txfWachtwoord.setVisible(txfB);
         pfWachtwoord.setVisible(pfB);
         btnSlot.setText(symbool);
