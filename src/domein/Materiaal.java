@@ -24,8 +24,8 @@ public class Materiaal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
-//    @ManyToOne
-//    private long firmaId;
+    @ManyToOne
+    private Firma firma;
     
     private String foto;
     private String naam;

@@ -25,9 +25,6 @@ public class Firma {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
-//    @OneToMany
-//    private List<Materiaal> materialen;
-    
     private String naam;
     private String email;
 }
