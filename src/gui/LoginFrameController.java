@@ -22,7 +22,6 @@ public class LoginFrameController extends BorderPane {
 
     private DomeinController dc;
     
-    
     @FXML
     private ImageView imgBackground;
     @FXML
@@ -77,6 +76,33 @@ public class LoginFrameController extends BorderPane {
         meldAan();
     }
     
+    @FXML
+    private void btnSlotOnAction(MouseEvent event) {
+        toggleWachtwoordVisibility(true, false);
+    }
+
+    @FXML
+    private void btnSlotOnRelease(MouseEvent event) {
+        toggleWachtwoordVisibility(false, true);
+    }
+
+    @FXML
+    private void txfEmailadresOnKey(KeyEvent event) {
+        lblIncorrect.setVisible(false);
+    }
+
+    @FXML
+    private void pfWachtwoordOnKey(KeyEvent event) {
+        lblIncorrect.setVisible(false);
+    }
+    
+    private void toggleWachtwoordVisibility(boolean txfB, boolean pfB){
+        pfWachtwoord.setText(txfWachtwoord.getText());
+        txfWachtwoord.setVisible(txfB);
+        pfWachtwoord.setVisible(pfB);
+        btnSlot.setText("\u1F512"); // slot symbool
+    }
+    
     private void meldAan() {
         try {
             String email = txfEmailadres.getText().trim();
@@ -94,41 +120,5 @@ public class LoginFrameController extends BorderPane {
             lblIncorrect.setVisible(true);
         }
     }
-
-
-    private void btnSlotOnAction(ActionEvent event) {
-        txfWachtwoord.setText(pfWachtwoord.getText());
-        txfWachtwoord.setVisible(true);
-        pfWachtwoord.setVisible(false);
-        btnSlot.setText("🔓");
-    }
-    
-    @FXML
-    private void btnSlotOnAction(MouseEvent event) {
-        txfWachtwoord.setText(pfWachtwoord.getText());
-        txfWachtwoord.setVisible(true);
-        pfWachtwoord.setVisible(false);
-        btnSlot.setText("🔓");
-    }
-
-    @FXML
-    private void btnSlotOnRelease(MouseEvent event) {
-        pfWachtwoord.setText(txfWachtwoord.getText());
-        txfWachtwoord.setVisible(false);
-        pfWachtwoord.setVisible(true);
-        btnSlot.setText("🔒");
-    }
-
-    @FXML
-    private void txfEmailadresOnKey(KeyEvent event) {
-        lblIncorrect.setVisible(false);
-    }
-
-    @FXML
-    private void pfWachtwoordOnKey(KeyEvent event) {
-        lblIncorrect.setVisible(false);
-    }
-
-    
     
 }
