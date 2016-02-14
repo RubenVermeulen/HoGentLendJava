@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -17,6 +18,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 public class LoginFrameController extends BorderPane {
 
@@ -114,8 +116,12 @@ public class LoginFrameController extends BorderPane {
             }
             
             System.out.println("GELUKT!");
-            new MainMenuFrameController(this.dc);
-
+            
+            Stage stage = (Stage) btnAanmelden.getScene().getWindow();
+            Scene scene = new Scene(new MainMenuFrameController(this.dc));
+            stage.setScene(scene);
+            stage.setTitle("Default");
+            stage.show();
             
         } catch (Exception e) {
             pfWachtwoord.setText("");
