@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
@@ -14,6 +15,10 @@ public class MainMenuFrameController extends BorderPane {
 
     @FXML
     private VBox materialenBox;
+    @FXML
+    private Label lblWelkomInfo;
+    @FXML
+    private Label lblEmailInfo;
 
     public MainMenuFrameController(DomeinController domCon) {
         this.domCon = domCon;
@@ -26,18 +31,25 @@ public class MainMenuFrameController extends BorderPane {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-        
-        setupTemporaryDemoMaterials();
 
+        setupWelkomEnEmailLabels();
+
+        TEMPORARY_setupTemporaryDemoMaterials();
     }
 
-    public void setupTemporaryDemoMaterials() {
+    public void TEMPORARY_setupTemporaryDemoMaterials() {
         final int aantalDemoMaterials = 14;
         Node[] materialNodes = new Node[aantalDemoMaterials];
         for (int i = 0; i < aantalDemoMaterials; i++) {
             materialNodes[i] = new MateriaalBoxController(this, "Materiaal Naam " + i, "De beschrijving van het materiaal " + i);
         }
         materialenBox.getChildren().addAll(materialNodes);
+    }
+
+    private void setupWelkomEnEmailLabels() {
+        String[] gebruikerInfo = domCon.geefGegevensAangemeldeGebruiker();
+        lblWelkomInfo.setText(String.format("Welkom %s %s!", gebruikerInfo[0], gebruikerInfo[1]));
+        lblEmailInfo.setText(String.format("Email: %s", gebruikerInfo[2]));
     }
 
 }

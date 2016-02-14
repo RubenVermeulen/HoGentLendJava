@@ -11,7 +11,11 @@ public class DomeinController {
     private Gebruiker aangemelde;
     
     public DomeinController(){
-        gebruikerRepo = new GebruikerRepository();
+        this(new GebruikerRepositoryImpl());
+    }
+    
+    public DomeinController(GebruikerRepository gebruikerRepo){
+        this.gebruikerRepo = gebruikerRepo;
     }
     
     /**
@@ -26,7 +30,21 @@ public class DomeinController {
             aangemelde = optGeb.get();
             return true;
         }else{
+            aangemelde = null;
             return false;
+        }
+    }
+    
+    /**
+     * Geeft de gegevens van de aangemelde gebruiker.
+     * Indien geen aangemelde gebruiker, geeft arrays van lege strings.
+     * @return String[3] - voornaam, achternaam, email
+     */
+    public String[] geefGegevensAangemeldeGebruiker(){
+        if (aangemelde != null){
+            return new String[]{aangemelde.getVoornaam(), aangemelde.getAchternaam(), aangemelde.getEmail()};
+        }else{
+            return new String[]{"","",""};
         }
     }
     
