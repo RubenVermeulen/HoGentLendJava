@@ -18,7 +18,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "gebruikers")
-public class Gebruikers {
+public class Gebruiker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -28,11 +28,11 @@ public class Gebruikers {
     private String email;
 
     
-    protected Gebruikers() {
+    protected Gebruiker() {
         
     }
 
-    public Gebruikers(String voornaam, String achternaam, String email) {
+    public Gebruiker(String voornaam, String achternaam, String email) {
         this.voornaam = voornaam;
         this.achternaam = achternaam;
         this.email = email;

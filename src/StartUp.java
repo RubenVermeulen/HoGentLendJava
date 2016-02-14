@@ -1,5 +1,5 @@
 import domein.DomeinController;
-import domein.Gebruikers;
+import domein.Gebruiker;
 import gui.LoginFrameController;
 import gui.MainMenuFrameController;
 import javafx.application.Application;
@@ -26,7 +26,7 @@ public class StartUp extends Application {
         
         em.getTransaction().begin();
         
-        Gebruikers user = new Gebruikers("Xander", "Vermeulen", "ruben.vermeulen.v4419@student.hogent.be");
+        Gebruiker user = new Gebruiker("Ruben", "Vermeulen", "ruben.vermeulen.v4419@student.hogent.be");
         
         em.persist(user);
         
