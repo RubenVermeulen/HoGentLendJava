@@ -2,9 +2,7 @@ package domein;
 
 import java.util.ArrayList;
 import java.util.Optional;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import util.JPAUtil;
+import shared.MateriaalView;
 
 public class DomeinController {
 
@@ -67,6 +65,13 @@ public class DomeinController {
         materiaalRepo.materialenToevoegenInBulk(materialen);
         }
         
+    
+    public void voegMateriaalToe(MateriaalView mv){
+        
+        
+    }
+    
+    
         
     }
 

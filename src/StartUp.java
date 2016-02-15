@@ -29,12 +29,15 @@ public class StartUp extends Application {
                 passwordEncryptor.encryptPassword("sfonk"));
          Gebruiker user3 = new Gebruiker("Alexander", "Van Damme", "alexander.vandamme.v7672@student.hogent.be",
                 passwordEncryptor.encryptPassword("alosk"));
+         Gebruiker user4 = new Gebruiker("Xander", "Berkein", "xander.berkein.v7629@student.hogent.be",
+                passwordEncryptor.encryptPassword("czandor"));
         
         
         
         em.persist(user);
         em.persist(user2);
         em.persist(user3);
+        em.persist(user4);
         
         em.getTransaction().commit();
         
