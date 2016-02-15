@@ -27,6 +27,10 @@ public class StartUp extends Application {
                 passwordEncryptor.encryptPassword("rubsup"));
         Gebruiker user2 = new Gebruiker("Sven", "Dedeene", "sven.dedeene.v6035@student.hogent.be",
                 passwordEncryptor.encryptPassword("sfonk"));
+         Gebruiker user3 = new Gebruiker("Alexander", "Van Damme", "alexander.vandamme.v7672@student.hogent.be",
+                passwordEncryptor.encryptPassword("alosk"));
+        
+        
         
         em.persist(user);
         em.persist(user2);
