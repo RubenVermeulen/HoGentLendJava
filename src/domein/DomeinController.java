@@ -8,6 +8,7 @@ public class DomeinController {
 
     private GebruikerRepository gebruikerRepo;
     private MateriaalRepository materiaalRepo;
+    private FirmaRepository firmaRepo;
     private Gebruiker aangemelde;
     
     public DomeinController(){

@@ -31,7 +31,7 @@ public class Materiaal {
     private String naam;
     private String beschrijving;
     private String artikelnummer; // kan letters bevatten
-    private String prijs;
+    private double prijs;
     private int aantal;
     private int aantalOnbeschikbaar;
     private boolean uitleenbaarheid; 
@@ -43,7 +43,7 @@ public class Materiaal {
         // default constructor for jpa
     }
     
-    public Materiaal(long id, Firma firma, String foto, String naam, String beschrijving, String artikelnummer, String prijs,
+    public Materiaal(long id, Firma firma, String foto, String naam, String beschrijving, String artikelnummer, double prijs,
             int aantal, int aantalOnbeschikbaar, boolean uitleenbaarheid, String plaats, String doelgroepen, String leergebieden
     ) {
         this.id = id;
@@ -60,6 +60,84 @@ public class Materiaal {
         this.doelgroepen=doelgroepen;
         this.leergebieden=leergebieden;
     }
+
+    
+    //naam en aantal zijn verplicht
+    public Materiaal(String naam, int aantal) {
+        this.naam = naam;
+        this.aantal = aantal;
+    }
+
+    public Materiaal setId(long id) {
+        this.id = id;
+        return this;
+    }
+
+    public Materiaal setFirma(Firma firma) {
+        this.firma = firma;
+        return this;
+    }
+
+    public Materiaal setFoto(String foto) {
+        this.foto = foto;
+        return this;
+    }
+
+    public Materiaal setNaam(String naam) {
+        this.naam = naam;
+        return this;
+    }
+
+    public Materiaal setBeschrijving(String beschrijving) {
+        this.beschrijving = beschrijving;
+        return this;
+    }
+
+    public Materiaal setArtikelnummer(String artikelnummer) {
+        this.artikelnummer = artikelnummer;
+        return this;
+    }
+
+    public Materiaal setPrijs(double prijs) {
+        this.prijs = prijs;
+        return this;
+    }
+
+    public Materiaal setAantal(int aantal) {
+        this.aantal = aantal;
+        return this;
+    }
+
+    public Materiaal setAantalOnbeschikbaar(int aantalOnbeschikbaar) {
+        this.aantalOnbeschikbaar = aantalOnbeschikbaar;
+        return this;
+    }
+
+    public Materiaal setUitleenbaarheid(boolean uitleenbaarheid) {
+        this.uitleenbaarheid = uitleenbaarheid;
+        return this;
+    }
+
+    public Materiaal setPlaats(String plaats) {
+        this.plaats = plaats;
+        return this;
+    }
+
+    public Materiaal setDoelgroepen(String doelgroepen) {
+        this.doelgroepen = doelgroepen;
+        return this;
+    }
+
+    public Materiaal setLeergebieden(String leergebieden) {
+        this.leergebieden = leergebieden;
+        return this;
+    }
+    
+    
+
+    
+    
+    
 
     
 }
