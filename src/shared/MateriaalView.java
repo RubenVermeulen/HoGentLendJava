@@ -91,5 +91,59 @@ public class MateriaalView {
         this.Leergebieden = Leergebieden;
         return this;
     }
+
+    public String getNaam() {
+        return naam;
+    }
+
+    public String getFotoUrl() {
+        return fotoUrl;
+    }
+
+    public String getOmschrijving() {
+        return omschrijving;
+    }
+
+    public String getArtikelNummer() {
+        return artikelNummer;
+    }
+
+    public double getPrijs() {
+        return prijs;
+    }
+
+    public int getAantal() {
+        return aantal;
+    }
+
+    public int getAantalOnbeschikbaar() {
+        return aantalOnbeschikbaar;
+    }
+
+    public boolean isUitleenbaarheid() {
+        return uitleenbaarheid;
+    }
+
+    public String getPlaats() {
+        return plaats;
+    }
+
+    public String getFirma() {
+        return Firma;
+    }
+
+    public String getEmailFirma() {
+        return emailFirma;
+    }
+
+    public List<String> getDoelgroepen() {
+        return Doelgroepen;
+    }
+
+    public List<String> getLeergebieden() {
+        return Leergebieden;
+    }
+    
+    
     
 }
