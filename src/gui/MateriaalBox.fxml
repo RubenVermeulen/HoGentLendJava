@@ -2,8 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -35,15 +35,15 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label fx:id="lblNaam" prefHeight="17.0" prefWidth="187.0" text="Naam materiaal" />
-                  <Label fx:id="lblAantal" prefHeight="17.0" prefWidth="186.0" text="XXX van de YYY beschikbaar" GridPane.rowIndex="1" />
-                  <Label fx:id="lblPrijs" prefHeight="17.0" prefWidth="183.0" text="€ XXX,XX per stuk" GridPane.rowIndex="2" />
+                  <Label fx:id="lblNaam" prefHeight="17.0" prefWidth="187.0" text="Geen naam." />
+                  <Label fx:id="lblAantal" prefHeight="17.0" prefWidth="186.0" text="Geen aantal stuks." GridPane.rowIndex="1" />
+                  <Label fx:id="lblPrijs" prefHeight="17.0" prefWidth="183.0" text="Geen prijs." GridPane.rowIndex="2" />
                </children>
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>
             </GridPane>
-            <TextArea fx:id="txtaBeschrijving" editable="false" prefHeight="92.0" prefWidth="313.0" text="Beschrijving van het materiaal">
+            <TextArea fx:id="txtaBeschrijving" editable="false" prefHeight="92.0" prefWidth="313.0" text="Geen beschrijving.">
                <HBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
@@ -58,13 +58,13 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label fx:id="lblCode" prefHeight="17.0" prefWidth="189.0" text="Artikel Nummer">
+                  <Label fx:id="lblCode" prefHeight="17.0" prefWidth="189.0" text="Geen artikel nummer.">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </Label>
-                  <Label fx:id="lblLocatie" prefHeight="17.0" prefWidth="179.0" text="Locatie" GridPane.rowIndex="2" />
-                  <RadioButton fx:id="rdbBeschikbaar" mnemonicParsing="false" prefHeight="17.0" prefWidth="178.0" text="Beschikbaar" GridPane.rowIndex="1" />
+                  <Label fx:id="lblLocatie" prefHeight="17.0" prefWidth="179.0" text="Geen locatie." GridPane.rowIndex="2" />
+                  <CheckBox fx:id="ckbBeschikbaar" mnemonicParsing="false" onAction="#onBeschikbaarAction" prefHeight="26.0" prefWidth="185.0" text="Beschikbaar" GridPane.rowIndex="1" />
                </children>
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -115,12 +115,12 @@
          <children>
             <Label prefHeight="17.0" prefWidth="107.0" text="Firma:" GridPane.rowIndex="2" />
             <Label text="Doelgroepen:" />
-            <Label text="Leergroepen:" GridPane.rowIndex="1" />
-            <Label text="blahbblah" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label text="blahblah" GridPane.columnIndex="1" />
-            <Label text="blahblah" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Leergebieden" GridPane.rowIndex="1" />
+            <Label fx:id="lblFirmaNaam" text="Geen firma." GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="lblDoelGroepen" text="Geen doelgroepen." GridPane.columnIndex="1" />
+            <Label fx:id="lblLeergebieden" text="Geen leergebieden." GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="E-mail firma" GridPane.rowIndex="3" />
-            <Label text="BlahBlah" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="lblEmailFirma" text="Geen firma e-mail." GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
          <padding>
             <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />

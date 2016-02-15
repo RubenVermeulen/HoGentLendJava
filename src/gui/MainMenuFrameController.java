@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import shared.MateriaalView;
 
 public class MainMenuFrameController extends BorderPane {
 
@@ -45,7 +46,7 @@ public class MainMenuFrameController extends BorderPane {
         final int aantalDemoMaterials = 14;
         Node[] materialNodes = new Node[aantalDemoMaterials];
         for (int i = 0; i < aantalDemoMaterials; i++) {
-            materialNodes[i] = new MateriaalBoxController(this, "Materiaal Naam " + i, "De beschrijving van het materiaal " + i);
+            materialNodes[i] = new MateriaalBoxController(this, new MateriaalView("Materiaal Naam " + i, i));
         }
         materialenBox.getChildren().addAll(materialNodes);
     }

@@ -115,6 +115,8 @@ public class LoginFrameController extends BorderPane {
                 throw new IllegalArgumentException("Emailadres of wachtwoord is incorrect. Gelieve opnieuw te proberen.");
             }
             
+            System.out.println("Login gelukt!");
+            
             Stage stage = (Stage) btnAanmelden.getScene().getWindow();
             Scene scene = new Scene(new MainMenuFrameController(this.dc));
             stage.setScene(scene);
