@@ -12,8 +12,10 @@ public class GebruikerRepositoryImpl implements GebruikerRepository {
     
     private List<Gebruiker> gebruikers;
     private StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+    private EntityManager em;
     
     public GebruikerRepositoryImpl(){
+        this.em = JPAUtil.getEntityManagerFactory().createEntityManager();;
         loadGebruikers();
     }
     
@@ -29,13 +31,8 @@ public class GebruikerRepositoryImpl implements GebruikerRepository {
     }
     
     private void loadGebruikers(){
-        // dit zou ook van de domeincontroller kunnen meegegeven worden als parameter, mss beter?
-        EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
-        em.getTransaction().begin();
         Query q = em.createQuery("SELECT g FROM Gebruiker g");
         gebruikers = (List<Gebruiker>)q.getResultList();
-        em.close();
-        System.out.println("GEBRUIKERS: "+gebruikers.toString());
     }
     
 }
