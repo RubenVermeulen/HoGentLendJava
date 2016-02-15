@@ -11,85 +11,120 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<fx:root prefHeight="102.0" prefWidth="990.0" styleClass="matertiaalBlok" type="HBox" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="254.0" prefWidth="950.0" style="-fx-border-color: #CCCCCC; -fx-border-width: 0 0 2 0;" type="VBox" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fx:id="imgvFoto" fitHeight="102.0" fitWidth="111.0" pickOnBounds="true" preserveRatio="true">
-         <HBox.margin>
-            <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
-         </HBox.margin>
-         <image>
-            <Image url="@../images/default_materiaal_img.png" />
-         </image>
-      </ImageView>
-      <GridPane prefHeight="132.0" prefWidth="180.0">
+      <HBox prefHeight="102.0" prefWidth="990.0" styleClass="matertiaalBlok">
+         <children>
+            <ImageView fx:id="imgvFoto" fitHeight="102.0" fitWidth="111.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@../images/default_materiaal_img.png" />
+               </image>
+            </ImageView>
+            <GridPane prefHeight="102.0" prefWidth="155.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label fx:id="lblNaam" prefHeight="17.0" prefWidth="187.0" text="Naam materiaal" />
+                  <Label fx:id="lblAantal" prefHeight="17.0" prefWidth="186.0" text="XXX van de YYY beschikbaar" GridPane.rowIndex="1" />
+                  <Label fx:id="lblPrijs" prefHeight="17.0" prefWidth="183.0" text="€ XXX,XX per stuk" GridPane.rowIndex="2" />
+               </children>
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </GridPane>
+            <TextArea fx:id="txtaBeschrijving" editable="false" prefHeight="92.0" prefWidth="313.0" text="Beschrijving van het materiaal">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </TextArea>
+            <GridPane prefHeight="102.0" prefWidth="185.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label fx:id="lblCode" prefHeight="17.0" prefWidth="189.0" text="Artikel Nummer">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="lblLocatie" prefHeight="17.0" prefWidth="179.0" text="Locatie" GridPane.rowIndex="2" />
+                  <RadioButton fx:id="rdbBeschikbaar" mnemonicParsing="false" prefHeight="17.0" prefWidth="178.0" text="Beschikbaar" GridPane.rowIndex="1" />
+               </children>
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </GridPane>
+            <GridPane prefHeight="150.0" prefWidth="120.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button fx:id="btnVerwijder" mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" text="Verwijder">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="btnDetail" mnemonicParsing="false" onAction="#onDetailsAction" prefHeight="25.0" prefWidth="172.0" text="Details" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="btnBewerk" mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" text="Pas aan" GridPane.rowIndex="1" />
+               </children>
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
+               </HBox.margin>
+            </GridPane>
+         </children>
+         <padding>
+            <Insets bottom="5.0" />
+         </padding>
+      </HBox>
+      <GridPane fx:id="materiaalDetailsBox" minHeight="-Infinity" style="-fx-background-color: E3E3E3;">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="484.0" minWidth="10.0" prefWidth="147.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="959.0" minWidth="10.0" prefWidth="830.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="lblNaam" prefHeight="17.0" prefWidth="187.0" text="Naam materiaal" />
-            <Label fx:id="lblCode" prefHeight="17.0" prefWidth="186.0" text="Artikel Code" GridPane.rowIndex="1" />
-            <Label fx:id="lblAantal" prefHeight="17.0" prefWidth="183.0" text="aantal Stuks" GridPane.rowIndex="2" />
+            <Label prefHeight="17.0" prefWidth="107.0" text="Firma:" GridPane.rowIndex="2" />
+            <Label text="Doelgroepen:" />
+            <Label text="Leergroepen:" GridPane.rowIndex="1" />
+            <Label text="blahbblah" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="blahblah" GridPane.columnIndex="1" />
+            <Label text="blahblah" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="E-mail firma" GridPane.rowIndex="3" />
+            <Label text="BlahBlah" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
-         <HBox.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </HBox.margin>
-      </GridPane>
-      <TextArea fx:id="txtaBeschrijving" editable="false" prefHeight="140.0" prefWidth="307.0" text="Beschrijving van het materiaal">
-         <HBox.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </HBox.margin>
-      </TextArea>
-      <GridPane prefHeight="150.0" prefWidth="142.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label fx:id="lblPrijs" prefHeight="17.0" prefWidth="189.0" text="Prijs">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </Label>
-            <Label fx:id="lblLocatie" prefHeight="17.0" prefWidth="179.0" text="Locatie" GridPane.rowIndex="2" />
-            <RadioButton fx:id="rdbBeschikbaar" mnemonicParsing="false" prefHeight="17.0" prefWidth="178.0" text="Beschikbaar" GridPane.rowIndex="1" />
-         </children>
-         <HBox.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </HBox.margin>
-      </GridPane>
-      <GridPane prefHeight="150.0" prefWidth="120.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Button fx:id="btnBewerk" mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" text="Bewerk">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </Button>
-            <Button fx:id="btnVerwijder" mnemonicParsing="false" prefHeight="25.0" prefWidth="172.0" text="Verwijder" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </Button>
-         </children>
-         <HBox.margin>
-            <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
-         </HBox.margin>
+         <padding>
+            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+         </padding>
       </GridPane>
    </children>
 </fx:root>
