@@ -39,6 +39,10 @@ public class Materiaal {
     private String doelgroepen; 
     private String leergebieden; 
     
+    protected Materiaal() {
+        // default constructor for jpa
+    }
+    
     public Materiaal(long id, Firma firma, String foto, String naam, String beschrijving, String artikelnummer, String prijs,
             int aantal, int aantalOnbeschikbaar, boolean uitleenbaarheid, String plaats, String doelgroepen, String leergebieden
     ) {
