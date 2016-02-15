@@ -34,6 +34,7 @@ public class StartUp extends Application {
         
         em.persist(user);
         em.persist(user2);
+        em.persist(user3);
         
         em.getTransaction().commit();
         
