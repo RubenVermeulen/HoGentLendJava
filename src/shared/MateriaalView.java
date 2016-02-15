@@ -13,19 +13,19 @@ import java.util.List;
  */
 public class MateriaalView {
     
-    String naam;
-    String fotoUrl;
-    String omschrijving;
-    String artikelNummer;
-    double prijs;
-    int aantal;
-    int aantalOnbeschikbaar;
-    boolean uitleenbaarheid;
-    String plaats;
-    String Firma;
-    String emailFirma;
-    List<String> Doelgroepen;
-    List<String> Leergebieden;
+    private String naam;
+    private String fotoUrl;
+    private String omschrijving;
+    private String artikelNummer;
+    private double prijs;
+    private int aantal;
+    private int aantalOnbeschikbaar;
+    private boolean uitleenbaarheid;
+    private String plaats;
+    private String firma;
+    private String emailFirma;
+    private List<String> doelgroepen;
+    private List<String> leergebieden;
 
     public MateriaalView(String naam, int aantal) {
         this.naam = naam;
@@ -73,7 +73,7 @@ public class MateriaalView {
     }
 
     public MateriaalView setFirma(String Firma) {
-        this.Firma = Firma;
+        this.firma = Firma;
         return this;
     }
 
@@ -83,12 +83,12 @@ public class MateriaalView {
     }
 
     public MateriaalView setDoelgroepen(List<String> Doelgroepen) {
-        this.Doelgroepen = Doelgroepen;
+        this.doelgroepen = Doelgroepen;
         return this;
     }
 
     public MateriaalView setLeergebieden(List<String> Leergebieden) {
-        this.Leergebieden = Leergebieden;
+        this.leergebieden = Leergebieden;
         return this;
     }
     
@@ -132,7 +132,7 @@ public class MateriaalView {
     }
 
     public String getFirma() {
-        return Firma;
+        return firma;
     }
 
     public String getEmailFirma() {
@@ -140,11 +140,11 @@ public class MateriaalView {
     }
 
     public List<String> getDoelgroepen() {
-        return Doelgroepen;
+        return doelgroepen;
     }
 
     public List<String> getLeergebieden() {
-        return Leergebieden;
+        return leergebieden;
     }
     
     
