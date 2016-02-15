@@ -91,6 +91,9 @@ public class MateriaalView {
         this.Leergebieden = Leergebieden;
         return this;
     }
+    
+    
+    //getters
 
     public String getNaam() {
         return naam;
@@ -143,6 +146,7 @@ public class MateriaalView {
     public List<String> getLeergebieden() {
         return Leergebieden;
     }
+    
     
     
     
