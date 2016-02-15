@@ -2,6 +2,9 @@ package gui;
 
 import domein.DomeinController;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,12 +46,41 @@ public class MainMenuFrameController extends BorderPane {
     }
 
     public void TEMPORARY_setupTemporaryDemoMaterials() {
-        final int aantalDemoMaterials = 14;
-        Node[] materialNodes = new Node[aantalDemoMaterials];
-        for (int i = 0; i < aantalDemoMaterials; i++) {
-            materialNodes[i] = new MateriaalBoxController(this, new MateriaalView("Materiaal Naam " + i, i));
+        List<MateriaalBoxController> controls = new ArrayList<MateriaalBoxController>();
+
+        MateriaalView mv1 = new MateriaalView("Wereldbollen", 3)
+                .setAantalOnbeschikbaar(1).setArtikelNummer("P25DL DUTCH")
+                .setDoelgroepen(Arrays.asList("Liefhebbers voor wereldkennis", "Schatzoekers"))
+                .setEmailFirma("contact@worldbolmakers.com")
+                .setFirma("WorldBolMakers")
+                .setFotoUrl("temp_wereldbol.jpg")
+                .setLeergebieden(Arrays.asList("Aardrijkskunde"))
+                .setOmschrijving("Deze mooie wereldbol met verlichting heeft 25 cm doorsnee en werkt op stroom.")
+                .setPlaats("Lokaal B4.035")
+                .setPrijs(32.25d)
+                .setUitleenbaarheid(true);
+        MateriaalView mv2 = new MateriaalView("Boeken", 1)
+                .setAantalOnbeschikbaar(0).setArtikelNummer("1582-2010")
+                .setDoelgroepen(Arrays.asList("Boeken lezers"))
+                .setEmailFirma("contact@boeken.com")
+                .setFirma("BoekMakers")
+                .setFotoUrl("temp_boek.gif")
+                .setLeergebieden(Arrays.asList("Nederlands"))
+                .setOmschrijving("In Het verdwijnen van Robbert speelt Welagen een geestig spel, vol zelfspot, met zijn eigen schrijversbestaan. De Robbert die verdwijnt, heeft namelijk als achternaam Welagen en is een 25-jarige schrijver die net als de auteur een roman heeft geschreven die Lipari heet, ook in de fictieve werkelijkheid bekroond met een debuutprijs.\n")
+                .setPlaats("Lokaal C2.010")
+                .setPrijs(19.99d)
+                .setUitleenbaarheid(false);
+        for (int i = 0; i < 4; i++) {
+            controls.add(new MateriaalBoxController(mv1));
+            controls.add(new MateriaalBoxController(mv2));
         }
-        materialenBox.getChildren().addAll(materialNodes);
+
+        materialenBox.getChildren().addAll(controls);
+//        final int aantalDemoMaterials = 14;
+//        Node[] materialNodes = new Node[aantalDemoMaterials];
+//        for (int i = 0; i < aantalDemoMaterials; i++) {
+//            materialNodes[i] = new MateriaalBoxController(new MateriaalView("Materiaal Naam " + i, i));
+//        }
     }
 
     private void setupWelkomEnEmailLabels() {

@@ -1,5 +1,6 @@
 package gui;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -62,7 +63,7 @@ public class MateriaalBoxController extends VBox {
 
     private MateriaalView mv;
 
-    public MateriaalBoxController(BorderPane parent, MateriaalView mv) {
+    public MateriaalBoxController(MateriaalView mv) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MateriaalBox.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -90,8 +91,9 @@ public class MateriaalBoxController extends VBox {
             txtaBeschrijving.setText(mv.getOmschrijving());
         }
         if (isNotEmpty(mv.getFotoUrl())) {
-            // TODO: input stream van web adres
-            imgvFoto.setImage(new Image(mv.getFotoUrl()));
+            // TODO: werkt nog niet
+            File file = new File("../images/"+mv.getFotoUrl());
+            imgvFoto.setImage(new Image(file.toURI().toString()));
         }
         if (isNotEmpty(mv.getArtikelNummer())) {
             lblCode.setText(mv.getArtikelNummer());
