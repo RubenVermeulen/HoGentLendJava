@@ -142,6 +142,58 @@ public class Materiaal {
         this.leergebieden = leergebieden;
         return this;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public Firma getFirma() {
+        return firma;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public String getNaam() {
+        return naam;
+    }
+
+    public String getBeschrijving() {
+        return beschrijving;
+    }
+
+    public String getArtikelnummer() {
+        return artikelnummer;
+    }
+
+    public double getPrijs() {
+        return prijs;
+    }
+
+    public int getAantal() {
+        return aantal;
+    }
+
+    public int getAantalOnbeschikbaar() {
+        return aantalOnbeschikbaar;
+    }
+
+    public boolean isUitleenbaarheid() {
+        return uitleenbaarheid;
+    }
+
+    public String getPlaats() {
+        return plaats;
+    }
+
+    public String getDoelgroepen() {
+        return doelgroepen;
+    }
+
+    public String getLeergebieden() {
+        return leergebieden;
+    }
     
     
 
