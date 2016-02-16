@@ -18,6 +18,7 @@ public class DomeinController {
     
     public DomeinController(GebruikerRepository gebruikerRepo){
         this.firmaRepo = new FirmaRepository();
+        this.gebruikerRepo = gebruikerRepo;
     }
     
     /**
