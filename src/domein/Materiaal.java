@@ -5,6 +5,7 @@
  */
 package domein;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,7 +35,11 @@ public class Materiaal {
     
     private String foto;
     private String naam;
+    
+    // We hanteren het datatype text in de database zodat we niet zullen worden gehindered door een max aantal karakters.
+    @Column(columnDefinition = "text")
     private String beschrijving;
+    
     private String artikelnummer; // kan letters bevatten
     private double prijs;
     private int aantal;
