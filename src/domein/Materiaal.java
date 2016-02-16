@@ -52,35 +52,11 @@ public class Materiaal {
     protected Materiaal() {
         // default constructor for jpa
     }
-    
-    public Materiaal(long id, Firma firma, String foto, String naam, String beschrijving, String artikelnummer, double prijs,
-            int aantal, int aantalOnbeschikbaar, boolean uitleenbaarheid, String plaats, String doelgroepen, String leergebieden
-    ) {
-        this.id = id;
-        this.firma = firma;
-        this.foto = foto;
-        this.naam = naam;
-        this.beschrijving=beschrijving;
-        this.artikelnummer=artikelnummer;
-        this.prijs=prijs;
-        this.aantal=aantal;
-        this.aantalOnbeschikbaar=aantalOnbeschikbaar;
-        this.uitleenbaarheid=uitleenbaarheid;
-        this.plaats=plaats;
-        this.doelgroepen=doelgroepen;
-        this.leergebieden=leergebieden;
-    }
-
-    
+        
     //naam en aantal zijn verplicht
     public Materiaal(String naam, int aantal) {
         this.naam = naam;
         this.aantal = aantal;
-    }
-
-    public Materiaal setId(long id) {
-        this.id = id;
-        return this;
     }
 
     public Materiaal setFirma(Firma firma) {
