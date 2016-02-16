@@ -21,7 +21,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="778.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="778.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MateriaalToevoegen_1Controller">
    <center>
       <VBox prefHeight="482.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -40,7 +40,7 @@
                      <children>
                         <HBox prefHeight="223.0" prefWidth="393.0">
                            <children>
-                              <ImageView fitHeight="175.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView id="imagePreview" fx:id="previewFoto" fitHeight="175.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/default_materiaal_img.png" />
                                  </image>
@@ -53,12 +53,12 @@
                                     <Insets />
                                  </HBox.margin>
                                  <children>
-                                    <TextField promptText="url van de foto">
+                                    <TextField id="urlFoto" fx:id="urlFoto" promptText="url van de foto">
                                        <VBox.margin>
                                           <Insets top="100.0" />
                                        </VBox.margin>
                                     </TextField>
-                                    <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="150.0" text="Kies foto">
+                                    <Button fx:id="kiesFotoKnop" mnemonicParsing="false" onAction="#fotoKiezenOnAction" prefHeight="33.0" prefWidth="150.0" text="Kies foto">
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin>
@@ -87,13 +87,13 @@
                               <Label text="Naam" />
                               <Label text="Artikelcode" GridPane.rowIndex="2" />
                               <Label text="Aantal stuks" GridPane.rowIndex="4" />
-                              <TextField promptText="Atlas wereldbol" GridPane.rowIndex="1" />
-                              <TextField promptText="4769ux3" GridPane.rowIndex="3" />
-                              <TextField promptText="3" GridPane.rowIndex="5" />
-                              <TextField promptText="12 euro per stuk" GridPane.rowIndex="7" />
+                              <TextField id="naam" fx:id="naam" promptText="naam" GridPane.rowIndex="1" />
+                              <TextField id="artikelcode" fx:id="artikelcode" promptText="artikelcode" GridPane.rowIndex="3" />
+                              <TextField id="aantal" fx:id="aantal" promptText="aantal stuks" GridPane.rowIndex="5" />
+                              <TextField id="prijs" fx:id="prijs" promptText="prijs" GridPane.rowIndex="7" />
                               <Label text="Prijs" GridPane.rowIndex="6" />
                               <Label text="Locatie" GridPane.rowIndex="8" />
-                              <TextField promptText="Campus Schoonmeersen" GridPane.rowIndex="9" />
+                              <TextField fx:id="locatie" promptText="locatie" GridPane.rowIndex="9" />
                            </children>
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -110,7 +110,7 @@
                                     <Insets left="20.0" right="20.0" top="20.0" />
                                  </VBox.margin>
                               </Label>
-                              <TextArea prefHeight="200.0" prefWidth="200.0" promptText="Plaaats hier een beschrijving van het item">
+                              <TextArea id="beschrijving" fx:id="beschrijving" prefHeight="200.0" prefWidth="200.0" promptText="Plaaats hier een beschrijving van het item">
                                  <VBox.margin>
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                  </VBox.margin>
@@ -140,12 +140,12 @@
                               <Label text="Doelgroepen" GridPane.rowIndex="3" />
                               <Label text="Leergroepen" GridPane.rowIndex="5" />
                               <Label text="Firma" GridPane.rowIndex="7" />
-                              <TextField promptText="stagestudenten lager onderwijs" GridPane.rowIndex="4" />
-                              <TextField promptText="2de tot 4de leerjaar" GridPane.rowIndex="6" />
-                              <TextField promptText="Atlas Geogrophy&amp;Co" GridPane.rowIndex="8" />
-                              <TextField promptText="geogrophynow@atlas.com" GridPane.rowIndex="10" />
+                              <TextField id="doelgroepen" fx:id="doelgroepen" promptText="doelgroepen" GridPane.rowIndex="4" />
+                              <TextField id="leergroepen" fx:id="leergroepen" promptText="leergroepen" GridPane.rowIndex="6" />
+                              <TextField id="firma" fx:id="firma" promptText="firma" GridPane.rowIndex="8" />
+                              <TextField id="emailfirma" fx:id="emailfirma" promptText="email firma" GridPane.rowIndex="10" />
                               <Label text="Email firma" GridPane.rowIndex="9" />
-                              <CheckBox mnemonicParsing="false" text="Beschikbaar" GridPane.rowIndex="12" />
+                              <CheckBox id="beschikbaar" fx:id="beschikbaarheid" mnemonicParsing="false" text="Beschikbaar" GridPane.rowIndex="12" />
                            </children>
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -157,12 +157,12 @@
             </HBox>
             <HBox prefHeight="245.0" prefWidth="818.0">
                <children>
-                  <Button cancelButton="true" mnemonicParsing="false" prefHeight="41.0" prefWidth="152.0" text="Ga terug zonder opslaan">
+                  <Button id="gaTerugKnop" fx:id="gaTerugKnop" cancelButton="true" mnemonicParsing="false" onAction="#gaTerugOnAction" prefHeight="41.0" prefWidth="152.0" text="Ga terug zonder opslaan">
                      <HBox.margin>
                         <Insets left="250.0" top="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Voeg materiaal toe">
+                  <Button id="voegToeKnop" fx:id="voegToeKnop" mnemonicParsing="false" onAction="#voegMateriaalToeOnAction" prefHeight="40.0" prefWidth="150.0" text="Voeg materiaal toe">
                      <HBox.margin>
                         <Insets left="10.0" top="20.0" />
                      </HBox.margin>
