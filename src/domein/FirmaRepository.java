@@ -1,12 +1,23 @@
 package domein;
 
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import util.JPAUtil;
 
 public class FirmaRepository {
 
-    List<Firma> firmas;
+    private List<Firma> firmas;
+    private EntityManager em;
 
     public FirmaRepository() {
+        this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
+        loadFirmas();
+    }
+    
+    private void loadFirmas() {
+        Query q = em.createQuery("SELECT f FROM Firma f");
+        firmas = (List<Firma>) q.getResultList();
     }
 
     public List<Firma> getFirmas() {
@@ -27,8 +38,14 @@ public class FirmaRepository {
     //maakt nieuwe firma aan en returnt hem
     public Firma voegFirmaToe(String naam, String email) {
 
-        Firma firma = new Firma(naam, email);
+        Firma firma = new Firma(naam).setEmail(email);
         firmas.add(firma);
+        
+        em.getTransaction().begin();
+        em.persist(firma);
+        em.getTransaction().commit();
+        em.close();
+        
         return firma;
 
     }

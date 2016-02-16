@@ -41,7 +41,7 @@ public class StartUp extends Application {
         em.persist(user4);
 
         // Materialen aanmaken
-        Firma firma = new Firma("Goaty Enterprise", "info@goatyenterprise.be");
+        Firma firma = new Firma("Goaty Enterprise").setEmail("info@goatyenterprise.be");
 
         em.persist(firma);
 
@@ -123,7 +123,7 @@ public class StartUp extends Application {
         // niet sluiten want de domein laag heeft nu al andere acties met de emf
 //        emf.close();
 //        System.out.println("Closed");
-
+        
         DomeinController domCont = new DomeinController();
         Scene scene = new Scene(new LoginFrameController(domCont));
 //        Scene scene = new Scene(new MainMenuFrameController(domCont));

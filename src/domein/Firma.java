@@ -1,15 +1,18 @@
 package domein;
 
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "firmas")
+@NamedQuery(
+        name = "findAllFirmas",
+        query = "SELECT f FROM Firma f"
+)
 public class Firma {
 
     @Id
@@ -22,9 +25,8 @@ public class Firma {
     public Firma() {
     }
 
-    public Firma(String naam, String email) {
+    public Firma(String naam) {
         this.naam = naam;
-        this.email = email;
     }
 
     public String getNaam() {
@@ -33,6 +35,11 @@ public class Firma {
 
     public String getEmail() {
         return email;
+    }
+    
+    public Firma setEmail(String email){
+        this.email = email;
+        return this;
     }
 
 }
