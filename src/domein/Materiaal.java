@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package domein;
 
 import javax.persistence.Column;
@@ -14,73 +9,45 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-/**
- *
- * @author ruben
- */
-
 @Entity
 @Table(name = "materialen")
 @NamedQuery(
-    name="findAllMaterialen",
-    query="SELECT m FROM Materiaal m"
+        name = "findAllMaterialen",
+        query = "SELECT m FROM Materiaal m"
 )
 public class Materiaal {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    
+
     @ManyToOne
     private Firma firma;
-    
+
     private String foto;
     private String naam;
-    
+
     // We hanteren het datatype text in de database zodat we niet zullen worden gehindered door een max aantal karakters.
     @Column(columnDefinition = "text")
     private String beschrijving;
-    
+
     private String artikelnummer; // kan letters bevatten
     private double prijs;
     private int aantal;
     private int aantalOnbeschikbaar;
-    private boolean uitleenbaarheid; 
+    private boolean uitleenbaarheid;
     private String plaats;
-    private String doelgroepen; 
-    private String leergebieden; 
-    
+    private String doelgroepen;
+    private String leergebieden;
+
     protected Materiaal() {
         // default constructor for jpa
     }
-    
-    public Materiaal(long id, Firma firma, String foto, String naam, String beschrijving, String artikelnummer, double prijs,
-            int aantal, int aantalOnbeschikbaar, boolean uitleenbaarheid, String plaats, String doelgroepen, String leergebieden
-    ) {
-        this.id = id;
-        this.firma = firma;
-        this.foto = foto;
-        this.naam = naam;
-        this.beschrijving=beschrijving;
-        this.artikelnummer=artikelnummer;
-        this.prijs=prijs;
-        this.aantal=aantal;
-        this.aantalOnbeschikbaar=aantalOnbeschikbaar;
-        this.uitleenbaarheid=uitleenbaarheid;
-        this.plaats=plaats;
-        this.doelgroepen=doelgroepen;
-        this.leergebieden=leergebieden;
-    }
 
-    
     //naam en aantal zijn verplicht
     public Materiaal(String naam, int aantal) {
         this.naam = naam;
         this.aantal = aantal;
-    }
-
-    public Materiaal setId(long id) {
-        this.id = id;
-        return this;
     }
 
     public Materiaal setFirma(Firma firma) {
@@ -142,12 +109,57 @@ public class Materiaal {
         this.leergebieden = leergebieden;
         return this;
     }
-    
-    
 
-    
-    
-    
+    public long getId() {
+        return id;
+    }
 
-    
+    public Firma getFirma() {
+        return firma;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public String getNaam() {
+        return naam;
+    }
+
+    public String getBeschrijving() {
+        return beschrijving;
+    }
+
+    public String getArtikelnummer() {
+        return artikelnummer;
+    }
+
+    public double getPrijs() {
+        return prijs;
+    }
+
+    public int getAantal() {
+        return aantal;
+    }
+
+    public int getAantalOnbeschikbaar() {
+        return aantalOnbeschikbaar;
+    }
+
+    public boolean isUitleenbaarheid() {
+        return uitleenbaarheid;
+    }
+
+    public String getPlaats() {
+        return plaats;
+    }
+
+    public String getDoelgroepen() {
+        return doelgroepen;
+    }
+
+    public String getLeergebieden() {
+        return leergebieden;
+    }
+
 }

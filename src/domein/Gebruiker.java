@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package domein;
 
 import javax.persistence.Entity;
@@ -12,28 +7,23 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-/**
- *
- * @author ruben
- */
-
 @Entity
 @Table(name = "gebruikers")
 @NamedQuery(
-    name="findAllGebruikers",
-    query="SELECT g FROM Gebruiker g"
+        name = "findAllGebruikers",
+        query = "SELECT g FROM Gebruiker g"
 )
 public class Gebruiker {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    
+
     private String voornaam;
     private String achternaam;
     private String email;
     private String paswoord;
 
-    
     protected Gebruiker() {
         // default constructor for jpa
     }
@@ -44,7 +34,7 @@ public class Gebruiker {
         this.email = email;
         this.paswoord = paswoord;
     }
-    
+
     public long getId() {
         return id;
     }
@@ -71,9 +61,9 @@ public class Gebruiker {
 
     public void setEmail(String email) {
         this.email = email;
-    }    
+    }
 
     public String getPaswoord() {
         return paswoord;
-    }    
+    }
 }

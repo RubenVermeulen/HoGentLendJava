@@ -27,8 +27,6 @@ public class MainMenuFrameController extends BorderPane {
     private Label lblWelkomInfo;
     @FXML
     private Label lblEmailInfo;
-    
-    
 
     public MainMenuFrameController(DomeinController domCon) {
         this.domCon = domCon;
@@ -44,7 +42,7 @@ public class MainMenuFrameController extends BorderPane {
 
         setupWelkomEnEmailLabels();
         setupMaterials();
-      // TEMPORARY_setupTemporaryDemoMaterials();
+        // TEMPORARY_setupTemporaryDemoMaterials();
     }
 
 //    public void TEMPORARY_setupTemporaryDemoMaterials() {
@@ -84,7 +82,6 @@ public class MainMenuFrameController extends BorderPane {
 ////            materialNodes[i] = new MateriaalBoxController(new MateriaalView("Materiaal Naam " + i, i));
 ////        }
 //    }
-    
     private void setupMaterials() {
         domCon.geefAlleMaterialen().stream().forEach(mv -> materialenBox.getChildren().add(new MateriaalBoxController(mv)));
     }

@@ -9,19 +9,19 @@ import org.jasypt.util.password.StrongPasswordEncryptor;
 import util.JPAUtil;
 
 public class GebruikerRepositoryImpl implements GebruikerRepository {
-    
+
     private List<Gebruiker> gebruikers;
     private StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
     private EntityManager em;
-    
-    public GebruikerRepositoryImpl(){
+
+    public GebruikerRepositoryImpl() {
         this.em = JPAUtil.getEntityManagerFactory().createEntityManager();;
         loadGebruikers();
     }
-    
+
     @Override
-    public Optional<Gebruiker> getGebruiker(String email, String userPass){
-        if (email == null || userPass == null){
+    public Optional<Gebruiker> getGebruiker(String email, String userPass) {
+        if (email == null || userPass == null) {
             return Optional.empty(); // zal geen gebruikers hebben zonder email of wachtwoord
         }
         Optional<Gebruiker> gebruiker = gebruikers.stream()
@@ -29,10 +29,10 @@ public class GebruikerRepositoryImpl implements GebruikerRepository {
                 .findAny();
         return gebruiker;
     }
-    
-    private void loadGebruikers(){
+
+    private void loadGebruikers() {
         Query q = em.createQuery("SELECT g FROM Gebruiker g");
-        gebruikers = (List<Gebruiker>)q.getResultList();
+        gebruikers = (List<Gebruiker>) q.getResultList();
     }
-    
+
 }
