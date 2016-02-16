@@ -1,9 +1,9 @@
 import domein.DomeinController;
 import domein.Gebruiker;
 import gui.LoginFrameController;
-import gui.MainMenuFrameController;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -49,6 +49,8 @@ public class StartUp extends Application {
 //        Scene scene = new Scene(new MainMenuFrameController(domCont));
         scene.getStylesheets().add("/gui/styles.css");
         stage.setScene(scene);
+        stage.setTitle("HoGentLend");
+        stage.getIcons().add(new Image("/images/HoGentLendIcon.png"));
         stage.show();
     }
 
