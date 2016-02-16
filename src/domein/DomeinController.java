@@ -1,6 +1,7 @@
 package domein;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import shared.MateriaalView;
 
@@ -16,7 +17,7 @@ public class DomeinController {
     }
     
     public DomeinController(GebruikerRepository gebruikerRepo){
-        this.gebruikerRepo = gebruikerRepo;
+        this.firmaRepo = new FirmaRepository();
     }
     
     /**
@@ -68,13 +69,18 @@ public class DomeinController {
         
     
     public void voegMateriaalToe(MateriaalView mv){
-        
+        materiaalRepo.voegMateriaalToe(mv);
         
     }
     
-    
-        
+    public List<MateriaalView> geefAlleMaterialen(){
+        if(materiaalRepo == null)
+            this.materiaalRepo = new MateriaalRepository();
+        return materiaalRepo.geefAlleMaterialen();
     }
+    
+
+}
 
     
     

@@ -24,8 +24,8 @@ public class MateriaalView {
     private String plaats;
     private String firma;
     private String emailFirma;
-    private List<String> doelgroepen;
-    private List<String> leergebieden;
+    private String doelgroepen;
+    private String leergebieden;
 
     public MateriaalView(String naam, int aantal) {
         this.naam = naam;
@@ -82,12 +82,12 @@ public class MateriaalView {
         return this;
     }
 
-    public MateriaalView setDoelgroepen(List<String> Doelgroepen) {
+    public MateriaalView setDoelgroepen(String Doelgroepen) {
         this.doelgroepen = Doelgroepen;
         return this;
     }
 
-    public MateriaalView setLeergebieden(List<String> Leergebieden) {
+    public MateriaalView setLeergebieden(String Leergebieden) {
         this.leergebieden = Leergebieden;
         return this;
     }
@@ -139,11 +139,11 @@ public class MateriaalView {
         return emailFirma;
     }
 
-    public List<String> getDoelgroepen() {
+    public String getDoelgroepen() {
         return doelgroepen;
     }
 
-    public List<String> getLeergebieden() {
+    public String getLeergebieden() {
         return leergebieden;
     }
     

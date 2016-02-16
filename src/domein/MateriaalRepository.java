@@ -6,7 +6,12 @@
 package domein;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import shared.MateriaalView;
+import util.JPAUtil;
 
 /**
  *
@@ -14,11 +19,21 @@ import shared.MateriaalView;
  */
 public class MateriaalRepository {
 
-    ArrayList<Materiaal> materialen;
-    FirmaRepository firmas;
+    private List<Materiaal> materialen;
+    private FirmaRepository firmas;
+    private EntityManager em;
 
     public MateriaalRepository() {
         firmas = new FirmaRepository();
+        this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
+        loadMaterialen();
+    }
+    
+    private void loadMaterialen() {
+        Query q = em.createQuery("SELECT m FROM Materiaal m");
+        materialen = (List<Materiaal>)q.getResultList();
+        System.out.println("test" + materialen.toString());
+    
     }
     
     
@@ -45,6 +60,26 @@ public class MateriaalRepository {
         
         //TODO DOELGROEPEN, LEERGEBIEDEN
     }
+
+    public List<MateriaalView> geefAlleMaterialen() {
+        
+        List<MateriaalView> materiaalViews = new ArrayList();
+        
+        for(Materiaal m : materialen){
+            MateriaalView mv = new MateriaalView(m.getNaam(), m.getAantal());
+            mv.setFotoUrl(m.getFoto()).setOmschrijving(m.getBeschrijving()).setArtikelNummer(m.getArtikelnummer())
+                    .setAantalOnbeschikbaar(m.getAantalOnbeschikbaar()).setUitleenbaarheid(m.isUitleenbaarheid())
+                    .setPlaats(m.getPlaats()).setFirma(m.getFirma().getNaam()).setEmailFirma(m.getFirma().getEmail())
+                    .setDoelgroepen(m.getDoelgroepen()).setLeergebieden(m.getLeergebieden());
+            materiaalViews.add(mv);
+                    
+        }
+        
+        return materiaalViews;
+        
+        
+    }
+
 
 }
 

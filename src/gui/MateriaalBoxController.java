@@ -102,14 +102,14 @@ public class MateriaalBoxController extends VBox {
             lblLocatie.setText(mv.getPlaats());
         }
         ckbBeschikbaar.setSelected(mv.isUitleenbaarheid());
-        List<String> doelgroepen = mv.getDoelgroepen();
-        if (doelgroepen != null && !doelgroepen.isEmpty()) {
-            lblDoelGroepen.setText(doelgroepen.stream().collect(Collectors.joining(", ")));
-        }
-        List<String> leergebieden = mv.getLeergebieden();
-        if (leergebieden != null && !leergebieden.isEmpty()) {
-            lblLeergebieden.setText(leergebieden.stream().collect(Collectors.joining(", ")));
-        }
+//        List<String> doelgroepen = mv.getDoelgroepen();
+//        if (doelgroepen != null && !doelgroepen.isEmpty()) {
+//            lblDoelGroepen.setText(doelgroepen.stream().collect(Collectors.joining(", ")));
+//        }
+//        List<String> leergebieden = mv.getLeergebieden();
+//        if (leergebieden != null && !leergebieden.isEmpty()) {
+//            lblLeergebieden.setText(leergebieden.stream().collect(Collectors.joining(", ")));
+//        }
         if (isNotEmpty(mv.getFirma())) {
             lblFirmaNaam.setText(mv.getFirma());
         }
