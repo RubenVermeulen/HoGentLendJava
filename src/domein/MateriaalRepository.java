@@ -46,9 +46,14 @@ public class MateriaalRepository {
 
         materiaal.setFoto(mv.getFotoUrl()).setBeschrijving(mv.getOmschrijving()).setArtikelnummer(mv.getArtikelNummer())
                 .setPrijs(mv.getPrijs()).setAantalOnbeschikbaar(mv.getAantalOnbeschikbaar()).setUitleenbaarheid(mv.isUitleenbaarheid())
-                .setPlaats(mv.getPlaats()).setFirma(firma);
+                .setPlaats(mv.getPlaats()).setFirma(firma).setDoelgroepen(mv.getDoelgroepen())
+                .setLeergebieden(mv.getLeergebieden());
+        
+        em.getTransaction().begin();
+        em.persist(materiaal);
+        em.getTransaction().commit();
+        em.close();
 
-        //TODO DOELGROEPEN, LEERGEBIEDEN
     }
 
     public List<MateriaalView> geefAlleMaterialen() {
