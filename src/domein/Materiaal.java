@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package domein;
 
 import javax.persistence.Column;
@@ -14,45 +9,41 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-/**
- *
- * @author ruben
- */
-
 @Entity
 @Table(name = "materialen")
 @NamedQuery(
-    name="findAllMaterialen",
-    query="SELECT m FROM Materiaal m"
+        name = "findAllMaterialen",
+        query = "SELECT m FROM Materiaal m"
 )
 public class Materiaal {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    
+
     @ManyToOne
     private Firma firma;
-    
+
     private String foto;
     private String naam;
-    
+
     // We hanteren het datatype text in de database zodat we niet zullen worden gehindered door een max aantal karakters.
     @Column(columnDefinition = "text")
     private String beschrijving;
-    
+
     private String artikelnummer; // kan letters bevatten
     private double prijs;
     private int aantal;
     private int aantalOnbeschikbaar;
-    private boolean uitleenbaarheid; 
+    private boolean uitleenbaarheid;
     private String plaats;
-    private String doelgroepen; 
-    private String leergebieden; 
-    
+    private String doelgroepen;
+    private String leergebieden;
+
     protected Materiaal() {
         // default constructor for jpa
     }
-        
+
     //naam en aantal zijn verplicht
     public Materiaal(String naam, int aantal) {
         this.naam = naam;
@@ -170,12 +161,5 @@ public class Materiaal {
     public String getLeergebieden() {
         return leergebieden;
     }
-    
-    
 
-    
-    
-    
-
-    
 }

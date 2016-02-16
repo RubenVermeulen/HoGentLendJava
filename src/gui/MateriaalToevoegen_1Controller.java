@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import domein.DomeinController;
@@ -21,11 +16,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import shared.MateriaalView;
 
-/**
- * FXML Controller class
- *
- * @author Demo
- */
 public class MateriaalToevoegen_1Controller extends BorderPane {
 
     private DomeinController dc;
@@ -113,12 +103,7 @@ public class MateriaalToevoegen_1Controller extends BorderPane {
         int hetAantal = Integer.parseInt(aantal.getText());
 
         MateriaalView matView = new MateriaalView(deNaam, hetAantal);
-        
-        
-        
-        
-        
-        
+
         dc.voegMateriaalToe(matView);
 
     }

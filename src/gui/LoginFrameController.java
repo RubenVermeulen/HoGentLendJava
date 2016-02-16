@@ -80,8 +80,7 @@ public class LoginFrameController extends BorderPane {
     private void btnAanmeldenOnAction(ActionEvent event) {
         meldAan();
     }
-    
-    
+
     //functionaliteit voor het slotje dat het wachtwoord weergeeft
     @FXML
     private void btnSlotOnAction(MouseEvent event) {
@@ -95,7 +94,6 @@ public class LoginFrameController extends BorderPane {
         toggleWachtwoordVisibility(false, true, "🔒");// gesloten slot symbool
     }
 
-    
     //Wanneer de gebruiker opnieuw typt na de error verkeerd wachtwoord/email,
     //wordt de error weer verborgen
     @FXML
@@ -124,7 +122,7 @@ public class LoginFrameController extends BorderPane {
         try {
             String email = txfEmailadres.getText().trim();
             String wachtwoord = pfWachtwoord.getText().trim();
-
+            
             if (!dc.meldAan(email, wachtwoord)) {
                 throw new IllegalArgumentException("Emailadres of wachtwoord is incorrect. Gelieve opnieuw te proberen.");
             }

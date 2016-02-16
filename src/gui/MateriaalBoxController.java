@@ -92,7 +92,7 @@ public class MateriaalBoxController extends VBox {
         }
         if (isNotEmpty(mv.getFotoUrl())) {
             // TODO: werkt nog niet
-            File file = new File("../images/"+mv.getFotoUrl());
+            File file = new File("../images/" + mv.getFotoUrl());
             imgvFoto.setImage(new Image(file.toURI().toString()));
         }
         if (isNotEmpty(mv.getArtikelNummer())) {
