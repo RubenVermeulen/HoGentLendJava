@@ -98,7 +98,6 @@ public class MainMenuFrameController extends BorderPane {
         Stage stage = (Stage) getScene().getWindow();
         Scene scene = new Scene(new LoginFrameController(domCon));
         stage.setScene(scene);
-        stage.setTitle("Default");
         stage.show();
     }
 

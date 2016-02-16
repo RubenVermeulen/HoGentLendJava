@@ -104,6 +104,25 @@ public class MateriaalToevoegen_1Controller extends BorderPane {
 
         MateriaalView matView = new MateriaalView(deNaam, hetAantal);
 
+       if(beschikbaarheid.isSelected()){
+        matView.setAantalOnbeschikbaar(0);
+       } else {
+        matView.setAantalOnbeschikbaar(hetAantal);
+       }
+        matView.setArtikelNummer(artikelcode.getText());
+        
+        matView.setDoelgroepen(doelgroepen.getText());
+        
+        matView.setEmailFirma(emailfirma.getText());
+        
+        matView.setFirma(firma.getText());
+        matView.setFotoUrl(urlFoto.getText());
+        matView.setLeergebieden(leergroepen.getText());
+        matView.setOmschrijving(beschrijving.getText());
+        matView.setPlaats(locatie.getText());
+        matView.setPrijs(Integer.parseInt(prijs.getText()));
+        matView.setUitleenbaarheid(true);
+
         dc.voegMateriaalToe(matView);
 
     }
