@@ -73,6 +73,8 @@ public class LoginFrameController extends BorderPane {
                 }
             }
         });
+        // easy login
+        txfEmailadres.setText("sven.dedeene.v6035@student.hogent.be");
 
     }
 
