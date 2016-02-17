@@ -83,6 +83,7 @@ public class MainMenuFrameController extends BorderPane {
 ////        }
 //    }
     private void setupMaterials() {
+        materialenBox.getChildren().clear();
         domCon.geefAlleMaterialen().stream().forEach(mv -> materialenBox.getChildren().add(new MateriaalBoxController(mv)));
     }
 
@@ -101,6 +102,13 @@ public class MainMenuFrameController extends BorderPane {
         stage.show();
     }
 
+    @FXML
+    private void onActionVoegMateriaalToe(ActionEvent event){
+        Stage stage = (Stage) getScene().getWindow();
+        Scene scene = new Scene(new MateriaalToevoegenController(domCon));
+        stage.setScene(scene);        
+    }
+    
     @FXML
     private void menuActionAfsluiten(ActionEvent event) {
         Platform.exit();
