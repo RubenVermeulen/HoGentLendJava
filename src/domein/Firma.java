@@ -33,9 +33,8 @@ public class Firma {
         return email;
     }
     
-    public Firma setEmail(String email){
+    public void setEmail(String email){
         this.email = email;
-        return this;
     }
 
 }
