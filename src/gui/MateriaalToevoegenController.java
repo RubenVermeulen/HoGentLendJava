@@ -16,7 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import shared.MateriaalView;
 
-public class MateriaalToevoegen_1Controller extends BorderPane {
+public class MateriaalToevoegenController extends BorderPane {
 
     private DomeinController dc;
 
@@ -58,7 +58,7 @@ public class MateriaalToevoegen_1Controller extends BorderPane {
      *
      * @param dc domeincontroller uit het domein
      */
-    public MateriaalToevoegen_1Controller(DomeinController dc) {
+    public MateriaalToevoegenController(DomeinController dc) {
         this.dc = dc;
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginFrame.fxml"));
