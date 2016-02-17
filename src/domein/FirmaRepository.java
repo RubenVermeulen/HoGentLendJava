@@ -38,7 +38,8 @@ public class FirmaRepository {
     //maakt nieuwe firma aan en returnt hem
     public Firma voegFirmaToe(String naam, String email) {
 
-        Firma firma = new Firma(naam).setEmail(email);
+        Firma firma = new Firma(naam);
+        firma.setEmail(email);
         firmas.add(firma);
         
         em.getTransaction().begin();
