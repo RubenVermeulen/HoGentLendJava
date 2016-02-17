@@ -41,7 +41,8 @@ public class StartUp extends Application {
         em.persist(user4);
 
         // Materialen aanmaken
-        Firma firma = new Firma("Goaty Enterprise").setEmail("info@goatyenterprise.be");
+        Firma firma = new Firma("Goaty Enterprise");
+        firma.setEmail("info@goatyenterprise.be");
 
         em.persist(firma);
 
