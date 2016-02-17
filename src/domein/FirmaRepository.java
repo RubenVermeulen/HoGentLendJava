@@ -44,7 +44,6 @@ public class FirmaRepository {
         em.getTransaction().begin();
         em.persist(firma);
         em.getTransaction().commit();
-        em.close();
         
         return firma;
 
