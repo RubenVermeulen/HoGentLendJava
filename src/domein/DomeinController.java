@@ -9,7 +9,6 @@ public class DomeinController {
 
     private GebruikerRepository gebruikerRepo;
     private MateriaalRepository materiaalRepo;
-    private FirmaRepository firmaRepo;
     private Gebruiker aangemelde;
 
     public DomeinController() {
@@ -60,19 +59,18 @@ public class DomeinController {
     }
 
     /**
-     *
-     * @param materialen - lijst met de materialen die toegevoegd moeten worden
-     * aan het systeem
+     * TODO xander schrijf dit
+     * @param mv 
      */
-    public void voegMateriaalToeInBulk(ArrayList<Materiaal> materialen) {
-        materiaalRepo.materialenToevoegenInBulk(materialen);
-    }
-
     public void voegMateriaalToe(MateriaalView mv) {
         materiaalRepo.voegMateriaalToe(mv);
 
     }
 
+    /**
+     * TODO Xander schrijf dit
+     * @return 
+     */
     public List<MateriaalView> geefAlleMaterialen() {
         if (materiaalRepo == null) {
             this.materiaalRepo = new MateriaalRepository();

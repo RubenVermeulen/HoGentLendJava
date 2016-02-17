@@ -52,16 +52,13 @@ public class MateriaalToevoegenController extends BorderPane {
     private Button gaTerugKnop;
     @FXML
     private Button voegToeKnop;
+    @FXML
+    private TextField txfOnbeschikbaar;
 
-    /**
-     * Initializes the controller class.
-     *
-     * @param dc domeincontroller uit het domein
-     */
     public MateriaalToevoegenController(DomeinController dc) {
         this.dc = dc;
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginFrame.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("MateriaalToevoegen.fxml"));
         loader.setRoot(this);
         loader.setController(this);
 
@@ -76,7 +73,6 @@ public class MateriaalToevoegenController extends BorderPane {
     @FXML
     private void fotoKiezenOnAction(ActionEvent event) {
         kiesFoto();
-
     }
 
     @FXML
@@ -98,30 +94,27 @@ public class MateriaalToevoegenController extends BorderPane {
     }
 
     private void voegMateriaalToe() {
-
         String deNaam = naam.getText().trim();
+        // TODO: catch Numberformatexception
         int hetAantal = Integer.parseInt(aantal.getText());
 
         MateriaalView matView = new MateriaalView(deNaam, hetAantal);
-
-       if(beschikbaarheid.isSelected()){
-        matView.setAantalOnbeschikbaar(0);
-       } else {
-        matView.setAantalOnbeschikbaar(hetAantal);
-       }
+        
+        matView.setAantalOnbeschikbaar(Integer.parseInt(txfOnbeschikbaar.getText()));
+        
         matView.setArtikelNummer(artikelcode.getText());
-        
+
         matView.setDoelgroepen(doelgroepen.getText());
-        
+
         matView.setEmailFirma(emailfirma.getText());
-        
+
         matView.setFirma(firma.getText());
         matView.setFotoUrl(urlFoto.getText());
         matView.setLeergebieden(leergroepen.getText());
         matView.setOmschrijving(beschrijving.getText());
         matView.setPlaats(locatie.getText());
         matView.setPrijs(Integer.parseInt(prijs.getText()));
-        matView.setUitleenbaarheid(true);
+        matView.setUitleenbaarheid(beschikbaarheid.isSelected());
 
         dc.voegMateriaalToe(matView);
 
