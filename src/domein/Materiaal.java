@@ -11,10 +11,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "materialen")
-@NamedQuery(
-        name = "findAllMaterialen",
-        query = "SELECT m FROM Materiaal m"
-)
 public class Materiaal {
 
     @Id
