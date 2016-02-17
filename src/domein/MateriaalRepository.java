@@ -24,13 +24,6 @@ public class MateriaalRepository {
         materialen = (List<Materiaal>) q.getResultList();
     }
 
-    public void materialenToevoegenInBulk(ArrayList<Materiaal> materialen) {
-        materialen.stream().forEach((materiaal) -> {
-            this.materialen.add(materiaal);
-        });
-
-    }
-
     public void voegMateriaalToe(MateriaalView mv) {
 
         Materiaal materiaal = new Materiaal(mv.getNaam(), mv.getAantal());
@@ -58,7 +51,7 @@ public class MateriaalRepository {
         em.persist(materiaal);
         em.getTransaction().commit();
         em.close();
-
+        
     }
 
     public List<MateriaalView> geefAlleMaterialen() {
