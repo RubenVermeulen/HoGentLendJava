@@ -57,7 +57,6 @@ public class MateriaalRepository {
         em.getTransaction().begin();
         em.persist(materiaal);
         em.getTransaction().commit();
-        em.close();
 
     }
 
