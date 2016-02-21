@@ -84,6 +84,8 @@ public class MateriaalRepository {
             em.remove(materiaal);
             em.getTransaction().commit();
             
+            materialen.remove(materiaal);
+            
             return true;
         }
         catch (Exception e) {
