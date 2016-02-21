@@ -71,4 +71,45 @@ public class MateriaalRepository {
 
     }
 
+    /**
+     * Retourneert een boolean die aangeeft of het materiaal verwijderd is of niet.
+     * 
+     * @param materiaal
+     * @return 
+     */
+    public boolean verwijderMateriaal(Materiaal materiaal) {
+        em.getTransaction().begin();
+        
+        try {
+            em.remove(materiaal);
+            em.getTransaction().commit();
+            
+            return true;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    /**
+     * Retourneert materiaal uit de database die hoort bij de meegegeven id.
+     * 
+     * @param id
+     * @return 
+     */
+    public Materiaal geefMateriaal(long id) {
+        Materiaal materiaal = null;
+        
+        em.getTransaction().begin();
+        
+        try {
+            materiaal = (Materiaal) em.find(Materiaal.class, id);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return materiaal;
+    }
 }
