@@ -38,9 +38,9 @@ public class Firma {
     }
 
     boolean containsFilter(String filter) {
-        return hasFilter(email) || hasFilter(naam);
+        return hasFilter(email, filter) || hasFilter(naam, filter);
     }
-    private boolean hasFilter(String string){
-        return string != null && string.toLowerCase().contains(string.toLowerCase());
+    private boolean hasFilter(String string, String filter){
+        return string != null && string.toLowerCase().contains(filter.toLowerCase());
     }
 }

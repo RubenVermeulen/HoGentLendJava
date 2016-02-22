@@ -113,6 +113,9 @@ public class Catalogus {
     }
 
     public List<MateriaalView> geefMaterialenMetFilter(String filter) {
+        if (filter == null || filter.isEmpty()){
+            return geefAlleMaterialen();
+        }
         List<MateriaalView> matViews = new ArrayList();
         for (Materiaal mat : materialen) {
             if (mat.containsFilter(filter)){

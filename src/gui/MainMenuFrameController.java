@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -27,6 +28,8 @@ public class MainMenuFrameController extends BorderPane {
     private Label lblWelkomInfo;
     @FXML
     private Label lblEmailInfo;
+    @FXML
+    private TextField txfZoekMateriaalFilter;
 
     public MainMenuFrameController(DomeinController domCon) {
         this.domCon = domCon;
@@ -41,7 +44,7 @@ public class MainMenuFrameController extends BorderPane {
         }
 
         setupWelkomEnEmailLabels();
-        setupMaterials();
+        setupMaterials(domCon.geefAlleMaterialen());
         // TEMPORARY_setupTemporaryDemoMaterials();
     }
 
@@ -82,9 +85,9 @@ public class MainMenuFrameController extends BorderPane {
 ////            materialNodes[i] = new MateriaalBoxController(new MateriaalView("Materiaal Naam " + i, i));
 ////        }
 //    }
-    private void setupMaterials() {
+    private void setupMaterials(List<MateriaalView> materials) {
         materialenBox.getChildren().clear();
-        domCon.geefAlleMaterialen().stream().forEach(mv -> materialenBox.getChildren().add(new MateriaalBoxController(mv, domCon)));
+        materials.stream().forEach(mv -> materialenBox.getChildren().add(new MateriaalBoxController(mv, domCon)));
     }
 
     private void setupWelkomEnEmailLabels() {
@@ -112,6 +115,15 @@ public class MainMenuFrameController extends BorderPane {
     @FXML
     private void menuActionAfsluiten(ActionEvent event) {
         Platform.exit();
+    }
+
+    @FXML
+    private void onBtnZoekMateriaalAction(ActionEvent event) {
+        System.out.println(txfZoekMateriaalFilter.getText());
+        List<MateriaalView> mvs = domCon.geefMaterialenMetFilter(txfZoekMateriaalFilter.getText());
+        System.out.println(mvs);
+        setupMaterials(mvs);
+        System.out.println("ayy");
     }
 
 }

@@ -160,16 +160,16 @@ public class Materiaal {
 
     public boolean containsFilter(String filter) {
         return firma.containsFilter(filter)
-                || hasFilter(naam)
-                || hasFilter(beschrijving)
-                || hasFilter(artikelnummer)
-                || hasFilter(plaats)
-                || hasFilter(doelgroepen)
-                || hasFilter(leergebieden);
+                || hasFilter(naam, filter)
+                || hasFilter(beschrijving, filter)
+                || hasFilter(artikelnummer, filter)
+                || hasFilter(plaats, filter)
+                || hasFilter(doelgroepen, filter)
+                || hasFilter(leergebieden, filter);
     }
     
-    private boolean hasFilter(String string){
-        return string != null && string.toLowerCase().contains(string.toLowerCase());
+    private boolean hasFilter(String string, String filter){
+        return string != null && string.toLowerCase().contains(filter.toLowerCase());
     }
 
 }
