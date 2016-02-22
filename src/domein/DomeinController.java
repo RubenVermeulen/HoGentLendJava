@@ -81,5 +81,9 @@ public class DomeinController {
     public void verwijderMateriaal(String materiaalNaam){
         materiaalRepo.verwijderMateriaal(materiaalNaam);
     }
+    
+    public List<MateriaalView> geefMaterialenMetFilter(String filter){
+        return materiaalRepo.geefMaterialenMetFilter(filter);
+    }
 
 }

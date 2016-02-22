@@ -37,4 +37,10 @@ public class Firma {
         this.email = email;
     }
 
+    boolean containsFilter(String filter) {
+        return hasFilter(email) || hasFilter(naam);
+    }
+    private boolean hasFilter(String string){
+        return string != null && string.toLowerCase().contains(string.toLowerCase());
+    }
 }

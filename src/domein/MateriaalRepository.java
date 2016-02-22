@@ -40,17 +40,17 @@ public class MateriaalRepository {
                 .setPrijs(mv.getPrijs()).setAantalOnbeschikbaar(mv.getAantalOnbeschikbaar()).setUitleenbaarheid(mv.isUitleenbaarheid())
                 .setPlaats(mv.getPlaats()).setDoelgroepen(mv.getDoelgroepen()).setFirma(firma)
                 .setLeergebieden(mv.getLeergebieden());
-        
+
         System.out.println(materialen.toString());
         //voeg materiaal toe aan repo
         materialen.add(materiaal);
         System.out.println(materialen.toString());
-        
+
         //voeg materiaal toe aan db
         em.getTransaction().begin();
         em.persist(materiaal);
         em.getTransaction().commit();
-        
+
     }
 
     public List<MateriaalView> geefAlleMaterialen() {
@@ -58,13 +58,7 @@ public class MateriaalRepository {
         List<MateriaalView> materiaalViews = new ArrayList();
 
         for (Materiaal m : materialen) {
-            MateriaalView mv = new MateriaalView(m.getNaam(), m.getAantal());
-            mv.setFotoUrl(m.getFoto()).setOmschrijving(m.getBeschrijving()).setArtikelNummer(m.getArtikelnummer())
-                    .setAantalOnbeschikbaar(m.getAantalOnbeschikbaar()).setUitleenbaarheid(m.isUitleenbaarheid())
-                    .setPlaats(m.getPlaats()).setFirma(m.getFirma().getNaam()).setEmailFirma(m.getFirma().getEmail())
-                    .setDoelgroepen(m.getDoelgroepen()).setLeergebieden(m.getLeergebieden());
-            materiaalViews.add(mv);
-
+            materiaalViews.add(convertMateriaalToMateriaalView(m));
         }
 
         return materiaalViews;
@@ -72,14 +66,15 @@ public class MateriaalRepository {
     }
 
     /**
-     * Retourneert een boolean die aangeeft of het materiaal verwijderd is of niet.
-     * 
+     * Retourneert een boolean die aangeeft of het materiaal verwijderd is of
+     * niet.
+     *
      * @param materiaal
-     * @return 
+     * @return
      */
     public boolean verwijderMateriaal(String materiaalNaam) {
         // todo ruben fix this
-      /*  em.getTransaction().begin();
+        /*  em.getTransaction().begin();
         
         try {
             em.remove(materiaal);
@@ -93,28 +88,46 @@ public class MateriaalRepository {
             e.printStackTrace();
             return false;
         }*/
-      return false;
+        return false;
     }
-    
+
     /**
      * Retourneert materiaal uit de database die hoort bij de meegegeven id.
-     * 
+     *
      * @param id
-     * @return 
+     * @return
      */
     public Materiaal geefMateriaal(String materiaalNaam) {
         // todo ruben fix this dat het de string gebruikt idpv de long
         Materiaal materiaal = null;
-        
+
         em.getTransaction().begin();
-        
+
         try {
-      //      materiaal = (Materiaal) em.find(Materiaal.class, id);
-        }
-        catch (Exception e) {
+            //      materiaal = (Materiaal) em.find(Materiaal.class, id);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         return materiaal;
+    }
+
+    public List<MateriaalView> geefMaterialenMetFilter(String filter) {
+        List<MateriaalView> matViews = new ArrayList();
+        for (Materiaal mat : materialen) {
+            if (mat.containsFilter(filter)){
+                matViews.add(convertMateriaalToMateriaalView(mat));
+            }
+        }
+        return matViews;
+    }
+
+    private MateriaalView convertMateriaalToMateriaalView(Materiaal m) {
+        MateriaalView mv = new MateriaalView(m.getNaam(), m.getAantal());
+        mv.setFotoUrl(m.getFoto()).setOmschrijving(m.getBeschrijving()).setArtikelNummer(m.getArtikelnummer())
+                .setAantalOnbeschikbaar(m.getAantalOnbeschikbaar()).setUitleenbaarheid(m.isUitleenbaarheid())
+                .setPlaats(m.getPlaats()).setFirma(m.getFirma().getNaam()).setEmailFirma(m.getFirma().getEmail())
+                .setDoelgroepen(m.getDoelgroepen()).setLeergebieden(m.getLeergebieden());
+        return mv;
     }
 }

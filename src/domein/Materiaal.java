@@ -158,4 +158,18 @@ public class Materiaal {
         return leergebieden;
     }
 
+    public boolean containsFilter(String filter) {
+        return firma.containsFilter(filter)
+                || hasFilter(naam)
+                || hasFilter(beschrijving)
+                || hasFilter(artikelnummer)
+                || hasFilter(plaats)
+                || hasFilter(doelgroepen)
+                || hasFilter(leergebieden);
+    }
+    
+    private boolean hasFilter(String string){
+        return string != null && string.toLowerCase().contains(string.toLowerCase());
+    }
+
 }
