@@ -77,5 +77,9 @@ public class DomeinController {
         }
         return materiaalRepo.geefAlleMaterialen();
     }
+    
+    public void verwijderMateriaal(String materiaalNaam){
+        materiaalRepo.verwijderMateriaal(materiaalNaam);
+    }
 
 }

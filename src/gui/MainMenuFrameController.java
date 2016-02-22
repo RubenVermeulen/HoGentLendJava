@@ -84,7 +84,7 @@ public class MainMenuFrameController extends BorderPane {
 //    }
     private void setupMaterials() {
         materialenBox.getChildren().clear();
-        domCon.geefAlleMaterialen().stream().forEach(mv -> materialenBox.getChildren().add(new MateriaalBoxController(mv)));
+        domCon.geefAlleMaterialen().stream().forEach(mv -> materialenBox.getChildren().add(new MateriaalBoxController(mv, domCon)));
     }
 
     private void setupWelkomEnEmailLabels() {

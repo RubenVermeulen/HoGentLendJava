@@ -77,8 +77,9 @@ public class MateriaalRepository {
      * @param materiaal
      * @return 
      */
-    public boolean verwijderMateriaal(Materiaal materiaal) {
-        em.getTransaction().begin();
+    public boolean verwijderMateriaal(String materiaalNaam) {
+        // todo ruben fix this
+      /*  em.getTransaction().begin();
         
         try {
             em.remove(materiaal);
@@ -91,7 +92,8 @@ public class MateriaalRepository {
         catch (Exception e) {
             e.printStackTrace();
             return false;
-        }
+        }*/
+      return false;
     }
     
     /**
@@ -100,13 +102,14 @@ public class MateriaalRepository {
      * @param id
      * @return 
      */
-    public Materiaal geefMateriaal(long id) {
+    public Materiaal geefMateriaal(String materiaalNaam) {
+        // todo ruben fix this dat het de string gebruikt idpv de long
         Materiaal materiaal = null;
         
         em.getTransaction().begin();
         
         try {
-            materiaal = (Materiaal) em.find(Materiaal.class, id);
+      //      materiaal = (Materiaal) em.find(Materiaal.class, id);
         }
         catch (Exception e) {
             e.printStackTrace();

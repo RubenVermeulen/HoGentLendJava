@@ -80,7 +80,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="btnVerwijder" mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" text="Verwijder">
+                  <Button fx:id="btnVerwijder" mnemonicParsing="false" onAction="#onActionBtnVerwijder" prefHeight="25.0" prefWidth="170.0" text="Verwijder">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
