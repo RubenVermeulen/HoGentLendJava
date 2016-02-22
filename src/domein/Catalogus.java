@@ -7,13 +7,13 @@ import javax.persistence.Query;
 import shared.MateriaalView;
 import util.JPAUtil;
 
-public class MateriaalRepository {
+public class Catalogus {
 
     private List<Materiaal> materialen;
     private FirmaRepository firmaRepo;
     private EntityManager em;
 
-    public MateriaalRepository() {
+    public Catalogus() {
         firmaRepo = new FirmaRepository();
         this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
         loadMaterialen();

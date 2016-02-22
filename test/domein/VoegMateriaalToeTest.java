@@ -15,7 +15,7 @@ import org.mockito.Mockito;
  */
 public class VoegMateriaalToeTest {
     
-    private MateriaalRepository materiaalRepo;
+    private Catalogus materiaalRepo;
     
     
     
