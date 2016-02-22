@@ -73,21 +73,24 @@ public class Catalogus {
      * @return
      */
     public boolean verwijderMateriaal(String materiaalNaam) {
-        // todo ruben fix this
-        /*  em.getTransaction().begin();
+        Materiaal materiaal = this.geefMateriaal(materiaalNaam);
         
-        try {
-            em.remove(materiaal);
-            em.getTransaction().commit();
-            
-            materialen.remove(materiaal);
-            
-            return true;
+        if (materiaal != null) {
+           em.getTransaction().begin();
+        
+            try {
+                em.remove(materiaal);
+                em.getTransaction().commit();
+
+                materialen.remove(materiaal);
+
+                return true;
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            } 
         }
-        catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }*/
+
         return false;
     }
 
@@ -98,15 +101,13 @@ public class Catalogus {
      * @return
      */
     public Materiaal geefMateriaal(String materiaalNaam) {
-        // todo ruben fix this dat het de string gebruikt idpv de long
         Materiaal materiaal = null;
-
-        em.getTransaction().begin();
-
-        try {
-            //      materiaal = (Materiaal) em.find(Materiaal.class, id);
-        } catch (Exception e) {
-            e.printStackTrace();
+   
+       for (Materiaal m : materialen) {
+            if (m.getNaam().equals(materiaalNaam)) {
+                materiaal = m;
+                break;
+            }
         }
 
         return materiaal;
