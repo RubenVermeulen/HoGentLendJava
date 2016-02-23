@@ -28,7 +28,9 @@ public class DomeinController {
      */
     public boolean meldAan(String email, String wachtwoord) {
         Optional<Gebruiker> optGeb = gebruikerRepo.getGebruiker(email, wachtwoord);
-        if (optGeb.isPresent()) {
+        
+        // Is optGeb aanwezig en een hoofdbeheerder of beheerder
+        if (optGeb.isPresent() && (optGeb.get().isHoofdbeheerder() || optGeb.get().isBeheerder())) {
             aangemelde = optGeb.get();
             return true;
         } else {

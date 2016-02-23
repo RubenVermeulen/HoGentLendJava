@@ -27,13 +27,13 @@ public class StartUp extends Application {
         StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
 
         Gebruiker user = new Gebruiker("Ruben", "Vermeulen", "ruben.vermeulen.v4419@student.hogent.be",
-                passwordEncryptor.encryptPassword("rubsup"));
+                passwordEncryptor.encryptPassword("rubsup"), true, false);
         Gebruiker user2 = new Gebruiker("Sven", "Dedeene", "sven.dedeene.v6035@student.hogent.be",
-                passwordEncryptor.encryptPassword("sfonk"));
+                passwordEncryptor.encryptPassword("sfonk"), false, true);
         Gebruiker user3 = new Gebruiker("Alexander", "Van Damme", "alexander.vandamme.v7672@student.hogent.be",
-                passwordEncryptor.encryptPassword("alosk"));
+                passwordEncryptor.encryptPassword("alosk"), true, true);
         Gebruiker user4 = new Gebruiker("Xander", "Berkein", "xander.berkein.v7629@student.hogent.be",
-                passwordEncryptor.encryptPassword("czandor"));
+                passwordEncryptor.encryptPassword("czandor"), false, false);
 
         em.persist(user);
         em.persist(user2);
