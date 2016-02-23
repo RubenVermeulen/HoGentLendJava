@@ -68,6 +68,14 @@ public class DomeinController {
         materiaalRepo.voegMateriaalToe(mv);
 
     }
+    
+    
+    public void voegMaterialenToeInBulk(String csvFile){
+    materiaalRepo.voegMaterialenToeInBulk(csvFile);
+    
+    
+    
+    }
 
     /**
      * TODO Xander schrijf dit

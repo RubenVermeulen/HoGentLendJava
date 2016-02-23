@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import shared.MateriaalView;
+import shared.ReadCVS;
 import util.JPAUtil;
 
 public class Catalogus {
@@ -53,6 +54,48 @@ public class Catalogus {
 
     }
 
+    void voegMaterialenToeInBulk(String csvFile) {
+        ArrayList<String[]> materialen;
+        ReadCVS obj = new ReadCVS();
+
+        materialen = obj.run(csvFile);
+
+        for (String[] materiaal : materialen) {
+            String naam = materiaal[0];
+
+            String fotoUrl=materiaal[1];
+            String omschrijving=materiaal[2];
+            String artikelNummer=materiaal[3];
+            double prijs=Double.parseDouble(materiaal[12]);
+            int aantal=Integer.parseInt(materiaal[11]);
+            int aantalOnbeschikbaar=Integer.parseInt(materiaal[4]);
+            boolean uitleenbaarheid=Boolean.parseBoolean(materiaal[5]);
+            String plaats=materiaal[6];
+            String firma=materiaal[7];
+            String emailFirma=materiaal[8];
+            String doelgroepen=materiaal[9];
+            String leergebieden=materiaal[10];
+            
+            MateriaalView matView=new MateriaalView(naam, aantal);
+            
+            matView.setAantalOnbeschikbaar(aantalOnbeschikbaar);
+            matView.setArtikelNummer(artikelNummer);
+            matView.setDoelgroepen(doelgroepen);
+            matView.setEmailFirma(emailFirma);
+            matView.setFirma(firma);
+            matView.setFotoUrl(fotoUrl);
+            matView.setLeergebieden(leergebieden);
+            matView.setOmschrijving(omschrijving);
+            matView.setPlaats(plaats);
+            matView.setPrijs(prijs);
+            matView.setUitleenbaarheid(uitleenbaarheid);
+            
+            voegMateriaalToe(matView);
+
+        }
+
+    }
+
     public List<MateriaalView> geefAlleMaterialen() {
 
         List<MateriaalView> materiaalViews = new ArrayList();
@@ -74,10 +117,10 @@ public class Catalogus {
      */
     public boolean verwijderMateriaal(String materiaalNaam) {
         Materiaal materiaal = this.geefMateriaal(materiaalNaam);
-        
+
         if (materiaal != null) {
-           em.getTransaction().begin();
-        
+            em.getTransaction().begin();
+
             try {
                 em.remove(materiaal);
                 em.getTransaction().commit();
@@ -85,10 +128,9 @@ public class Catalogus {
                 materialen.remove(materiaal);
 
                 return true;
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
-            } 
+            }
         }
 
         return false;
@@ -102,8 +144,8 @@ public class Catalogus {
      */
     public Materiaal geefMateriaal(String materiaalNaam) {
         Materiaal materiaal = null;
-   
-       for (Materiaal m : materialen) {
+
+        for (Materiaal m : materialen) {
             if (m.getNaam().equals(materiaalNaam)) {
                 materiaal = m;
                 break;
@@ -114,12 +156,12 @@ public class Catalogus {
     }
 
     public List<MateriaalView> geefMaterialenMetFilter(String filter) {
-        if (filter == null || filter.isEmpty()){
+        if (filter == null || filter.isEmpty()) {
             return geefAlleMaterialen();
         }
         List<MateriaalView> matViews = new ArrayList();
         for (Materiaal mat : materialen) {
-            if (mat.containsFilter(filter)){
+            if (mat.containsFilter(filter)) {
                 matViews.add(convertMateriaalToMateriaalView(mat));
             }
         }
@@ -134,4 +176,5 @@ public class Catalogus {
                 .setDoelgroepen(m.getDoelgroepen()).setLeergebieden(m.getLeergebieden());
         return mv;
     }
+
 }
