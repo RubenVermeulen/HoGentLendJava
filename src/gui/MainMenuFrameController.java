@@ -123,7 +123,6 @@ public class MainMenuFrameController extends BorderPane {
         List<MateriaalView> mvs = domCon.geefMaterialenMetFilter(txfZoekMateriaalFilter.getText());
         System.out.println(mvs);
         setupMaterials(mvs);
-        System.out.println("ayy");
     }
 
 }
