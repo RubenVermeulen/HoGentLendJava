@@ -58,7 +58,7 @@ public class MateriaalToevoegenController extends BorderPane {
     @FXML
     private Button voegToeKnop;
     @FXML
-    private TextField txfOnbeschikbaar;
+    private TextField onbeschikbaar;
 
     public MateriaalToevoegenController(DomeinController dc) {
         this.dc = dc;
@@ -110,8 +110,8 @@ public class MateriaalToevoegenController extends BorderPane {
         int hetAantal = Integer.parseInt(aantal.getText());
 
         MateriaalView matView = new MateriaalView(deNaam, hetAantal);
-        if (txfOnbeschikbaar.getText() != null && !txfOnbeschikbaar.getText().isEmpty()) {
-            matView.setAantalOnbeschikbaar(Integer.parseInt(txfOnbeschikbaar.getText()));
+        if (onbeschikbaar.getText() != null && !onbeschikbaar.getText().isEmpty()) {
+            matView.setAantalOnbeschikbaar(Integer.parseInt(onbeschikbaar.getText()));
         }
 
         matView.setArtikelNummer(artikelcode.getText());

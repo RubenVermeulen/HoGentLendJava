@@ -45,21 +45,21 @@ public class MateriaalCatalogus {
         
         //Exceptions werpen
         if(naam == null || naam.isEmpty())
-            throw new IllegalArgumentException("Naam mag niet leeg zijn");
+            throw new IllegalArgumentException("naam");
         
         if(aantal < 0){
-            throw new IllegalArgumentException("Aantal moet groter zijn dan 0");
+            throw new IllegalArgumentException("aantal");
         }
         
         if(firmaEmail != null && !firmaEmail.isEmpty() && !firmaEmail.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")){
-            throw new IllegalArgumentException("Emailadres moet geldig zijn");
+            throw new IllegalArgumentException("emailfirma");
         }
         
         if(prijs < 0)
-            throw new IllegalArgumentException("Prijs moet groter zijn dan 0");
+            throw new IllegalArgumentException("prijs");
         
         if(aantalOnbeschikbaar < 0)
-            throw new IllegalArgumentException("Aantal onbeschikbaar moet groter zijn dan 0");
+            throw new IllegalArgumentException("onbeschikbaar");
         
         
         Materiaal materiaal = new Materiaal(naam, aantal);
