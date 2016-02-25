@@ -56,7 +56,7 @@ public class MateriaalCatalogus {
         }
 
         if (firmaEmail != null && !firmaEmail.isEmpty() && !firmaEmail.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")) {
-            throw new IllegalArgumentException("emailfirma");
+            throw new IllegalArgumentException("emailFirma");
         }
 
         if (prijs < 0) {

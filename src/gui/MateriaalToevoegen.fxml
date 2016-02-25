@@ -97,8 +97,28 @@
                               <Label text="Prijs (€)" GridPane.rowIndex="8" />
                               <Label text="Locatie" GridPane.rowIndex="10" />
                               <TextField fx:id="locatie" promptText="locatie" GridPane.rowIndex="11" />
-                              <Label text="Antal onbeschikbaar" GridPane.rowIndex="6" />
+                              <Label text="Aantal onbeschikbaar" GridPane.rowIndex="6" />
                               <TextField fx:id="onbeschikbaar" promptText="aantal onbeschikbaar" GridPane.rowIndex="7" />
+                              <ImageView fx:id="errorNaam" fitHeight="30.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                                 <image>
+                                    <Image url="@../images/errorred.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="errorAantal" fitHeight="30.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+                                 <image>
+                                    <Image url="@../images/errorred.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="errorOnbeschikbaar" fitHeight="30.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+                                 <image>
+                                    <Image url="@../images/errorred.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="errorPrijs" fitHeight="30.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="9">
+                                 <image>
+                                    <Image url="@../images/errorred.png" />
+                                 </image>
+                              </ImageView>
                            </children>
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -151,6 +171,11 @@
                               <TextField id="emailfirma" fx:id="emailfirma" promptText="email firma" GridPane.rowIndex="10" />
                               <Label text="Email firma" GridPane.rowIndex="9" />
                               <CheckBox id="beschikbaar" fx:id="beschikbaarheid" mnemonicParsing="false" text="Beschikbaar" GridPane.rowIndex="12" />
+                              <ImageView fx:id="errorEmailfirma" fitHeight="30.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="10">
+                                 <image>
+                                    <Image url="@../images/errorred.png" />
+                                 </image>
+                              </ImageView>
                            </children>
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

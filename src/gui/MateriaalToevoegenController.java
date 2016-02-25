@@ -59,6 +59,16 @@ public class MateriaalToevoegenController extends BorderPane {
     private Button voegToeKnop;
     @FXML
     private TextField onbeschikbaar;
+    @FXML
+    private ImageView errorNaam;
+    @FXML
+    private ImageView errorAantal;
+    @FXML
+    private ImageView errorOnbeschikbaar;
+    @FXML
+    private ImageView errorPrijs;
+    @FXML
+    private ImageView errorEmailfirma;
 
     public MateriaalToevoegenController(DomeinController dc) {
         this.dc = dc;
@@ -106,33 +116,50 @@ public class MateriaalToevoegenController extends BorderPane {
     private void voegMateriaalToe() {
         String deNaam = naam.getText().trim();
         // TODO: catch Numberformatexception
-        
+
         int hetAantal = Integer.parseInt(aantal.getText());
 
-        MateriaalView matView = new MateriaalView(deNaam, hetAantal);
-        if (onbeschikbaar.getText() != null && !onbeschikbaar.getText().isEmpty()) {
-            matView.setAantalOnbeschikbaar(Integer.parseInt(onbeschikbaar.getText()));
+        try {
+
+            MateriaalView matView = new MateriaalView(deNaam, hetAantal);
+            if (onbeschikbaar.getText() != null && !onbeschikbaar.getText().isEmpty()) {
+                matView.setAantalOnbeschikbaar(Integer.parseInt(onbeschikbaar.getText()));
+            }
+
+            matView.setArtikelNummer(artikelcode.getText());
+
+            matView.setDoelgroepen(doelgroepen.getText());
+
+            matView.setEmailFirma(emailfirma.getText());
+
+            matView.setFirma(firma.getText());
+            matView.setFotoUrl(urlFoto.getText());
+            matView.setLeergebieden(leergroepen.getText());
+            matView.setOmschrijving(beschrijving.getText());
+            matView.setPlaats(locatie.getText());
+            if (prijs.getText() != null && !prijs.getText().isEmpty()) {
+                matView.setPrijs(Double.parseDouble(prijs.getText()));
+            }
+            matView.setUitleenbaarheid(beschikbaarheid.isSelected());
+
+            dc.voegMateriaalToe(matView);
+            gaTerug();
+
+        } catch (IllegalArgumentException e) {
+            
+           switch(e.getMessage()){
+               case "naam" : errorNaam.setVisible(true);
+               break;
+               case "aantal" : errorAantal.setVisible(true);
+               break;
+               case "emailFirma" : errorEmailfirma.setVisible(true);
+               break;
+               case "prijs" : errorPrijs.setVisible(true);
+               break;
+               case "onbeschikbaar" : errorOnbeschikbaar.setVisible(true);
+           }
+            
         }
-
-        matView.setArtikelNummer(artikelcode.getText());
-
-        matView.setDoelgroepen(doelgroepen.getText());
-
-        matView.setEmailFirma(emailfirma.getText());
-
-        matView.setFirma(firma.getText());
-        matView.setFotoUrl(urlFoto.getText());
-        matView.setLeergebieden(leergroepen.getText());
-        matView.setOmschrijving(beschrijving.getText());
-        matView.setPlaats(locatie.getText());
-        if (prijs.getText() != null && !prijs.getText().isEmpty()) {
-            matView.setPrijs(Double.parseDouble(prijs.getText()));
-        }
-        matView.setUitleenbaarheid(beschikbaarheid.isSelected());
-
-        dc.voegMateriaalToe(matView);
-        gaTerug();
-
     }
 
 }
