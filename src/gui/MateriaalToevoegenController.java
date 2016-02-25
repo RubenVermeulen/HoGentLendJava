@@ -114,12 +114,12 @@ public class MateriaalToevoegenController extends BorderPane {
     }
 
     private void voegMateriaalToe() {
-        String deNaam = naam.getText().trim();
-        // TODO: catch Numberformatexception
-
-        int hetAantal = Integer.parseInt(aantal.getText());
-
         try {
+
+            String deNaam = naam.getText().trim();
+            // TODO: catch Numberformatexception
+
+            int hetAantal = Integer.parseInt(aantal.getText());
 
             MateriaalView matView = new MateriaalView(deNaam, hetAantal);
             if (onbeschikbaar.getText() != null && !onbeschikbaar.getText().isEmpty()) {
@@ -145,20 +145,29 @@ public class MateriaalToevoegenController extends BorderPane {
             dc.voegMateriaalToe(matView);
             gaTerug();
 
+        } catch (NumberFormatException e) {
+
+            errorAantal.setVisible(true);
+
         } catch (IllegalArgumentException e) {
-            
-           switch(e.getMessage()){
-               case "naam" : errorNaam.setVisible(true);
-               break;
-               case "aantal" : errorAantal.setVisible(true);
-               break;
-               case "emailFirma" : errorEmailfirma.setVisible(true);
-               break;
-               case "prijs" : errorPrijs.setVisible(true);
-               break;
-               case "onbeschikbaar" : errorOnbeschikbaar.setVisible(true);
-           }
-            
+
+            switch (e.getMessage()) {
+                case "naam":
+                    errorNaam.setVisible(true);
+                    break;
+                case "aantal":
+                    errorAantal.setVisible(true);
+                    break;
+                case "emailFirma":
+                    errorEmailfirma.setVisible(true);
+                    break;
+                case "prijs":
+                    errorPrijs.setVisible(true);
+                    break;
+                case "onbeschikbaar":
+                    errorOnbeschikbaar.setVisible(true);
+            }
+
         }
     }
 
