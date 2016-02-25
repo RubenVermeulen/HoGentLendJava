@@ -22,7 +22,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="778.0" prefWidth="818.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MateriaalToevoegenController">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="778.0" prefWidth="818.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <VBox prefHeight="482.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -98,7 +98,7 @@
                               <Label text="Locatie" GridPane.rowIndex="10" />
                               <TextField fx:id="locatie" promptText="locatie" GridPane.rowIndex="11" />
                               <Label text="Antal onbeschikbaar" GridPane.rowIndex="6" />
-                              <TextField fx:id="onbeschikbaar" GridPane.rowIndex="7" />
+                              <TextField fx:id="onbeschikbaar" promptText="aantal onbeschikbaar" GridPane.rowIndex="7" />
                            </children>
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
