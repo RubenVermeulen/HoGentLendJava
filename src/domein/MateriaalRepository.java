@@ -8,44 +8,25 @@ import shared.MateriaalView;
 import shared.ReadCVS;
 import util.JPAUtil;
 
-public class Catalogus {
+public class MateriaalRepository {
 
-    private List<Materiaal> materialen;
-    private FirmaRepository firmaRepo;
+    private MateriaalCatalogus materiaalCatalogus;
     private EntityManager em;
 
-    public Catalogus() {
-        firmaRepo = new FirmaRepository();
+    public MateriaalRepository() {
+        materiaalCatalogus = new MateriaalCatalogus();
         this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
         loadMaterialen();
     }
 
     private void loadMaterialen() {
         Query q = em.createQuery("SELECT m FROM Materiaal m");
-        materialen = (List<Materiaal>) q.getResultList();
+        materiaalCatalogus.loadMaterialen((List<Materiaal>) q.getResultList());
     }
 
     public void voegMateriaalToe(MateriaalView mv) {
 
-        Materiaal materiaal = new Materiaal(mv.getNaam(), mv.getAantal());
-
-        //check of opgegeven firma al bestaat in db
-        //indien niet: maak meteen aan met naam en email en steek in database
-        Firma firma = firmaRepo.geefFirma(mv.getFirma());
-        if (firma == null) {
-            firma = firmaRepo.voegFirmaToe(mv.getFirma(), mv.getEmailFirma());
-        }
-
-        //maak materiaal aan met gegevens uit de MateriaalView
-        materiaal.setFoto(mv.getFotoUrl()).setBeschrijving(mv.getOmschrijving()).setArtikelnummer(mv.getArtikelNummer())
-                .setPrijs(mv.getPrijs()).setAantalOnbeschikbaar(mv.getAantalOnbeschikbaar()).setUitleenbaarheid(mv.isUitleenbaarheid())
-                .setPlaats(mv.getPlaats()).setDoelgroepen(mv.getDoelgroepen()).setFirma(firma)
-                .setLeergebieden(mv.getLeergebieden());
-
-        System.out.println(materialen.toString());
-        //voeg materiaal toe aan repo
-        materialen.add(materiaal);
-        System.out.println(materialen.toString());
+        Materiaal materiaal = materiaalCatalogus.voegMateriaalToe(mv);
 
         //voeg materiaal toe aan db
         em.getTransaction().begin();
@@ -98,13 +79,7 @@ public class Catalogus {
 
     public List<MateriaalView> geefAlleMaterialen() {
 
-        List<MateriaalView> materiaalViews = new ArrayList();
-
-        for (Materiaal m : materialen) {
-            materiaalViews.add(convertMateriaalToMateriaalView(m));
-        }
-
-        return materiaalViews;
+       return materiaalCatalogus.geefAlleMaterialen();
 
     }
 
@@ -125,7 +100,7 @@ public class Catalogus {
                 em.remove(materiaal);
                 em.getTransaction().commit();
 
-                materialen.remove(materiaal);
+                materiaalCatalogus.verwijderMateriaal(materiaal);
 
                 return true;
             } catch (Exception e) {
@@ -143,38 +118,15 @@ public class Catalogus {
      * @return
      */
     public Materiaal geefMateriaal(String materiaalNaam) {
-        Materiaal materiaal = null;
-
-        for (Materiaal m : materialen) {
-            if (m.getNaam().equals(materiaalNaam)) {
-                materiaal = m;
-                break;
-            }
-        }
-
-        return materiaal;
+        
+        return materiaalCatalogus.geefMateriaal(materiaalNaam);
+        
     }
 
     public List<MateriaalView> geefMaterialenMetFilter(String filter) {
-        if (filter == null || filter.isEmpty()) {
-            return geefAlleMaterialen();
-        }
-        List<MateriaalView> matViews = new ArrayList();
-        for (Materiaal mat : materialen) {
-            if (mat.containsFilter(filter)) {
-                matViews.add(convertMateriaalToMateriaalView(mat));
-            }
-        }
-        return matViews;
-    }
-
-    private MateriaalView convertMateriaalToMateriaalView(Materiaal m) {
-        MateriaalView mv = new MateriaalView(m.getNaam(), m.getAantal());
-        mv.setFotoUrl(m.getFoto()).setOmschrijving(m.getBeschrijving()).setArtikelNummer(m.getArtikelnummer())
-                .setAantalOnbeschikbaar(m.getAantalOnbeschikbaar()).setUitleenbaarheid(m.isUitleenbaarheid())
-                .setPlaats(m.getPlaats()).setFirma(m.getFirma().getNaam()).setEmailFirma(m.getFirma().getEmail())
-                .setDoelgroepen(m.getDoelgroepen()).setLeergebieden(m.getLeergebieden());
-        return mv;
+        
+        return materiaalCatalogus.geefMaterialenMetFilter(filter);
+        
     }
 
 }

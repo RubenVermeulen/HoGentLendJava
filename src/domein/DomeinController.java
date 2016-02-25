@@ -8,7 +8,7 @@ import shared.MateriaalView;
 public class DomeinController {
 
     private GebruikerRepository gebruikerRepo;
-    private Catalogus materiaalRepo;
+    private MateriaalRepository materiaalRepo;
     private Gebruiker aangemelde;
 
     public DomeinController() {
@@ -83,7 +83,7 @@ public class DomeinController {
      */
     public List<MateriaalView> geefAlleMaterialen() {
         if (materiaalRepo == null) {
-            this.materiaalRepo = new Catalogus();
+            this.materiaalRepo = new MateriaalRepository();
         }
         return materiaalRepo.geefAlleMaterialen();
     }
