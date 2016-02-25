@@ -126,7 +126,7 @@ public class MateriaalToevoegenController extends BorderPane {
         matView.setOmschrijving(beschrijving.getText());
         matView.setPlaats(locatie.getText());
         if (prijs.getText() != null && !prijs.getText().isEmpty()) {
-            matView.setPrijs(Integer.parseInt(prijs.getText()));
+            matView.setPrijs(Double.parseDouble(prijs.getText()));
         }
         matView.setUitleenbaarheid(beschikbaarheid.isSelected());
 

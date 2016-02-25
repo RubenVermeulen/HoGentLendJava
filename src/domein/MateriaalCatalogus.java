@@ -27,20 +27,55 @@ public class MateriaalCatalogus {
     }
 
     public Materiaal voegMateriaalToe(MateriaalView mv) {
-        Materiaal materiaal = new Materiaal(mv.getNaam(), mv.getAantal());
+        
+        String naam = mv.getNaam();
+        int aantal = mv.getAantal();
+        String firmaNaam = mv.getFirma();
+        String firmaEmail = mv.getEmailFirma();
+        String fotoUrl = mv.getFotoUrl();
+        String beschrijving = mv.getOmschrijving();
+        String artikelnummer = mv.getArtikelNummer();
+        double prijs = mv.getPrijs();
+        int aantalOnbeschikbaar = mv.getAantalOnbeschikbaar();
+        boolean uitleenbaarheid = mv.isUitleenbaarheid();
+        String plaats = mv.getPlaats();
+        String doelgroepen = mv.getDoelgroepen();
+        String leergebieden = mv.getLeergebieden();
+       
+        
+        //Exceptions werpen
+        if(naam == null || naam.isEmpty())
+            throw new IllegalArgumentException("Naam mag niet leeg zijn");
+        
+        if(aantal < 0){
+            throw new IllegalArgumentException("Aantal moet groter zijn dan 0");
+        }
+        
+        if(firmaEmail != null && !firmaEmail.isEmpty() && !firmaEmail.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")){
+            throw new IllegalArgumentException("Emailadres moet geldig zijn");
+        }
+        
+        if(prijs < 0)
+            throw new IllegalArgumentException("Prijs moet groter zijn dan 0");
+        
+        if(aantalOnbeschikbaar < 0)
+            throw new IllegalArgumentException("Aantal onbeschikbaar moet groter zijn dan 0");
+        
+        
+        Materiaal materiaal = new Materiaal(naam, aantal);
 
         //check of opgegeven firma al bestaat in db
         //indien niet: maak meteen aan met naam en email en steek in database
-        Firma firma = firmaRepo.geefFirma(mv.getFirma());
+        Firma firma = firmaRepo.geefFirma(firmaNaam);
         if (firma == null) {
-            firma = firmaRepo.voegFirmaToe(mv.getFirma(), mv.getEmailFirma());
+            firma = firmaRepo.voegFirmaToe(firmaNaam, firmaEmail);
         }
 
         //maak materiaal aan met gegevens uit de MateriaalView
-        materiaal.setFoto(mv.getFotoUrl()).setBeschrijving(mv.getOmschrijving()).setArtikelnummer(mv.getArtikelNummer())
-                .setPrijs(mv.getPrijs()).setAantalOnbeschikbaar(mv.getAantalOnbeschikbaar()).setUitleenbaarheid(mv.isUitleenbaarheid())
-                .setPlaats(mv.getPlaats()).setDoelgroepen(mv.getDoelgroepen()).setFirma(firma)
-                .setLeergebieden(mv.getLeergebieden());
+        materiaal.setFoto(fotoUrl).setBeschrijving(beschrijving).setArtikelnummer(artikelnummer)
+                .setPrijs(prijs).setAantalOnbeschikbaar(aantalOnbeschikbaar).setUitleenbaarheid(uitleenbaarheid)
+                .setPlaats(plaats).setDoelgroepen(doelgroepen).setFirma(firma)
+                .setLeergebieden(leergebieden);
 
         //voeg materiaal toe aan repo
         materialen.add(materiaal);
