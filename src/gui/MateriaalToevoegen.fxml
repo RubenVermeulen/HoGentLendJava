@@ -93,8 +93,8 @@
                               <TextField id="naam" fx:id="naam" promptText="naam" GridPane.rowIndex="1" />
                               <TextField id="artikelcode" fx:id="artikelcode" promptText="artikelcode" GridPane.rowIndex="3" />
                               <TextField id="aantal" fx:id="aantal" promptText="aantal stuks" GridPane.rowIndex="5" />
-                              <TextField id="prijs" fx:id="prijs" promptText="prijs" GridPane.rowIndex="9" />
-                              <Label text="Prijs" GridPane.rowIndex="8" />
+                              <TextField id="prijs" fx:id="prijs" promptText="prijs in € (vb notatie: 10.99)" GridPane.rowIndex="9" />
+                              <Label text="Prijs (€)" GridPane.rowIndex="8" />
                               <Label text="Locatie" GridPane.rowIndex="10" />
                               <TextField fx:id="locatie" promptText="locatie" GridPane.rowIndex="11" />
                               <Label text="Antal onbeschikbaar" GridPane.rowIndex="6" />
