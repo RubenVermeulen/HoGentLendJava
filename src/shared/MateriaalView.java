@@ -12,7 +12,7 @@ import java.util.List;
  * @author Xander
  */
 public class MateriaalView {
-    
+
     private String naam;
     private String fotoUrl;
     private String omschrijving;
@@ -26,17 +26,16 @@ public class MateriaalView {
     private String emailFirma;
     private String doelgroepen;
     private String leergebieden;
+    private long id;
 
     public MateriaalView(String naam, int aantal) {
         this.naam = naam;
         this.aantal = aantal;
     }
-    
-    
+
     //eerst maak je MateriaalView aan met naam en aantal (deze zijn verplicht)
     //via setters kan je mogelijk verdere gegevens aanvullen
     //setters geven het object MateriaalView zelf terug, zodat we aan setter-chaning kunnen doen
-    
     public MateriaalView setFotoUrl(String fotoUrl) {
         this.fotoUrl = fotoUrl;
         return this;
@@ -91,10 +90,18 @@ public class MateriaalView {
         this.leergebieden = Leergebieden;
         return this;
     }
-    
-    
-    //getters
 
+    public MateriaalView setId(long id) {
+        this.id = id;
+        return this;
+    }
+
+    public MateriaalView setNaam(String naam) {
+        this.naam = naam;
+        return this;
+    }
+
+    //getters
     public String getNaam() {
         return naam;
     }
@@ -146,8 +153,14 @@ public class MateriaalView {
     public String getLeergebieden() {
         return leergebieden;
     }
-    
-    
-    
-    
+
+    public long getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return "MateriaalView{" + "naam=" + naam + ", fotoUrl=" + fotoUrl + ", omschrijving=" + omschrijving + ", artikelNummer=" + artikelNummer + ", prijs=" + prijs + ", aantal=" + aantal + ", aantalOnbeschikbaar=" + aantalOnbeschikbaar + ", uitleenbaarheid=" + uitleenbaarheid + ", plaats=" + plaats + ", firma=" + firma + ", emailFirma=" + emailFirma + ", doelgroepen=" + doelgroepen + ", leergebieden=" + leergebieden + ", id=" + id + '}';
+    }
+
 }

@@ -104,11 +104,36 @@ public class MateriaalCatalogus {
 
     }
 
+    /**
+     * Retourneer een materiaal object gebaseerd op de meegegeven naam.
+     * 
+     * @param materiaalNaam
+     * @return 
+     */
     public Materiaal geefMateriaal(String materiaalNaam) {
         Materiaal materiaal = null;
 
         for (Materiaal m : materialen) {
             if (m.getNaam().equals(materiaalNaam)) {
+                materiaal = m;
+                break;
+            }
+        }
+
+        return materiaal;
+    }
+    
+    /**
+     * Retourneer een materiaal object gebaseerd op de meegegeven id.
+     * 
+     * @param id
+     * @return 
+     */
+    public Materiaal geefMateriaalMetId(long id) {
+        Materiaal materiaal = null;
+
+        for (Materiaal m : materialen) {
+            if (m.getId() == id) {
                 materiaal = m;
                 break;
             }
@@ -130,13 +155,36 @@ public class MateriaalCatalogus {
         return matViews;
     }
 
-    private MateriaalView convertMateriaalToMateriaalView(Materiaal m) {
+    public MateriaalView convertMateriaalToMateriaalView(Materiaal m) {
         MateriaalView mv = new MateriaalView(m.getNaam(), m.getAantal());
-        mv.setFotoUrl(m.getFoto()).setOmschrijving(m.getBeschrijving()).setArtikelNummer(m.getArtikelnummer())
-                .setAantalOnbeschikbaar(m.getAantalOnbeschikbaar()).setUitleenbaarheid(m.isUitleenbaarheid())
-                .setPlaats(m.getPlaats()).setFirma(m.getFirma().getNaam()).setEmailFirma(m.getFirma().getEmail())
-                .setDoelgroepen(m.getDoelgroepen()).setLeergebieden(m.getLeergebieden()).setPrijs(m.getPrijs());
+        mv.setFotoUrl(m.getFoto())
+                .setOmschrijving(m.getBeschrijving())
+                .setArtikelNummer(m.getArtikelnummer())
+                .setAantalOnbeschikbaar(m.getAantalOnbeschikbaar())
+                .setUitleenbaarheid(m.isUitleenbaarheid())
+                .setPlaats(m.getPlaats())
+                .setFirma(m.getFirma().getNaam())
+                .setEmailFirma(m.getFirma().getEmail())
+                .setDoelgroepen(m.getDoelgroepen())
+                .setLeergebieden(m.getLeergebieden())
+                .setPrijs(m.getPrijs())
+                .setId(Long.max(m.getId(), 0));
+        
         return mv;
     }
-
+    
+    public void wijsAttributenMateriaalViewToeAanMateriaal(MateriaalView mv, Materiaal materiaal) {
+        materiaal.setAantal(mv.getAantal())
+                .setAantalOnbeschikbaar(mv.getAantalOnbeschikbaar())
+                .setArtikelnummer(mv.getArtikelNummer())
+                .setBeschrijving(mv.getOmschrijving())
+                .setDoelgroepen(mv.getDoelgroepen())
+                .setFirma(firmaRepo.geefFirma(mv.getFirma()))
+                .setFoto(mv.getFotoUrl())
+                .setLeergebieden(mv.getLeergebieden())
+                .setNaam(mv.getNaam())
+                .setPlaats(mv.getPlaats())
+                .setPrijs(mv.getPrijs())
+                .setUitleenbaarheid(mv.isUitleenbaarheid());
+    }
 }

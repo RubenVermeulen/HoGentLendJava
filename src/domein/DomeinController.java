@@ -96,4 +96,8 @@ public class DomeinController {
         return materiaalRepo.geefMaterialenMetFilter(filter);
     }
 
+    public boolean wijzigMateriaal(MateriaalView mv) {
+        return materiaalRepo.wijzigMateriaal(mv);
+    }
+   
 }

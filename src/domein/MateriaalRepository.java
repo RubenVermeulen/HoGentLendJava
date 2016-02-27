@@ -112,7 +112,7 @@ public class MateriaalRepository {
     }
 
     /**
-     * Retourneert materiaal uit de database die hoort bij de meegegeven id.
+     * Retourneert materiaal uit de database die hoort bij de meegegeven naam.
      *
      * @param id
      * @return
@@ -122,6 +122,30 @@ public class MateriaalRepository {
         return materiaalCatalogus.geefMateriaal(materiaalNaam);
         
     }
+    
+    /**
+     * Retourneert materiaal uit de database die hoort bij de meegegeven id.
+     *
+     * @param id
+     * @return
+     */
+    public Materiaal geefMateriaalMetId(long id) {
+        
+        return materiaalCatalogus.geefMateriaalMetId(id);
+        
+    }
+    
+    public MateriaalView geefMateriaalView (String materiaalNaam) {
+        Materiaal materiaal = geefMateriaal(materiaalNaam);
+        MateriaalView materiaalView = null;
+        
+        if (materiaal == null)
+            return materiaalView;
+        
+        materiaalView = materiaalCatalogus.convertMateriaalToMateriaalView(materiaal);
+        
+        return materiaalView;
+    }
 
     public List<MateriaalView> geefMaterialenMetFilter(String filter) {
         
@@ -129,4 +153,19 @@ public class MateriaalRepository {
         
     }
 
+    public boolean wijzigMateriaal(MateriaalView materiaalView) {
+        
+        Materiaal materiaal = materiaalCatalogus.geefMateriaalMetId(materiaalView.getId());
+        
+        if (materiaal == null)
+            return false;
+        
+        em.getTransaction().begin();
+        
+        materiaalCatalogus.wijsAttributenMateriaalViewToeAanMateriaal(materiaalView, materiaal);
+        
+        em.getTransaction().commit();
+        
+        return true;
+    }
 }
