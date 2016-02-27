@@ -47,25 +47,7 @@ public class MateriaalCatalogus {
         System.out.println(prijs);
         
         //Exceptions werpen
-        if (naam == null || naam.isEmpty()) {
-            throw new IllegalArgumentException("naam");
-        }
-
-        if (aantal < 0) {
-            throw new IllegalArgumentException("aantal");
-        }
-
-        if (firmaEmail != null && !firmaEmail.isEmpty() && !firmaEmail.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")) {
-            throw new IllegalArgumentException("emailFirma");
-        }
-
-        if (prijs < 0) {
-            throw new IllegalArgumentException("prijs");
-        }
-
-        if (aantalOnbeschikbaar < 0) {
-            throw new IllegalArgumentException("onbeschikbaar");
-        }
+        validatieMateriaalView(naam, aantal, firmaEmail, prijs, aantalOnbeschikbaar);
 
         Materiaal materiaal = new Materiaal(naam, aantal);
 
@@ -174,6 +156,23 @@ public class MateriaalCatalogus {
     }
     
     public void wijsAttributenMateriaalViewToeAanMateriaal(MateriaalView mv, Materiaal materiaal) {
+        
+        String naam = mv.getNaam();
+        int aantal = mv.getAantal();
+        String firmaEmail = mv.getEmailFirma();
+        String firmanaam = mv.getFirma();
+        double prijs = mv.getPrijs();
+        int aantalOnbeschikbaar = mv.getAantalOnbeschikbaar();
+        
+        // Valideer de gegevens
+        validatieMateriaalView(naam, aantal, firmaEmail, prijs, aantalOnbeschikbaar);
+        
+        Firma firma = firmaRepo.geefFirma(firmanaam);
+        
+        if (firma == null) {
+            firma = firmaRepo.voegFirmaToe(firmanaam, firmaEmail);
+        }
+        
         materiaal.setAantal(mv.getAantal())
                 .setAantalOnbeschikbaar(mv.getAantalOnbeschikbaar())
                 .setArtikelnummer(mv.getArtikelNummer())
@@ -186,5 +185,28 @@ public class MateriaalCatalogus {
                 .setPlaats(mv.getPlaats())
                 .setPrijs(mv.getPrijs())
                 .setUitleenbaarheid(mv.isUitleenbaarheid());
+    }
+    
+    public void validatieMateriaalView(String naam, int aantal, String firmaEmail, double prijs, int aantalOnbeschikbaar) {
+        //Exceptions werpen
+        if (naam == null || naam.isEmpty()) {
+            throw new IllegalArgumentException("naam");
+        }
+
+        if (aantal < 0) {
+            throw new IllegalArgumentException("aantal");
+        }
+
+        if (firmaEmail != null && !firmaEmail.isEmpty() && !firmaEmail.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")) {
+            throw new IllegalArgumentException("emailFirma");
+        }
+
+        if (prijs < 0) {
+            throw new IllegalArgumentException("prijs");
+        }
+
+        if (aantalOnbeschikbaar < 0) {
+            throw new IllegalArgumentException("onbeschikbaar");
+        }
     }
 }
