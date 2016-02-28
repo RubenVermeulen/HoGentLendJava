@@ -227,4 +227,12 @@ public class MateriaalCatalogus {
     private List<String> groepListToString(List<Groep> groepen){
        return groepen.stream().map(g -> g.getGroep()).collect(Collectors.toList());
     }
+
+    public List<Groep> geefAlleLeergebieden() {
+        return groepRepo.getLeergebieden();
+    }
+
+    public List<Groep> geefAlleDoelgroepen() {
+        return groepRepo.getDoelgroepen();
+    }
 }

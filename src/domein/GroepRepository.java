@@ -24,7 +24,7 @@ public class GroepRepository {
         groepen = (List<Groep>) q.getResultList();
     }
 
-    public List<Groep> getLeergroepen() {
+    public List<Groep> getLeergebieden() {
         return groepen.stream().filter(g -> g.isIsLeerGroep()).collect(Collectors.toList());
     }    
     
@@ -34,7 +34,7 @@ public class GroepRepository {
 
     public List<Groep> geefLeergroepen(List<String> groep) {
         List<Groep> result = new ArrayList<>();
-        for(Groep lg : getLeergroepen()){
+        for(Groep lg : getLeergebieden()){
             for (String str : groep){
                 if (str.equalsIgnoreCase(lg.getGroep())){
                     result.add(lg);

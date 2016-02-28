@@ -174,4 +174,12 @@ public class MateriaalRepository {
         
         return true;
     }
+
+    public List<Groep> geefAlleDoelgroepen() {
+        return materiaalCatalogus.geefAlleDoelgroepen();
+    }
+
+    public List<Groep> geefAlleLeergebieden() {
+        return materiaalCatalogus.geefAlleLeergebieden();
+    }
 }

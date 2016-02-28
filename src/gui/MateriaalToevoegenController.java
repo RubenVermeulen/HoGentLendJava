@@ -4,6 +4,7 @@ import domein.DomeinController;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,9 +46,9 @@ public class MateriaalToevoegenController extends BorderPane {
     @FXML
     private TextArea beschrijving;
     @FXML
-    private ComboBox<?> doelgroepen;
+    private ComboBox<String> doelgroepen;
     @FXML
-    private ComboBox<?> leergroepen;
+    private ComboBox<String> leergroepen;
     @FXML
     private TextField firma;
     @FXML
@@ -84,6 +85,7 @@ public class MateriaalToevoegenController extends BorderPane {
             throw new RuntimeException(e);
         }
 
+        setupGroepen();
     }
 
     @FXML
@@ -114,6 +116,13 @@ public class MateriaalToevoegenController extends BorderPane {
         stage.setScene(scene);
     }
 
+    private void setupGroepen(){
+        List<String> doelGroepenStr = dc.geefAlleDoelgroepen();
+        List<String> leergebiedenStr = dc.geefAlleLeergebieden();
+        doelgroepen.getItems().addAll(doelGroepenStr);
+        leergroepen.getItems().addAll(leergebiedenStr);
+    }
+    
     private void voegMateriaalToe() {
         try {
 

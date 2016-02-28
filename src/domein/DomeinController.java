@@ -3,6 +3,7 @@ package domein;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import shared.MateriaalView;
 
 public class DomeinController {
@@ -99,5 +100,16 @@ public class DomeinController {
     public boolean wijzigMateriaal(MateriaalView mv) {
         return materiaalRepo.wijzigMateriaal(mv);
     }
-   
+
+    public List<String> geefAlleDoelgroepen() {
+        return groepListToString(materiaalRepo.geefAlleDoelgroepen());
+    }
+
+    public List<String> geefAlleLeergebieden() {
+        return groepListToString(materiaalRepo.geefAlleLeergebieden());
+    }
+    
+    private List<String> groepListToString(List<Groep> groepen){
+       return groepen.stream().map(g -> g.getGroep()).collect(Collectors.toList());
+    }
 }
