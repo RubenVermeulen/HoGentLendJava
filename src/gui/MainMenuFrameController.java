@@ -128,6 +128,11 @@ public class MainMenuFrameController extends BorderPane {
     }
 
     @FXML
+    private void onActionTxfZoekMateriaalFilter(ActionEvent event){
+        onBtnZoekMateriaalAction(event);
+    }
+    
+    @FXML
     private void onActionBtnZoekLectoren(ActionEvent event) {
     }
 
