@@ -67,10 +67,10 @@ public class StartUp extends Application {
             .setAantalOnbeschikbaar(0)
             .setArtikelnummer("B54879")
             .setBeschrijving("Deze mooie wereldbol met verlichting heeft 25 cm doorsnee en werkt op stroom.")
-            .setDoelgroepen(new ArrayList<Groep>(doelgroepen))
+        //    .setDoelgroepen(new ArrayList<Groep>(doelgroepen))
             .setFirma(firma)
             .setFoto("default_materiaal_img.jpg")
-            .setLeergebieden(new ArrayList<Groep>(leergroepen))
+          //  .setLeergebieden(new ArrayList<Groep>(leergroepen))
             .setPlaats("Lokaal B4.035")
             .setPrijs(19.99)
             .setUitleenbaarheid(true),
