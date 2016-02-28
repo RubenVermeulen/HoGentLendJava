@@ -31,7 +31,7 @@ public class MateriaalToevoegenInBulkController extends BorderPane {
     private DomeinController domCon;
 
     @FXML
-    private TextField urlExcel;
+    private TextField urlCsv;
     @FXML
     private Button kiesFotoKnop;
     @FXML
@@ -55,7 +55,7 @@ public class MateriaalToevoegenInBulkController extends BorderPane {
 
     @FXML
     private void excelbestandKiezenOnAction(ActionEvent event) {
-    kiesExcelbestand();
+    kiesCsvbestand();
     
     }
 
@@ -69,16 +69,16 @@ public class MateriaalToevoegenInBulkController extends BorderPane {
 
     @FXML
     private void voegMateriaalToeOnAction(ActionEvent event) {
-    domCon.voegMaterialenToeInBulk(urlExcel.getText());
+    domCon.voegMaterialenToeInBulk(urlCsv.getText());
     
     }
 
     
-    private void kiesExcelbestand() {
+    private void kiesCsvbestand() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open afbeelding bestand");
         File file = fileChooser.showOpenDialog(new Stage());
-        urlExcel.setText(file.getPath());
+        urlCsv.setText(file.getPath());
     }
     
     
