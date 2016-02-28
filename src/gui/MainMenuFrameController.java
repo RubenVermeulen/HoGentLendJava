@@ -30,6 +30,8 @@ public class MainMenuFrameController extends BorderPane {
     private Label lblEmailInfo;
     @FXML
     private TextField txfZoekMateriaalFilter;
+    @FXML
+    private TextField txfZoekLectoren;
 
     public MainMenuFrameController(DomeinController domCon) {
         this.domCon = domCon;
@@ -123,6 +125,18 @@ public class MainMenuFrameController extends BorderPane {
         List<MateriaalView> mvs = domCon.geefMaterialenMetFilter(txfZoekMateriaalFilter.getText());
         System.out.println(mvs);
         setupMaterials(mvs);
+    }
+
+    @FXML
+    private void onActionBtnZoekLectoren(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionBtnStelAanAlsBeheerder(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionBtnVerwijderBeheerder(ActionEvent event) {
     }
 
 }
