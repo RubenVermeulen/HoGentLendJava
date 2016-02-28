@@ -115,7 +115,7 @@ public class MateriaalBoxController extends VBox {
         }
         
         if (isNotEmpty(mv.getLeergebieden())) {
-            lblDoelGroepen.setText(mv.getLeergebieden().stream().collect(Collectors.joining(", ")));
+            lblLeergebieden.setText(mv.getLeergebieden().stream().collect(Collectors.joining(", ")));
         }
         
         if (isNotEmpty(mv.getFirma())) {

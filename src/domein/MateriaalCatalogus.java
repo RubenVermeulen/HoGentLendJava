@@ -29,9 +29,9 @@ public class MateriaalCatalogus {
 
     public void loadMaterialen(List<Materiaal> materialen) {
         this.materialen = materialen;
-        materialen.get(0).getLeergebieden().size();
-        materialen.get(0).getDoelgroepen().size();
+     
         System.out.println(materialen);
+        
     }
 
     public Materiaal voegMateriaalToe(MateriaalView mv) {
