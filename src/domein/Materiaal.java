@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -41,9 +42,11 @@ public class Materiaal {
     private String plaats;
     
     @ManyToMany
+    @JoinTable(name = "materiaal_doelgroepen")
     private List<Groep> doelgroepen;
     
     @ManyToMany
+    @JoinTable(name = "materiaal_leergebieden")
     private List<Groep> leergebieden;
     
     protected Materiaal() {
