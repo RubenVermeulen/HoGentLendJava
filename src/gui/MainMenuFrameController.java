@@ -115,6 +115,15 @@ public class MainMenuFrameController extends BorderPane {
     }
     
     @FXML
+    private void onActionVoegToeInBulk(ActionEvent event){
+        Stage stage = (Stage) getScene().getWindow();
+        Scene scene = new Scene(new MateriaalToevoegenInBulkController(domCon));
+        stage.setScene(scene);        
+    }
+    
+    
+    
+    @FXML
     private void menuActionAfsluiten(ActionEvent event) {
         Platform.exit();
     }

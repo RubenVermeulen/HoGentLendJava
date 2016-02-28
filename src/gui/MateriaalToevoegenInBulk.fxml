@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="778.0" prefWidth="818.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MateriaalToevoegenInBulkController">
+   <center>
+      <VBox prefHeight="482.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="226.0" prefWidth="818.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="68.0" prefWidth="819.0" text="Voeg materiaal toe in bulk">
+                     <font>
+                        <Font name="System Bold" size="40.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="785.0" prefWidth="818.0">
+               <children>
+                  <VBox prefHeight="778.0" prefWidth="486.0" style="-fx-border-color: #DBDBDB; -fx-border-width: 2 2 2 2;">
+                     <children>
+                        <HBox prefHeight="223.0" prefWidth="393.0">
+                           <children>
+                              <VBox>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <children>
+                                    <TextField id="urlFoto" fx:id="urlExcel" promptText="url van het excelbestand">
+                                       <VBox.margin>
+                                          <Insets top="100.0" />
+                                       </VBox.margin>
+                                    </TextField>
+                                    <Button fx:id="kiesFotoKnop" mnemonicParsing="false" onAction="#excelbestandKiezenOnAction" prefHeight="33.0" prefWidth="150.0" text="Kies excelbestand">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="626.0" prefWidth="492.0" style="-fx-border-color: #DBDBDB; -fx-border-width: 2 2 2 0;">
+                     <children>
+                        <VBox prefHeight="255.0" prefWidth="388.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="245.0" prefWidth="818.0">
+               <children>
+                  <Button id="gaTerugKnop" fx:id="gaTerugKnop" cancelButton="true" mnemonicParsing="false" onAction="#gaTerugOnAction" prefHeight="41.0" prefWidth="152.0" text="Ga terug zonder opslaan">
+                     <HBox.margin>
+                        <Insets left="250.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button id="voegToeKnop" fx:id="voegToeKnop" mnemonicParsing="false" onAction="#voegMateriaalToeOnAction" prefHeight="40.0" prefWidth="150.0" text="Voeg materiaal toe">
+                     <HBox.margin>
+                        <Insets left="10.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</fx:root>
