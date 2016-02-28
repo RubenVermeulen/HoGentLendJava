@@ -48,4 +48,9 @@ public class Groep {
     private boolean hasFilter(String string, String filter){
         return string != null && string.toLowerCase().contains(filter.toLowerCase());
     }     
+
+    @Override
+    public String toString() {
+        return "Groep{" + "id=" + id + ", groep=" + groep + ", isLeerGroep=" + isLeerGroep + '}';
+    }    
 }

@@ -1,7 +1,9 @@
 package domein;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,13 +43,15 @@ public class Materiaal {
     private boolean uitleenbaarheid;
     private String plaats;
     
-    @ManyToMany
-    @JoinTable(name = "materiaal_doelgroepen")
-    private List<Groep> doelgroepen;
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name = "materiaal_doelgroepen", joinColumns = @JoinColumn(name = "materiaal_id"),
+               inverseJoinColumns = @JoinColumn(name = "doelgroep_id"))
+    private List<Groep> doelgroepen = new ArrayList();
     
-    @ManyToMany
-    @JoinTable(name = "materiaal_leergebieden")
-    private List<Groep> leergebieden;
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name = "materiaal_leergebieden", joinColumns = @JoinColumn(name = "materiaal_id"),
+               inverseJoinColumns = @JoinColumn(name = "leergebied_id"))
+    private List<Groep> leergebieden= new ArrayList();;
     
     protected Materiaal() {
         // default constructor for jpa
@@ -212,8 +216,7 @@ public class Materiaal {
 
     @Override
     public String toString() {
-        return "Materiaal{" + "id=" + id + ", firma=" + firma + ", foto=" + foto + ", naam=" + naam + ", beschrijving=" + beschrijving + ", artikelnummer=" + artikelnummer + ", prijs=" + prijs + ", aantal=" + aantal + ", aantalOnbeschikbaar=" + aantalOnbeschikbaar + ", uitleenbaarheid=" + uitleenbaarheid + ", plaats=" + plaats + ", doelgroepen=" + doelgroepen + ", leergroepen=" + leergebieden + '}';
+        return "Materiaal{" + "id=" + id + ", firma=" + firma + ", foto=" + foto + ", naam=" + naam + ", beschrijving=" + beschrijving + ", artikelnummer=" + artikelnummer + ", prijs=" + prijs + ", aantal=" + aantal + ", aantalOnbeschikbaar=" + aantalOnbeschikbaar + ", uitleenbaarheid=" + uitleenbaarheid + ", plaats=" + plaats + ", doelgroepen=" + doelgroepen + ", leergebieden=" + leergebieden + '}';
     }
 
-    
 }
