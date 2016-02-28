@@ -40,16 +40,25 @@
         <tabs>
           <Tab text="Materiaal Beheer">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="669.0" prefWidth="1257.0">
+                  <HBox spacing="20.0">
                      <children>
-                        <VBox layoutX="1020.0" layoutY="18.0" prefHeight="379.0" prefWidth="250.0">
+                        <ScrollPane hbarPolicy="NEVER" minWidth="970.0" prefHeight="689.0" prefWidth="990.0" vbarPolicy="ALWAYS">
+                           <content>
+                              <VBox fx:id="materialenBox" prefHeight="687.0" prefWidth="988.0" />
+                           </content>
+                        </ScrollPane>
+                        <VBox minWidth="250.0" prefHeight="379.0" prefWidth="250.0">
                            <children>
                               <Label fx:id="lblWelkomInfo" prefHeight="52.0" prefWidth="230.0" text="Welkom !" wrapText="true" />
                               <Label fx:id="lblEmailInfo" prefHeight="51.0" prefWidth="230.0" text="Email: " wrapText="true" />
-                              <Button mnemonicParsing="false" onAction="#onActionVoegMateriaalToe" prefHeight="33.0" prefWidth="245.0" text="Voeg nieuw materiaal toe" />
+                              <Button mnemonicParsing="false" onAction="#onActionVoegMateriaalToe" prefHeight="33.0" prefWidth="245.0" text="Voeg nieuw materiaal toe">
+                                 <VBox.margin>
+                                    <Insets top="30.0" />
+                                 </VBox.margin>
+                              </Button>
                               <TextField fx:id="txfZoekMateriaalFilter" onAction="#onActionTxfZoekMateriaalFilter" promptText="materiaal zoeken...">
                                  <VBox.margin>
-                                    <Insets top="20.0" />
+                                    <Insets top="40.0" />
                                  </VBox.margin>
                               </TextField>
                               <Button mnemonicParsing="false" onAction="#onBtnZoekMateriaalAction" prefHeight="26.0" prefWidth="250.0" text="Zoek materiaal">
@@ -59,12 +68,11 @@
                               </Button>
                            </children>
                         </VBox>
-                        <ScrollPane hbarPolicy="NEVER" layoutX="14.0" layoutY="14.0" prefHeight="689.0" prefWidth="990.0" vbarPolicy="ALWAYS">
-                           <content>
-                              <VBox fx:id="materialenBox" prefHeight="687.0" prefWidth="988.0" />
-                           </content></ScrollPane>
                      </children>
-                  </AnchorPane>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </HBox>
             </content>
           </Tab>
           <Tab text="Reservatie Beheer">
