@@ -61,11 +61,17 @@ public class MateriaalRepository {
             
             matView.setAantalOnbeschikbaar(aantalOnbeschikbaar);
             matView.setArtikelNummer(artikelNummer);
-            matView.setDoelgroepen(doelgroepen);
+            
+            //  TODO: fix this
+         //   matView.setDoelgroepen(doelgroepen);
+            
             matView.setEmailFirma(emailFirma);
             matView.setFirma(firma);
             matView.setFotoUrl(fotoUrl);
-            matView.setLeergebieden(leergebieden);
+            
+            // TODO: fix this
+           // matView.setLeergebieden(leergebieden);
+            
             matView.setOmschrijving(omschrijving);
             matView.setPlaats(plaats);
             matView.setPrijs(prijs);

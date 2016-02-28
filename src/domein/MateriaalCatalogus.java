@@ -8,6 +8,7 @@ package domein;
 import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import shared.MateriaalView;
 
 /**
@@ -18,10 +19,12 @@ public class MateriaalCatalogus {
 
     private List<Materiaal> materialen;
     private FirmaRepository firmaRepo;
+    private GroepRepository groepRepo;
 
     public MateriaalCatalogus() {
         firmaRepo = new FirmaRepository();
         materialen = new ArrayList<>();
+        groepRepo = new GroepRepository();
     }
 
     public void loadMaterialen(List<Materiaal> materialen) {
@@ -41,8 +44,8 @@ public class MateriaalCatalogus {
         int aantalOnbeschikbaar = mv.getAantalOnbeschikbaar();
         boolean uitleenbaarheid = mv.isUitleenbaarheid();
         String plaats = mv.getPlaats();
-        String doelgroepen = mv.getDoelgroepen();
-        String leergebieden = mv.getLeergebieden();
+        List<String> doelgroepenStr = mv.getDoelgroepen();
+        List<String> leergebiedenStr = mv.getLeergebieden();
 
         System.out.println(prijs);
         
@@ -57,12 +60,16 @@ public class MateriaalCatalogus {
         if (firma == null) {
             firma = firmaRepo.voegFirmaToe(firmaNaam, firmaEmail);
         }
+        
+        List<Groep> doelGroepen = groepRepo.geefDoelgroep(doelgroepenStr);
+        List<Groep> leerGroepen = groepRepo.geefDoelgroep(leergebiedenStr);
+        
 
         //maak materiaal aan met gegevens uit de MateriaalView
         materiaal.setFoto(fotoUrl).setBeschrijving(beschrijving).setArtikelnummer(artikelnummer)
                 .setPrijs(prijs).setAantalOnbeschikbaar(aantalOnbeschikbaar).setUitleenbaarheid(uitleenbaarheid)
-                .setPlaats(plaats).setDoelgroepen(doelgroepen).setFirma(firma)
-                .setLeergebieden(leergebieden);
+                .setPlaats(plaats).setDoelgroepen(doelGroepen).setFirma(firma)
+                .setLeergebieden(leerGroepen);
 
         //voeg materiaal toe aan repo
         materialen.add(materiaal);
@@ -147,8 +154,8 @@ public class MateriaalCatalogus {
                 .setPlaats(m.getPlaats())
                 .setFirma(m.getFirma().getNaam())
                 .setEmailFirma(m.getFirma().getEmail())
-                .setDoelgroepen(m.getDoelgroepen())
-                .setLeergebieden(m.getLeergebieden())
+                .setDoelgroepen(groepListToString(m.getDoelgroepen()))
+                .setLeergebieden(groepListToString(m.getLeergebieden()))
                 .setPrijs(m.getPrijs())
                 .setId(Long.max(m.getId(), 0));
         
@@ -163,6 +170,8 @@ public class MateriaalCatalogus {
         String firmanaam = mv.getFirma();
         double prijs = mv.getPrijs();
         int aantalOnbeschikbaar = mv.getAantalOnbeschikbaar();
+        List<String> doelgroepenStr = mv.getDoelgroepen();
+        List<String> leergebiedenStr = mv.getLeergebieden();
         
         // Valideer de gegevens
         validatieMateriaalView(naam, aantal, firmaEmail, prijs, aantalOnbeschikbaar);
@@ -172,15 +181,17 @@ public class MateriaalCatalogus {
         if (firma == null) {
             firma = firmaRepo.voegFirmaToe(firmanaam, firmaEmail);
         }
+        List<Groep> doelGroepen = groepRepo.geefDoelgroep(doelgroepenStr);
+        List<Groep> leerGroepen = groepRepo.geefDoelgroep(leergebiedenStr);
         
         materiaal.setAantal(mv.getAantal())
                 .setAantalOnbeschikbaar(mv.getAantalOnbeschikbaar())
                 .setArtikelnummer(mv.getArtikelNummer())
                 .setBeschrijving(mv.getOmschrijving())
-                .setDoelgroepen(mv.getDoelgroepen())
+                .setDoelgroepen(doelGroepen)
                 .setFirma(firmaRepo.geefFirma(mv.getFirma()))
                 .setFoto(mv.getFotoUrl())
-                .setLeergebieden(mv.getLeergebieden())
+                .setLeergebieden(leerGroepen)
                 .setNaam(mv.getNaam())
                 .setPlaats(mv.getPlaats())
                 .setPrijs(mv.getPrijs())
@@ -208,5 +219,9 @@ public class MateriaalCatalogus {
         if (aantalOnbeschikbaar < 0) {
             throw new IllegalArgumentException("onbeschikbaar");
         }
+    }
+    
+    private List<String> groepListToString(List<Groep> groepen){
+       return groepen.stream().map(g -> g.getGroep()).collect(Collectors.toList());
     }
 }

@@ -1,10 +1,14 @@
 package domein;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -33,9 +37,10 @@ public class Materiaal {
     private int aantalOnbeschikbaar;
     private boolean uitleenbaarheid;
     private String plaats;
-    private String doelgroepen;
-    private String leergebieden;
-
+    
+    @ManyToMany
+    private List<Groep> groepen;
+    
     protected Materiaal() {
         // default constructor for jpa
     }
@@ -96,13 +101,23 @@ public class Materiaal {
         return this;
     }
 
-    public Materiaal setDoelgroepen(String doelgroepen) {
-        this.doelgroepen = doelgroepen;
+    public Materiaal setDoelgroepen(List<Groep> doelgroepen) {
+        if (groepen != null){
+            groepen = getLeergebieden();
+            groepen.addAll(doelgroepen);
+        }else{
+            groepen = doelgroepen;
+        }
         return this;
     }
 
-    public Materiaal setLeergebieden(String leergebieden) {
-        this.leergebieden = leergebieden;
+    public Materiaal setLeergebieden(List<Groep> leergebieden) {
+        if (groepen != null){
+            groepen = getDoelgroepen();
+            groepen.addAll(leergebieden);
+        }else{
+            groepen = leergebieden;
+        }
         return this;
     }
 
@@ -150,22 +165,29 @@ public class Materiaal {
         return plaats;
     }
 
-    public String getDoelgroepen() {
-        return doelgroepen;
+    public List<Groep> getDoelgroepen() {
+        if (groepen == null) return null;
+        return groepen.stream().filter(g -> !g.isIsLeerGroep()).collect(Collectors.toList());
     }
 
-    public String getLeergebieden() {
-        return leergebieden;
+    public List<Groep> getLeergebieden() {
+        if (groepen == null) return null;
+        return groepen.stream().filter(g -> g.isIsLeerGroep()).collect(Collectors.toList());
     }
 
     public boolean containsFilter(String filter) {
-        return firma.containsFilter(filter)
+        boolean hasGroepFilter = false;
+        if (groepen != null){
+            for(Groep g : groepen){
+                hasGroepFilter = g.containsFilter(filter);
+                if (hasGroepFilter) break;
+            }
+        }
+        return hasGroepFilter || (firma != null && firma.containsFilter(filter))
                 || hasFilter(naam, filter)
                 || hasFilter(beschrijving, filter)
                 || hasFilter(artikelnummer, filter)
-                || hasFilter(plaats, filter)
-                || hasFilter(doelgroepen, filter)
-                || hasFilter(leergebieden, filter);
+                || hasFilter(plaats, filter);
     }
     
     private boolean hasFilter(String string, String filter){
@@ -174,8 +196,6 @@ public class Materiaal {
 
     @Override
     public String toString() {
-        return "Materiaal{" + "id=" + id + ", firma=" + firma + ", foto=" + foto + ", naam=" + naam + ", beschrijving=" + beschrijving + ", artikelnummer=" + artikelnummer + ", prijs=" + prijs + ", aantal=" + aantal + ", aantalOnbeschikbaar=" + aantalOnbeschikbaar + ", uitleenbaarheid=" + uitleenbaarheid + ", plaats=" + plaats + ", doelgroepen=" + doelgroepen + ", leergebieden=" + leergebieden + '}';
+        return "Materiaal{" + "id=" + id + ", firma=" + firma + ", foto=" + foto + ", naam=" + naam + ", beschrijving=" + beschrijving + ", artikelnummer=" + artikelnummer + ", prijs=" + prijs + ", aantal=" + aantal + ", aantalOnbeschikbaar=" + aantalOnbeschikbaar + ", uitleenbaarheid=" + uitleenbaarheid + ", plaats=" + plaats + ", groepen=" + groepen + '}';
     }
-
-    
 }

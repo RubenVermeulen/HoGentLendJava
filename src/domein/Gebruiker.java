@@ -9,10 +9,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "gebruikers")
-@NamedQuery(
-        name = "findAllGebruikers",
-        query = "SELECT g FROM Gebruiker g"
-)
 public class Gebruiker {
 
     @Id

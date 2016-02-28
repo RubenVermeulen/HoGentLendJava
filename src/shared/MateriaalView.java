@@ -5,6 +5,7 @@
  */
 package shared;
 
+import domein.Groep;
 import java.util.List;
 
 /**
@@ -24,8 +25,8 @@ public class MateriaalView {
     private String plaats;
     private String firma;
     private String emailFirma;
-    private String doelgroepen;
-    private String leergebieden;
+    private List<String> doelgroepen;
+    private  List<String> leergebieden;
     private long id;
 
     public MateriaalView(String naam, int aantal) {
@@ -81,13 +82,13 @@ public class MateriaalView {
         return this;
     }
 
-    public MateriaalView setDoelgroepen(String Doelgroepen) {
-        this.doelgroepen = Doelgroepen;
+    public MateriaalView setDoelgroepen(List<String> doelgroepen) {
+        this.doelgroepen = doelgroepen;
         return this;
     }
 
-    public MateriaalView setLeergebieden(String Leergebieden) {
-        this.leergebieden = Leergebieden;
+    public MateriaalView setLeergebieden(List<String> leergebieden) {
+        this.leergebieden = leergebieden;
         return this;
     }
 
@@ -146,11 +147,11 @@ public class MateriaalView {
         return emailFirma;
     }
 
-    public String getDoelgroepen() {
+    public List<String> getDoelgroepen() {
         return doelgroepen;
     }
 
-    public String getLeergebieden() {
+    public List<String> getLeergebieden() {
         return leergebieden;
     }
 

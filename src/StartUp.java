@@ -2,8 +2,12 @@
 import domein.DomeinController;
 import domein.Firma;
 import domein.Gebruiker;
+import domein.Groep;
 import domein.Materiaal;
 import gui.LoginFrameController;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -43,18 +47,30 @@ public class StartUp extends Application {
         // Materialen aanmaken
         Firma firma = new Firma("Goaty Enterprise");
         firma.setEmail("info@goatyenterprise.be");
-
+        
         em.persist(firma);
-
+        
+        Groep leergroep = new Groep("een leergroep",true);
+        em.persist(leergroep);
+        
+        Groep doelgroep = new Groep("een doelgroep", false);
+        em.persist(doelgroep);
+        
+        List<Groep> leergroepen = new ArrayList<Groep>();
+        leergroepen.add(leergroep);
+        
+        List<Groep> doelgroepen = new ArrayList<Groep>();
+        doelgroepen.add(doelgroep);
+        
         Materiaal[] materialen = {
             new Materiaal("Wereldbol", 10)
             .setAantalOnbeschikbaar(0)
             .setArtikelnummer("B54879")
             .setBeschrijving("Deze mooie wereldbol met verlichting heeft 25 cm doorsnee en werkt op stroom.")
-            .setDoelgroepen("Liefhebbers voor wereldkennis, Schatzoekers")
+            .setDoelgroepen(new ArrayList<Groep>(doelgroepen))
             .setFirma(firma)
             .setFoto("default_materiaal_img.jpg")
-            .setLeergebieden("Aardrijkskunde")
+            .setLeergebieden(new ArrayList<Groep>(leergroepen))
             .setPlaats("Lokaal B4.035")
             .setPrijs(19.99)
             .setUitleenbaarheid(true),
@@ -62,10 +78,10 @@ public class StartUp extends Application {
             .setAantalOnbeschikbaar(2)
             .setArtikelnummer("A12345")
             .setBeschrijving("Zou u wel eens een tijdreis willen maken tussen de provincie Noord-Holland van nu en het Noord-Holland van 1959? Hoe zag uw provincie er toen uit, hoe zag uw dorp of stad er uit? En wat is er allemaal veranderd in die 50 jaar? Met de Topografische DubbelAtlas van Utrecht ziet u het - letterlijk - in één oogopslag.")
-            .setDoelgroepen("Liefhebbers voor wereldkennis, Schatzoekers")
+            .setDoelgroepen(new ArrayList<Groep>(doelgroepen))
             .setFirma(firma)
             .setFoto("default_materiaal_img.jpg")
-            .setLeergebieden("Aardrijkskunde")
+            .setLeergebieden(new ArrayList<Groep>(leergroepen))
             .setPlaats("Lokaal B4.035")
             .setPrijs(49.99)
             .setUitleenbaarheid(true),
@@ -73,10 +89,10 @@ public class StartUp extends Application {
             .setAantalOnbeschikbaar(0)
             .setArtikelnummer("A64645")
             .setBeschrijving("De wetenschappelijke rekenmachine FX-92 van Casio is de perfecte metgezel voor op school.")
-            .setDoelgroepen("Wiskunde fanaten, wetenschappers")
+            .setDoelgroepen(new ArrayList<Groep>(doelgroepen))
             .setFirma(firma)
             .setFoto("default_materiaal_img.jpg")
-            .setLeergebieden("Wiskunde, Chemie, Fysica, Economie")
+            .setLeergebieden(new ArrayList<Groep>(leergroepen))
             .setPlaats("Lokaal B4.035")
             .setPrijs(27.95)
             .setUitleenbaarheid(false),
@@ -84,10 +100,10 @@ public class StartUp extends Application {
             .setAantalOnbeschikbaar(0)
             .setArtikelnummer("B54879")
             .setBeschrijving("Deze mooie wereldbol met verlichting heeft 25 cm doorsnee en werkt op stroom.")
-            .setDoelgroepen("Liefhebbers voor wereldkennis, Schatzoekers")
+            .setDoelgroepen(new ArrayList<Groep>(doelgroepen))
             .setFirma(firma)
             .setFoto("default_materiaal_img.jpg")
-            .setLeergebieden("Aardrijkskunde")
+            .setLeergebieden(new ArrayList<Groep>(leergroepen))
             .setPlaats("Lokaal B4.035")
             .setPrijs(19.99)
             .setUitleenbaarheid(true),
@@ -95,10 +111,10 @@ public class StartUp extends Application {
             .setAantalOnbeschikbaar(2)
             .setArtikelnummer("A12345")
             .setBeschrijving("Zou u wel eens een tijdreis willen maken tussen de provincie Noord-Holland van nu en het Noord-Holland van 1959? Hoe zag uw provincie er toen uit, hoe zag uw dorp of stad er uit? En wat is er allemaal veranderd in die 50 jaar? Met de Topografische DubbelAtlas van Utrecht ziet u het - letterlijk - in één oogopslag.")
-            .setDoelgroepen("Liefhebbers voor wereldkennis, Schatzoekers")
+            .setDoelgroepen(new ArrayList<Groep>(doelgroepen))
             .setFirma(firma)
             .setFoto("default_materiaal_img.jpg")
-            .setLeergebieden("Aardrijkskunde")
+            .setLeergebieden(new ArrayList<Groep>(leergroepen))
             .setPlaats("Lokaal B4.035")
             .setPrijs(49.99)
             .setUitleenbaarheid(true),
@@ -106,13 +122,13 @@ public class StartUp extends Application {
             .setAantalOnbeschikbaar(0)
             .setArtikelnummer("A64645")
             .setBeschrijving("De wetenschappelijke rekenmachine FX-92 van Casio is de perfecte metgezel voor op school.")
-            .setDoelgroepen("Wiskunde fanaten, wetenschappers")
+            .setDoelgroepen(new ArrayList<Groep>(doelgroepen))
             .setFirma(firma)
             .setFoto("default_materiaal_img.jpg")
-            .setLeergebieden("Wiskunde, Chemie, Fysica, Economie")
+            .setLeergebieden(new ArrayList<Groep>(leergroepen))
             .setPlaats("Lokaal B4.035")
             .setPrijs(27.95)
-            .setUitleenbaarheid(false),};
+            .setUitleenbaarheid(false)};
 
         for (Materiaal m : materialen) {
             em.persist(m);

@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -44,9 +45,9 @@ public class MateriaalToevoegenController extends BorderPane {
     @FXML
     private TextArea beschrijving;
     @FXML
-    private TextField doelgroepen;
+    private ComboBox<?> doelgroepen;
     @FXML
-    private TextField leergroepen;
+    private ComboBox<?> leergroepen;
     @FXML
     private TextField firma;
     @FXML
@@ -128,13 +129,15 @@ public class MateriaalToevoegenController extends BorderPane {
 
             matView.setArtikelNummer(artikelcode.getText());
 
-            matView.setDoelgroepen(doelgroepen.getText());
+            //            matView.setDoelgroepen(doelgroepen.getText());
 
             matView.setEmailFirma(emailfirma.getText());
 
             matView.setFirma(firma.getText());
             matView.setFotoUrl(urlFoto.getText());
-            matView.setLeergebieden(leergroepen.getText());
+            
+//            matView.setLeergebieden(leergroepen.getText());
+
             matView.setOmschrijving(beschrijving.getText());
             matView.setPlaats(locatie.getText());
             if (prijs.getText() != null && !prijs.getText().isEmpty()) {
@@ -169,6 +172,14 @@ public class MateriaalToevoegenController extends BorderPane {
             }
 
         }
+    }
+
+    @FXML
+    private void onBtnActionDoelgroepen(ActionEvent event) {
+    }
+
+    @FXML
+    private void onBtnActionLeergroepen(ActionEvent event) {
     }
 
 }
