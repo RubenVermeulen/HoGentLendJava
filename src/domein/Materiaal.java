@@ -11,7 +11,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "materialen")
@@ -39,7 +41,10 @@ public class Materiaal {
     private String plaats;
     
     @ManyToMany
-    private List<Groep> groepen;
+    private List<Groep> doelgroepen;
+    
+    @ManyToMany
+    private List<Groep> leergebieden;
     
     protected Materiaal() {
         // default constructor for jpa
@@ -102,23 +107,41 @@ public class Materiaal {
     }
 
     public Materiaal setDoelgroepen(List<Groep> doelgroepen) {
-        if (groepen != null){
-            groepen = getLeergebieden();
-            groepen.addAll(doelgroepen);
+        this.doelgroepen = doelgroepen;
+        
+       /* if (groepen != null){
+            List<Groep> tgroepen = getLeergebieden();
+            tgroepen.addAll(doelgroepen);
+            setGroepen(tgroepen);
         }else{
-            groepen = doelgroepen;
-        }
+            setGroepen(doelgroepen);
+        }*/
         return this;
     }
 
     public Materiaal setLeergebieden(List<Groep> leergebieden) {
-        if (groepen != null){
-            groepen = getDoelgroepen();
-            groepen.addAll(leergebieden);
-        }else{
-            groepen = leergebieden;
-        }
+        this.leergebieden = leergebieden;
         return this;
+     /*   if (groepen != null){
+            List<Groep> tgroepen = getDoelgroepen();
+            tgroepen.addAll(leergebieden);
+            setGroepen(tgroepen);
+        }else{
+            setGroepen(leergebieden);
+        }
+        return this;*/
+    }
+    
+    public List<Groep> getDoelgroepen() {
+        return doelgroepen;
+        //if (groepen == null) return null;
+       // return groepen.stream().filter(g -> !g.isIsLeerGroep()).collect(Collectors.toList());
+    }
+
+    public List<Groep> getLeergebieden() {
+        return leergebieden;
+       // if (groepen == null) return null;
+      //  return groepen.stream().filter(g -> g.isIsLeerGroep()).collect(Collectors.toList());
     }
 
     public long getId() {
@@ -165,24 +188,14 @@ public class Materiaal {
         return plaats;
     }
 
-    public List<Groep> getDoelgroepen() {
-        if (groepen == null) return null;
-        return groepen.stream().filter(g -> !g.isIsLeerGroep()).collect(Collectors.toList());
-    }
-
-    public List<Groep> getLeergebieden() {
-        if (groepen == null) return null;
-        return groepen.stream().filter(g -> g.isIsLeerGroep()).collect(Collectors.toList());
-    }
-
     public boolean containsFilter(String filter) {
         boolean hasGroepFilter = false;
-        if (groepen != null){
+     /*   if (groepen != null){
             for(Groep g : groepen){
                 hasGroepFilter = g.containsFilter(filter);
                 if (hasGroepFilter) break;
             }
-        }
+        }*/
         return hasGroepFilter || (firma != null && firma.containsFilter(filter))
                 || hasFilter(naam, filter)
                 || hasFilter(beschrijving, filter)
@@ -196,6 +209,8 @@ public class Materiaal {
 
     @Override
     public String toString() {
-        return "Materiaal{" + "id=" + id + ", firma=" + firma + ", foto=" + foto + ", naam=" + naam + ", beschrijving=" + beschrijving + ", artikelnummer=" + artikelnummer + ", prijs=" + prijs + ", aantal=" + aantal + ", aantalOnbeschikbaar=" + aantalOnbeschikbaar + ", uitleenbaarheid=" + uitleenbaarheid + ", plaats=" + plaats + ", groepen=" + groepen + '}';
+        return "Materiaal{" + "id=" + id + ", firma=" + firma + ", foto=" + foto + ", naam=" + naam + ", beschrijving=" + beschrijving + ", artikelnummer=" + artikelnummer + ", prijs=" + prijs + ", aantal=" + aantal + ", aantalOnbeschikbaar=" + aantalOnbeschikbaar + ", uitleenbaarheid=" + uitleenbaarheid + ", plaats=" + plaats + ", doelgroepen=" + doelgroepen + ", leergroepen=" + leergebieden + '}';
     }
+
+    
 }

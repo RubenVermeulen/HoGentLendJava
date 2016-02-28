@@ -74,7 +74,7 @@ public class StartUp extends Application {
             .setPlaats("Lokaal B4.035")
             .setPrijs(19.99)
             .setUitleenbaarheid(true),
-            new Materiaal("Atlas Noord Holland", 5)
+        /*    new Materiaal("Atlas Noord Holland", 5)
             .setAantalOnbeschikbaar(2)
             .setArtikelnummer("A12345")
             .setBeschrijving("Zou u wel eens een tijdreis willen maken tussen de provincie Noord-Holland van nu en het Noord-Holland van 1959? Hoe zag uw provincie er toen uit, hoe zag uw dorp of stad er uit? En wat is er allemaal veranderd in die 50 jaar? Met de Topografische DubbelAtlas van Utrecht ziet u het - letterlijk - in één oogopslag.")
@@ -128,7 +128,7 @@ public class StartUp extends Application {
             .setLeergebieden(new ArrayList<Groep>(leergroepen))
             .setPlaats("Lokaal B4.035")
             .setPrijs(27.95)
-            .setUitleenbaarheid(false)};
+            .setUitleenbaarheid(false)*/};
 
         for (Materiaal m : materialen) {
             em.persist(m);
