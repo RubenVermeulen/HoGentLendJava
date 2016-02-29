@@ -121,7 +121,7 @@ public class LoginFrameController extends BorderPane {
     }
 
     private void meldAan() {
-        try {
+    //    try {
             String email = txfEmailadres.getText().trim();
             String wachtwoord = pfWachtwoord.getText().trim();
             
@@ -137,10 +137,10 @@ public class LoginFrameController extends BorderPane {
             //stage.setTitle("Default");
             stage.show();
 
-        } catch (Exception e) {
-            pfWachtwoord.setText("");
-            lblIncorrect.setVisible(true);
-        }
+      //  } catch (Exception e) {
+        //    pfWachtwoord.setText("");
+         //   lblIncorrect.setVisible(true);
+        //}
     }
 
 }
