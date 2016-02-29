@@ -99,7 +99,6 @@ public class MateriaalBoxController extends VBox {
         }
         if (isNotEmpty(mv.getFotoUrl())) {
             imgvFoto.setImage(new Image(getClass().getResourceAsStream("/images/"+mv.getFotoUrl())));
-            System.out.println(mv.getFotoUrl());
         }
         if (isNotEmpty(mv.getArtikelNummer())) {
             lblCode.setText(mv.getArtikelNummer());
