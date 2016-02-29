@@ -1,4 +1,3 @@
-
 import domein.DomeinController;
 import domein.Firma;
 import domein.Gebruiker;
@@ -57,6 +56,17 @@ public class StartUp extends Application {// test xd
         em.persist(leergroep);
         
         Groep doelgroep = new Groep("een doelgroep", false);
+        em.persist(doelgroep);
+        
+        leergroep = new Groep("nog een leergroep",true);
+        em.persist(leergroep);
+        
+        doelgroep = new Groep("nog een doelgroep", false);
+        em.persist(doelgroep);
+        leergroep = new Groep("derde leergroep",true);
+        em.persist(leergroep);
+        
+        doelgroep = new Groep("derde doelgroep", false);
         em.persist(doelgroep);
         
         List<Groep> leergroepen = new ArrayList<Groep>();

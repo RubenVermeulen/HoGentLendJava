@@ -25,11 +25,11 @@ public class GroepRepository {
     }
 
     public List<Groep> getLeergebieden() {
-        return groepen.stream().filter(g -> g.isIsLeerGroep()).collect(Collectors.toList());
+        return groepen.stream().filter(g -> g.isLeerGroep()).collect(Collectors.toList());
     }    
     
     public List<Groep> getDoelgroepen() {
-        return groepen.stream().filter(g -> !g.isIsLeerGroep()).collect(Collectors.toList());
+        return groepen.stream().filter(g -> !g.isLeerGroep()).collect(Collectors.toList());
     }
 
     public List<Groep> geefLeergroepen(List<String> groep) {
@@ -65,12 +65,21 @@ public class GroepRepository {
     }
     
     private Groep voegGroepToe(String groep, boolean isLeergroep){
-        Groep g = new Groep(groep,isLeergroep);
+        Groep result = new Groep(groep, isLeergroep);
+        if (isLeergroep){
+            if (getLeergebieden().stream().map(g -> g.getGroep()).anyMatch(s -> s.equalsIgnoreCase(groep))){
+                throw new IllegalArgumentException("Dit leergebied bestaat al.");
+            }
+        }else{
+            if (getDoelgroepen().stream().map(g -> g.getGroep()).anyMatch(s -> s.equalsIgnoreCase(groep))){
+                throw new IllegalArgumentException("Deze doelgroep bestaat al.");
+            }
+        }
         
         em.getTransaction().begin();
-        em.persist(g);
+        em.persist(result);
         em.getTransaction().commit();
         
-        return g;
+        return result;
     }
 }

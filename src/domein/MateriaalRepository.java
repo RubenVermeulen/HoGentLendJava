@@ -182,4 +182,8 @@ public class MateriaalRepository {
     public List<Groep> geefAlleLeergebieden() {
         return materiaalCatalogus.geefAlleLeergebieden();
     }
+
+    public void voegGroepToe(String text, boolean isLeerGroep) {
+        materiaalCatalogus.voegGroepToe(text, isLeerGroep);
+    }
 }

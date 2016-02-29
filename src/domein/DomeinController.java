@@ -112,4 +112,8 @@ public class DomeinController {
     private List<String> groepListToString(List<Groep> groepen){
        return groepen.stream().map(g -> g.getGroep()).collect(Collectors.toList());
     }
+
+    public void voegGroepToe(String text, boolean isLeerGroep) {
+        materiaalRepo.voegGroepToe(text,isLeerGroep);
+    }
 }

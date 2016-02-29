@@ -22,8 +22,8 @@ public class Groep {
     }
 
     public Groep(String groep, boolean isLeerGroep) {
-        this.groep = groep;
-        this.isLeerGroep = isLeerGroep;
+        setIsLeerGroep(isLeerGroep);
+        setGroep(groep);
     }    
 
     public String getGroep() {
@@ -31,10 +31,13 @@ public class Groep {
     }
 
     public void setGroep(String groep) {
+        if (groep == null || groep.isEmpty()){
+            throw new IllegalArgumentException("De naam is niet ingevuld.");
+        }
         this.groep = groep;
     }
 
-    public boolean isIsLeerGroep() {
+    public boolean isLeerGroep() {
         return isLeerGroep;
     }
 

@@ -65,9 +65,8 @@ public class MateriaalCatalogus {
         }
         
         List<Groep> doelGroepen = groepRepo.geefDoelgroep(doelgroepenStr);
-        List<Groep> leerGroepen = groepRepo.geefDoelgroep(leergebiedenStr);
+        List<Groep> leerGroepen = groepRepo.geefLeergroepen(leergebiedenStr);
         
-
         //maak materiaal aan met gegevens uit de MateriaalView
         materiaal.setFoto(fotoUrl).setBeschrijving(beschrijving).setArtikelnummer(artikelnummer)
                 .setPrijs(prijs).setAantalOnbeschikbaar(aantalOnbeschikbaar).setUitleenbaarheid(uitleenbaarheid)
@@ -234,5 +233,13 @@ public class MateriaalCatalogus {
 
     public List<Groep> geefAlleDoelgroepen() {
         return groepRepo.getDoelgroepen();
+    }
+
+    public void voegGroepToe(String text, boolean isLeergroep) {
+        if (isLeergroep){
+            groepRepo.voegLeergroepToe(text);
+        }else{
+            groepRepo.voegDoelgroepToe(text);
+        }
     }
 }
