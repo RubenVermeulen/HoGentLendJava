@@ -20,6 +20,7 @@ public class DomeinControllerTest {
     private final String FOUT_PASSWORD = "blahblah";
     private final boolean HOOFDBEEHERDER = true;
     private final boolean BEHEERDER = true;
+    private final boolean LECTOR = true;
 
     private DomeinController domCon;
 
@@ -33,7 +34,7 @@ public class DomeinControllerTest {
         when(dummyGebruikerRepo.getGebruiker(anyString(), anyString()))
                 .thenReturn(Optional.empty());
         when(dummyGebruikerRepo.getGebruiker(CORRECT_EMAIL, CORRECT_PASSWORD))
-                .thenReturn(Optional.of(new Gebruiker(CORRECT_VOORNAAM, CORRECT_ACHTERNAAM, CORRECT_EMAIL, CORRECT_PASSWORD_HASH, HOOFDBEEHERDER, BEHEERDER)));
+                .thenReturn(Optional.of(new Gebruiker(CORRECT_VOORNAAM, CORRECT_ACHTERNAAM, CORRECT_EMAIL, CORRECT_PASSWORD_HASH, HOOFDBEEHERDER, BEHEERDER, LECTOR)));
 
         domCon = new DomeinController(dummyGebruikerRepo);
     }

@@ -21,18 +21,20 @@ public class Gebruiker {
     private String paswoord;
     private boolean hoofdbeheerder;
     private boolean beheerder;
+    private boolean lector;
 
     protected Gebruiker() {
         // default constructor for jpa
     }
 
-    public Gebruiker(String voornaam, String achternaam, String email, String paswoord, boolean hoofdbeheerder, boolean beheerder) {
+    public Gebruiker(String voornaam, String achternaam, String email, String paswoord, boolean hoofdbeheerder, boolean beheerder, boolean lector) {
         this.voornaam = voornaam;
         this.achternaam = achternaam;
         this.email = email;
         this.paswoord = paswoord;
         this.hoofdbeheerder = hoofdbeheerder;
         this.beheerder = beheerder;
+        this.lector = lector;
     }
 
     protected long getId() {
@@ -81,6 +83,14 @@ public class Gebruiker {
 
     protected void setBeheerder(boolean beheerder) {
         this.beheerder = beheerder;
+    }
+
+    public boolean isLector() {
+        return lector;
+    }
+
+    public void setLector(boolean lector) {
+        this.lector = lector;
     }
     
     
