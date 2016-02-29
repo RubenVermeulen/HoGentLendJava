@@ -38,7 +38,7 @@
             </HBox>
             <HBox prefHeight="785.0" prefWidth="818.0">
                <children>
-                  <VBox prefHeight="778.0" prefWidth="486.0" style="-fx-border-color: #DBDBDB; -fx-border-width: 2 2 2 2;">
+                  <VBox prefHeight="626.0" prefWidth="576.0" style="-fx-border-color: #DBDBDB; -fx-border-width: 2 2 2 2;">
                      <children>
                         <HBox prefHeight="223.0" prefWidth="393.0">
                            <children>
@@ -47,14 +47,14 @@
                                     <Insets />
                                  </HBox.margin>
                                  <children>
-                                    <TextField id="urlFoto" fx:id="urlCsv" promptText="url van het excelbestand">
+                                    <TextField id="urlFoto" fx:id="urlCsv" prefHeight="51.0" prefWidth="363.0" promptText="url van het csvbestand">
                                        <VBox.margin>
-                                          <Insets top="100.0" />
+                                          <Insets left="30.0" top="100.0" />
                                        </VBox.margin>
                                     </TextField>
                                     <Button fx:id="kiesFotoKnop" mnemonicParsing="false" onAction="#csvbestandKiezenOnAction" prefHeight="33.0" prefWidth="150.0" text="Kies excelbestand">
                                        <VBox.margin>
-                                          <Insets top="10.0" />
+                                          <Insets left="130.0" top="10.0" />
                                        </VBox.margin>
                                     </Button>
                                  </children>
@@ -65,7 +65,11 @@
                   </VBox>
                   <VBox prefHeight="626.0" prefWidth="492.0" style="-fx-border-color: #DBDBDB; -fx-border-width: 2 2 2 0;">
                      <children>
-                        <VBox prefHeight="255.0" prefWidth="388.0" />
+                        <TextArea prefHeight="544.0" prefWidth="365.0" text="Een csvbestand maak je door &#10;eenexcelbestand te exporteren. &#10;Het bestandstype moet &#10;gewijzigd worden naar &quot;CSV&quot;, &#10;gescheiden door &#10;lijstedelingstekens, komma's &#10;met andere woorden.&#10;">
+                           <VBox.margin>
+                              <Insets top="40.0" />
+                           </VBox.margin>
+                        </TextArea>
                      </children>
                   </VBox>
                </children>
