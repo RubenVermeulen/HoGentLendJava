@@ -3,6 +3,7 @@ package gui;
 import domein.DomeinController;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
@@ -98,7 +99,10 @@ public class MateriaalBoxController extends VBox {
             txtaBeschrijving.setText(mv.getOmschrijving());
         }
         if (isNotEmpty(mv.getFotoUrl())) {
-            imgvFoto.setImage(new Image(getClass().getResourceAsStream("/images/"+mv.getFotoUrl())));
+            InputStream ins = getClass().getResourceAsStream("/images/"+mv.getFotoUrl());
+            System.out.println("input stream is null :((((" + "/images/"+String.valueOf(mv.getFotoUrl()));
+            if (ins != null)
+                imgvFoto.setImage(new Image(ins));
         }
         if (isNotEmpty(mv.getArtikelNummer())) {
             lblCode.setText(mv.getArtikelNummer());
