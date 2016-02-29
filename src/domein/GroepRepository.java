@@ -33,6 +33,7 @@ public class GroepRepository {
     }
 
     public List<Groep> geefLeergroepen(List<String> groep) {
+        if (groep == null) return null;
         List<Groep> result = new ArrayList<>();
         for(Groep lg : getLeergebieden()){
             for (String str : groep){
@@ -45,7 +46,8 @@ public class GroepRepository {
     } 
     
     public List<Groep> geefDoelgroep(List<String> groep) {
-         List<Groep> result = new ArrayList<>();
+        if (groep == null) return null;
+        List<Groep> result = new ArrayList<>();
         for(Groep lg : getDoelgroepen()){
             for (String str : groep){
                 if (str.equalsIgnoreCase(lg.getGroep())){
