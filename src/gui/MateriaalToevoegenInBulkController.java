@@ -53,7 +53,6 @@ public class MateriaalToevoegenInBulkController extends BorderPane {
 
     }
 
-    @FXML
     private void excelbestandKiezenOnAction(ActionEvent event) {
     kiesCsvbestand();
     
@@ -76,9 +75,14 @@ public class MateriaalToevoegenInBulkController extends BorderPane {
     
     private void kiesCsvbestand() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open afbeelding bestand");
+        fileChooser.setTitle("Open csv bestand");
         File file = fileChooser.showOpenDialog(new Stage());
         urlCsv.setText(file.getPath());
+    }
+
+    @FXML
+    private void csvbestandKiezenOnAction(ActionEvent event) {
+        kiesCsvbestand();
     }
     
     

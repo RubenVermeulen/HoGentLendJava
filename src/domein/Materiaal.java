@@ -43,16 +43,18 @@ public class Materiaal {
     private int aantalOnbeschikbaar;
     private boolean uitleenbaarheid;
     private String plaats;
-    
-    @ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "materiaal_doelgroepen", joinColumns = @JoinColumn(name = "materiaal_id"),
-               inverseJoinColumns = @JoinColumn(name = "doelgroep_id"))
+            inverseJoinColumns = @JoinColumn(name = "doelgroep_id"))
     private List<Groep> doelgroepen = new ArrayList();
-    
-    @ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "materiaal_leergebieden", joinColumns = @JoinColumn(name = "materiaal_id"),
-               inverseJoinColumns = @JoinColumn(name = "leergebied_id"))
-    private List<Groep> leergebieden= new ArrayList();;
+            inverseJoinColumns = @JoinColumn(name = "leergebied_id"))
+    private List<Groep> leergebieden = new ArrayList();
+
+    ;
     
     protected Materiaal() {
         // default constructor for jpa
@@ -116,8 +118,8 @@ public class Materiaal {
 
     public Materiaal setDoelgroepen(List<Groep> doelgroepen) {
         this.doelgroepen = doelgroepen;
-        
-       /* if (groepen != null){
+
+        /* if (groepen != null){
             List<Groep> tgroepen = getLeergebieden();
             tgroepen.addAll(doelgroepen);
             setGroepen(tgroepen);
@@ -130,7 +132,7 @@ public class Materiaal {
     public Materiaal setLeergebieden(List<Groep> leergebieden) {
         this.leergebieden = leergebieden;
         return this;
-     /*   if (groepen != null){
+        /*   if (groepen != null){
             List<Groep> tgroepen = getDoelgroepen();
             tgroepen.addAll(leergebieden);
             setGroepen(tgroepen);
@@ -139,17 +141,17 @@ public class Materiaal {
         }
         return this;*/
     }
-    
+
     public List<Groep> getDoelgroepen() {
         return doelgroepen;
         //if (groepen == null) return null;
-       // return groepen.stream().filter(g -> !g.isIsLeerGroep()).collect(Collectors.toList());
+        // return groepen.stream().filter(g -> !g.isIsLeerGroep()).collect(Collectors.toList());
     }
 
     public List<Groep> getLeergebieden() {
         return leergebieden;
-       // if (groepen == null) return null;
-      //  return groepen.stream().filter(g -> g.isIsLeerGroep()).collect(Collectors.toList());
+        // if (groepen == null) return null;
+        //  return groepen.stream().filter(g -> g.isIsLeerGroep()).collect(Collectors.toList());
     }
 
     public long getId() {
@@ -198,7 +200,7 @@ public class Materiaal {
 
     public boolean containsFilter(String filter) {
         boolean hasGroepFilter = false;
-     /*   if (groepen != null){
+        /*   if (groepen != null){
             for(Groep g : groepen){
                 hasGroepFilter = g.containsFilter(filter);
                 if (hasGroepFilter) break;
@@ -210,8 +212,8 @@ public class Materiaal {
                 || hasFilter(artikelnummer, filter)
                 || hasFilter(plaats, filter);
     }
-    
-    private boolean hasFilter(String string, String filter){
+
+    private boolean hasFilter(String string, String filter) {
         return string != null && string.toLowerCase().contains(filter.toLowerCase());
     }
 
