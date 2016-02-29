@@ -117,16 +117,24 @@ public class DomeinController {
     }
     
     public void stelAanAlsBeheerder(Gebruiker gebruiker){
-        if (!aangemelde.isHoofdbeheerder()){
-            throw new GeenToegangException("Je moet hoofdbeheerder zijn om beheerders aan te stellen.");
-        }
+        checkKanAangemeldeBeheerderStatusWijzigenVan(gebruiker);
         gebruikerRepo.stelAanAlsBeheerder(gebruiker);
     }
     
     public void verwijderBeheerder(Gebruiker gebruiker){
+        checkKanAangemeldeBeheerderStatusWijzigenVan(gebruiker);
+        gebruikerRepo.verwijderBeheerder(gebruiker);
+    }
+    
+    private void checkKanAangemeldeBeheerderStatusWijzigenVan(Gebruiker gebruiker){
         if (!aangemelde.isHoofdbeheerder()){
             throw new GeenToegangException("Je moet hoofdbeheerder zijn om beheerders te verwijderen.");
         }
-        gebruikerRepo.verwijderBeheerder(gebruiker);
+        if (gebruiker == null){
+            throw new IllegalArgumentException("De gebruiker bestaat niet.");
+        }
+        if (!gebruiker.isLector()){
+            throw new IllegalArgumentException("De gebruiker is geen lector.");
+        }
     }
 }
