@@ -23,7 +23,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="778.0" prefWidth="818.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="778.0" prefWidth="818.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MateriaalToevoegenInBulkController">
    <center>
       <VBox prefHeight="482.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -52,7 +52,7 @@
                                           <Insets left="30.0" top="100.0" />
                                        </VBox.margin>
                                     </TextField>
-                                    <Button fx:id="kiesFotoKnop" mnemonicParsing="false" onAction="#csvbestandKiezenOnAction" prefHeight="33.0" prefWidth="150.0" text="Kies excelbestand">
+                                    <Button fx:id="kiesCsvKnop" mnemonicParsing="false" onAction="#csvbestandKiezenOnAction" prefHeight="33.0" prefWidth="150.0" text="Kies excelbestand">
                                        <VBox.margin>
                                           <Insets left="130.0" top="10.0" />
                                        </VBox.margin>

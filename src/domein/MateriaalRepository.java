@@ -1,11 +1,13 @@
 package domein;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import shared.MateriaalView;
-import util.ReadCVS;
+import util.ReadCSV;
 import util.JPAUtil;
 
 public class MateriaalRepository {
@@ -36,37 +38,56 @@ public class MateriaalRepository {
     }
 
     void voegMaterialenToeInBulk(String csvFile) {
-        ArrayList<String[]> materialen;
-        ReadCVS obj = new ReadCVS();
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        ArrayList<ArrayList<String>> materialen;
+        ReadCSV obj = new ReadCSV();
 
         materialen = obj.run(csvFile);
+        
+        System.out.println(materialen);
 
-        for (String[] materiaal : materialen) {
-            String naam = materiaal[0];
+        for (ArrayList<String> materiaal : materialen) {
+            String naam = materiaal.get(1);
 
-            String fotoUrl=materiaal[1];
-            String omschrijving=materiaal[2];
-            String artikelNummer=materiaal[3];
-            double prijs=Double.parseDouble(materiaal[12]);
-            int aantal=Integer.parseInt(materiaal[11]);
-            int aantalOnbeschikbaar=Integer.parseInt(materiaal[4]);
-            boolean uitleenbaarheid=Boolean.parseBoolean(materiaal[5]);
-            String plaats=materiaal[6];
-            String firma=materiaal[7];
-            String emailFirma=materiaal[8];
-            String doelgroepen=materiaal[9];
-            String leergebieden=materiaal[10];
+            String fotoUrl=materiaal.get(0);
+            String omschrijving=materiaal.get(2);
+            String artikelNummer=materiaal.get(3);
+            double prijs=Double.parseDouble(materiaal.get(4));
+            int aantal=Integer.parseInt(materiaal.get(5));
+           // int aantalOnbeschikbaar=Integer.parseInt(materiaal[4]);
+            boolean uitleenbaarheid=Boolean.parseBoolean(materiaal.get(6));
+            String plaats=materiaal.get(7);
+            //String firma=materiaal[7];
+           // String emailFirma=materiaal[8];
+            //String doelgroepen=materiaal[9];
+           // String leergebieden=materiaal[10];
             
             MateriaalView matView=new MateriaalView(naam, aantal);
             
-            matView.setAantalOnbeschikbaar(aantalOnbeschikbaar);
+            //matView.setAantalOnbeschikbaar(aantalOnbeschikbaar);
             matView.setArtikelNummer(artikelNummer);
             
             //  TODO: fix this
          //   matView.setDoelgroepen(doelgroepen);
             
-            matView.setEmailFirma(emailFirma);
-            matView.setFirma(firma);
+            //matView.setEmailFirma(emailFirma);
+           // matView.setFirma(firma);
             matView.setFotoUrl(fotoUrl);
             
             // TODO: fix this
@@ -87,6 +108,8 @@ public class MateriaalRepository {
 
        return materiaalCatalogus.geefAlleMaterialen();
 
+        
+        
     }
 
     /**
