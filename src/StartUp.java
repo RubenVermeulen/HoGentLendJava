@@ -17,7 +17,7 @@ import javax.persistence.EntityManagerFactory;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import util.JPAUtil;
 
-public class StartUp extends Application {
+public class StartUp extends Application {// test xd
 
     @Override
     public void start(Stage stage) {
