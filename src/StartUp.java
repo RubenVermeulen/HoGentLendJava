@@ -30,13 +30,13 @@ public class StartUp extends Application {// test xd
         StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
 
         Gebruiker user = new Gebruiker("Ruben", "Vermeulen", "ruben.vermeulen.v4419@student.hogent.be",
-                passwordEncryptor.encryptPassword("rubsup"), true, false);
+                passwordEncryptor.encryptPassword("rubsup"), true, false, false);
         Gebruiker user2 = new Gebruiker("Sven", "Dedeene", "sven.dedeene.v6035@student.hogent.be",
-                passwordEncryptor.encryptPassword("sfonk"), false, true);
+                passwordEncryptor.encryptPassword("sfonk"), false, true, false);
         Gebruiker user3 = new Gebruiker("Alexander", "Van Damme", "alexander.vandamme.v7672@student.hogent.be",
-                passwordEncryptor.encryptPassword("alosk"), true, true);
+                passwordEncryptor.encryptPassword("alosk"), true, true, false);
         Gebruiker user4 = new Gebruiker("Xander", "Berkein", "xander.berkein.v7629@student.hogent.be",
-                passwordEncryptor.encryptPassword("czandor"), false, false);
+                passwordEncryptor.encryptPassword("czandor"), false, false, true);
 
         em.persist(user);
         em.persist(user2);

@@ -21,21 +21,23 @@ public class Gebruiker {
     private String paswoord;
     private boolean hoofdbeheerder;
     private boolean beheerder;
+    private boolean lector;
 
     protected Gebruiker() {
         // default constructor for jpa
     }
 
-    public Gebruiker(String voornaam, String achternaam, String email, String paswoord, boolean hoofdbeheerder, boolean beheerder) {
+    public Gebruiker(String voornaam, String achternaam, String email, String paswoord, boolean hoofdbeheerder, boolean beheerder, boolean lector) {
         this.voornaam = voornaam;
         this.achternaam = achternaam;
         this.email = email;
         this.paswoord = paswoord;
         this.hoofdbeheerder = hoofdbeheerder;
         this.beheerder = beheerder;
+        this.lector = lector;
     }
 
-    public long getId() {
+    protected long getId() {
         return id;
     }
 
@@ -43,7 +45,7 @@ public class Gebruiker {
         return voornaam;
     }
 
-    public void setVoornaam(String voornaam) {
+    protected void setVoornaam(String voornaam) {
         this.voornaam = voornaam;
     }
 
@@ -51,7 +53,7 @@ public class Gebruiker {
         return achternaam;
     }
 
-    public void setAchternaam(String achternaam) {
+    protected void setAchternaam(String achternaam) {
         this.achternaam = achternaam;
     }
 
@@ -59,11 +61,11 @@ public class Gebruiker {
         return email;
     }
 
-    public void setEmail(String email) {
+    protected void setEmail(String email) {
         this.email = email;
     }
 
-    public String getPaswoord() {
+    protected String getPaswoord() {
         return paswoord;
     }
 
@@ -71,7 +73,7 @@ public class Gebruiker {
         return hoofdbeheerder;
     }
 
-    public void setHoofdbeheerder(boolean hoofdbeheerder) {
+    protected void setHoofdbeheerder(boolean hoofdbeheerder) {
         this.hoofdbeheerder = hoofdbeheerder;
     }
 
@@ -79,8 +81,16 @@ public class Gebruiker {
         return beheerder;
     }
 
-    public void setBeheerder(boolean beheerder) {
+    protected void setBeheerder(boolean beheerder) {
         this.beheerder = beheerder;
+    }
+
+    public boolean isLector() {
+        return lector;
+    }
+
+    public void setLector(boolean lector) {
+        this.lector = lector;
     }
     
     

@@ -100,7 +100,8 @@ public class MateriaalBoxController extends VBox {
         }
         if (isNotEmpty(mv.getFotoUrl())) {
             InputStream ins = getClass().getResourceAsStream("/images/"+String.valueOf(mv.getFotoUrl()));
-            System.out.println("input stream is null :((((" + "/images/"+String.valueOf(mv.getFotoUrl()));
+            if (ins == null)
+                System.out.println("input stream is null :((((" + "/images/"+String.valueOf(mv.getFotoUrl()));
             if (ins != null)
                 imgvFoto.setImage(new Image(ins));
         }

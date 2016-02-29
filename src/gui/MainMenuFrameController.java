@@ -143,14 +143,17 @@ public class MainMenuFrameController extends BorderPane {
     
     @FXML
     private void onActionBtnZoekLectoren(ActionEvent event) {
+        
     }
 
     @FXML
     private void onActionBtnStelAanAlsBeheerder(ActionEvent event) {
+        
     }
 
     @FXML
     private void onActionBtnVerwijderBeheerder(ActionEvent event) {
+        
     }
 
 }

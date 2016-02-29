@@ -34,5 +34,17 @@ public class GebruikerRepositoryImpl implements GebruikerRepository {
         Query q = em.createQuery("SELECT g FROM Gebruiker g");
         gebruikers = (List<Gebruiker>) q.getResultList();
     }
+    
+    public void stelAanAlsBeheerder(Gebruiker gebruiker){
+        em.getTransaction().begin();
+        gebruiker.setBeheerder(true);
+        em.getTransaction().commit();
+    }
+    
+    public void verwijderBeheerder(Gebruiker gebruiker){
+        em.getTransaction().begin();
+        gebruiker.setBeheerder(true);
+        em.getTransaction().commit();
+    }
 
 }

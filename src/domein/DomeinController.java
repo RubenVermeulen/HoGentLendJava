@@ -1,5 +1,6 @@
 package domein;
 
+import exceptions.GeenToegangException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +30,7 @@ public class DomeinController {
      */
     public boolean meldAan(String email, String wachtwoord) {
         Optional<Gebruiker> optGeb = gebruikerRepo.getGebruiker(email, wachtwoord);
-        
+
         // Is optGeb aanwezig en een hoofdbeheerder of beheerder
         if (optGeb.isPresent() && (optGeb.get().isHoofdbeheerder() || optGeb.get().isBeheerder())) {
             aangemelde = optGeb.get();
@@ -63,24 +64,22 @@ public class DomeinController {
 
     /**
      * TODO xander schrijf dit
-     * @param mv 
+     *
+     * @param mv
      */
     public void voegMateriaalToe(MateriaalView mv) {
         materiaalRepo.voegMateriaalToe(mv);
 
     }
-    
-    
-    public void voegMaterialenToeInBulk(String csvFile){
-    materiaalRepo.voegMaterialenToeInBulk(csvFile);
-    
-    
-    
+
+    public void voegMaterialenToeInBulk(String csvFile) {
+        materiaalRepo.voegMaterialenToeInBulk(csvFile);
     }
 
     /**
      * TODO Xander schrijf dit
-     * @return 
+     *
+     * @return
      */
     public List<MateriaalView> geefAlleMaterialen() {
         if (materiaalRepo == null) {
@@ -88,12 +87,12 @@ public class DomeinController {
         }
         return materiaalRepo.geefAlleMaterialen();
     }
-    
-    public void verwijderMateriaal(String materiaalNaam){
+
+    public void verwijderMateriaal(String materiaalNaam) {
         materiaalRepo.verwijderMateriaal(materiaalNaam);
     }
-    
-    public List<MateriaalView> geefMaterialenMetFilter(String filter){
+
+    public List<MateriaalView> geefMaterialenMetFilter(String filter) {
         return materiaalRepo.geefMaterialenMetFilter(filter);
     }
 
@@ -108,12 +107,34 @@ public class DomeinController {
     public List<String> geefAlleLeergebieden() {
         return groepListToString(materiaalRepo.geefAlleLeergebieden());
     }
-    
-    private List<String> groepListToString(List<Groep> groepen){
-       return groepen.stream().map(g -> g.getGroep()).collect(Collectors.toList());
+
+    private List<String> groepListToString(List<Groep> groepen) {
+        return groepen.stream().map(g -> g.getGroep()).collect(Collectors.toList());
     }
 
     public void voegGroepToe(String text, boolean isLeerGroep) {
-        materiaalRepo.voegGroepToe(text,isLeerGroep);
+        materiaalRepo.voegGroepToe(text, isLeerGroep);
+    }
+    
+    public void stelAanAlsBeheerder(Gebruiker gebruiker){
+        checkKanAangemeldeBeheerderStatusWijzigenVan(gebruiker);
+        gebruikerRepo.stelAanAlsBeheerder(gebruiker);
+    }
+    
+    public void verwijderBeheerder(Gebruiker gebruiker){
+        checkKanAangemeldeBeheerderStatusWijzigenVan(gebruiker);
+        gebruikerRepo.verwijderBeheerder(gebruiker);
+    }
+    
+    private void checkKanAangemeldeBeheerderStatusWijzigenVan(Gebruiker gebruiker){
+        if (!aangemelde.isHoofdbeheerder()){
+            throw new GeenToegangException("Je moet hoofdbeheerder zijn om beheerders te verwijderen.");
+        }
+        if (gebruiker == null){
+            throw new IllegalArgumentException("De gebruiker bestaat niet.");
+        }
+        if (!gebruiker.isLector()){
+            throw new IllegalArgumentException("De gebruiker is geen lector.");
+        }
     }
 }
