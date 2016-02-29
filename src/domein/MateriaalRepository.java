@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import shared.MateriaalView;
-import shared.ReadCVS;
+import util.ReadCVS;
 import util.JPAUtil;
 
 public class MateriaalRepository {
