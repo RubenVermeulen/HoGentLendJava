@@ -81,7 +81,7 @@ public class GroepRepository {
         em.getTransaction().begin();
         em.persist(result);
         em.getTransaction().commit();
-        
+        groepen.add(result);
         return result;
     }
 }
