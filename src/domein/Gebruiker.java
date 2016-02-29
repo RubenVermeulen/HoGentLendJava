@@ -35,7 +35,7 @@ public class Gebruiker {
         this.beheerder = beheerder;
     }
 
-    public long getId() {
+    protected long getId() {
         return id;
     }
 
@@ -43,7 +43,7 @@ public class Gebruiker {
         return voornaam;
     }
 
-    public void setVoornaam(String voornaam) {
+    protected void setVoornaam(String voornaam) {
         this.voornaam = voornaam;
     }
 
@@ -51,7 +51,7 @@ public class Gebruiker {
         return achternaam;
     }
 
-    public void setAchternaam(String achternaam) {
+    protected void setAchternaam(String achternaam) {
         this.achternaam = achternaam;
     }
 
@@ -59,11 +59,11 @@ public class Gebruiker {
         return email;
     }
 
-    public void setEmail(String email) {
+    protected void setEmail(String email) {
         this.email = email;
     }
 
-    public String getPaswoord() {
+    protected String getPaswoord() {
         return paswoord;
     }
 
@@ -71,7 +71,7 @@ public class Gebruiker {
         return hoofdbeheerder;
     }
 
-    public void setHoofdbeheerder(boolean hoofdbeheerder) {
+    protected void setHoofdbeheerder(boolean hoofdbeheerder) {
         this.hoofdbeheerder = hoofdbeheerder;
     }
 
@@ -79,7 +79,7 @@ public class Gebruiker {
         return beheerder;
     }
 
-    public void setBeheerder(boolean beheerder) {
+    protected void setBeheerder(boolean beheerder) {
         this.beheerder = beheerder;
     }
     
