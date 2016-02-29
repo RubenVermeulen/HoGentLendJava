@@ -97,9 +97,9 @@ public class MateriaalRepository {
      * @return
      * @throws java.lang.IllegalAccessException
      */
-    public boolean verwijderMateriaal(String materiaalNaam) throws IllegalAccessException {
+    public boolean verwijderMateriaal(String materiaalNaam) {
         if (materiaalNaam == null || materiaalNaam.isEmpty())
-            throw new IllegalAccessException("De parameter materiaalNaam mag niet leeg of null zijn.");
+            throw new IllegalArgumentException("De parameter materiaalNaam mag niet leeg of null zijn.");
         
         Materiaal materiaal = this.geefMateriaal(materiaalNaam);
 
