@@ -7,7 +7,7 @@ import java.util.Scanner;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import shared.MateriaalView;
-import util.ReadCSV;
+import util.ReadCVS;
 import util.JPAUtil;
 
 public class MateriaalRepository {
@@ -56,7 +56,7 @@ public class MateriaalRepository {
         
         
         ArrayList<ArrayList<String>> materialen;
-        ReadCSV obj = new ReadCSV();
+        ReadCVS obj = new ReadCVS();
 
         materialen = obj.run(csvFile);
         
