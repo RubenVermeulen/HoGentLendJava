@@ -20,7 +20,7 @@ import java.util.Scanner;
  *
  * @author alexa_000
  */
-public class ReadCVS {
+public class ReadCSV {
     public ArrayList<ArrayList<String>> run(String CSVFile) {
     ArrayList<ArrayList<String>> materialen = new ArrayList<>();    
    
