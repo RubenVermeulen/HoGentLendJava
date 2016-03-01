@@ -156,8 +156,15 @@ public class MateriaalBoxController extends VBox {
     
     @FXML
     private void onActionBtnVerwijder(ActionEvent event){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
-                String.format("Ben je zeker dat je het materiaal met de naam \"%s\" wilt verwijderen?",mv.getNaam()),ButtonType.CANCEL, ButtonType.OK);
+        Alert alert = new Alert(
+                Alert.AlertType.CONFIRMATION,
+                String.format("Ben je zeker dat je het materiaal met de naam \"%s\" wilt verwijderen?",mv.getNaam()),
+                ButtonType.CANCEL, 
+                ButtonType.OK);
+        
+        alert.setTitle("Opgelet");
+        alert.setHeaderText("Opgelet");
+        
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK){
             dc.verwijderMateriaal(mv.getNaam());

@@ -2,6 +2,9 @@ package domein;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
@@ -35,16 +38,52 @@ public class GebruikerRepositoryImpl implements GebruikerRepository {
         gebruikers = (List<Gebruiker>) q.getResultList();
     }
     
-    public void stelAanAlsBeheerder(Gebruiker gebruiker){
+    public void stelAanAlsBeheerder(String email){
+        Gebruiker gebruiker = geefGebruiker(email);
+        
+        if ( ! gebruiker.isLector()) {
+            throw new IllegalArgumentException("De gebruiker moet een lector zijn.");
+        }
+        
         em.getTransaction().begin();
         gebruiker.setBeheerder(true);
         em.getTransaction().commit();
     }
     
-    public void verwijderBeheerder(Gebruiker gebruiker){
+    public void verwijderBeheerder(String email){
+        Gebruiker gebruiker = geefGebruiker(email);
+        
         em.getTransaction().begin();
-        gebruiker.setBeheerder(true);
+        em.remove(gebruiker);
         em.getTransaction().commit();
+        
+        gebruikers.remove(gebruiker);
     }
 
+    @Override
+    public ObservableList<Gebruiker> geefAlleBeheerders() {
+        return FXCollections.unmodifiableObservableList(
+                FXCollections.observableArrayList(gebruikers.stream().filter(Gebruiker::isBeheerder).collect(Collectors.toList())
+        ));
+    }
+
+    @Override
+    public Gebruiker geefGebruiker(String email) {
+        if (email == null || email.isEmpty())
+            throw new IllegalArgumentException("Een e-mailadres is vereist.");
+        
+        Gebruiker gebruiker = null;
+        
+        for (Gebruiker g : gebruikers) {
+            if (g.getEmail().equalsIgnoreCase(email)) {
+                gebruiker = g;
+                break;
+            }  
+        }
+        
+        if (gebruiker == null)
+            throw new IllegalArgumentException("De gebruiker kon niet worden gevonden.");
+        
+        return gebruiker;
+    }
 }
