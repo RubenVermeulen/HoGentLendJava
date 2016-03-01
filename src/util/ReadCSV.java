@@ -21,24 +21,37 @@ import java.util.Scanner;
  * @author alexa_000
  */
 public class ReadCSV {
+
     public ArrayList<ArrayList<String>> run(String CSVFile) {
-    ArrayList<ArrayList<String>> materialen = new ArrayList<>();    
-   
-    Scanner scanner = new Scanner(CSVFile);
-        scanner.useDelimiter(",");
-        while(scanner.hasNextLine()){
-            ArrayList<String> materiaal = new ArrayList<>();
-            while(scanner.hasNext()){
-            materiaal.add(scanner.next());
-            }
-            materialen.add(materiaal);
-            
+        ArrayList<ArrayList<String>> materialen = new ArrayList<>();
+
+        Scanner scanner = new Scanner(CSVFile);
+        Scanner counter = new Scanner(CSVFile);
+        scanner.useDelimiter(";");
+        counter.useDelimiter(";");
+
+        int count = 0;              //elke regel is een materiaal
+        while (counter.hasNextLine()) {
+            count++;
+            counter.nextLine();
         }
-        scanner.close();
-    
-    return materialen;
+
+        for(int i=0;i<count;i++){   //voor elk materiaal
+            for(int j=0;j<8;j++){   //er zijn 8 values in de csv file
+            materialen.get(i).set(j, scanner.next());
+            
+            
+            
+            }
+        
+        
+        }
+        
+        
+        return materialen;
+    }
 }
-    /*
+/*
     
      public ArrayList<String[]> run(String CSVFile) {
 
@@ -83,5 +96,4 @@ public class ReadCSV {
 	
      return materialen;
      }
-    */
-}
+ */
