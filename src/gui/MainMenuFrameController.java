@@ -1,20 +1,29 @@
 package gui;
 
 import domein.DomeinController;
+import domein.Gebruiker;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import shared.MateriaalView;
 
@@ -31,7 +40,17 @@ public class MainMenuFrameController extends BorderPane {
     @FXML
     private TextField txfZoekMateriaalFilter;
     @FXML
-    private TextField txfZoekLectoren;
+    private TableView<Gebruiker> tvBeheerders;
+    @FXML
+    private TableColumn<Gebruiker, String> clNaam;
+    @FXML
+    private TableColumn<Gebruiker, String> clVoornaam;
+    @FXML
+    private TableColumn<Gebruiker, String> clEmail;
+    @FXML
+    private Button btnStelAanAlsBeheerder;
+    @FXML
+    private Button btnVerwijderBeheerder;
 
     public MainMenuFrameController(DomeinController domCon) {
         this.domCon = domCon;
@@ -47,46 +66,10 @@ public class MainMenuFrameController extends BorderPane {
 
         setupWelkomEnEmailLabels();
         setupMaterials(domCon.geefAlleMaterialen());
-        // TEMPORARY_setupTemporaryDemoMaterials();
+
+        initialiseerTableViewBeheerders();
     }
 
-//    public void TEMPORARY_setupTemporaryDemoMaterials() {
-//        List<MateriaalBoxController> controls = new ArrayList<MateriaalBoxController>();
-//
-//        MateriaalView mv1 = new MateriaalView("Wereldbollen", 3)
-//                .setAantalOnbeschikbaar(1).setArtikelNummer("P25DL DUTCH")
-//                .setDoelgroepen(Arrays.asList("Liefhebbers voor wereldkennis", "Schatzoekers"))
-//                .setEmailFirma("contact@worldbolmakers.com")
-//                .setFirma("WorldBolMakers")
-//                .setFotoUrl("temp_wereldbol.jpg")
-//                .setLeergebieden(Arrays.asList("Aardrijkskunde"))
-//                .setOmschrijving("Deze mooie wereldbol met verlichting heeft 25 cm doorsnee en werkt op stroom.")
-//                .setPlaats("Lokaal B4.035")
-//                .setPrijs(32.25d)
-//                .setUitleenbaarheid(true);
-//        MateriaalView mv2 = new MateriaalView("Boeken", 1)
-//                .setAantalOnbeschikbaar(0).setArtikelNummer("1582-2010")
-//                .setDoelgroepen(Arrays.asList("Boeken lezers"))
-//                .setEmailFirma("contact@boeken.com")
-//                .setFirma("BoekMakers")
-//                .setFotoUrl("temp_boek.gif")
-//                .setLeergebieden(Arrays.asList("Nederlands"))
-//                .setOmschrijving("In Het verdwijnen van Robbert speelt Welagen een geestig spel, vol zelfspot, met zijn eigen schrijversbestaan. De Robbert die verdwijnt, heeft namelijk als achternaam Welagen en is een 25-jarige schrijver die net als de auteur een roman heeft geschreven die Lipari heet, ook in de fictieve werkelijkheid bekroond met een debuutprijs.\n")
-//                .setPlaats("Lokaal C2.010")
-//                .setPrijs(19.99d)
-//                .setUitleenbaarheid(false);
-//        for (int i = 0; i < 4; i++) {
-//            controls.add(new MateriaalBoxController(mv1));
-//            controls.add(new MateriaalBoxController(mv2));
-//        }
-//
-//        materialenBox.getChildren().addAll(controls);
-////        final int aantalDemoMaterials = 14;
-////        Node[] materialNodes = new Node[aantalDemoMaterials];
-////        for (int i = 0; i < aantalDemoMaterials; i++) {
-////            materialNodes[i] = new MateriaalBoxController(new MateriaalView("Materiaal Naam " + i, i));
-////        }
-//    }
     private void setupMaterials(List<MateriaalView> materials) {
         materialenBox.getChildren().clear();
         materials.stream().forEach(mv -> materialenBox.getChildren().add(new MateriaalBoxController(mv, domCon)));
@@ -96,6 +79,38 @@ public class MainMenuFrameController extends BorderPane {
         String[] gebruikerInfo = domCon.geefGegevensAangemeldeGebruiker();
         lblWelkomInfo.setText(String.format("Welkom %s %s!", gebruikerInfo[0], gebruikerInfo[1]));
         lblEmailInfo.setText(String.format("Email: %s", gebruikerInfo[2]));
+    }
+
+    private void initialiseerTableViewBeheerders() {
+        // Wijzig standaard tekst bij lege tabel
+        tvBeheerders.setPlaceholder(new Label("Er zijn nog geen beheerders"));
+
+        // Disable knoppen als je geen hoofdbeheerder bent
+        if ( ! domCon.getAangemelde().isHoofdbeheerder()) {
+            btnStelAanAlsBeheerder.setDisable(true);
+            btnVerwijderBeheerder.setDisable(true);
+        }
+        
+        // Koppel een kolom aan een attribuut
+        clNaam.setCellValueFactory(new PropertyValueFactory<>("achternaam"));
+        clVoornaam.setCellValueFactory(new PropertyValueFactory<>("voornaam"));
+        clEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+        vulTableViewOpMetBeheerders();
+    }
+
+    public void vulTableViewOpMetBeheerders() {
+        // TableView opvullen met data
+        tvBeheerders.setItems(domCon.geefAlleBeheerders());
+    }
+    
+    private void promptBeheerderToevoegen() {
+        Scene promptScene = new Scene(new VoegBeheerderToeBoxController(domCon, this), 300, 200);
+        Stage prompt = new Stage();
+        prompt.initModality(Modality.APPLICATION_MODAL);
+        prompt.initOwner(getScene().getWindow());
+        prompt.setScene(promptScene);
+        prompt.show();
     }
 
     @FXML
@@ -108,21 +123,19 @@ public class MainMenuFrameController extends BorderPane {
     }
 
     @FXML
-    private void onActionVoegMateriaalToe(ActionEvent event){
+    private void onActionVoegMateriaalToe(ActionEvent event) {
         Stage stage = (Stage) getScene().getWindow();
         Scene scene = new Scene(new MateriaalToevoegenController(domCon, null));
-        stage.setScene(scene);        
+        stage.setScene(scene);
     }
-    
+
     @FXML
-    private void onActionVoegToeInBulk(ActionEvent event){
+    private void onActionVoegToeInBulk(ActionEvent event) {
         Stage stage = (Stage) getScene().getWindow();
         Scene scene = new Scene(new MateriaalToevoegenInBulkController(domCon));
-        stage.setScene(scene);        
+        stage.setScene(scene);
     }
-    
-    
-    
+
     @FXML
     private void menuActionAfsluiten(ActionEvent event) {
         Platform.exit();
@@ -137,23 +150,47 @@ public class MainMenuFrameController extends BorderPane {
     }
 
     @FXML
-    private void onActionTxfZoekMateriaalFilter(ActionEvent event){
+    private void onActionTxfZoekMateriaalFilter(ActionEvent event) {
         onBtnZoekMateriaalAction(event);
-    }
-    
-    @FXML
-    private void onActionBtnZoekLectoren(ActionEvent event) {
-        
     }
 
     @FXML
     private void onActionBtnStelAanAlsBeheerder(ActionEvent event) {
-        
+        promptBeheerderToevoegen();
     }
 
     @FXML
     private void onActionBtnVerwijderBeheerder(ActionEvent event) {
-        
+        Gebruiker geselecteerdeBeheerder = tvBeheerders.getSelectionModel().getSelectedItem();
+
+        if (geselecteerdeBeheerder == null) {
+            Alert informationAlert = new Alert(Alert.AlertType.INFORMATION);
+
+            informationAlert.setTitle("Informatie");
+            informationAlert.setHeaderText("Informatie");
+            informationAlert.setContentText("Je hebt geen beheerder geselecteerd om te verwijderen.");
+            
+            informationAlert.showAndWait();
+        } else {
+            Alert alert = new Alert(
+                    Alert.AlertType.CONFIRMATION,
+                    String.format("Ben je zeker dat je de beheerder \"%s\" wilt verwijderen?", geselecteerdeBeheerder.getEmail()),
+                    ButtonType.CANCEL,
+                    ButtonType.OK);
+
+            alert.setTitle("Opgelet");
+            alert.setHeaderText("Opgelet");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                domCon.verwijderBeheerder(geselecteerdeBeheerder);
+
+                vulTableViewOpMetBeheerders();
+
+                System.out.println("Beheerder verwijderd");
+            }
+        }
+
     }
 
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import javafx.collections.ObservableList;
 import shared.MateriaalView;
 
 public class DomeinController {
@@ -116,25 +117,35 @@ public class DomeinController {
         materiaalRepo.voegGroepToe(text, isLeerGroep);
     }
     
-    public void stelAanAlsBeheerder(Gebruiker gebruiker){
-        checkKanAangemeldeBeheerderStatusWijzigenVan(gebruiker);
-        gebruikerRepo.stelAanAlsBeheerder(gebruiker);
+    public void stelAanAlsBeheerder(String email){
+        checkKanAangemeldeBeheerderStatusWijzigenVan();
+        gebruikerRepo.stelAanAlsBeheerder(email);
     }
     
     public void verwijderBeheerder(Gebruiker gebruiker){
-        checkKanAangemeldeBeheerderStatusWijzigenVan(gebruiker);
-        gebruikerRepo.verwijderBeheerder(gebruiker);
+        checkKanAangemeldeBeheerderStatusWijzigenVan();
+        gebruikerRepo.verwijderBeheerder(gebruiker.getEmail());
     }
     
-    private void checkKanAangemeldeBeheerderStatusWijzigenVan(Gebruiker gebruiker){
-        if (!aangemelde.isHoofdbeheerder()){
+    private void checkKanAangemeldeBeheerderStatusWijzigenVan(){
+        if ( ! aangemelde.isHoofdbeheerder()){
             throw new GeenToegangException("Je moet hoofdbeheerder zijn om beheerders te verwijderen.");
         }
-        if (gebruiker == null){
-            throw new IllegalArgumentException("De gebruiker bestaat niet.");
-        }
-        if (!gebruiker.isLector()){
-            throw new IllegalArgumentException("De gebruiker is geen lector.");
-        }
+//        if (gebruiker == null){
+//            throw new IllegalArgumentException("De gebruiker bestaat niet.");
+//        }
+//        if (!gebruiker.isLector()){
+//            throw new IllegalArgumentException("De gebruiker is geen lector.");
+//        }
     }
+    
+    public ObservableList<Gebruiker> geefAlleBeheerders() {
+        return gebruikerRepo.geefAlleBeheerders();
+    }
+
+    public Gebruiker getAangemelde() {
+        return aangemelde;
+    }
+    
+    
 }
