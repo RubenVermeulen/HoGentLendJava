@@ -23,6 +23,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
@@ -83,6 +84,10 @@ public class MateriaalToevoegenController extends BorderPane {
     private ImageView errorEmailfirma;
     @FXML
     private Label lblTitel;
+    @FXML
+    private Label lblErrorMessage;
+    @FXML
+    private ImageView imgErrorMessage;
 
     public MateriaalToevoegenController(DomeinController dc, MateriaalView mv) {
         this.dc = dc;
@@ -100,6 +105,9 @@ public class MateriaalToevoegenController extends BorderPane {
 
         // Voorkomt een horizontale balk
         beschrijving.setWrapText(true);
+        
+        // om de fxml duidelijker te maken laat ik errormessage daar op visible staan
+        verbergError();
 
         setupAlleGroepen();
 
@@ -212,28 +220,35 @@ public class MateriaalToevoegenController extends BorderPane {
 
             wijzigMateriaalView(true);
 
-        } catch (NumberFormatException e) {
-
-            errorAantal.setVisible(true);
 
         } catch (IllegalArgumentException e) {
 
+            lblErrorMessage.setVisible(true);
+            imgErrorMessage.setVisible(true);
+            
             switch (e.getMessage()) {
                 case "naam":
                     errorNaam.setVisible(true);
+                    lblErrorMessage.setText("Het materiaal moet een (unieke) naam hebben.");
                     break;
                 case "aantal":
                     errorAantal.setVisible(true);
+                    lblErrorMessage.setText("Het aantal materialen moet groter zijn dan 0.");
                     break;
                 case "emailFirma":
                     errorEmailfirma.setVisible(true);
+                    lblErrorMessage.setText("Firma heeft geen geldig emailadres (vb: firma@hotmail.com");
                     break;
                 case "prijs":
                     errorPrijs.setVisible(true);
+                    lblErrorMessage.setText("Prijs moet groter zijn dan 0.");
                     break;
                 case "onbeschikbaar":
+                    lblErrorMessage.setText("Aantal onbeschikbare materialen moet groter zijn dan 0.");
                     errorOnbeschikbaar.setVisible(true);
             }
+            
+            naam.getParent().requestFocus();
 
         }
     }
@@ -341,39 +356,51 @@ public class MateriaalToevoegenController extends BorderPane {
 
             wijzigMateriaalView(false);
 
-        } catch (NumberFormatException e) {
-
-            errorAantal.setVisible(true);
-
         } catch (IllegalArgumentException e) {
 
+            lblErrorMessage.setVisible(true);
+            imgErrorMessage.setVisible(true);
+            
             switch (e.getMessage()) {
                 case "naam":
                     errorNaam.setVisible(true);
+                    lblErrorMessage.setText("Het materiaal moet een (unieke) naam hebben.");
                     break;
                 case "aantal":
                     errorAantal.setVisible(true);
+                    lblErrorMessage.setText("Het aantal materialen moet groter zijn dan 0.");
                     break;
                 case "emailFirma":
                     errorEmailfirma.setVisible(true);
+                    lblErrorMessage.setText("Firma heeft geen geldig emailadres (vb: firma@hotmail.com");
                     break;
                 case "prijs":
                     errorPrijs.setVisible(true);
+                    lblErrorMessage.setText("Prijs moet groter zijn dan 0.");
                     break;
                 case "onbeschikbaar":
+                    lblErrorMessage.setText("Aantal onbeschikbare materialen moet groter zijn dan 0.");
                     errorOnbeschikbaar.setVisible(true);
             }
+            
+            naam.getParent().requestFocus();
 
         }
     }
+    
 
     public void wijzigMateriaalView(boolean isMateriaalToevoegen) {
         MateriaalView matView;
-        
+            
         String deNaam = naam.getText().trim();
-        // TODO: catch Numberformatexception
+        
+        //manier om de exceptions in de volgorde van de inputvelden te laten werpen
+        //nu zal er eerst gechecked worden of de naam wel is ingevuld, alvorens het aantal te checken
+        int hetAantal = -1;
 
-        int hetAantal = Integer.parseInt(aantal.getText());
+        if (aantal.getText() != null && !aantal.getText().isEmpty()){
+            hetAantal = Integer.parseInt(aantal.getText());
+        }
 
         if (isMateriaalToevoegen) {
             matView = new MateriaalView(deNaam, hetAantal);
@@ -417,4 +444,50 @@ public class MateriaalToevoegenController extends BorderPane {
 
         gaTerug();
     }
+
+    
+    //Wanneer de gebruiker opnieuw typt na de error in het vakje waarin de error verscheen,
+    //wordt de error weer verborgen
+    
+    @FXML
+    private void naamOnKey(KeyEvent event) {
+        verbergError();
+        errorNaam.setVisible(false);
+    }
+
+    @FXML
+    private void aantalOnKey(KeyEvent event) {
+        verbergError();
+        errorAantal.setVisible(false);
+    }
+
+    @FXML
+    private void prijsOnKey(KeyEvent event) {
+        verbergError();
+        errorPrijs.setVisible(false);
+    }
+
+    @FXML
+    private void onbeschikbaarOnKey(KeyEvent event) {
+        verbergError();
+        errorOnbeschikbaar.setVisible(false);
+    }
+    
+    @FXML
+    private void firmaOnKey(KeyEvent event) {
+        verbergError();
+    }
+
+    @FXML
+    private void emailOnKey(KeyEvent event) {
+        verbergError();
+        errorEmailfirma.setVisible(false);
+    }
+    
+    public void verbergError(){
+        lblErrorMessage.setVisible(false);
+        imgErrorMessage.setVisible(false);
+    }
+
+    
 }

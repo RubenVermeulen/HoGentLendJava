@@ -134,7 +134,6 @@ public class LoginFrameController extends BorderPane {
             Stage stage = (Stage) btnAanmelden.getScene().getWindow();
             Scene scene = new Scene(new MainMenuFrameController(this.dc));
             stage.setScene(scene);
-            //stage.setTitle("Default");
             stage.show();
 
       //  } catch (Exception e) {
