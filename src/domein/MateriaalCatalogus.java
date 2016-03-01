@@ -175,6 +175,8 @@ public class MateriaalCatalogus {
         List<String> doelgroepenStr = mv.getDoelgroepen();
         List<String> leergebiedenStr = mv.getLeergebieden();
         
+        System.out.println(leergebiedenStr.toString());
+        
         // Valideer de gegevens
         validatieMateriaalView(naam, aantal, firmaEmail, prijs, aantalOnbeschikbaar);
         
@@ -184,7 +186,10 @@ public class MateriaalCatalogus {
             firma = firmaRepo.voegFirmaToe(firmanaam, firmaEmail);
         }
         List<Groep> doelGroepen = groepRepo.geefDoelgroep(doelgroepenStr);
-        List<Groep> leerGroepen = groepRepo.geefDoelgroep(leergebiedenStr);
+        List<Groep> leerGroepen = groepRepo.geefLeergroepen(leergebiedenStr);
+        
+        System.out.println(doelGroepen.toString());
+        System.out.println(leerGroepen.toString());
         
         materiaal.setAantal(mv.getAantal())
                 .setAantalOnbeschikbaar(mv.getAantalOnbeschikbaar())

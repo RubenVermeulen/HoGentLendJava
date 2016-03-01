@@ -16,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -30,6 +31,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import shared.MateriaalView;
 
 public class MateriaalBoxController extends VBox {
@@ -162,6 +164,13 @@ public class MateriaalBoxController extends VBox {
             ((VBox)getParent()).getChildren().remove(this);
         }
         
+    }
+
+    @FXML
+    private void onActionBtnBewerk(ActionEvent event) {
+        Stage stage = (Stage) getScene().getWindow();
+        Scene scene = new Scene(new MateriaalToevoegenController(dc, mv));
+        stage.setScene(scene); 
     }
 
 }

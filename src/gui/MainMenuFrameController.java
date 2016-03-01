@@ -110,7 +110,7 @@ public class MainMenuFrameController extends BorderPane {
     @FXML
     private void onActionVoegMateriaalToe(ActionEvent event){
         Stage stage = (Stage) getScene().getWindow();
-        Scene scene = new Scene(new MateriaalToevoegenController(domCon));
+        Scene scene = new Scene(new MateriaalToevoegenController(domCon, null));
         stage.setScene(scene);        
     }
     

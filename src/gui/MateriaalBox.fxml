@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
@@ -14,7 +19,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root prefHeight="242.0" prefWidth="950.0" style="-fx-border-color: #CCCCCC; -fx-border-width: 0 0 2 0;" type="VBox" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="242.0" prefWidth="950.0" style="-fx-border-color: #CCCCCC; -fx-border-width: 0 0 2 0;" type="VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox minHeight="102.0" prefHeight="102.0" prefWidth="990.0" styleClass="matertiaalBlok">
          <children>
@@ -110,7 +115,7 @@
                         <Insets />
                      </GridPane.margin>
                   </Button>
-                  <Button fx:id="btnBewerk" mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" text="Pas aan" GridPane.rowIndex="1" />
+                  <Button fx:id="btnBewerk" mnemonicParsing="false" onAction="#onActionBtnBewerk" prefHeight="25.0" prefWidth="123.0" text="Pas aan" GridPane.rowIndex="1" />
                </children>
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />

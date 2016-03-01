@@ -173,6 +173,7 @@ public class MateriaalRepository {
     public boolean wijzigMateriaal(MateriaalView materiaalView) {
         
         Materiaal materiaal = materiaalCatalogus.geefMateriaalMetId(materiaalView.getId());
+        System.out.println(materiaalView);
         
         if (materiaal == null)
             return false;
@@ -180,6 +181,8 @@ public class MateriaalRepository {
         em.getTransaction().begin();
         
         materiaalCatalogus.wijsAttributenMateriaalViewToeAanMateriaal(materiaalView, materiaal);
+        
+        System.out.println(materiaal);
         
         em.getTransaction().commit();
         
