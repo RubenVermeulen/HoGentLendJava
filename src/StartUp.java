@@ -37,11 +37,14 @@ public class StartUp extends Application {// test xd
                 passwordEncryptor.encryptPassword("alosk"), true, true, false);
         Gebruiker user4 = new Gebruiker("Xander", "Berkein", "xander.berkein.v7629@student.hogent.be",
                 passwordEncryptor.encryptPassword("czandor"), false, true, true);
+        Gebruiker user5 = new Gebruiker("Nieuwe", "Beheerder", "nieuwe.beheerder@hogent.be",
+                passwordEncryptor.encryptPassword(""), true, false, true);
 
         em.persist(user);
         em.persist(user2);
         em.persist(user3);
         em.persist(user4);
+        em.persist(user5);
         em.getTransaction().commit();
         em.getTransaction().begin();
         // Materialen aanmaken
