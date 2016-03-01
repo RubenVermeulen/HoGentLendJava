@@ -101,6 +101,11 @@ public class MateriaalView {
         this.naam = naam;
         return this;
     }
+    
+    public MateriaalView setAantal(int aantal) {
+        this.aantal = aantal;
+        return this;
+    }
 
     //getters
     public String getNaam() {

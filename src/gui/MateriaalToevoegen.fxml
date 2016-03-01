@@ -23,7 +23,7 @@
          <children>
             <HBox prefHeight="226.0" prefWidth="818.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="68.0" prefWidth="819.0" text="Voeg materiaal toe">
+                  <Label fx:id="lblTitel" alignment="CENTER" prefHeight="68.0" prefWidth="819.0" text="Voeg materiaal toe">
                      <font>
                         <Font name="System Bold" size="40.0" />
                      </font>
