@@ -59,12 +59,19 @@ public class MateriaalRepository {
             String artikelNummer = materiaal[3];
             double prijs = NumberUtils.toDouble(materiaal[4], 0);
 
-            int aantal = NumberUtils.toInt(materiaal[5], 0);
+            /*
+            if (!materiaal[4].isEmpty()) {
+                prijs = Double.parseDouble(materiaal[4]);
+            }
+             */
+            int aantal;
+
+            aantal = NumberUtils.toInt(materiaal[5], 0);
             boolean uitleenbaarheid;
             if (!materiaal[6].isEmpty()) {
                 uitleenbaarheid = Boolean.parseBoolean(materiaal[6]);
             } else {
-                uitleenbaarheid = false;
+                uitleenbaarheid = true;
             }
 
             String plaats = materiaal[7];
