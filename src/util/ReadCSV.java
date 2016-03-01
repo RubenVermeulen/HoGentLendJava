@@ -5,6 +5,7 @@
  */
 package util;
 
+import com.opencsv.CSVReader;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,6 +16,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,8 +25,33 @@ import java.util.Scanner;
  */
 public class ReadCSV {
 
-    public String[][] run(String CSVFile) {
-        String[][] materialen;
+    public ArrayList<String[]> run(String CSVFile)  {
+        ArrayList<String[]> materialen=new ArrayList<>();
+        
+          CSVReader reader = null;
+        try {
+            reader = new CSVReader(new FileReader(CSVFile), ';');
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ReadCSV.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     String [] nextLine;
+        try {
+            while ((nextLine = reader.readNext()) != null) {
+                materialen.add(nextLine);
+                for(int i=0;i<nextLine.length;i++){
+                    
+                    System.out.println(nextLine[i]);
+                
+                }
+                
+            }  } catch (IOException ex) {
+            Logger.getLogger(ReadCSV.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return materialen;
+    }
+}
+   /*
 
         Scanner scanner = new Scanner(CSVFile);
         Scanner counter = new Scanner(CSVFile);
@@ -49,11 +77,11 @@ public class ReadCSV {
         
         
         }
-        
-        
-        return materialen;
-    }
-}
+        */
+
+
+
+
 /*
     
      public ArrayList<String[]> run(String CSVFile) {

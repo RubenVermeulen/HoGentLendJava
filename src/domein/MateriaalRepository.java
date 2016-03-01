@@ -1,7 +1,9 @@
 package domein;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import javax.persistence.EntityManager;
@@ -38,62 +40,63 @@ public class MateriaalRepository {
     }
 
     void voegMaterialenToeInBulk(String csvFile) {
-        
-        String[][] materialen;
+
+        ArrayList<String[]> materialen;
         ReadCSV obj = new ReadCSV();
 
         materialen = obj.run(csvFile);
-        
-        System.out.println(materialen);
-/*
-        for (ArrayList<String> materiaal : materialen) {
-            String naam = materiaal.get(1);
 
-            String fotoUrl=materiaal.get(0);
-            String omschrijving=materiaal.get(2);
-            String artikelNummer=materiaal.get(3);
-            double prijs=Double.parseDouble(materiaal.get(4));
-            int aantal=Integer.parseInt(materiaal.get(5));
-           // int aantalOnbeschikbaar=Integer.parseInt(materiaal[4]);
-            boolean uitleenbaarheid=Boolean.parseBoolean(materiaal.get(6));
-            String plaats=materiaal.get(7);
-            //String firma=materiaal[7];
-           // String emailFirma=materiaal[8];
-            //String doelgroepen=materiaal[9];
-           // String leergebieden=materiaal[10];
+        System.out.println(materialen);
+
+        for (String[] materiaal : materialen) {
+            String naam = materiaal[1];
+
+            String fotoUrl = materiaal[0];
+
+            System.out.println(materiaal[0]);
+            String omschrijving = materiaal[2];
+            String artikelNummer = materiaal[3];
+            double prijs = Double.parseDouble(materiaal[4]);
+            int aantal = Integer.parseInt(materiaal[5]);
             
-            MateriaalView matView=new MateriaalView(naam, aantal);
-            
-            //matView.setAantalOnbeschikbaar(aantalOnbeschikbaar);
+            boolean uitleenbaarheid = Boolean.parseBoolean(materiaal[6]);
+            String plaats = materiaal[7];
+            String firma = materiaal[7];
+            String emailFirma = materiaal[8];
+            String doelgroepen = materiaal[9];
+            String leergebieden = materiaal[10];
+
+            MateriaalView matView = new MateriaalView(naam, aantal);
+
+            matView.setAantalOnbeschikbaar(0);   //zelf ingevuld
             matView.setArtikelNummer(artikelNummer);
-            
-            //  TODO: fix this
-         //   matView.setDoelgroepen(doelgroepen);
-            
-            //matView.setEmailFirma(emailFirma);
-           // matView.setFirma(firma);
+
+          
+            List<String> doelGroepkes = new ArrayList<String>(Arrays.asList(doelgroepen.split(",")));
+            matView.setDoelgroepen(doelGroepkes);
+
+            matView.setEmailFirma(emailFirma);
+            matView.setFirma(firma);
             matView.setFotoUrl(fotoUrl);
-            
+
             // TODO: fix this
-           // matView.setLeergebieden(leergebieden);
-            
+            List<String> leerGroepkes = new ArrayList<String>(Arrays.asList(leergebieden.split(",")));
+            matView.setLeergebieden(leerGroepkes);
+
             matView.setOmschrijving(omschrijving);
             matView.setPlaats(plaats);
             matView.setPrijs(prijs);
             matView.setUitleenbaarheid(uitleenbaarheid);
-            
+
             voegMateriaalToe(matView);
 
         }
-        */
     }
 
     public List<MateriaalView> geefAlleMaterialen() {
 
-       return materiaalCatalogus.geefAlleMaterialen();
+        return materiaalCatalogus.geefAlleMaterialen();
 
-        
-        
     }
 
     /**
@@ -105,9 +108,10 @@ public class MateriaalRepository {
      * @throws java.lang.IllegalAccessException
      */
     public boolean verwijderMateriaal(String materiaalNaam) {
-        if (materiaalNaam == null || materiaalNaam.isEmpty())
+        if (materiaalNaam == null || materiaalNaam.isEmpty()) {
             throw new IllegalArgumentException("De parameter materiaalNaam mag niet leeg of null zijn.");
-        
+        }
+
         Materiaal materiaal = this.geefMateriaal(materiaalNaam);
 
         if (materiaal != null) {
@@ -135,11 +139,11 @@ public class MateriaalRepository {
      * @return
      */
     public Materiaal geefMateriaal(String materiaalNaam) {
-        
+
         return materiaalCatalogus.geefMateriaal(materiaalNaam);
-        
+
     }
-    
+
     /**
      * Retourneert materiaal uit de database die hoort bij de meegegeven id.
      *
@@ -147,45 +151,47 @@ public class MateriaalRepository {
      * @return
      */
     public Materiaal geefMateriaalMetId(long id) {
-        
+
         return materiaalCatalogus.geefMateriaalMetId(id);
-        
+
     }
-    
-    public MateriaalView geefMateriaalView (String materiaalNaam) {
+
+    public MateriaalView geefMateriaalView(String materiaalNaam) {
         Materiaal materiaal = geefMateriaal(materiaalNaam);
         MateriaalView materiaalView = null;
-        
-        if (materiaal == null)
+
+        if (materiaal == null) {
             return materiaalView;
-        
+        }
+
         materiaalView = materiaalCatalogus.convertMateriaalToMateriaalView(materiaal);
-        
+
         return materiaalView;
     }
 
     public List<MateriaalView> geefMaterialenMetFilter(String filter) {
-        
+
         return materiaalCatalogus.geefMaterialenMetFilter(filter);
-        
+
     }
 
     public boolean wijzigMateriaal(MateriaalView materiaalView) {
-        
+
         Materiaal materiaal = materiaalCatalogus.geefMateriaalMetId(materiaalView.getId());
         System.out.println(materiaalView);
-        
-        if (materiaal == null)
+
+        if (materiaal == null) {
             return false;
-        
+        }
+
         em.getTransaction().begin();
-        
+
         materiaalCatalogus.wijsAttributenMateriaalViewToeAanMateriaal(materiaalView, materiaal);
-        
+
         System.out.println(materiaal);
-        
+
         em.getTransaction().commit();
-        
+
         return true;
     }
 
