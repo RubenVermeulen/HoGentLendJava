@@ -1,8 +1,10 @@
 package gui;
 
 import domein.DomeinController;
+import domein.Materiaal;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -78,7 +81,7 @@ public class MateriaalToevoegenController extends BorderPane {
     @FXML
     private ImageView errorEmailfirma;
 
-    public MateriaalToevoegenController(DomeinController dc) {
+    public MateriaalToevoegenController(DomeinController dc, MateriaalView mv) {
         this.dc = dc;
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MateriaalToevoegen.fxml"));
@@ -92,6 +95,7 @@ public class MateriaalToevoegenController extends BorderPane {
         }
 
         setupAlleGroepen();
+        initialiseerMateriaalWijzigien(mv);
     }
 
     @FXML
@@ -233,4 +237,31 @@ public class MateriaalToevoegenController extends BorderPane {
         prompt.show();
     }
 
+    public void initialiseerMateriaalWijzigien(MateriaalView mv) {
+        System.out.println(mv);
+        
+        // Labels wijzigen
+        voegToeKnop.setText("Wijzig materiaal");
+        
+        // Velden aanvullen
+        naam.setText(mv.getNaam());
+        artikelcode.setText(mv.getArtikelNummer());
+        aantal.setText(Integer.toString(mv.getAantal()));
+        onbeschikbaar.setText(Integer.toString(mv.getAantalOnbeschikbaar()));
+        prijs.setText(Double.toString(mv.getPrijs()));
+        locatie.setText(mv.getPlaats());
+        beschrijving.setText(mv.getOmschrijving());
+        firma.setText(mv.getFirma());
+        emailfirma.setText(mv.getEmailFirma());
+        beschikbaarheid.setSelected(mv.isUitleenbaarheid());
+        urlFoto.setText(mv.getFotoUrl());
+        
+        if ( ! mv.getFotoUrl().isEmpty()) {
+            InputStream ins = getClass().getResourceAsStream("/images/"+String.valueOf(mv.getFotoUrl()));
+            if (ins == null)
+                System.out.println("input stream is null :((((" + "/images/"+String.valueOf(mv.getFotoUrl()));
+            if (ins != null)
+                previewFoto.setImage(new Image(ins));
+        }
+    }
 }
