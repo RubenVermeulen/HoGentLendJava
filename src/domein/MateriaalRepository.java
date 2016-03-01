@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import org.apache.commons.lang3.math.NumberUtils;
 import shared.MateriaalView;
 import util.ReadCSV;
 import util.JPAUtil;
@@ -56,22 +57,27 @@ public class MateriaalRepository {
             System.out.println(materiaal[0]);
             String omschrijving = materiaal[2];
             String artikelNummer = materiaal[3];
-            double prijs = Double.parseDouble(materiaal[4]);
-            int aantal = Integer.parseInt(materiaal[5]);
-            
-            boolean uitleenbaarheid = Boolean.parseBoolean(materiaal[6]);
+            double prijs = NumberUtils.toDouble(materiaal[4], 0);
+
+            int aantal = NumberUtils.toInt(materiaal[5], 0);
+            boolean uitleenbaarheid;
+            if (!materiaal[6].isEmpty()) {
+                uitleenbaarheid = Boolean.parseBoolean(materiaal[6]);
+            } else {
+                uitleenbaarheid = false;
+            }
+
             String plaats = materiaal[7];
-            String firma = materiaal[7];
-            String emailFirma = materiaal[8];
-            String doelgroepen = materiaal[9];
-            String leergebieden = materiaal[10];
+            String firma = materiaal[8];
+            String emailFirma = materiaal[9];
+            String doelgroepen = materiaal[10];
+            String leergebieden = materiaal[11];
 
             MateriaalView matView = new MateriaalView(naam, aantal);
 
             matView.setAantalOnbeschikbaar(0);   //zelf ingevuld
             matView.setArtikelNummer(artikelNummer);
 
-          
             List<String> doelGroepkes = new ArrayList<String>(Arrays.asList(doelgroepen.split(",")));
             matView.setDoelgroepen(doelGroepkes);
 
