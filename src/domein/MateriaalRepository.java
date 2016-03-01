@@ -39,29 +39,13 @@ public class MateriaalRepository {
 
     void voegMaterialenToeInBulk(String csvFile) {
         
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        ArrayList<ArrayList<String>> materialen;
+        String[][] materialen;
         ReadCSV obj = new ReadCSV();
 
         materialen = obj.run(csvFile);
         
         System.out.println(materialen);
-
+/*
         for (ArrayList<String> materiaal : materialen) {
             String naam = materiaal.get(1);
 
@@ -101,7 +85,7 @@ public class MateriaalRepository {
             voegMateriaalToe(matView);
 
         }
-
+        */
     }
 
     public List<MateriaalView> geefAlleMaterialen() {

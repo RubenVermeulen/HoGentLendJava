@@ -22,8 +22,8 @@ import java.util.Scanner;
  */
 public class ReadCSV {
 
-    public ArrayList<ArrayList<String>> run(String CSVFile) {
-        ArrayList<ArrayList<String>> materialen = new ArrayList<>();
+    public String[][] run(String CSVFile) {
+        String[][] materialen;
 
         Scanner scanner = new Scanner(CSVFile);
         Scanner counter = new Scanner(CSVFile);
@@ -36,9 +36,12 @@ public class ReadCSV {
             counter.nextLine();
         }
 
+        materialen= new String[count][8];
+        
         for(int i=0;i<count;i++){   //voor elk materiaal
             for(int j=0;j<8;j++){   //er zijn 8 values in de csv file
-            materialen.get(i).set(j, scanner.next());
+            
+                materialen[i][j]=scanner.next();
             
             
             
