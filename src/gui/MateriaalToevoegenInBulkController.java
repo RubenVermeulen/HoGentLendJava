@@ -36,6 +36,19 @@ public class MateriaalToevoegenInBulkController extends BorderPane {
     DomeinController domCon;
 
     public MateriaalToevoegenInBulkController(DomeinController domCon) {
+         this.domCon = domCon;
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("MateriaalToevoegenInBulk.fxml"));
+        loader.setRoot(this);
+        loader.setController(this);
+
+        try {
+            loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        
+        
         
 
     }
