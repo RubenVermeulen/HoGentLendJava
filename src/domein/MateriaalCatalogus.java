@@ -29,9 +29,9 @@ public class MateriaalCatalogus {
 
     public void loadMaterialen(List<Materiaal> materialen) {
         this.materialen = materialen;
-     
+
         System.out.println(materialen);
-        
+
     }
 
     public Materiaal voegMateriaalToe(MateriaalView mv) {
@@ -51,7 +51,7 @@ public class MateriaalCatalogus {
         List<String> leergebiedenStr = mv.getLeergebieden();
 
         System.out.println(prijs);
-        
+
         //Exceptions werpen
         validatieMateriaalView(naam, aantal, firmaEmail, prijs, aantalOnbeschikbaar);
 
@@ -59,18 +59,21 @@ public class MateriaalCatalogus {
 
         //check of opgegeven firma al bestaat in db
         //indien niet: maak meteen aan met naam en email en steek in database
-        Firma firma = firmaRepo.geefFirma(firmaNaam);
-        if (firma == null) {
-            firma = firmaRepo.voegFirmaToe(firmaNaam, firmaEmail);
+        if (firmaNaam != null && !firmaNaam.isEmpty()) {
+            Firma firma = firmaRepo.geefFirma(firmaNaam);
+            if (firma == null) {
+                firma = firmaRepo.voegFirmaToe(firmaNaam, firmaEmail);
+            }
+            materiaal.setFirma(firma);
         }
-        
+
         List<Groep> doelGroepen = groepRepo.geefDoelgroep(doelgroepenStr);
         List<Groep> leerGroepen = groepRepo.geefLeergroepen(leergebiedenStr);
-        
+
         //maak materiaal aan met gegevens uit de MateriaalView
         materiaal.setFoto(fotoUrl).setBeschrijving(beschrijving).setArtikelnummer(artikelnummer)
                 .setPrijs(prijs).setAantalOnbeschikbaar(aantalOnbeschikbaar).setUitleenbaarheid(uitleenbaarheid)
-                .setPlaats(plaats).setDoelgroepen(doelGroepen).setFirma(firma)
+                .setPlaats(plaats).setDoelgroepen(doelGroepen)
                 .setLeergebieden(leerGroepen);
 
         //voeg materiaal toe aan repo
@@ -97,9 +100,9 @@ public class MateriaalCatalogus {
 
     /**
      * Retourneer een materiaal object gebaseerd op de meegegeven naam.
-     * 
+     *
      * @param materiaalNaam
-     * @return 
+     * @return
      */
     public Materiaal geefMateriaal(String materiaalNaam) {
         Materiaal materiaal = null;
@@ -113,12 +116,12 @@ public class MateriaalCatalogus {
 
         return materiaal;
     }
-    
+
     /**
      * Retourneer een materiaal object gebaseerd op de meegegeven id.
-     * 
+     *
      * @param id
-     * @return 
+     * @return
      */
     public Materiaal geefMateriaalMetId(long id) {
         Materiaal materiaal = null;
@@ -160,12 +163,12 @@ public class MateriaalCatalogus {
                 .setLeergebieden(groepListToString(m.getLeergebieden()))
                 .setPrijs(m.getPrijs())
                 .setId(Long.max(m.getId(), 0));
-        
+
         return mv;
     }
-    
+
     public void wijsAttributenMateriaalViewToeAanMateriaal(MateriaalView mv, Materiaal materiaal) {
-        
+
         String naam = mv.getNaam();
         int aantal = mv.getAantal();
         String firmaEmail = mv.getEmailFirma();
@@ -174,23 +177,23 @@ public class MateriaalCatalogus {
         int aantalOnbeschikbaar = mv.getAantalOnbeschikbaar();
         List<String> doelgroepenStr = mv.getDoelgroepen();
         List<String> leergebiedenStr = mv.getLeergebieden();
-        
+
         System.out.println(leergebiedenStr.toString());
-        
+
         // Valideer de gegevens
         validatieMateriaalView(naam, aantal, firmaEmail, prijs, aantalOnbeschikbaar);
-        
+
         Firma firma = firmaRepo.geefFirma(firmanaam);
-        
+
         if (firma == null) {
             firma = firmaRepo.voegFirmaToe(firmanaam, firmaEmail);
         }
         List<Groep> doelGroepen = groepRepo.geefDoelgroep(doelgroepenStr);
         List<Groep> leerGroepen = groepRepo.geefLeergroepen(leergebiedenStr);
-        
+
         System.out.println(doelGroepen.toString());
         System.out.println(leerGroepen.toString());
-        
+
         materiaal.setAantal(mv.getAantal())
                 .setAantalOnbeschikbaar(mv.getAantalOnbeschikbaar())
                 .setArtikelnummer(mv.getArtikelNummer())
@@ -204,7 +207,7 @@ public class MateriaalCatalogus {
                 .setPrijs(mv.getPrijs())
                 .setUitleenbaarheid(mv.isUitleenbaarheid());
     }
-    
+
     public void validatieMateriaalView(String naam, int aantal, String firmaEmail, double prijs, int aantalOnbeschikbaar) {
         //Exceptions werpen
         if (naam == null || naam.isEmpty()) {
@@ -227,9 +230,9 @@ public class MateriaalCatalogus {
             throw new IllegalArgumentException("onbeschikbaar");
         }
     }
-    
-    private List<String> groepListToString(List<Groep> groepen){
-       return groepen.stream().map(g -> g.getGroep()).collect(Collectors.toList());
+
+    private List<String> groepListToString(List<Groep> groepen) {
+        return groepen.stream().map(g -> g.getGroep()).collect(Collectors.toList());
     }
 
     public List<Groep> geefAlleLeergebieden() {
@@ -241,9 +244,9 @@ public class MateriaalCatalogus {
     }
 
     public void voegGroepToe(String text, boolean isLeergroep) {
-        if (isLeergroep){
+        if (isLeergroep) {
             groepRepo.voegLeergroepToe(text);
-        }else{
+        } else {
             groepRepo.voegDoelgroepToe(text);
         }
     }
