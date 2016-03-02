@@ -256,7 +256,7 @@ public class MateriaalToevoegenController extends BorderPane {
     }
 
     private void promptGroepToevoegen(boolean isLeergroep) {
-        Scene promptScene = new Scene(new VoegGroepToeBoxController(dc, this, isLeergroep), 300, 200);
+        Scene promptScene = new Scene(new VoegGroepToeBoxController(dc, this, isLeergroep), 400, 330);
         Stage prompt = new Stage();
         prompt.initModality(Modality.APPLICATION_MODAL);
         prompt.initOwner(getScene().getWindow());

@@ -94,7 +94,27 @@ public class GroepRepository {
                 throw new IllegalArgumentException("Die doelgroep bestaat niet.");
             }
         }
-        
+
+            Query q = null;
+        try {
+            if (isLeerGroep) {
+                q = em.createQuery("SELECT materiaal_id FROM materiaal_doelgroepen WHERE doelgroep_id=?1");
+            } else {
+                q = em.createQuery("SELECT materiaal_id FROM materiaal_leergebieden WHERE leergebied_id=?1");
+            }
+            q.setParameter(1, groepOpt.get().getId());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (!q.getResultList().isEmpty()) {
+            if (isLeerGroep) {
+                throw new IllegalArgumentException("Er is nog een materiaal met dit leergebied.");
+            } else {
+                throw new IllegalArgumentException("Er is nog een materiaal met deze doelgroep.");
+            }
+        }
+
         em.getTransaction().begin();
         em.remove(groepOpt.get());
         em.getTransaction().commit();

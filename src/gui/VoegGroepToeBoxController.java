@@ -61,7 +61,10 @@ public class VoegGroepToeBoxController extends VBox {
         if (isLeergroep) {
             txfVoegToe.setPromptText("leergebied...");
             lblGroep.setText("Beheren leergebieden");
+            cmbVerwijder.setPromptText("-- selecteer leergebied --");
         }
+        lblVoegToe.setVisible(false);
+        lblVerwijder.setVisible(false);
         setupGroepen();
     }
 
@@ -87,7 +90,7 @@ public class VoegGroepToeBoxController extends VBox {
         String teVerwijderenGroep = cmbVerwijder.selectionModelProperty().get().getSelectedItem();
         try {
             domCon.verwijderGroep(teVerwijderenGroep, isLeerGroep);
-            lblVerwijder.setText("\"%s\" is succesvol verwijderd.");
+            lblVerwijder.setText(String.format("\"%s\" is succesvol verwijderd.",teVerwijderenGroep));
             setupGroepen();
         } catch (IllegalArgumentException e) {
             lblVerwijder.setText(e.getMessage());
@@ -111,7 +114,7 @@ public class VoegGroepToeBoxController extends VBox {
         String toetevoegenGroep = txfVoegToe.getText();
         try{
             domCon.voegGroepToe(toetevoegenGroep, isLeerGroep);
-            lblVoegToe.setText("\"%s\" is succesvol toegevoegd.");
+            lblVoegToe.setText(String.format("\"%s\" is succesvol toegevoegd.",toetevoegenGroep));
             setupGroepen();
         }catch(IllegalArgumentException e){
             lblVoegToe.setText(e.getMessage());
