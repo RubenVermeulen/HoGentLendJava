@@ -8,9 +8,9 @@ public interface GebruikerRepository {
 
     Optional<Gebruiker> getGebruiker(String email, String userPass);
     
-    public void stelAanAlsBeheerder(String email);
+    public void stelAanAlsBeheerder(Gebruiker gebruiker);
     
-    public void verwijderBeheerder(String email);
+    public void verwijderBeheerder(Gebruiker gebruiker);
     
     public ObservableList<Gebruiker> geefAlleBeheerders();
     

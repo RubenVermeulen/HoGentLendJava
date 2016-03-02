@@ -38,9 +38,7 @@ public class GebruikerRepositoryImpl implements GebruikerRepository {
         gebruikers = (List<Gebruiker>) q.getResultList();
     }
     
-    public void stelAanAlsBeheerder(String email){
-        Gebruiker gebruiker = geefGebruiker(email);
-        
+    public void stelAanAlsBeheerder(Gebruiker gebruiker){        
         if ( ! gebruiker.isLector()) {
             throw new IllegalArgumentException("De gebruiker moet een lector zijn.");
         }
@@ -50,11 +48,9 @@ public class GebruikerRepositoryImpl implements GebruikerRepository {
         em.getTransaction().commit();
     }
     
-    public void verwijderBeheerder(String email){
-        Gebruiker gebruiker = geefGebruiker(email);
-        
+    public void verwijderBeheerder(Gebruiker gebruiker){       
         em.getTransaction().begin();
-        em.remove(gebruiker);
+        gebruiker.setBeheerder(false);
         em.getTransaction().commit();
         
         gebruikers.remove(gebruiker);

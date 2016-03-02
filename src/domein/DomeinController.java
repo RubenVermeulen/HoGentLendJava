@@ -75,7 +75,7 @@ public class DomeinController {
     }
 
     public void voegMaterialenToeInBulk(String csvFile) {
-        materiaalRepo.voegMaterialenToeInBulk(csvFile);
+//        materiaalRepo.voegMaterialenToeInBulk(csvFile);
     }
 
     /**
@@ -119,22 +119,24 @@ public class DomeinController {
     }
     
     public void stelAanAlsBeheerder(String email){
-        checkKanAangemeldeBeheerderStatusWijzigenVan();
-        gebruikerRepo.stelAanAlsBeheerder(email);
+        Gebruiker gebruiker = gebruikerRepo.geefGebruiker(email);
+        
+        checkKanAangemeldeBeheerderStatusWijzigenVan(gebruiker);
+        gebruikerRepo.stelAanAlsBeheerder(gebruiker);
     }
     
     public void verwijderBeheerder(Gebruiker gebruiker){
-        checkKanAangemeldeBeheerderStatusWijzigenVan();
-        gebruikerRepo.verwijderBeheerder(gebruiker.getEmail());
+        checkKanAangemeldeBeheerderStatusWijzigenVan(gebruiker);
+        gebruikerRepo.verwijderBeheerder(gebruiker);
     }
     
-    private void checkKanAangemeldeBeheerderStatusWijzigenVan(){
+    private void checkKanAangemeldeBeheerderStatusWijzigenVan(Gebruiker gebruiker){
         if ( ! aangemelde.isHoofdbeheerder()){
             throw new GeenToegangException("Je moet hoofdbeheerder zijn om beheerders te verwijderen.");
         }
-//        if (gebruiker == null){
-//            throw new IllegalArgumentException("De gebruiker bestaat niet.");
-//        }
+        if (gebruiker == null){
+            throw new IllegalArgumentException("De gebruiker bestaat niet.");
+        }
 //        if (!gebruiker.isLector()){
 //            throw new IllegalArgumentException("De gebruiker is geen lector.");
 //        }
