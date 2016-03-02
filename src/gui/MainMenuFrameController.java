@@ -3,15 +3,15 @@ package gui;
 import domein.DomeinController;
 import domein.Gebruiker;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -26,6 +26,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import shared.MateriaalView;
+import shared.ReservatieView;
 
 public class MainMenuFrameController extends BorderPane {
 
@@ -51,6 +52,16 @@ public class MainMenuFrameController extends BorderPane {
     private Button btnStelAanAlsBeheerder;
     @FXML
     private Button btnVerwijderBeheerder;
+    @FXML
+    private TableView<?> tvReservaties;
+    @FXML
+    private TableColumn<?, ?> tcOphaalmoment;
+    @FXML
+    private TableColumn<?, ?> tcIndienmoment;
+    @FXML
+    private TableColumn<?, ?> tcLener;
+    @FXML
+    private TableColumn<?, ?> tcMaterialen;
 
     public MainMenuFrameController(DomeinController domCon) {
         this.domCon = domCon;
@@ -68,6 +79,8 @@ public class MainMenuFrameController extends BorderPane {
         setupMaterials(domCon.geefAlleMaterialen());
 
         initialiseerTableViewBeheerders();
+        
+        initialiseerTableViewReservaties();
     }
 
     private void setupMaterials(List<MateriaalView> materials) {
@@ -111,6 +124,23 @@ public class MainMenuFrameController extends BorderPane {
         prompt.initOwner(getScene().getWindow());
         prompt.setScene(promptScene);
         prompt.show();
+    }
+    
+    private void initialiseerTableViewReservaties(){
+        
+        List<ReservatieView> reservaties = domCon.geefAlleReservaties();
+        
+        tvReservaties.setPlaceholder(new Label("Er zijn nog geen reservaties."));
+        
+        ObservableList<ReservatieView> ol = FXCollections.unmodifiableObservableList(
+                FXCollections.observableArrayList(reservaties.stream().collect(Collectors.toList())
+                ));
+        
+        tcOphaalmoment.setCellValueFactory(new PropertyValueFactory<>("ophaalmoment"));
+        tcIndienmoment.setCellValueFactory(new PropertyValueFactory<>("indienmoment"));
+        tcLener.setCellValueFactory(new PropertyValueFactory<>("lener"));
+        tcMaterialen.setCellValueFactory(new PropertyValueFactory<>("materialen"));
+        
     }
 
     @FXML
