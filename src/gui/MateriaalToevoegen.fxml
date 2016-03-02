@@ -52,12 +52,12 @@
                                  <children>
                                     <TextField id="urlFoto" fx:id="urlFoto" promptText="url van de foto">
                                        <VBox.margin>
-                                          <Insets top="100.0" />
+                                          <Insets right="20.0" top="100.0" />
                                        </VBox.margin>
                                     </TextField>
-                                    <Button fx:id="kiesFotoKnop" mnemonicParsing="false" onAction="#fotoKiezenOnAction" prefHeight="33.0" prefWidth="150.0" text="Kies foto">
+                                    <Button fx:id="kiesFotoKnop" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#fotoKiezenOnAction" prefHeight="33.0" prefWidth="150.0" text="Kies foto">
                                        <VBox.margin>
-                                          <Insets top="10.0" />
+                                          <Insets right="20.0" top="10.0" />
                                        </VBox.margin>
                                     </Button>
                                  </children>
@@ -164,7 +164,7 @@
                               <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.rowIndex="3">
                                  <children>
                                     <CheckComboBox fx:id="doelgroepen" prefHeight="25.0" prefWidth="353.0" />
-                                    <Button mnemonicParsing="false" onAction="#onBtnActionDoelgroepen" prefHeight="25.0" prefWidth="175.0" text="Voeg toe" />
+                                    <Button mnemonicParsing="false" onAction="#onBtnActionDoelgroepen" prefHeight="25.0" prefWidth="175.0" text="Beheren" />
                                  </children>
                                  <GridPane.margin>
                                     <Insets />
@@ -173,7 +173,7 @@
                               <HBox layoutX="30.0" layoutY="58.0" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.rowIndex="5">
                                  <children>
                                     <CheckComboBox fx:id="leergroepen" prefHeight="25.0" prefWidth="353.0" />
-                                    <Button mnemonicParsing="false" onAction="#onBtnActionLeergroepen" prefHeight="25.0" prefWidth="175.0" text="Voeg toe" />
+                                    <Button mnemonicParsing="false" onAction="#onBtnActionLeergroepen" prefHeight="25.0" prefWidth="175.0" text="Beheren" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.rowIndex="7">

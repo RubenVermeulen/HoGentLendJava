@@ -22,9 +22,9 @@ public class MateriaalCatalogus {
     private FirmaRepository firmaRepo;
     private GroepRepository groepRepo;
 
-//    public MateriaalCatalogus() {
-//        this(new FirmaRepository());
-//    }
+    public MateriaalCatalogus() {
+        this(new FirmaRepository());
+    }
 
     MateriaalCatalogus(FirmaRepository firmaRepo) {
         this.firmaRepo = firmaRepo;
