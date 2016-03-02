@@ -202,12 +202,20 @@ public class Materiaal {
 
     public boolean containsFilter(String filter) {
         boolean hasGroepFilter = false;
-        /*   if (groepen != null){
-            for(Groep g : groepen){
+        if (doelgroepen != null){
+            for(Groep g : doelgroepen){
                 hasGroepFilter = g.containsFilter(filter);
                 if (hasGroepFilter) break;
             }
-        }*/
+        }
+        if (!hasGroepFilter){
+            if (doelgroepen != null){
+                for(Groep g : doelgroepen){
+                    hasGroepFilter = g.containsFilter(filter);
+                    if (hasGroepFilter) break;
+                }
+            }
+        }
         return hasGroepFilter || (firma != null && firma.containsFilter(filter))
                 || hasFilter(naam, filter)
                 || hasFilter(beschrijving, filter)
