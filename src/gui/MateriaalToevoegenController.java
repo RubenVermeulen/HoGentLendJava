@@ -106,6 +106,11 @@ public class MateriaalToevoegenController extends BorderPane {
         // Voorkomt een horizontale balk
         beschrijving.setWrapText(true);
         
+        // Geef een vaste breedte aan de preview foto
+        previewFoto.setFitWidth(175);
+        previewFoto.setFitHeight(175);
+        previewFoto.setPreserveRatio(true);
+        
         // om de fxml duidelijker te maken laat ik errormessage daar op visible staan
         verbergError();
 
@@ -141,20 +146,9 @@ public class MateriaalToevoegenController extends BorderPane {
         fileChooser.setTitle("Open afbeelding bestand");
         File file = fileChooser.showOpenDialog(new Stage());
         urlFoto.setText(file.getPath());
-
-        String filePath = file.getPath().toLowerCase();
             
-        try {
-            if ( ! filePath.endsWith(".jpg") && ! filePath.endsWith(".png") &&  ! filePath.endsWith(".gif"))
-            throw new IllegalArgumentException("Geef een geldige foto op.");
-        
-            // Laad afbeelding dynamisch in voor preview - nog geen controles of het een afbeelding is of niet
-            previewFoto.setImage(new Image("file:///" + file.getAbsolutePath()));
-        }
-        catch (IllegalArgumentException e) {
-            errorNaam.setVisible(true);
-            lblErrorMessage.setText(e.getMessage());
-        }
+        // Laad afbeelding dynamisch in voor preview - nog geen controles of het een afbeelding is of niet
+        previewFoto.setImage(new Image("file:///" + file.getAbsolutePath()));
     }
 
     private void gaTerug() {
@@ -206,6 +200,10 @@ public class MateriaalToevoegenController extends BorderPane {
             imgErrorMessage.setVisible(true);
             
             switch (e.getMessage()) {
+                case "foto":
+                    errorNaam.setVisible(true);
+                    lblErrorMessage.setText("Geef een geldige foto op.");
+                    break;
                 case "naam":
                     errorNaam.setVisible(true);
                     lblErrorMessage.setText("Het materiaal moet een (unieke) naam hebben.");
@@ -310,6 +308,10 @@ public class MateriaalToevoegenController extends BorderPane {
             imgErrorMessage.setVisible(true);
             
             switch (e.getMessage()) {
+                case "foto":
+                    errorNaam.setVisible(true);
+                    lblErrorMessage.setText("Geef een geldige foto op.");
+                    break;
                 case "naam":
                     errorNaam.setVisible(true);
                     lblErrorMessage.setText("Het materiaal moet een (unieke) naam hebben.");

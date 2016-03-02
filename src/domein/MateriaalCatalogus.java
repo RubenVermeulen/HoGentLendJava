@@ -212,7 +212,7 @@ public class MateriaalCatalogus {
     public void validatieMateriaalView(String urlFoto, String naam, int aantal, String firmaEmail, double prijs, int aantalOnbeschikbaar) {
         //Exceptions werpen
         if (urlFoto != null && ! urlFoto.isEmpty() && ! urlFoto.endsWith(".jpg") && ! urlFoto.endsWith(".png") &&  ! urlFoto.endsWith(".gif"))
-                throw new IllegalArgumentException("Geef een geldige foto op.");
+            throw new IllegalArgumentException("foto");
         
         if (naam == null || naam.isEmpty()) {
             throw new IllegalArgumentException("naam");
