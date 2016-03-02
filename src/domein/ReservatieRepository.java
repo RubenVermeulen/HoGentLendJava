@@ -42,7 +42,7 @@ public class ReservatieRepository {
     
     public List<ReservatieView> geefAlleReservaties(){
         
-         List<ReservatieView> reservatieViews = new ArrayList();
+        List<ReservatieView> reservatieViews = new ArrayList();
 
         for (Reservatie r : reservaties) {
             reservatieViews.add(convertReservatieToReservatieView(r));

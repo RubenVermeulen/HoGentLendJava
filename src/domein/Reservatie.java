@@ -41,7 +41,7 @@ public class Reservatie {
     private LocalDateTime ophaalmoment;
     private LocalDateTime indienmoment;
 
-    @OneToMany(mappedBy = "reservatie", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "reservatie", fetch = FetchType.EAGER, orphanRemoval = true)
     private List<ReservatieLijn> materialen;
 
     public Reservatie() {

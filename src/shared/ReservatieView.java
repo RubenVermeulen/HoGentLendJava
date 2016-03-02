@@ -6,8 +6,8 @@
 package shared;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -20,14 +20,33 @@ public class ReservatieView {
     private String lener;
     private LocalDateTime ophaalmoment;
     private LocalDateTime indienmoment;
-    private List<ReservatieLijnView> gereserveerdeMaterialen;
+    private String ophaalmomentAlsString;
+    private String indienmomentAlsString;
+    private String reservatieLijnenAlsString;
+    private List<ReservatieLijnView> reservatieLijnen;
 
     public ReservatieView(long id, String lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment, List<ReservatieLijnView> gereserveerdeMaterialen) {
         this.id = id;
         this.lener = lener;
         this.ophaalmoment = ophaalmoment;
         this.indienmoment = indienmoment;
-        this.gereserveerdeMaterialen = gereserveerdeMaterialen;
+        this.reservatieLijnen = gereserveerdeMaterialen;
+        this.reservatieLijnenAlsString = reservatieLijnenToString(reservatieLijnen);
+        
+        this.ophaalmomentAlsString = formatLocalDateTime(ophaalmoment);
+        this.indienmomentAlsString = formatLocalDateTime(indienmoment);
+    }
+
+    public String getOphaalmomentAlsString() {
+        return ophaalmomentAlsString;
+    }
+
+    public String getIndienmomentAlsString() {
+        return indienmomentAlsString;
+    }
+
+    public String getReservatieLijnenAlsString() {
+        return reservatieLijnenAlsString;
     }
 
     public long getId() {
@@ -62,17 +81,28 @@ public class ReservatieView {
         this.indienmoment = indienmoment;
     }
 
-    public List<ReservatieLijnView> getGereserveerdeMaterialen() {
-        return gereserveerdeMaterialen;
+    public List<ReservatieLijnView> getReservatieLijnen() {
+        return reservatieLijnen;
     }
 
-    public void setGereserveerdeMaterialen(List<ReservatieLijnView> gereserveerdeMaterialen) {
-        this.gereserveerdeMaterialen = gereserveerdeMaterialen;
+    public void setReservatieLijnen(List<ReservatieLijnView> gereserveerdeMaterialen) {
+        this.reservatieLijnen = gereserveerdeMaterialen;
     }
     
-    public String gereserveerdeMaterialenToString(){
+    public String reservatieLijnenToString(){
         String s = "";
-        return gereserveerdeMaterialen.stream().map(m -> m.getMateriaal().getNaam()).collect(Collectors.joining(", "));
+        return reservatieLijnen.stream().map(m -> m.getMateriaal().getNaam()).collect(Collectors.joining(", "));
+    }
+    
+    private String reservatieLijnenToString(List<ReservatieLijnView> rl){
+        String s = "";
+        return rl.stream().map(m -> m.getMateriaal().getNaam()).collect(Collectors.joining(", "));
+    }
+    
+    private String formatLocalDateTime(LocalDateTime ldt){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yy HH:mm");
+        System.out.println(ldt.format(formatter));
+        return ldt.format(formatter);
     }
     
 }

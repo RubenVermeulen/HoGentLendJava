@@ -3,7 +3,7 @@ package gui;
 import domein.DomeinController;
 import domein.Gebruiker;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -54,15 +54,15 @@ public class MainMenuFrameController extends BorderPane {
     @FXML
     private Button btnVerwijderBeheerder;
     @FXML
-    private TableView<?> tvReservaties;
+    private TableView<ReservatieView> tvReservaties;
     @FXML
-    private TableColumn<?, ?> tcOphaalmoment;
+    private TableColumn<ReservatieView, LocalDateTime> tcOphaalmoment;
     @FXML
-    private TableColumn<?, ?> tcIndienmoment;
+    private TableColumn<ReservatieView, String> tcIndienmoment;
     @FXML
-    private TableColumn<?, ?> tcLener;
+    private TableColumn<ReservatieView, String> tcLener;
     @FXML
-    private TableColumn<?, ?> tcMaterialen;
+    private TableColumn<ReservatieView, String> tcMaterialen;
 
     public MainMenuFrameController(DomeinController domCon) {
         this.domCon = domCon;
@@ -80,7 +80,7 @@ public class MainMenuFrameController extends BorderPane {
         setupMaterials(domCon.geefAlleMaterialen());
 
         initialiseerTableViewBeheerders();
-        
+
         initialiseerTableViewReservaties();
     }
 
@@ -100,11 +100,11 @@ public class MainMenuFrameController extends BorderPane {
         tvBeheerders.setPlaceholder(new Label("Er zijn nog geen beheerders"));
 
         // Disable knoppen als je geen hoofdbeheerder bent
-        if ( ! domCon.getAangemelde().isHoofdbeheerder()) {
+        if (!domCon.getAangemelde().isHoofdbeheerder()) {
             btnStelAanAlsBeheerder.setDisable(true);
             btnVerwijderBeheerder.setDisable(true);
         }
-        
+
         // Koppel een kolom aan een attribuut
         clNaam.setCellValueFactory(new PropertyValueFactory<>("achternaam"));
         clVoornaam.setCellValueFactory(new PropertyValueFactory<>("voornaam"));
@@ -117,7 +117,7 @@ public class MainMenuFrameController extends BorderPane {
         // TableView opvullen met data
         tvBeheerders.setItems(domCon.geefAlleBeheerders());
     }
-    
+
     private void promptBeheerderToevoegen() {
         Scene promptScene = new Scene(new VoegBeheerderToeBoxController(domCon, this), 300, 200);
         Stage prompt = new Stage();
@@ -126,20 +126,47 @@ public class MainMenuFrameController extends BorderPane {
         prompt.setScene(promptScene);
         prompt.show();
     }
-    
-    private void initialiseerTableViewReservaties(){
-        
-        List<ReservatieView> reservaties = domCon.geefAlleReservaties();
-        
+
+    private void initialiseerTableViewReservaties() {
+
         tvReservaties.setPlaceholder(new Label("Er zijn nog geen reservaties."));
-        
-        ObservableList<List<String>> ol = FXCollections.observableArrayList();
-        
+
+        List<ReservatieView> reservaties = domCon.geefAlleReservaties();
+                  
+        ObservableList<ReservatieView> observableList = FXCollections.unmodifiableObservableList(
+                FXCollections.observableArrayList(reservaties.stream().collect(Collectors.toList())
+                ));
+
         tcOphaalmoment.setCellValueFactory(new PropertyValueFactory<>("ophaalmoment"));
-        tcIndienmoment.setCellValueFactory(new PropertyValueFactory<>("indienmoment"));
+        tcIndienmoment.setCellValueFactory(new PropertyValueFactory<>("indienmomentAlsString"));
         tcLener.setCellValueFactory(new PropertyValueFactory<>("lener"));
-        tcMaterialen.setCellValueFactory(new PropertyValueFactory<>("materialen"));
+        tcMaterialen.setCellValueFactory(new PropertyValueFactory<>("reservatieLijnenAlsString"));
         
+        tvReservaties.setItems(observableList);
+        
+         //        List<List<String>> lijst = new ArrayList<>();
+        //        
+        //        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yy HH:mm");
+        //        
+        //        for(ReservatieView rv : reservaties){
+        //            List<String> dummy = new ArrayList<>();
+        //            dummy.add(rv.getOphaalmoment().format(formatter));
+        //            dummy.add(rv.getIndienmoment().format(formatter));
+        //            dummy.add(rv.getLener());
+        //            dummy.add(rv.reservatieLijnenToString());
+        //            lijst.add(dummy);
+        //        }
+        //        
+        //        ObservableList<List<String>> data = FXCollections.observableArrayList();
+        //        data.addAll(lijst);
+        //        
+        //        tcOphaalmoment.setCellValueFactory(new Callback<CellDataFeatures<String[], String>, ObservableValue<String>>() {
+        //                @Override
+        //                public ObservableValue<String> call(CellDataFeatures<String[], String> p) {
+        //                    return new SimpleStringProperty((p.getValue()[0]));
+        //                }
+        // 
+
     }
 
     @FXML
@@ -198,7 +225,7 @@ public class MainMenuFrameController extends BorderPane {
             informationAlert.setTitle("Informatie");
             informationAlert.setHeaderText("Informatie");
             informationAlert.setContentText("Je hebt geen beheerder geselecteerd om te verwijderen.");
-            
+
             informationAlert.showAndWait();
         } else {
             Alert alert = new Alert(
