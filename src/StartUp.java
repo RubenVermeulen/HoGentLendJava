@@ -75,6 +75,9 @@ public class StartUp extends Application {// test xd
         leergroep = new Groep("derde leergroep",true);
         em.persist(leergroep);
         
+        List<Groep> doelgroepen2 = new ArrayList<Groep>();
+        doelgroepen2.add(doelgroep);
+        
         doelgroep = new Groep("derde doelgroep", false);
         em.persist(doelgroep);
         
@@ -84,6 +87,7 @@ public class StartUp extends Application {// test xd
         List<Groep> doelgroepen = new ArrayList<Groep>();
         doelgroepen.add(doelgroep);
         
+        
         em.getTransaction().commit();
         
         em.getTransaction().begin();
@@ -92,7 +96,7 @@ public class StartUp extends Application {// test xd
             .setAantalOnbeschikbaar(0)
             .setArtikelnummer("B54879")
             .setBeschrijving("Deze mooie wereldbol met verlichting heeft 25 cm doorsnee en werkt op stroom.")
-            .setDoelgroepen(doelgroepen)
+            .setDoelgroepen(doelgroepen2)
             .setFirma(f1)
             .setFoto("temp_wereldbol.jpg")
             .setLeergebieden(leergroepen)
