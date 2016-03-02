@@ -86,7 +86,7 @@ public class ReservatieRepository {
         }
         return Optional.empty();
     }
-
+    
     public void wijzigReservatie(ReservatieView rv) {
         Optional<Reservatie> optR = geefReservatie(rv.getId());
         if (!optR.isPresent()) {
@@ -110,8 +110,6 @@ public class ReservatieRepository {
                 pasReservatieLijnAan(r, lv);
             }
         }
-
-        // nu de nieuwe lijnen toevoegen
     }
 
     private void verwijderReservatieLijn(Reservatie r, long rl) {
