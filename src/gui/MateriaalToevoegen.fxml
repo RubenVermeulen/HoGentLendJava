@@ -85,15 +85,15 @@
                               <Label text="Naam" />
                               <Label text="Artikelcode" GridPane.rowIndex="2" />
                               <Label text="Aantal stuks" GridPane.rowIndex="4" />
-                              <TextField id="naam" fx:id="naam" promptText="naam" GridPane.rowIndex="1" />
+                              <TextField id="naam" fx:id="naam" onKeyTyped="#naamOnKey" promptText="naam" GridPane.rowIndex="1" />
                               <TextField id="artikelcode" fx:id="artikelcode" promptText="artikelcode" GridPane.rowIndex="3" />
-                              <TextField id="aantal" fx:id="aantal" promptText="aantal stuks" GridPane.rowIndex="5" />
-                              <TextField id="prijs" fx:id="prijs" promptText="prijs in € (vb notatie: 10.99)" GridPane.rowIndex="9" />
+                              <TextField id="aantal" fx:id="aantal" onKeyTyped="#aantalOnKey" promptText="aantal stuks" GridPane.rowIndex="5" />
+                              <TextField id="prijs" fx:id="prijs" onKeyTyped="#prijsOnKey" promptText="prijs in € (vb notatie: 10.99)" GridPane.rowIndex="9" />
                               <Label text="Prijs (€)" GridPane.rowIndex="8" />
                               <Label text="Locatie" GridPane.rowIndex="10" />
                               <TextField fx:id="locatie" promptText="locatie" GridPane.rowIndex="11" />
                               <Label text="Aantal onbeschikbaar" GridPane.rowIndex="6" />
-                              <TextField fx:id="onbeschikbaar" promptText="aantal onbeschikbaar" GridPane.rowIndex="7" />
+                              <TextField fx:id="onbeschikbaar" onKeyTyped="#onbeschikbaarOnKey" promptText="aantal onbeschikbaar" GridPane.rowIndex="7" />
                               <ImageView fx:id="errorNaam" fitHeight="30.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                                  <image>
                                     <Image url="@../images/errorred.png" />
@@ -153,17 +153,20 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
                               <Label text="Doelgroepen" GridPane.rowIndex="3" />
                               <Label text="Leergroepen" GridPane.rowIndex="5" />
                               <Label text="Firma" GridPane.rowIndex="7" />
-                              <TextField id="firma" fx:id="firma" promptText="firma" GridPane.rowIndex="8" />
-                              <TextField id="emailfirma" fx:id="emailfirma" promptText="email firma" GridPane.rowIndex="10" />
+                              <TextField id="firma" fx:id="firma" onKeyTyped="#firmaOnKey" promptText="firma" GridPane.rowIndex="8" />
+                              <TextField id="emailfirma" fx:id="emailfirma" onKeyTyped="#emailOnKey" promptText="email firma" GridPane.rowIndex="10" />
                               <Label text="Email firma" GridPane.rowIndex="9" />
-                              <CheckBox id="beschikbaar" fx:id="beschikbaarheid" mnemonicParsing="false" text="Beschikbaar" GridPane.rowIndex="12" />
+                              <CheckBox id="beschikbaar" fx:id="beschikbaarheid" mnemonicParsing="false" text="Beschikbaar" GridPane.rowIndex="12">
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding></CheckBox>
                               <ImageView fx:id="errorEmailfirma" fitHeight="30.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="10">
                                  <image>
                                     <Image url="@../images/errorred.png" />
@@ -186,14 +189,29 @@
                               </HBox>
                            </children>
                            <padding>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="22.0" />
                            </padding>
                         </GridPane>
-                        <Label text="Label">
-                           <padding>
-                              <Insets left="20.0" />
-                           </padding>
-                        </Label>
+                        <HBox maxHeight="-Infinity" prefHeight="50.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fx:id="imgErrorMessage" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/exclamationpoint_klein.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="20.0" top="5.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label fx:id="lblErrorMessage" alignment="TOP_LEFT" prefHeight="50.0" text="Error Placeholder" textFill="#d70000">
+                                 <padding>
+                                    <Insets top="5.0" />
+                                 </padding>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                </children>

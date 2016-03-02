@@ -1,6 +1,7 @@
 package gui;
 
 import domein.DomeinController;
+import exceptions.OngeldigeLoginException;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -121,12 +122,12 @@ public class LoginFrameController extends BorderPane {
     }
 
     private void meldAan() {
-    //    try {
+        try {
             String email = txfEmailadres.getText().trim();
             String wachtwoord = pfWachtwoord.getText().trim();
             
             if (!dc.meldAan(email, wachtwoord)) {
-                throw new IllegalArgumentException("Emailadres of wachtwoord is incorrect. Gelieve opnieuw te proberen.");
+                throw new OngeldigeLoginException("Emailadres of wachtwoord is incorrect. Gelieve opnieuw te proberen.");
             }
 
             System.out.println("Login gelukt!");
@@ -134,13 +135,12 @@ public class LoginFrameController extends BorderPane {
             Stage stage = (Stage) btnAanmelden.getScene().getWindow();
             Scene scene = new Scene(new MainMenuFrameController(this.dc));
             stage.setScene(scene);
-            //stage.setTitle("Default");
             stage.show();
 
-      //  } catch (Exception e) {
-        //    pfWachtwoord.setText("");
-         //   lblIncorrect.setVisible(true);
-        //}
+        } catch (OngeldigeLoginException e) {
+            pfWachtwoord.setText("");
+            lblIncorrect.setVisible(true);
+        }
     }
 
 }
