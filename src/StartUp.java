@@ -61,24 +61,24 @@ public class StartUp extends Application {// test xd
         em.getTransaction().commit();
         
         em.getTransaction().begin();
-        Groep leergroep = new Groep("een leergroep",true);
+        Groep leergroep = new Groep("Lichamelijke opvoeding",true);
         em.persist(leergroep);
         
-        Groep doelgroep = new Groep("een doelgroep", false);
+        Groep doelgroep = new Groep("Kleuteronderwijs", false);
         em.persist(doelgroep);
         
-        leergroep = new Groep("nog een leergroep",true);
+        leergroep = new Groep("Biologie",true);
         em.persist(leergroep);
         
-        doelgroep = new Groep("nog een doelgroep", false);
+        doelgroep = new Groep("Lager onderwijs", false);
         em.persist(doelgroep);
-        leergroep = new Groep("derde leergroep",true);
+        leergroep = new Groep("Aardrijkskunde",true);
         em.persist(leergroep);
         
         List<Groep> doelgroepen2 = new ArrayList<Groep>();
         doelgroepen2.add(doelgroep);
         
-        doelgroep = new Groep("derde doelgroep", false);
+        doelgroep = new Groep("Secundair onderwijs", false);
         em.persist(doelgroep);
         
         List<Groep> leergroepen = new ArrayList<Groep>();
