@@ -167,6 +167,8 @@ public class MainMenuFrameController extends BorderPane {
     private void setupReservatieLijnen(List<ReservatieLijnView> reservatieLijnen) {
         boxReservatieLijn.getChildren().clear();
         reservatieLijnen.stream().forEach(rl -> boxReservatieLijn.getChildren().add(new ReservatieBoxController(rl, domCon)));
+        
+        
     }
 
     @FXML

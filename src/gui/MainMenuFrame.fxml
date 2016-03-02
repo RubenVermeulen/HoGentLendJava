@@ -163,12 +163,12 @@
                           </rowConstraints>
                            <children>
                               <Label text="Gereserveerd door" GridPane.rowIndex="2" />
-                              <Label text="Placeholder naam" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Label text="Placeholder email" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label fx:id="lblReservatieLener" text="Placeholder naam" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label fx:id="lblReservatieLenerEmail" text="Placeholder email" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <Label text="Ophaalmoment" GridPane.rowIndex="4" />
                               <Label text="Indienmoment" GridPane.rowIndex="5" />
-                              <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <Label fx:id="lblReservatieOphaalmoment" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label fx:id="lblReservatiesIndienmoment" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                               <Label text="Gereserveerde materialen:" underline="true" GridPane.rowIndex="7">
                                  <GridPane.margin>
                                     <Insets bottom="10.0" />
