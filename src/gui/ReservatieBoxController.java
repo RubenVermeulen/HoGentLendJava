@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -40,15 +41,19 @@ public class ReservatieBoxController extends GridPane{
     @FXML
     private Label lblAantal;
     @FXML
-    private Label lblPrijs;
-    @FXML
-    private TextArea txtaBeschrijving;
-    @FXML
     private Label lblCode;
     @FXML
-    private CheckBox ckbBeschikbaar;
-    @FXML
     private Label lblLocatie;
+    @FXML
+    private Label lblOphaalmoment;
+    @FXML
+    private Label lblAantalBeschikbaar;
+    @FXML
+    private Button btnWijzig;
+    @FXML
+    private Button btnVerwijder;
+    @FXML
+    private Label lblIndienmoment;
 
     ReservatieBoxController(ReservatieLijnView rlv, DomeinController dc) {
         this.dc = dc;
@@ -65,9 +70,6 @@ public class ReservatieBoxController extends GridPane{
     }
 
 
-    @FXML
-    private void onBeschikbaarAction(ActionEvent event) {
-    }
 
     private void setupReservaties(ReservatieLijnView rlv) {
         this.rlv = rlv;
@@ -76,13 +78,7 @@ public class ReservatieBoxController extends GridPane{
         lblNaam.setText(mv.getNaam());
         int beschikbaar = mv.getAantal() - mv.getAantalOnbeschikbaar();
         lblAantal.setText(String.format("%d van de %d beschikbaar", beschikbaar, mv.getAantal()));
-        if (mv.getPrijs() != -1.0d) {
-            lblPrijs.setText(String.format("€ %.2f per stuk", mv.getPrijs()));
-        }
 
-        if (isNotEmpty(mv.getOmschrijving())) {
-            txtaBeschrijving.setText(mv.getOmschrijving());
-        }
         if (isNotEmpty(mv.getFotoUrl())) {
             InputStream ins = getClass().getResourceAsStream("/images/"+String.valueOf(mv.getFotoUrl()));
             if (ins == null)
@@ -96,7 +92,6 @@ public class ReservatieBoxController extends GridPane{
         if (isNotEmpty(mv.getPlaats())) {
             lblLocatie.setText(mv.getPlaats());
         }
-        ckbBeschikbaar.setSelected(mv.isUitleenbaarheid());
         
 //        if (isNotEmpty(mv.getDoelgroepen())) {
 //            lblDoelGroepen.setText(mv.getDoelgroepen().stream().collect(Collectors.joining(", ")));
@@ -120,6 +115,14 @@ public class ReservatieBoxController extends GridPane{
     
     private boolean isNotEmpty(List<String> strings) {
         return strings != null && !strings.isEmpty();
+    }
+
+    @FXML
+    private void onBtnWijzig(ActionEvent event) {
+    }
+
+    @FXML
+    private void onBtnVerwijder(ActionEvent event) {
     }
         
     
