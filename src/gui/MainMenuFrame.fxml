@@ -13,8 +13,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -95,116 +93,91 @@
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="500.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="140.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="200.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="674.0" minHeight="10.0" prefHeight="674.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="529.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding>
                      <children>
-                        <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <content>
-                              <VBox fx:id="boxReservatieLijn" prefHeight="332.0" prefWidth="498.0" />
-                           </content>
-                        </ScrollPane>
-                        <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
+                        <VBox spacing="15.0" GridPane.columnIndex="1">
                            <children>
-                              <Button mnemonicParsing="false" text="Filter op materiaal" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField promptText="Trefwoord" GridPane.rowIndex="2" />
-                              <Button mnemonicParsing="false" text="Verwijder geselecteerde reservatie" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                              <DatePicker prefWidth="100.0" GridPane.rowIndex="3" />
-                              <DatePicker layoutX="10.0" layoutY="138.0" prefWidth="100.0" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-                              <Label text="tot" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-                              <Button mnemonicParsing="false" text="Voeg nieuwe reservatie toe" GridPane.halignment="CENTER">
-                                 <GridPane.margin>
-                                    <Insets />
-                                 </GridPane.margin>
-                              </Button>
+                              <GridPane prefHeight="139.0" prefWidth="500.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints />
+                                  <RowConstraints maxHeight="-Infinity" prefHeight="40.0" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="Gereserveerd door" GridPane.rowIndex="2" />
+                                    <Label fx:id="lblLenerNaam" text="Placeholder naam" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label fx:id="lblLenerEmail" text="Placeholder email" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Label text="Ophaalmoment" GridPane.rowIndex="4" />
+                                    <Label text="Indienmoment" GridPane.rowIndex="5" />
+                                    <Label fx:id="lblOphaalmoment" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <Label fx:id="lblIndienmoment" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <Label alignment="TOP_LEFT" text="Details Reservatie" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets top="4.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                 </children>
+                              </GridPane>
+                              <ScrollPane prefHeight="572.0" prefWidth="500.0">
+                                 <content>
+                                    <VBox fx:id="boxReservatieLijn" prefHeight="499.0" prefWidth="498.0" />
+                                 </content>
+                              </ScrollPane>
                            </children>
-                        </GridPane>
-                        <TableView fx:id="tvReservaties" prefHeight="200.0" prefWidth="200.0" GridPane.rowSpan="3">
-                          <columns>
-                            <TableColumn fx:id="tcOphaalmoment" prefWidth="100.0" text="Ophaalmoment" />
-                            <TableColumn fx:id="tcIndienmoment" prefWidth="100.0" text="Indienmoment" />
-                              <TableColumn fx:id="tcLener" prefWidth="180.0" text="Gereserveerd door" />
-                              <TableColumn fx:id="tcMaterialen" prefWidth="339.0" text="Gereserveerde materialen" />
-                              <TableColumn prefWidth="30.0" text="#" />
-                          </columns>
+                        </VBox>
+                        <VBox spacing="15.0">
+                           <children>
+                              <GridPane prefHeight="120.0" prefWidth="720.0">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="720.0" minWidth="10.0" prefWidth="165.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="720.0" minWidth="10.0" prefWidth="215.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="568.0" minWidth="8.0" prefWidth="24.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="568.0" minWidth="0.0" prefWidth="316.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Button fx:id="btnVoegResevatieToe" mnemonicParsing="false" prefHeight="25.0" prefWidth="214.0" text="Voeg reservatie toe" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                                    <TextField fx:id="txfZoekReservatie" prefHeight="25.0" prefWidth="307.0" promptText="zoeken..." GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
+                                    <DatePicker fx:id="dtmStartDatum" prefWidth="142.0" promptText="start datum..." GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                                    <Button fx:id="btnZoekReservatie" mnemonicParsing="false" prefHeight="25.0" prefWidth="214.0" text="Zoek reservaties" GridPane.columnIndex="3" GridPane.halignment="LEFT" />
+                                    <DatePicker fx:id="dtmEindDatum" prefHeight="25.0" prefWidth="142.0" promptText="eind datum..." GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+                                    <Label text="tot" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                                    <Button fx:id="btnVerwijderReservatie" mnemonicParsing="false" prefHeight="25.0" prefWidth="215.0" text="Verwijder geselecteerde reservatie" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
+                                 </children>
+                              </GridPane>
+                              <TableView fx:id="tvReservaties" prefHeight="554.0" prefWidth="720.0">
+                                <columns>
+                                  <TableColumn fx:id="tcOphaalmoment" prefWidth="100.0" text="Ophaalmoment" />
+                                  <TableColumn fx:id="tcIndienmoment" prefWidth="114.0" text="Indienmoment" />
+                                    <TableColumn fx:id="tcLener" prefWidth="200.0" text="Gereserveerd door" />
+                                    <TableColumn fx:id="tcMaterialen" prefWidth="248.0" text="Gereserveerde materialen" />
+                                    <TableColumn prefWidth="57.0" text="#" />
+                                </columns>
+                              </TableView>
+                           </children>
                            <GridPane.margin>
-                              <Insets bottom="20.0" right="20.0" />
+                              <Insets right="20.0" />
                            </GridPane.margin>
-                        </TableView>
-                        <GridPane GridPane.columnIndex="1">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                              <RowConstraints />
-                            <RowConstraints maxHeight="-Infinity" prefHeight="40.0" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <Label text="Gereserveerd door" GridPane.rowIndex="2" />
-                              <Label fx:id="lblReservatieLener" text="Placeholder naam" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Label fx:id="lblReservatieLenerEmail" text="Placeholder email" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <Label text="Ophaalmoment" GridPane.rowIndex="4" />
-                              <Label text="Indienmoment" GridPane.rowIndex="5" />
-                              <Label fx:id="lblReservatieOphaalmoment" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <Label fx:id="lblReservatiesIndienmoment" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                              <Label text="Gereserveerde materialen:" underline="true" GridPane.rowIndex="7">
-                                 <GridPane.margin>
-                                    <Insets bottom="10.0" />
-                                 </GridPane.margin>
-                              </Label>
-                              <Label alignment="TOP_LEFT" text="Details Reservatie" GridPane.rowIndex="1" GridPane.valignment="TOP">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                                 <GridPane.margin>
-                                    <Insets top="4.0" />
-                                 </GridPane.margin>
-                              </Label>
-                              <ImageView fx:id="btnVerwijderMateriaalLijn" fitHeight="20.0" fitWidth="20.0" onMouseClicked="#onBtnVerwijderMateriaalLijn" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
-                                 <image>
-                                    <Image url="@../images/delete.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fx:id="btnWijzigReservatieLijn" fitHeight="20.0" fitWidth="20.0" onMouseClicked="#onBtnWijzigMateriaalLijn" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
-                                 <image>
-                                    <Image url="@../images/wijzig.png" />
-                                 </image>
-                                 <GridPane.margin>
-                                    <Insets right="25.0" />
-                                 </GridPane.margin>
-                              </ImageView>
-                              <ImageView fx:id="btnVoegMateriaalLijnToe" fitHeight="20.0" fitWidth="20.0" onMouseClicked="#onbtnVoegMateriaalLijnToe" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
-                                 <image>
-                                    <Image url="@../images/add.png" />
-                                 </image>
-                                 <GridPane.margin>
-                                    <Insets right="50.0" />
-                                 </GridPane.margin>
-                              </ImageView>
-                           </children>
-                        </GridPane>
+                        </VBox>
                      </children>
                   </GridPane>
                </content>
