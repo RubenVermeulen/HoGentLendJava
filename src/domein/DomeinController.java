@@ -23,6 +23,9 @@ public class DomeinController {
     public DomeinController(GebruikerRepository gebruikerRepo) {
         this.gebruikerRepo = gebruikerRepo;
         this.firmaRepo = new FirmaRepository();
+        this.materiaalRepo = new MateriaalRepository(firmaRepo);
+        this.reservatieRepo = new ReservatieRepository(materiaalRepo);
+        
     }
 
     /**
@@ -86,9 +89,6 @@ public class DomeinController {
      * @return
      */
     public List<MateriaalView> geefAlleMaterialen() {
-        if (materiaalRepo == null) {
-            this.materiaalRepo = new MateriaalRepository(firmaRepo);
-        }
         return materiaalRepo.geefAlleMaterialen();
     }
 
@@ -157,9 +157,6 @@ public class DomeinController {
     }
 
     public List<ReservatieView> geefAlleReservaties() {
-        if (reservatieRepo == null) {
-            this.reservatieRepo = new ReservatieRepository();
-        }
         return reservatieRepo.geefAlleReservaties();
     }
     
@@ -200,6 +197,10 @@ public class DomeinController {
      */
     public void verwijderReservatie(ReservatieView rv) {
         reservatieRepo.verwijderReservatie(rv);
+    }
+    
+    public void wijzigReservatie(ReservatieView rv){
+        reservatieRepo.wijzigReservatie(rv);
     }
 
 }
