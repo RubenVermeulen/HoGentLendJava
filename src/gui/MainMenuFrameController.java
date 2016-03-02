@@ -137,35 +137,13 @@ public class MainMenuFrameController extends BorderPane {
                 FXCollections.observableArrayList(reservaties.stream().collect(Collectors.toList())
                 ));
 
-        tcOphaalmoment.setCellValueFactory(new PropertyValueFactory<>("ophaalmoment"));
+        tcOphaalmoment.setCellValueFactory(new PropertyValueFactory<>("ophaalmomentAlsString"));
         tcIndienmoment.setCellValueFactory(new PropertyValueFactory<>("indienmomentAlsString"));
         tcLener.setCellValueFactory(new PropertyValueFactory<>("lener"));
         tcMaterialen.setCellValueFactory(new PropertyValueFactory<>("reservatieLijnenAlsString"));
         
         tvReservaties.setItems(observableList);
         
-         //        List<List<String>> lijst = new ArrayList<>();
-        //        
-        //        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yy HH:mm");
-        //        
-        //        for(ReservatieView rv : reservaties){
-        //            List<String> dummy = new ArrayList<>();
-        //            dummy.add(rv.getOphaalmoment().format(formatter));
-        //            dummy.add(rv.getIndienmoment().format(formatter));
-        //            dummy.add(rv.getLener());
-        //            dummy.add(rv.reservatieLijnenToString());
-        //            lijst.add(dummy);
-        //        }
-        //        
-        //        ObservableList<List<String>> data = FXCollections.observableArrayList();
-        //        data.addAll(lijst);
-        //        
-        //        tcOphaalmoment.setCellValueFactory(new Callback<CellDataFeatures<String[], String>, ObservableValue<String>>() {
-        //                @Override
-        //                public ObservableValue<String> call(CellDataFeatures<String[], String> p) {
-        //                    return new SimpleStringProperty((p.getValue()[0]));
-        //                }
-        // 
 
     }
 
