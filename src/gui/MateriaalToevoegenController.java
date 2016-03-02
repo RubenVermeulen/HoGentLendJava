@@ -1,22 +1,15 @@
 package gui;
 
 import domein.DomeinController;
-import domein.Firma;
-import domein.Materiaal;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -27,7 +20,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -62,8 +54,6 @@ public class MateriaalToevoegenController extends BorderPane {
     private CheckComboBox<String> doelgroepen;
     @FXML
     private CheckComboBox<String> leergroepen;
-    private TextField firma;
-    private TextField emailfirma;
     @FXML
     private CheckBox beschikbaarheid;
     @FXML

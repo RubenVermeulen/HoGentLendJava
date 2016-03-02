@@ -18,8 +18,14 @@ public class MateriaalRepository {
     private MateriaalCatalogus materiaalCatalogus;
     private EntityManager em;
 
-    public MateriaalRepository() {
-        materiaalCatalogus = new MateriaalCatalogus();
+//    public MateriaalRepository() {
+//        materiaalCatalogus = new MateriaalCatalogus();
+//        this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
+//        loadMaterialen();
+//    }
+
+    MateriaalRepository(FirmaRepository firmaRepo) {
+        materiaalCatalogus = new MateriaalCatalogus(firmaRepo);
         this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
         loadMaterialen();
     }

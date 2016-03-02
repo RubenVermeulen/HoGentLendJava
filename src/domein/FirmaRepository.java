@@ -1,7 +1,9 @@
 package domein;
 
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import util.JPAUtil;
@@ -17,22 +19,34 @@ public class FirmaRepository {
     }
     
     private void loadFirmas() {
-        Query q = em.createQuery("SELECT f FROM Firma f");
+        Query q = em.createQuery("SELECT f FROM Firma f ORDER BY f.naam");
         firmas = (List<Firma>) q.getResultList();
     }
 
     public List<Firma> getFirmas() {
+        Collections.sort(firmas, new Comparator<Firma>() {
+            @Override
+            public int compare(Firma o1, Firma o2) {
+                return o1.getNaam().compareToIgnoreCase(o2.getNaam());
+            }
+            
+        });
+        
         return firmas;
     }
 
     public Firma geefFirma(String naam) {
         
         for (Firma f : firmas) {
+            
+            System.out.println("xp" + f.getNaam());
+                
             if (f.getNaam().equals(naam)) {
+                System.out.println("xd" + f.getNaam());
                 return f;
             }
         }
-
+        
         return null;
     }
 
@@ -60,6 +74,9 @@ public class FirmaRepository {
         em.getTransaction().commit();
         
         firmas.add(firma);
+        
+        System.out.println("MOIJSDMOFIJSDMOIFJ" + firmas);
+        System.out.println(geefFirma(naam));
         
         return firma;
 

@@ -22,11 +22,16 @@ public class MateriaalCatalogus {
     private FirmaRepository firmaRepo;
     private GroepRepository groepRepo;
 
-    public MateriaalCatalogus() {
-        firmaRepo = new FirmaRepository();
+//    public MateriaalCatalogus() {
+//        this(new FirmaRepository());
+//    }
+
+    MateriaalCatalogus(FirmaRepository firmaRepo) {
+        this.firmaRepo = firmaRepo;
         materialen = new ArrayList<>();
         groepRepo = new GroepRepository();
     }
+    
 
     public void loadMaterialen(List<Materiaal> materialen) {
         this.materialen = materialen;

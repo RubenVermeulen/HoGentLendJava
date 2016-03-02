@@ -87,7 +87,7 @@ public class DomeinController {
      */
     public List<MateriaalView> geefAlleMaterialen() {
         if (materiaalRepo == null) {
-            this.materiaalRepo = new MateriaalRepository();
+            this.materiaalRepo = new MateriaalRepository(firmaRepo);
         }
         return materiaalRepo.geefAlleMaterialen();
     }
