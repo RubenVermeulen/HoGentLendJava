@@ -18,6 +18,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import org.eclipse.persistence.annotations.CascadeOnDelete;
 import shared.MateriaalView;
 
 @Entity
@@ -45,12 +46,12 @@ public class Materiaal {
     private boolean uitleenbaarheid;
     private String plaats;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "materiaal_doelgroepen", joinColumns = @JoinColumn(name = "materiaal_id"),
             inverseJoinColumns = @JoinColumn(name = "doelgroep_id"))
     private List<Groep> doelgroepen = new ArrayList();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "materiaal_leergebieden", joinColumns = @JoinColumn(name = "materiaal_id"),
             inverseJoinColumns = @JoinColumn(name = "leergebied_id"))
     private List<Groep> leergebieden = new ArrayList();

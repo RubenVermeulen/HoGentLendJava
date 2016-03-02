@@ -13,6 +13,7 @@ public class DomeinController {
     private GebruikerRepository gebruikerRepo;
     private MateriaalRepository materiaalRepo;
     private ReservatieRepository reservatieRepo;
+    private FirmaRepository firmaRepo;
     private Gebruiker aangemelde;
 
     public DomeinController() {
@@ -21,6 +22,7 @@ public class DomeinController {
 
     public DomeinController(GebruikerRepository gebruikerRepo) {
         this.gebruikerRepo = gebruikerRepo;
+        this.firmaRepo = new FirmaRepository();
     }
 
     /**
@@ -69,7 +71,7 @@ public class DomeinController {
      *
      * @param mv
      */
-    public void voegMateriaalToe(MateriaalView mv) {
+    public void voegMateriaalToe(MateriaalView mv) {        
         materiaalRepo.voegMateriaalToe(mv);
 
     }
@@ -118,6 +120,10 @@ public class DomeinController {
         materiaalRepo.voegGroepToe(text, isLeerGroep);
     }
     
+    public void verwijderGroep(String groep, boolean isLeerGroep){
+        materiaalRepo.verwijderGroep(groep, isLeerGroep);
+    }
+    
     public void stelAanAlsBeheerder(String email){
         Gebruiker gebruiker = gebruikerRepo.geefGebruiker(email);
         
@@ -156,5 +162,21 @@ public class DomeinController {
         return reservatieRepo.geefAlleReservaties();
     }
     
+    public List<String> geefAlleFirmas() {
+        List<Firma> firmas = firmaRepo.getFirmas();
+        System.out.println("Aantal firma's: " + firmas.size());
+        
+        for (Firma f : firmas)
+            System.out.println(f.getNaam() + "---");
+        
+        return firmaListToString(firmas);
+    }
     
+    private List<String> firmaListToString(List<Firma> firmas) {
+        return firmas.stream().map(f -> f.getNaam()).collect(Collectors.toList());
+    }
+    
+    public void voegFirmaToe(String naam, String email) {
+        firmaRepo.voegFirmaToe(naam, email);
+    }
 }

@@ -30,7 +30,7 @@ public class MateriaalRepository {
     }
 
     public void voegMateriaalToe(MateriaalView mv) {
-
+        
         Materiaal materiaal = materiaalCatalogus.voegMateriaalToe(mv);
 
         //voeg materiaal toe aan db
@@ -191,7 +191,6 @@ public class MateriaalRepository {
     public boolean wijzigMateriaal(MateriaalView materiaalView) {
 
         Materiaal materiaal = materiaalCatalogus.geefMateriaalMetId(materiaalView.getId());
-        System.out.println(materiaalView);
 
         if (materiaal == null) {
             return false;
@@ -200,8 +199,6 @@ public class MateriaalRepository {
         em.getTransaction().begin();
 
         materiaalCatalogus.wijsAttributenMateriaalViewToeAanMateriaal(materiaalView, materiaal);
-
-        System.out.println(materiaal);
 
         em.getTransaction().commit();
 
@@ -218,5 +215,9 @@ public class MateriaalRepository {
 
     public void voegGroepToe(String text, boolean isLeerGroep) {
         materiaalCatalogus.voegGroepToe(text, isLeerGroep);
+    }
+
+    public void verwijderGroep(String groepStr, boolean isLeerGroep){
+        materiaalCatalogus.verwijderGroep(groepStr, isLeerGroep);
     }
 }
