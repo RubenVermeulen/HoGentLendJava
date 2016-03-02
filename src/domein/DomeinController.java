@@ -118,6 +118,10 @@ public class DomeinController {
         materiaalRepo.voegGroepToe(text, isLeerGroep);
     }
     
+    public void verwijderGroep(String groep, boolean isLeerGroep){
+        materiaalRepo.verwijderGroep(groep, isLeerGroep);
+    }
+    
     public void stelAanAlsBeheerder(String email){
         Gebruiker gebruiker = gebruikerRepo.geefGebruiker(email);
         

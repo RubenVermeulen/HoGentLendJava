@@ -248,10 +248,10 @@ public class MateriaalCatalogus {
     }
 
     public void voegGroepToe(String text, boolean isLeergroep) {
-        if (isLeergroep) {
-            groepRepo.voegLeergroepToe(text);
-        } else {
-            groepRepo.voegDoelgroepToe(text);
-        }
+      groepRepo.voegGroepToe(text, isLeergroep);
+    }
+
+    public void verwijderGroep(String groep, boolean isLeerGroep){
+        groepRepo.verwijderGroep(groep, isLeerGroep);
     }
 }
