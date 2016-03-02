@@ -50,10 +50,14 @@ public class StartUp extends Application {// test xd
         em.getTransaction().commit();
         em.getTransaction().begin();
         // Materialen aanmaken
-        Firma firma = new Firma("Goaty Enterprise");
-        firma.setEmail("info@goatyenterprise.be");
+        Firma f1 = new Firma("Goaty Enterprise");
+        f1.setEmail("info@goatyenterprise.be");
         
-        em.persist(firma);
+        Firma f2 = new Firma("Deckers Boeken");
+        f2.setEmail("info@deckersboeken.be");
+        
+        em.persist(f1);
+        em.persist(f2);
         em.getTransaction().commit();
         
         em.getTransaction().begin();
@@ -89,7 +93,7 @@ public class StartUp extends Application {// test xd
             .setArtikelnummer("B54879")
             .setBeschrijving("Deze mooie wereldbol met verlichting heeft 25 cm doorsnee en werkt op stroom.")
             .setDoelgroepen(doelgroepen)
-            .setFirma(firma)
+            .setFirma(f1)
             .setFoto("temp_wereldbol.jpg")
             .setLeergebieden(leergroepen)
             .setPlaats("Lokaal B4.035")
@@ -100,7 +104,7 @@ public class StartUp extends Application {// test xd
             .setArtikelnummer("A12345")
             .setBeschrijving("Zou u wel eens een tijdreis willen maken tussen de provincie Noord-Holland van nu en het Noord-Holland van 1959? Hoe zag uw provincie er toen uit, hoe zag uw dorp of stad er uit? En wat is er allemaal veranderd in die 50 jaar? Met de Topografische DubbelAtlas van Utrecht ziet u het - letterlijk - in één oogopslag.")
             .setDoelgroepen(doelgroepen)
-            .setFirma(firma)
+            .setFirma(f1)
             .setFoto("temp_atlas.jpg")
             .setLeergebieden(leergroepen)
             .setPlaats("Lokaal B4.035")
@@ -111,7 +115,7 @@ public class StartUp extends Application {// test xd
             .setArtikelnummer("A64645")
             .setBeschrijving("De wetenschappelijke rekenmachine FX-92 van Casio is de perfecte metgezel voor op school.")
             .setDoelgroepen(doelgroepen)
-            .setFirma(firma)
+            .setFirma(f1)
             .setFoto("temp_rekenmachine.jpg")
             .setLeergebieden(leergroepen)
             .setPlaats("Lokaal B4.035")
@@ -122,7 +126,7 @@ public class StartUp extends Application {// test xd
             .setArtikelnummer("B54879")
             .setBeschrijving("Deze mooie wereldbol met verlichting heeft 25 cm doorsnee en werkt op stroom.")
             .setDoelgroepen(doelgroepen)
-            .setFirma(firma)
+            .setFirma(f1)
             .setFoto("temp_wereldbol.jpg")
             .setLeergebieden(leergroepen)
             .setPlaats("Lokaal B4.035")
@@ -133,7 +137,7 @@ public class StartUp extends Application {// test xd
             .setArtikelnummer("A12345")
             .setBeschrijving("Zou u wel eens een tijdreis willen maken tussen de provincie Noord-Holland van nu en het Noord-Holland van 1959? Hoe zag uw provincie er toen uit, hoe zag uw dorp of stad er uit? En wat is er allemaal veranderd in die 50 jaar? Met de Topografische DubbelAtlas van Utrecht ziet u het - letterlijk - in één oogopslag.")
             .setDoelgroepen(doelgroepen)
-            .setFirma(firma)
+            .setFirma(f1)
             .setFoto("temp_atlas.jpg")
             .setLeergebieden(leergroepen)
             .setPlaats("Lokaal B4.035")
@@ -144,7 +148,7 @@ public class StartUp extends Application {// test xd
             .setArtikelnummer("A64645")
             .setBeschrijving("De wetenschappelijke rekenmachine FX-92 van Casio is de perfecte metgezel voor op school.")
             .setDoelgroepen(doelgroepen)
-            .setFirma(firma)
+            .setFirma(f1)
             .setFoto("temp_rekenmachine.jpg")
             .setLeergebieden(leergroepen)
             .setPlaats("Lokaal B4.035")

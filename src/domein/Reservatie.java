@@ -17,7 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import shared.MateriaalLijnView;
+import shared.ReservatieLijnView;
 import shared.MateriaalView;
 import shared.ReservatieView;
 
@@ -95,12 +95,12 @@ public class Reservatie {
     }
 
     public ReservatieView toReservatieView() {
-        List<MateriaalLijnView> gereserveerdeMaterialen = new ArrayList<>();
+        List<ReservatieLijnView> gereserveerdeMaterialen = new ArrayList<>();
 
         for (ReservatieLijn gm : materialen) {
             MateriaalView mv = gm.getMateriaal().toMateriaalView();
-            MateriaalLijnView gmv
-                    = new MateriaalLijnView(gm.getId(), gm.getOphaalmoment(), gm.getIndienmoment(), mv, gm.getAantal());
+            ReservatieLijnView gmv
+                    = new ReservatieLijnView(gm.getId(), gm.getOphaalmoment(), gm.getIndienmoment(), mv, gm.getAantal());
             gereserveerdeMaterialen.add(gmv);
         }
 
