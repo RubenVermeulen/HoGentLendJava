@@ -3,6 +3,7 @@ package gui;
 import domein.DomeinController;
 import domein.Gebruiker;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -132,9 +133,7 @@ public class MainMenuFrameController extends BorderPane {
         
         tvReservaties.setPlaceholder(new Label("Er zijn nog geen reservaties."));
         
-        ObservableList<ReservatieView> ol = FXCollections.unmodifiableObservableList(
-                FXCollections.observableArrayList(reservaties.stream().collect(Collectors.toList())
-                ));
+        ObservableList<List<String>> ol = FXCollections.observableArrayList();
         
         tcOphaalmoment.setCellValueFactory(new PropertyValueFactory<>("ophaalmoment"));
         tcIndienmoment.setCellValueFactory(new PropertyValueFactory<>("indienmoment"));

@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  *
  * @author Xander
  */
-public class GereserveerdMateriaalView {
+public class ReservatieLijnView {
     
     private Long id;
     
@@ -23,7 +23,7 @@ public class GereserveerdMateriaalView {
     private MateriaalView materiaal;
     private int aantal;
 
-    public GereserveerdMateriaalView(Long id, LocalDateTime ophaalmoment, LocalDateTime indienmoment, MateriaalView materiaal, int aantal) {
+    public ReservatieLijnView(Long id, LocalDateTime ophaalmoment, LocalDateTime indienmoment, MateriaalView materiaal, int aantal) {
         this.id = id;
         this.ophaalmoment = ophaalmoment;
         this.indienmoment = indienmoment;
