@@ -91,7 +91,7 @@
                <content>
                   <GridPane>
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="740.0" />
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="500.0" />
                     </columnConstraints>
                     <rowConstraints>
@@ -104,9 +104,9 @@
                      </padding>
                      <children>
                         <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-                          </content>
+                           <content>
+                              <VBox fx:id="boxReservatieLijn" prefHeight="332.0" prefWidth="498.0" />
+                           </content>
                         </ScrollPane>
                         <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                           <columnConstraints>
@@ -140,6 +140,7 @@
                             <TableColumn fx:id="tcIndienmoment" prefWidth="100.0" text="Indienmoment" />
                               <TableColumn fx:id="tcLener" prefWidth="180.0" text="Gereserveerd door" />
                               <TableColumn fx:id="tcMaterialen" prefWidth="339.0" text="Gereserveerde materialen" />
+                              <TableColumn prefWidth="30.0" text="#" />
                           </columns>
                            <GridPane.margin>
                               <Insets bottom="20.0" right="20.0" />

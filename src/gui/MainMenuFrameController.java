@@ -22,11 +22,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import shared.MateriaalView;
+import shared.ReservatieLijnView;
 import shared.ReservatieView;
 
 public class MainMenuFrameController extends BorderPane {
@@ -63,6 +66,14 @@ public class MainMenuFrameController extends BorderPane {
     private TableColumn<ReservatieView, String> tcLener;
     @FXML
     private TableColumn<ReservatieView, String> tcMaterialen;
+    @FXML
+    private ImageView btnVerwijderMateriaalLijn;
+    @FXML
+    private ImageView btnWijzigReservatieLijn;
+    @FXML
+    private ImageView btnVoegMateriaalLijnToe;
+    @FXML
+    private VBox boxReservatieLijn;
 
     public MainMenuFrameController(DomeinController domCon) {
         this.domCon = domCon;
@@ -144,7 +155,18 @@ public class MainMenuFrameController extends BorderPane {
         
         tvReservaties.setItems(observableList);
         
+        tvReservaties.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if(newSelection != null){
+                setupReservatieLijnen(newSelection.getReservatieLijnen());
+                
+            }
+        });
 
+    }
+    
+    private void setupReservatieLijnen(List<ReservatieLijnView> reservatieLijnen) {
+        boxReservatieLijn.getChildren().clear();
+        reservatieLijnen.stream().forEach(rl -> boxReservatieLijn.getChildren().add(new ReservatieBoxController(rl, domCon)));
     }
 
     @FXML
@@ -225,6 +247,18 @@ public class MainMenuFrameController extends BorderPane {
             }
         }
 
+    }
+
+    @FXML
+    private void onBtnVerwijderMateriaalLijn(MouseEvent event) {
+    }
+
+    @FXML
+    private void onBtnWijzigMateriaalLijn(MouseEvent event) {
+    }
+
+    @FXML
+    private void onbtnVoegMateriaalLijnToe(MouseEvent event) {
     }
 
 }
