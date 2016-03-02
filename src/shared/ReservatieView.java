@@ -20,9 +20,9 @@ public class ReservatieView {
     private String lener;
     private LocalDateTime ophaalmoment;
     private LocalDateTime indienmoment;
-    private List<GereserveerdMateriaalView> gereserveerdeMaterialen;
+    private List<MateriaalLijnView> gereserveerdeMaterialen;
 
-    public ReservatieView(long id, String lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment, List<GereserveerdMateriaalView> gereserveerdeMaterialen) {
+    public ReservatieView(long id, String lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment, List<MateriaalLijnView> gereserveerdeMaterialen) {
         this.id = id;
         this.lener = lener;
         this.ophaalmoment = ophaalmoment;
@@ -62,11 +62,11 @@ public class ReservatieView {
         this.indienmoment = indienmoment;
     }
 
-    public List<GereserveerdMateriaalView> getGereserveerdeMaterialen() {
+    public List<MateriaalLijnView> getGereserveerdeMaterialen() {
         return gereserveerdeMaterialen;
     }
 
-    public void setGereserveerdeMaterialen(List<GereserveerdMateriaalView> gereserveerdeMaterialen) {
+    public void setGereserveerdeMaterialen(List<MateriaalLijnView> gereserveerdeMaterialen) {
         this.gereserveerdeMaterialen = gereserveerdeMaterialen;
     }
     
