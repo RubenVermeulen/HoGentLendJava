@@ -13,6 +13,7 @@ public class DomeinController {
     private GebruikerRepository gebruikerRepo;
     private MateriaalRepository materiaalRepo;
     private ReservatieRepository reservatieRepo;
+    private FirmaRepository firmaRepo;
     private Gebruiker aangemelde;
 
     public DomeinController() {
@@ -21,6 +22,7 @@ public class DomeinController {
 
     public DomeinController(GebruikerRepository gebruikerRepo) {
         this.gebruikerRepo = gebruikerRepo;
+        this.firmaRepo = new FirmaRepository();
     }
 
     /**
@@ -69,7 +71,7 @@ public class DomeinController {
      *
      * @param mv
      */
-    public void voegMateriaalToe(MateriaalView mv) {
+    public void voegMateriaalToe(MateriaalView mv) {        
         materiaalRepo.voegMateriaalToe(mv);
 
     }
@@ -85,7 +87,7 @@ public class DomeinController {
      */
     public List<MateriaalView> geefAlleMaterialen() {
         if (materiaalRepo == null) {
-            this.materiaalRepo = new MateriaalRepository();
+            this.materiaalRepo = new MateriaalRepository(firmaRepo);
         }
         return materiaalRepo.geefAlleMaterialen();
     }
@@ -116,6 +118,10 @@ public class DomeinController {
 
     public void voegGroepToe(String text, boolean isLeerGroep) {
         materiaalRepo.voegGroepToe(text, isLeerGroep);
+    }
+    
+    public void verwijderGroep(String groep, boolean isLeerGroep){
+        materiaalRepo.verwijderGroep(groep, isLeerGroep);
     }
 
     public void stelAanAlsBeheerder(String email) {
@@ -155,6 +161,45 @@ public class DomeinController {
             this.reservatieRepo = new ReservatieRepository();
         }
         return reservatieRepo.geefAlleReservaties();
+    }
+    
+    public List<String> geefAlleFirmas() {
+        List<Firma> firmas = firmaRepo.getFirmas();
+        System.out.println("Aantal firma's: " + firmas.size());
+        
+        for (Firma f : firmas)
+            System.out.println(f.getNaam() + "---");
+        
+        return firmaListToString(firmas);
+    }
+    
+    /**
+     * Vormt een firma list om naar een string list met firma namen.
+     * 
+     * @param firmas
+     * @return 
+     */
+    private List<String> firmaListToString(List<Firma> firmas) {
+        return firmas.stream().map(f -> f.getNaam()).collect(Collectors.toList());
+    }
+    
+    /**
+     * Voegt firma toe.
+     * 
+     * @param naam
+     * @param email 
+     */
+    public void voegFirmaToe(String naam, String email) {
+        firmaRepo.voegFirmaToe(naam, email);
+    }
+    
+    /**
+     * Verwijdert reservatie.
+     * 
+     * @param rv 
+     */
+    public void verwijderReservatie(ReservatieView rv) {
+        reservatieRepo.verwijderReservatie(rv);
     }
 
 }

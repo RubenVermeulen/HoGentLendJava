@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import shared.MateriaalLijnView;
+import shared.ReservatieLijnView;
 import shared.MateriaalView;
 import shared.ReservatieView;
 import util.JPAUtil;
@@ -42,7 +42,7 @@ public class ReservatieRepository {
     
     public List<ReservatieView> geefAlleReservaties(){
         
-         List<ReservatieView> reservatieViews = new ArrayList();
+        List<ReservatieView> reservatieViews = new ArrayList();
 
         for (Reservatie r : reservaties) {
             reservatieViews.add(convertReservatieToReservatieView(r));
@@ -58,8 +58,23 @@ public class ReservatieRepository {
         
     }
     
+    public void verwijderReservatie(ReservatieView rv) {
+        Reservatie reservatie = geefReservatie(rv.getId());
+           
+        em.getTransaction().begin();
+        em.remove(reservatie);
+        em.getTransaction().commit();
+        
+        reservaties.remove(reservatie);
+    }
     
-    
-    
+    public Reservatie geefReservatie(long id) {
+        for (Reservatie r : reservaties) {
+            if (r.getId() == id)
+                return r;
+        }
+        
+        throw new IllegalArgumentException("Kon geen reservatie vinden");
+    }
     
 }

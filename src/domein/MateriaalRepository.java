@@ -18,8 +18,14 @@ public class MateriaalRepository {
     private MateriaalCatalogus materiaalCatalogus;
     private EntityManager em;
 
-    public MateriaalRepository() {
-        materiaalCatalogus = new MateriaalCatalogus();
+//    public MateriaalRepository() {
+//        materiaalCatalogus = new MateriaalCatalogus();
+//        this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
+//        loadMaterialen();
+//    }
+
+    MateriaalRepository(FirmaRepository firmaRepo) {
+        materiaalCatalogus = new MateriaalCatalogus(firmaRepo);
         this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
         loadMaterialen();
     }
@@ -30,7 +36,7 @@ public class MateriaalRepository {
     }
 
     public void voegMateriaalToe(MateriaalView mv) {
-
+        
         Materiaal materiaal = materiaalCatalogus.voegMateriaalToe(mv);
 
         //voeg materiaal toe aan db
@@ -118,7 +124,6 @@ public class MateriaalRepository {
      *
      * @param materiaalNaam
      * @return
-     * @throws java.lang.IllegalAccessException
      */
     public boolean verwijderMateriaal(String materiaalNaam) {
         if (materiaalNaam == null || materiaalNaam.isEmpty()) {
@@ -191,7 +196,6 @@ public class MateriaalRepository {
     public boolean wijzigMateriaal(MateriaalView materiaalView) {
 
         Materiaal materiaal = materiaalCatalogus.geefMateriaalMetId(materiaalView.getId());
-        System.out.println(materiaalView);
 
         if (materiaal == null) {
             return false;
@@ -200,8 +204,6 @@ public class MateriaalRepository {
         em.getTransaction().begin();
 
         materiaalCatalogus.wijsAttributenMateriaalViewToeAanMateriaal(materiaalView, materiaal);
-
-        System.out.println(materiaal);
 
         em.getTransaction().commit();
 
@@ -218,5 +220,9 @@ public class MateriaalRepository {
 
     public void voegGroepToe(String text, boolean isLeerGroep) {
         materiaalCatalogus.voegGroepToe(text, isLeerGroep);
+    }
+
+    public void verwijderGroep(String groepStr, boolean isLeerGroep){
+        materiaalCatalogus.verwijderGroep(groepStr, isLeerGroep);
     }
 }

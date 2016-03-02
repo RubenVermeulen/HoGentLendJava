@@ -18,6 +18,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import org.eclipse.persistence.annotations.CascadeOnDelete;
 import shared.MateriaalView;
 
 @Entity

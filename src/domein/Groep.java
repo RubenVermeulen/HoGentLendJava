@@ -44,6 +44,10 @@ public class Groep {
     public void setIsLeerGroep(boolean isLeerGroep) {
         this.isLeerGroep = isLeerGroep;
     }
+
+    public long getId() {
+        return id;
+    }    
     
     boolean containsFilter(String filter) {
         return hasFilter(groep, filter);
