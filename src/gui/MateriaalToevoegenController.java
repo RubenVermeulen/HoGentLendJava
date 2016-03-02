@@ -142,8 +142,19 @@ public class MateriaalToevoegenController extends BorderPane {
         File file = fileChooser.showOpenDialog(new Stage());
         urlFoto.setText(file.getPath());
 
-        // Laad afbeelding dynamisch in voor preview - nog geen controles of het een afbeelding is of niet
-//        previewFoto.setImage(new Image("file:///" + file.getAbsolutePath()));
+        String filePath = file.getPath().toLowerCase();
+            
+        try {
+            if ( ! filePath.endsWith(".jpg") && ! filePath.endsWith(".png") &&  ! filePath.endsWith(".gif"))
+            throw new IllegalArgumentException("Geef een geldige foto op.");
+        
+            // Laad afbeelding dynamisch in voor preview - nog geen controles of het een afbeelding is of niet
+            previewFoto.setImage(new Image("file:///" + file.getAbsolutePath()));
+        }
+        catch (IllegalArgumentException e) {
+            errorNaam.setVisible(true);
+            lblErrorMessage.setText(e.getMessage());
+        }
     }
 
     private void gaTerug() {
@@ -186,38 +197,6 @@ public class MateriaalToevoegenController extends BorderPane {
 
     private void voegMateriaalToe() {
         try {
-
-//            String deNaam = naam.getText().trim();
-//            // TODO: catch Numberformatexception
-//
-//            int hetAantal = Integer.parseInt(aantal.getText());
-//
-//            MateriaalView matView = new MateriaalView(deNaam, hetAantal);
-//            if (onbeschikbaar.getText() != null && !onbeschikbaar.getText().isEmpty()) {
-//                matView.setAantalOnbeschikbaar(Integer.parseInt(onbeschikbaar.getText()));
-//            }
-//
-//            matView.setArtikelNummer(artikelcode.getText());
-//
-//            matView.setDoelgroepen(new ArrayList(doelgroepen.getCheckModel().getCheckedItems()));
-//
-//            matView.setEmailFirma(emailfirma.getText());
-//
-//            matView.setFirma(firma.getText());
-//            matView.setFotoUrl(urlFoto.getText());
-//
-//            matView.setLeergebieden(new ArrayList(leergroepen.getCheckModel().getCheckedItems()));
-//
-//            matView.setOmschrijving(beschrijving.getText());
-//            matView.setPlaats(locatie.getText());
-//            if (prijs.getText() != null && !prijs.getText().isEmpty()) {
-//                matView.setPrijs(Double.parseDouble(prijs.getText()));
-//            }
-//            matView.setUitleenbaarheid(beschikbaarheid.isSelected());
-//
-//            dc.voegMateriaalToe(matView);
-//            gaTerug();
-
             wijzigMateriaalView(true);
 
 
@@ -323,37 +302,6 @@ public class MateriaalToevoegenController extends BorderPane {
 
     public void wijzigMateriaal() {
         try {
-//            // TODO: catch Numberformatexception
-//            
-//            mv.setNaam(naam.getText().trim());
-//            mv.setAantal(Integer.parseInt(aantal.getText()));
-//            
-//            if (onbeschikbaar.getText() != null && ! onbeschikbaar.getText().isEmpty()) {
-//                mv.setAantalOnbeschikbaar(Integer.parseInt(onbeschikbaar.getText()));
-//            }
-//
-//            mv.setArtikelNummer(artikelcode.getText());
-//
-//            mv.setDoelgroepen(new ArrayList(doelgroepen.getCheckModel().getCheckedItems()));
-//
-//            mv.setEmailFirma(emailfirma.getText());
-//
-//            mv.setFirma(firma.getText());
-//            mv.setFotoUrl(urlFoto.getText());
-//            
-//            mv.setLeergebieden(new ArrayList(leergroepen.getCheckModel().getCheckedItems()));
-//
-//            mv.setOmschrijving(beschrijving.getText());
-//            mv.setPlaats(locatie.getText());
-//            
-//            if (prijs.getText() != null && !prijs.getText().isEmpty()) {
-//                mv.setPrijs(Double.parseDouble(prijs.getText()));
-//            }
-//            mv.setUitleenbaarheid(beschikbaarheid.isSelected());
-//
-//            dc.wijzigMateriaal(mv);
-//            gaTerug();
-
             wijzigMateriaalView(false);
 
         } catch (IllegalArgumentException e) {

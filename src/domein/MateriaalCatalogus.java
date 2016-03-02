@@ -36,11 +36,11 @@ public class MateriaalCatalogus {
 
     public Materiaal voegMateriaalToe(MateriaalView mv) {
 
+        String urlFoto = mv.getFotoUrl();
         String naam = mv.getNaam();
         int aantal = mv.getAantal();
         String firmaNaam = mv.getFirma();
         String firmaEmail = mv.getEmailFirma();
-        String fotoUrl = mv.getFotoUrl();
         String beschrijving = mv.getOmschrijving();
         String artikelnummer = mv.getArtikelNummer();
         double prijs = mv.getPrijs();
@@ -53,7 +53,7 @@ public class MateriaalCatalogus {
         System.out.println(prijs);
 
         //Exceptions werpen
-        validatieMateriaalView(naam, aantal, firmaEmail, prijs, aantalOnbeschikbaar);
+        validatieMateriaalView(urlFoto, naam, aantal, firmaEmail, prijs, aantalOnbeschikbaar);
 
         Materiaal materiaal = new Materiaal(naam, aantal);
 
@@ -71,7 +71,7 @@ public class MateriaalCatalogus {
         List<Groep> leerGroepen = groepRepo.geefLeergroepen(leergebiedenStr);
 
         //maak materiaal aan met gegevens uit de MateriaalView
-        materiaal.setFoto(fotoUrl).setBeschrijving(beschrijving).setArtikelnummer(artikelnummer)
+        materiaal.setFoto(urlFoto).setBeschrijving(beschrijving).setArtikelnummer(artikelnummer)
                 .setPrijs(prijs).setAantalOnbeschikbaar(aantalOnbeschikbaar).setUitleenbaarheid(uitleenbaarheid)
                 .setPlaats(plaats).setDoelgroepen(doelGroepen)
                 .setLeergebieden(leerGroepen);
@@ -169,6 +169,7 @@ public class MateriaalCatalogus {
 
     public void wijsAttributenMateriaalViewToeAanMateriaal(MateriaalView mv, Materiaal materiaal) {
 
+        String urlFoto = mv.getFotoUrl();
         String naam = mv.getNaam();
         int aantal = mv.getAantal();
         String firmaEmail = mv.getEmailFirma();
@@ -181,7 +182,7 @@ public class MateriaalCatalogus {
         System.out.println(leergebiedenStr.toString());
 
         // Valideer de gegevens
-        validatieMateriaalView(naam, aantal, firmaEmail, prijs, aantalOnbeschikbaar);
+        validatieMateriaalView(urlFoto, naam, aantal, firmaEmail, prijs, aantalOnbeschikbaar);
 
         Firma firma = firmaRepo.geefFirma(firmanaam);
 
@@ -200,7 +201,7 @@ public class MateriaalCatalogus {
                 .setBeschrijving(mv.getOmschrijving())
                 .setDoelgroepen(doelGroepen)
                 .setFirma(firmaRepo.geefFirma(mv.getFirma()))
-                .setFoto(mv.getFotoUrl())
+                .setFoto(urlFoto)
                 .setLeergebieden(leerGroepen)
                 .setNaam(mv.getNaam())
                 .setPlaats(mv.getPlaats())
@@ -208,8 +209,11 @@ public class MateriaalCatalogus {
                 .setUitleenbaarheid(mv.isUitleenbaarheid());
     }
 
-    public void validatieMateriaalView(String naam, int aantal, String firmaEmail, double prijs, int aantalOnbeschikbaar) {
+    public void validatieMateriaalView(String urlFoto, String naam, int aantal, String firmaEmail, double prijs, int aantalOnbeschikbaar) {
         //Exceptions werpen
+        if (urlFoto != null && ! urlFoto.isEmpty() && ! urlFoto.endsWith(".jpg") && ! urlFoto.endsWith(".png") &&  ! urlFoto.endsWith(".gif"))
+                throw new IllegalArgumentException("Geef een geldige foto op.");
+        
         if (naam == null || naam.isEmpty()) {
             throw new IllegalArgumentException("naam");
         }
