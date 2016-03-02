@@ -1,11 +1,13 @@
 import domein.DomeinController;
 import domein.Firma;
 import domein.Gebruiker;
+import domein.GereserveerdMateriaal;
 import domein.Groep;
 import domein.Materiaal;
+import domein.Reservatie;
 import gui.LoginFrameController;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -154,7 +156,29 @@ public class StartUp extends Application {// test xd
         }
 
         em.getTransaction().commit();
+        
+        em.getTransaction().begin();
+        
+        List<GereserveerdMateriaal> gereserveerdeMaterialen = new ArrayList<>();
+        
+        GereserveerdMateriaal gereserveerdMateriaal1 = 
+                new GereserveerdMateriaal(materialen[0], 1, LocalDateTime.now(), LocalDateTime.of(2016, 5, 2, 20, 10));
+        GereserveerdMateriaal gereserveerdMateriaal2 = 
+                new GereserveerdMateriaal(materialen[1], 1, null, null);
+        
+        gereserveerdeMaterialen.add(gereserveerdMateriaal1);
+        gereserveerdeMaterialen.add(gereserveerdMateriaal2);
+        
+        for (GereserveerdMateriaal gm : gereserveerdeMaterialen)
+            em.persist(gm);
+        
+        Reservatie reservatie = 
+                new Reservatie(user, LocalDateTime.of(2016, 2, 3, 10, 30), LocalDateTime.of(2016, 2, 10, 10, 30), gereserveerdeMaterialen);
 
+        em.persist(reservatie);
+        
+        em.getTransaction().commit();
+        
         em.close();
         // niet sluiten want de domein laag heeft nu al andere acties met de emf
 //        emf.close();
