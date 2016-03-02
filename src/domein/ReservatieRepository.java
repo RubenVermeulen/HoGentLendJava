@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import shared.MateriaalLijnView;
+import shared.ReservatieLijnView;
 import shared.MateriaalView;
 import shared.ReservatieView;
 import util.JPAUtil;
