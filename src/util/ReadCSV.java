@@ -30,7 +30,8 @@ public class ReadCSV {
         
           CSVReader reader = null;
         try {
-            reader = new CSVReader(new FileReader(CSVFile), ';');
+            reader = new CSVReader(new FileReader(CSVFile), ';','\"',1);
+            
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ReadCSV.class.getName()).log(Level.SEVERE, null, ex);
         }
