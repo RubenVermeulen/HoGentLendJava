@@ -77,7 +77,7 @@ public class DomeinController {
     }
 
     public void voegMaterialenToeInBulk(String csvFile) {
-//        materiaalRepo.voegMaterialenToeInBulk(csvFile);
+        materiaalRepo.voegMaterialenToeInBulk(csvFile);
     }
 
     /**
@@ -123,31 +123,31 @@ public class DomeinController {
     public void verwijderGroep(String groep, boolean isLeerGroep){
         materiaalRepo.verwijderGroep(groep, isLeerGroep);
     }
-    
-    public void stelAanAlsBeheerder(String email){
+
+    public void stelAanAlsBeheerder(String email) {
         Gebruiker gebruiker = gebruikerRepo.geefGebruiker(email);
-        
+
         checkKanAangemeldeBeheerderStatusWijzigenVan(gebruiker);
         gebruikerRepo.stelAanAlsBeheerder(gebruiker);
     }
-    
-    public void verwijderBeheerder(Gebruiker gebruiker){
+
+    public void verwijderBeheerder(Gebruiker gebruiker) {
         checkKanAangemeldeBeheerderStatusWijzigenVan(gebruiker);
         gebruikerRepo.verwijderBeheerder(gebruiker);
     }
-    
-    private void checkKanAangemeldeBeheerderStatusWijzigenVan(Gebruiker gebruiker){
-        if ( ! aangemelde.isHoofdbeheerder()){
+
+    private void checkKanAangemeldeBeheerderStatusWijzigenVan(Gebruiker gebruiker) {
+        if (!aangemelde.isHoofdbeheerder()) {
             throw new GeenToegangException("Je moet hoofdbeheerder zijn om beheerders te verwijderen.");
         }
-        if (gebruiker == null){
+        if (gebruiker == null) {
             throw new IllegalArgumentException("De gebruiker bestaat niet.");
         }
 //        if (!gebruiker.isLector()){
 //            throw new IllegalArgumentException("De gebruiker is geen lector.");
 //        }
     }
-    
+
     public ObservableList<Gebruiker> geefAlleBeheerders() {
         return gebruikerRepo.geefAlleBeheerders();
     }
@@ -155,10 +155,11 @@ public class DomeinController {
     public Gebruiker getAangemelde() {
         return aangemelde;
     }
-    
-    public List<ReservatieView> geefAlleReservaties(){
-        if(reservatieRepo == null)
+
+    public List<ReservatieView> geefAlleReservaties() {
+        if (reservatieRepo == null) {
             this.reservatieRepo = new ReservatieRepository();
+        }
         return reservatieRepo.geefAlleReservaties();
     }
     
@@ -172,11 +173,33 @@ public class DomeinController {
         return firmaListToString(firmas);
     }
     
+    /**
+     * Vormt een firma list om naar een string list met firma namen.
+     * 
+     * @param firmas
+     * @return 
+     */
     private List<String> firmaListToString(List<Firma> firmas) {
         return firmas.stream().map(f -> f.getNaam()).collect(Collectors.toList());
     }
     
+    /**
+     * Voegt firma toe.
+     * 
+     * @param naam
+     * @param email 
+     */
     public void voegFirmaToe(String naam, String email) {
         firmaRepo.voegFirmaToe(naam, email);
     }
+    
+    /**
+     * Verwijdert reservatie.
+     * 
+     * @param rv 
+     */
+    public void verwijderReservatie(ReservatieView rv) {
+        reservatieRepo.verwijderReservatie(rv);
+    }
+
 }

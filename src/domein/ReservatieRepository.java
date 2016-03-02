@@ -58,8 +58,23 @@ public class ReservatieRepository {
         
     }
     
+    public void verwijderReservatie(ReservatieView rv) {
+        Reservatie reservatie = geefReservatie(rv.getId());
+           
+        em.getTransaction().begin();
+        em.remove(reservatie);
+        em.getTransaction().commit();
+        
+        reservaties.remove(reservatie);
+    }
     
-    
-    
+    public Reservatie geefReservatie(long id) {
+        for (Reservatie r : reservaties) {
+            if (r.getId() == id)
+                return r;
+        }
+        
+        throw new IllegalArgumentException("Kon geen reservatie vinden");
+    }
     
 }
