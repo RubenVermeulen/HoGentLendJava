@@ -75,7 +75,7 @@ public class DomeinController {
     }
 
     public void voegMaterialenToeInBulk(String csvFile) {
-//        materiaalRepo.voegMaterialenToeInBulk(csvFile);
+        materiaalRepo.voegMaterialenToeInBulk(csvFile);
     }
 
     /**
@@ -117,31 +117,31 @@ public class DomeinController {
     public void voegGroepToe(String text, boolean isLeerGroep) {
         materiaalRepo.voegGroepToe(text, isLeerGroep);
     }
-    
-    public void stelAanAlsBeheerder(String email){
+
+    public void stelAanAlsBeheerder(String email) {
         Gebruiker gebruiker = gebruikerRepo.geefGebruiker(email);
-        
+
         checkKanAangemeldeBeheerderStatusWijzigenVan(gebruiker);
         gebruikerRepo.stelAanAlsBeheerder(gebruiker);
     }
-    
-    public void verwijderBeheerder(Gebruiker gebruiker){
+
+    public void verwijderBeheerder(Gebruiker gebruiker) {
         checkKanAangemeldeBeheerderStatusWijzigenVan(gebruiker);
         gebruikerRepo.verwijderBeheerder(gebruiker);
     }
-    
-    private void checkKanAangemeldeBeheerderStatusWijzigenVan(Gebruiker gebruiker){
-        if ( ! aangemelde.isHoofdbeheerder()){
+
+    private void checkKanAangemeldeBeheerderStatusWijzigenVan(Gebruiker gebruiker) {
+        if (!aangemelde.isHoofdbeheerder()) {
             throw new GeenToegangException("Je moet hoofdbeheerder zijn om beheerders te verwijderen.");
         }
-        if (gebruiker == null){
+        if (gebruiker == null) {
             throw new IllegalArgumentException("De gebruiker bestaat niet.");
         }
 //        if (!gebruiker.isLector()){
 //            throw new IllegalArgumentException("De gebruiker is geen lector.");
 //        }
     }
-    
+
     public ObservableList<Gebruiker> geefAlleBeheerders() {
         return gebruikerRepo.geefAlleBeheerders();
     }
@@ -149,12 +149,12 @@ public class DomeinController {
     public Gebruiker getAangemelde() {
         return aangemelde;
     }
-    
-    public List<ReservatieView> geefAlleReservaties(){
-        if(reservatieRepo == null)
+
+    public List<ReservatieView> geefAlleReservaties() {
+        if (reservatieRepo == null) {
             this.reservatieRepo = new ReservatieRepository();
+        }
         return reservatieRepo.geefAlleReservaties();
     }
-    
-    
+
 }
