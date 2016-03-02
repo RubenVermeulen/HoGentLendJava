@@ -42,12 +42,12 @@ public class Reservatie {
     private LocalDateTime indienmoment;
 
     @OneToMany(mappedBy = "reservatie", fetch = FetchType.EAGER)
-    private List<GereserveerdMateriaal> materialen;
+    private List<ReservatieOnderdeel> materialen;
 
     public Reservatie() {
     }
 
-    public Reservatie(Gebruiker lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment, List<GereserveerdMateriaal> materialen) {
+    public Reservatie(Gebruiker lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment, List<ReservatieOnderdeel> materialen) {
         this.lener = lener;
         this.ophaalmoment = ophaalmoment;
         this.indienmoment = indienmoment;
@@ -86,18 +86,18 @@ public class Reservatie {
         this.indienmoment = indienmoment;
     }
 
-    public List<GereserveerdMateriaal> getMaterialen() {
+    public List<ReservatieOnderdeel> getMaterialen() {
         return materialen;
     }
 
-    public void setMaterialen(List<GereserveerdMateriaal> materialen) {
+    public void setMaterialen(List<ReservatieOnderdeel> materialen) {
         this.materialen = materialen;
     }
 
     public ReservatieView toReservatieView() {
         List<GereserveerdMateriaalView> gereserveerdeMaterialen = new ArrayList<>();
 
-        for (GereserveerdMateriaal gm : materialen) {
+        for (ReservatieOnderdeel gm : materialen) {
             MateriaalView mv = gm.getMateriaal().toMateriaalView();
             GereserveerdMateriaalView gmv
                     = new GereserveerdMateriaalView(gm.getId(), gm.getOphaalmoment(), gm.getIndienmoment(), mv, gm.getAantal());

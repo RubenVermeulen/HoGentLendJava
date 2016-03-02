@@ -7,6 +7,8 @@ package shared;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -68,6 +70,9 @@ public class ReservatieView {
         this.gereserveerdeMaterialen = gereserveerdeMaterialen;
     }
     
-    
+    public String gereserveerdeMaterialenToString(){
+        String s = "";
+        return gereserveerdeMaterialen.stream().map(m -> m.getMateriaal().getNaam()).collect(Collectors.joining(", "));
+    }
     
 }
