@@ -95,7 +95,7 @@ public class MateriaalToevoegenInBulkController extends BorderPane {
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.setScene(new Scene(VBoxBuilder.create().
                     children(new Text("Er is nog geen csvfile gekozen.")).
-                    alignment(Pos.BOTTOM_LEFT).padding(new Insets(30)).build()));
+                    alignment(Pos.CENTER).padding(new Insets(30)).build()));
             dialogStage.show();
 
         }else{
