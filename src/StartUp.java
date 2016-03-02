@@ -1,7 +1,7 @@
 import domein.DomeinController;
 import domein.Firma;
 import domein.Gebruiker;
-import domein.ReservatieOnderdeel;
+import domein.ReservatieLijn;
 import domein.Groep;
 import domein.Materiaal;
 import domein.Reservatie;
@@ -159,17 +159,17 @@ public class StartUp extends Application {// test xd
         
         em.getTransaction().begin();
         
-        List<ReservatieOnderdeel> gereserveerdeMaterialen = new ArrayList<>();
+        List<ReservatieLijn> gereserveerdeMaterialen = new ArrayList<>();
         
-        ReservatieOnderdeel gereserveerdMateriaal1 = 
-                new ReservatieOnderdeel(materialen[0], 1, LocalDateTime.now(), LocalDateTime.of(2016, 5, 2, 20, 10));
-        ReservatieOnderdeel gereserveerdMateriaal2 = 
-                new ReservatieOnderdeel(materialen[1], 3, null, null);
+        ReservatieLijn gereserveerdMateriaal1 = 
+                new ReservatieLijn(materialen[0], 1, LocalDateTime.now(), LocalDateTime.of(2016, 5, 2, 20, 10));
+        ReservatieLijn gereserveerdMateriaal2 = 
+                new ReservatieLijn(materialen[1], 3, null, null);
         
         gereserveerdeMaterialen.add(gereserveerdMateriaal1);
         gereserveerdeMaterialen.add(gereserveerdMateriaal2);
         
-        for (ReservatieOnderdeel gm : gereserveerdeMaterialen)
+        for (ReservatieLijn gm : gereserveerdeMaterialen)
             em.persist(gm);
         
         Reservatie reservatie = 

@@ -20,8 +20,8 @@ import javax.persistence.Table;
  * @author Xander
  */
 @Entity
-@Table(name = "reservatie_onderdeel")
-public class ReservatieOnderdeel {
+@Table(name = "reservatie_lijn")
+public class ReservatieLijn {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,10 +40,10 @@ public class ReservatieOnderdeel {
     @JoinColumn(name="reservatie_id")
     private Reservatie reservatie;
 
-    public ReservatieOnderdeel() {
+    public ReservatieLijn() {
     }
 
-    public ReservatieOnderdeel(Materiaal materiaal, int aantal, LocalDateTime ophaalmoment, LocalDateTime indienmoment) {
+    public ReservatieLijn(Materiaal materiaal, int aantal, LocalDateTime ophaalmoment, LocalDateTime indienmoment) {
         this.ophaalmoment = ophaalmoment;
         this.indienmoment = indienmoment;
         this.materiaal = materiaal;
