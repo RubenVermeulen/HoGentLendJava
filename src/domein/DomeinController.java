@@ -1,17 +1,18 @@
 package domein;
 
 import exceptions.GeenToegangException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
 import shared.MateriaalView;
+import shared.ReservatieView;
 
 public class DomeinController {
 
     private GebruikerRepository gebruikerRepo;
     private MateriaalRepository materiaalRepo;
+    private ReservatieRepository reservatieRepo;
     private Gebruiker aangemelde;
 
     public DomeinController() {
@@ -145,6 +146,12 @@ public class DomeinController {
 
     public Gebruiker getAangemelde() {
         return aangemelde;
+    }
+    
+    public List<ReservatieView> geefAlleReservaties(){
+        if(reservatieRepo == null)
+            this.reservatieRepo = new ReservatieRepository();
+        return reservatieRepo.geefAlleReservaties();
     }
     
     

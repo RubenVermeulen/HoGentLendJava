@@ -36,7 +36,7 @@ public class GereserveerdMateriaal {
     private Materiaal materiaal;
     private int aantal;
     
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="reservatie_id")
     private Reservatie reservatie;
 
@@ -48,6 +48,59 @@ public class GereserveerdMateriaal {
         this.indienmoment = indienmoment;
         this.materiaal = materiaal;
         this.aantal = aantal;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getOphaalmoment() {
+        return ophaalmoment;
+    }
+
+    public void setOphaalmoment(LocalDateTime ophaalmoment) {
+        this.ophaalmoment = ophaalmoment;
+    }
+
+    public LocalDateTime getIndienmoment() {
+        return indienmoment;
+    }
+
+    public void setIndienmoment(LocalDateTime indienmoment) {
+        this.indienmoment = indienmoment;
+    }
+
+    public Materiaal getMateriaal() {
+        return materiaal;
+    }
+
+    public void setMateriaal(Materiaal materiaal) {
+        this.materiaal = materiaal;
+    }
+
+    public int getAantal() {
+        return aantal;
+    }
+
+    public void setAantal(int aantal) {
+        this.aantal = aantal;
+    }
+
+    public Reservatie getReservatie() {
+        return reservatie;
+    }
+
+    public void setReservatie(Reservatie reservatie) {
+        this.reservatie = reservatie;
+    }
+
+    @Override
+    public String toString() {
+        return "GereserveerdMateriaal{" + "id=" + id + ", ophaalmoment=" + ophaalmoment + ", indienmoment=" + indienmoment + ", materiaal=" + materiaal + ", aantal=" + aantal + ", reservatie=" + reservatie + '}';
     }
     
     

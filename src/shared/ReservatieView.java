@@ -5,38 +5,43 @@
  */
 package shared;
 
-import domein.Reservatie;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  *
  * @author Xander
  */
-public class GereserveerdMateriaalView {
+public class ReservatieView {
     
-    private Long id;
-    
-    //wordt geconverteerd door util.LocalDateTimeAttributeConverter
+    private long id;
+    private String lener;
     private LocalDateTime ophaalmoment;
     private LocalDateTime indienmoment;
-    
-    private MateriaalView materiaal;
-    private int aantal;
+    private List<GereserveerdMateriaalView> gereserveerdeMaterialen;
 
-    public GereserveerdMateriaalView(Long id, LocalDateTime ophaalmoment, LocalDateTime indienmoment, MateriaalView materiaal, int aantal) {
+    public ReservatieView(long id, String lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment, List<GereserveerdMateriaalView> gereserveerdeMaterialen) {
         this.id = id;
+        this.lener = lener;
         this.ophaalmoment = ophaalmoment;
         this.indienmoment = indienmoment;
-        this.materiaal = materiaal;
-        this.aantal = aantal;
+        this.gereserveerdeMaterialen = gereserveerdeMaterialen;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
+    }
+
+    public String getLener() {
+        return lener;
+    }
+
+    public void setLener(String lener) {
+        this.lener = lener;
     }
 
     public LocalDateTime getOphaalmoment() {
@@ -55,22 +60,13 @@ public class GereserveerdMateriaalView {
         this.indienmoment = indienmoment;
     }
 
-    public MateriaalView getMateriaal() {
-        return materiaal;
+    public List<GereserveerdMateriaalView> getGereserveerdeMaterialen() {
+        return gereserveerdeMaterialen;
     }
 
-    public void setMateriaal(MateriaalView materiaal) {
-        this.materiaal = materiaal;
+    public void setGereserveerdeMaterialen(List<GereserveerdMateriaalView> gereserveerdeMaterialen) {
+        this.gereserveerdeMaterialen = gereserveerdeMaterialen;
     }
-
-    public int getAantal() {
-        return aantal;
-    }
-
-    public void setAantal(int aantal) {
-        this.aantal = aantal;
-    }
-    
     
     
     

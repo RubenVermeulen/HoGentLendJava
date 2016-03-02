@@ -164,7 +164,7 @@ public class StartUp extends Application {// test xd
         GereserveerdMateriaal gereserveerdMateriaal1 = 
                 new GereserveerdMateriaal(materialen[0], 1, LocalDateTime.now(), LocalDateTime.of(2016, 5, 2, 20, 10));
         GereserveerdMateriaal gereserveerdMateriaal2 = 
-                new GereserveerdMateriaal(materialen[1], 1, null, null);
+                new GereserveerdMateriaal(materialen[1], 3, null, null);
         
         gereserveerdeMaterialen.add(gereserveerdMateriaal1);
         gereserveerdeMaterialen.add(gereserveerdMateriaal2);
@@ -185,6 +185,7 @@ public class StartUp extends Application {// test xd
 //        System.out.println("Closed");
         
         DomeinController domCont = new DomeinController();
+  //      domCont.geefAlleReservaties().toString();
         Scene scene = new Scene(new LoginFrameController(domCont));
 //        Scene scene = new Scene(new MainMenuFrameController(domCont));
         scene.getStylesheets().add("/gui/styles.css");
