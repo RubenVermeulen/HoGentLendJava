@@ -67,6 +67,7 @@ public class VoegGroepToeBoxController extends VBox {
             lblInvalidGroep.setVisible(true);
             return;
         }
+        
         parent.refreshGroepen();
         stage.close();
     }

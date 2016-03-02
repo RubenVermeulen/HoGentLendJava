@@ -35,7 +35,7 @@ public class MateriaalCatalogus {
     }
 
     public Materiaal voegMateriaalToe(MateriaalView mv) {
-
+               
         String urlFoto = mv.getFotoUrl();
         String naam = mv.getNaam();
         int aantal = mv.getAantal();
@@ -50,31 +50,28 @@ public class MateriaalCatalogus {
         List<String> doelgroepenStr = mv.getDoelgroepen();
         List<String> leergebiedenStr = mv.getLeergebieden();
 
-        System.out.println(prijs);
-
         //Exceptions werpen
         validatieMateriaalView(urlFoto, naam, aantal, firmaEmail, prijs, aantalOnbeschikbaar);
 
         Materiaal materiaal = new Materiaal(naam, aantal);
-
-        //check of opgegeven firma al bestaat in db
-        //indien niet: maak meteen aan met naam en email en steek in database
-        if (firmaNaam != null && !firmaNaam.isEmpty()) {
-            Firma firma = firmaRepo.geefFirma(firmaNaam);
-            if (firma == null) {
-                firma = firmaRepo.voegFirmaToe(firmaNaam, firmaEmail);
-            }
-            materiaal.setFirma(firma);
-        }
+            
+        // Geeft ofwel een firma object terug of wel de waarde NULL
+        Firma firma = firmaRepo.geefFirma(firmaNaam);
 
         List<Groep> doelGroepen = groepRepo.geefDoelgroep(doelgroepenStr);
         List<Groep> leerGroepen = groepRepo.geefLeergroepen(leergebiedenStr);
 
         //maak materiaal aan met gegevens uit de MateriaalView
-        materiaal.setFoto(urlFoto).setBeschrijving(beschrijving).setArtikelnummer(artikelnummer)
-                .setPrijs(prijs).setAantalOnbeschikbaar(aantalOnbeschikbaar).setUitleenbaarheid(uitleenbaarheid)
-                .setPlaats(plaats).setDoelgroepen(doelGroepen)
-                .setLeergebieden(leerGroepen);
+        materiaal.setFoto(urlFoto)
+                .setBeschrijving(beschrijving)
+                .setArtikelnummer(artikelnummer)
+                .setPrijs(prijs)
+                .setAantalOnbeschikbaar(aantalOnbeschikbaar)
+                .setUitleenbaarheid(uitleenbaarheid)
+                .setPlaats(plaats)
+                .setDoelgroepen(doelGroepen)
+                .setLeergebieden(leerGroepen)
+                .setFirma(firma);
 
         //voeg materiaal toe aan repo
         materialen.add(materiaal);
@@ -172,7 +169,6 @@ public class MateriaalCatalogus {
         String urlFoto = mv.getFotoUrl();
         String naam = mv.getNaam();
         int aantal = mv.getAantal();
-        String firmaEmail = mv.getEmailFirma();
         String firmanaam = mv.getFirma();
         double prijs = mv.getPrijs();
         int aantalOnbeschikbaar = mv.getAantalOnbeschikbaar();
@@ -182,31 +178,25 @@ public class MateriaalCatalogus {
         System.out.println(leergebiedenStr.toString());
 
         // Valideer de gegevens
-        validatieMateriaalView(urlFoto, naam, aantal, firmaEmail, prijs, aantalOnbeschikbaar);
-
+        validatieMateriaalView(urlFoto, naam, aantal, null, prijs, aantalOnbeschikbaar);
+        
         Firma firma = firmaRepo.geefFirma(firmanaam);
-
-        if (firma == null) {
-            firma = firmaRepo.voegFirmaToe(firmanaam, firmaEmail);
-        }
+        
         List<Groep> doelGroepen = groepRepo.geefDoelgroep(doelgroepenStr);
         List<Groep> leerGroepen = groepRepo.geefLeergroepen(leergebiedenStr);
-
-        System.out.println(doelGroepen.toString());
-        System.out.println(leerGroepen.toString());
-
+        
         materiaal.setAantal(mv.getAantal())
                 .setAantalOnbeschikbaar(mv.getAantalOnbeschikbaar())
                 .setArtikelnummer(mv.getArtikelNummer())
                 .setBeschrijving(mv.getOmschrijving())
                 .setDoelgroepen(doelGroepen)
-                .setFirma(firmaRepo.geefFirma(mv.getFirma()))
                 .setFoto(urlFoto)
                 .setLeergebieden(leerGroepen)
                 .setNaam(mv.getNaam())
                 .setPlaats(mv.getPlaats())
                 .setPrijs(mv.getPrijs())
-                .setUitleenbaarheid(mv.isUitleenbaarheid());
+                .setUitleenbaarheid(mv.isUitleenbaarheid())
+                .setFirma(firma);
     }
 
     public void validatieMateriaalView(String urlFoto, String naam, int aantal, String firmaEmail, double prijs, int aantalOnbeschikbaar) {

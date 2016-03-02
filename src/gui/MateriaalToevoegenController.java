@@ -1,6 +1,7 @@
 package gui;
 
 import domein.DomeinController;
+import domein.Firma;
 import domein.Materiaal;
 import java.io.File;
 import java.io.IOException;
@@ -9,6 +10,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -60,9 +62,7 @@ public class MateriaalToevoegenController extends BorderPane {
     private CheckComboBox<String> doelgroepen;
     @FXML
     private CheckComboBox<String> leergroepen;
-    @FXML
     private TextField firma;
-    @FXML
     private TextField emailfirma;
     @FXML
     private CheckBox beschikbaarheid;
@@ -80,7 +80,6 @@ public class MateriaalToevoegenController extends BorderPane {
     private ImageView errorOnbeschikbaar;
     @FXML
     private ImageView errorPrijs;
-    @FXML
     private ImageView errorEmailfirma;
     @FXML
     private Label lblTitel;
@@ -88,6 +87,8 @@ public class MateriaalToevoegenController extends BorderPane {
     private Label lblErrorMessage;
     @FXML
     private ImageView imgErrorMessage;
+    @FXML
+    private ComboBox<String> cbFirmas;
 
     public MateriaalToevoegenController(DomeinController dc, MateriaalView mv) {
         this.dc = dc;
@@ -114,7 +115,11 @@ public class MateriaalToevoegenController extends BorderPane {
         // om de fxml duidelijker te maken laat ik errormessage daar op visible staan
         verbergError();
 
+        // Stop alle groepen in de CheckComboBox
         setupAlleGroepen();
+        
+        // Stop alle firma's in de ComboBox
+        setupAlleFirmas();
 
         // Wijzig labels en vul velden in wanneer we een materiaal willen wijzigen
         if (mv != null) {
@@ -163,6 +168,11 @@ public class MateriaalToevoegenController extends BorderPane {
         doelgroepen.getItems().addAll(doelGroepenStr);
         leergroepen.getItems().addAll(leergebiedenStr);
     }
+    
+    private void setupAlleFirmas() {
+        cbFirmas.getItems().clear();
+        cbFirmas.getItems().addAll(dc.geefAlleFirmas());
+    }
 
     public void refreshGroepen() {
         List<String> doelGroepenStr = dc.geefAlleDoelgroepen();
@@ -187,6 +197,11 @@ public class MateriaalToevoegenController extends BorderPane {
                 leergroepen.getCheckModel().check(leer);
             }
         }
+    }
+    
+    public void refreshFirmas(String selectedItem) {
+        setupAlleFirmas();
+        cbFirmas.getSelectionModel().select(selectedItem);
     }
 
     private void voegMateriaalToe() {
@@ -248,6 +263,15 @@ public class MateriaalToevoegenController extends BorderPane {
         prompt.setScene(promptScene);
         prompt.show();
     }
+    
+    private void promptFirmaToevoegen() {
+        Scene promptScene = new Scene(new VoegFirmaToeBoxController(dc, this), 300, 250);
+        Stage prompt = new Stage();
+        prompt.initModality(Modality.APPLICATION_MODAL);
+        prompt.initOwner(getScene().getWindow());
+        prompt.setScene(promptScene);
+        prompt.show();
+    }
 
     public void initialiseerMateriaalWijzigen(MateriaalView mv) {
         System.out.println(mv);
@@ -264,8 +288,6 @@ public class MateriaalToevoegenController extends BorderPane {
         prijs.setText(Double.toString(mv.getPrijs()));
         locatie.setText(mv.getPlaats());
         beschrijving.setText(mv.getOmschrijving());
-        firma.setText(mv.getFirma());
-        emailfirma.setText(mv.getEmailFirma());
         beschikbaarheid.setSelected(mv.isUitleenbaarheid());
         urlFoto.setText(mv.getFotoUrl());
 
@@ -296,6 +318,9 @@ public class MateriaalToevoegenController extends BorderPane {
                 }
             }
         }
+        
+        // Firma selecteren
+        cbFirmas.getSelectionModel().select(mv.getFirma());
     }
 
     public void wijzigMateriaal() {
@@ -368,10 +393,8 @@ public class MateriaalToevoegenController extends BorderPane {
         matView.setArtikelNummer(artikelcode.getText());
 
         matView.setDoelgroepen(new ArrayList(doelgroepen.getCheckModel().getCheckedItems()));
-
-        matView.setEmailFirma(emailfirma.getText());
-
-        matView.setFirma(firma.getText());
+        matView.setFirma(cbFirmas.getValue());
+        
         matView.setFotoUrl(urlFoto.getText());
 
         matView.setLeergebieden(new ArrayList(leergroepen.getCheckModel().getCheckedItems()));
@@ -383,7 +406,7 @@ public class MateriaalToevoegenController extends BorderPane {
         }
         
         matView.setUitleenbaarheid(beschikbaarheid.isSelected());
-
+        
         if (isMateriaalToevoegen) // We voegen een nieuwe materiaal toe
         {
             dc.voegMateriaalToe(matView);
@@ -423,12 +446,10 @@ public class MateriaalToevoegenController extends BorderPane {
         errorOnbeschikbaar.setVisible(false);
     }
     
-    @FXML
     private void firmaOnKey(KeyEvent event) {
         verbergError();
     }
 
-    @FXML
     private void emailOnKey(KeyEvent event) {
         verbergError();
         errorEmailfirma.setVisible(false);
@@ -437,6 +458,11 @@ public class MateriaalToevoegenController extends BorderPane {
     public void verbergError(){
         lblErrorMessage.setVisible(false);
         imgErrorMessage.setVisible(false);
+    }
+
+    @FXML
+    private void onBtnActionFirma(ActionEvent event) {
+        promptFirmaToevoegen();
     }
 
     
