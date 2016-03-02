@@ -212,10 +212,6 @@ public class MateriaalCatalogus {
             throw new IllegalArgumentException("aantal");
         }
 
-        if (firmaEmail != null && !firmaEmail.isEmpty() && !firmaEmail.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")) {
-            throw new IllegalArgumentException("emailFirma");
-        }
-
         if (prijs < 0) {
             throw new IllegalArgumentException("prijs");
         }
