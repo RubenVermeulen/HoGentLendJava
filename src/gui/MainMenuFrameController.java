@@ -35,6 +35,7 @@ import shared.ReservatieView;
 public class MainMenuFrameController extends BorderPane {
 
     private DomeinController domCon;
+    private ReservatieBoxController rbc;
 
     @FXML
     private VBox materialenBox;
@@ -74,6 +75,14 @@ public class MainMenuFrameController extends BorderPane {
     private ImageView btnVoegMateriaalLijnToe;
     @FXML
     private VBox boxReservatieLijn;
+    @FXML
+    private Label lblReservatieLener;
+    @FXML
+    private Label lblReservatieLenerEmail;
+    @FXML
+    private Label lblReservatieOphaalmoment;
+    @FXML
+    private Label lblReservatiesIndienmoment;
 
     public MainMenuFrameController(DomeinController domCon) {
         this.domCon = domCon;
@@ -157,17 +166,20 @@ public class MainMenuFrameController extends BorderPane {
         
         tvReservaties.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if(newSelection != null){
-                setupReservatieLijnen(newSelection.getReservatieLijnen());
+                setupReservatieLijnen(newSelection);
                 
             }
         });
 
     }
     
-    private void setupReservatieLijnen(List<ReservatieLijnView> reservatieLijnen) {
+    private void setupReservatieLijnen(ReservatieView rv) {
+        List<ReservatieLijnView> rlv = rv.getReservatieLijnen();
         boxReservatieLijn.getChildren().clear();
-        reservatieLijnen.stream().forEach(rl -> boxReservatieLijn.getChildren().add(new ReservatieBoxController(rl, domCon)));
-        
+        rlv.stream().forEach(rl -> boxReservatieLijn.getChildren().add(new ReservatieBoxController(rl, domCon)));
+        lblReservatieLener.setText(rv.getLener());
+        lblReservatieOphaalmoment.setText(rv.getOphaalmomentAlsString());
+        lblReservatiesIndienmoment.setText(rv.getIndienmomentAlsString());
         
     }
 
