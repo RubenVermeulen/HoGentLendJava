@@ -217,7 +217,7 @@ public class MateriaalRepository {
         materiaalCatalogus.voegGroepToe(text, isLeerGroep);
     }
 
-    public void verwijderGroep(String groep, boolean isLeerGroep){
-        materiaalCatalogus.verwijderGroep(groep, isLeerGroep);
+    public void verwijderGroep(String groepStr, boolean isLeerGroep){
+        materiaalCatalogus.verwijderGroep(groepStr, isLeerGroep);
     }
 }

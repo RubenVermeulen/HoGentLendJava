@@ -8,6 +8,7 @@ package domein;
 import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import shared.MateriaalView;
 
@@ -237,7 +238,34 @@ public class MateriaalCatalogus {
       groepRepo.voegGroepToe(text, isLeergroep);
     }
 
-    public void verwijderGroep(String groep, boolean isLeerGroep){
-        groepRepo.verwijderGroep(groep, isLeerGroep);
+    public void verwijderGroep(String groepStr, boolean isLeerGroep){
+        if (groepStr == null || groepStr.isEmpty()) {
+            throw new IllegalArgumentException("Je hebt geen " + (isLeerGroep ? "leergebied" : "doelgroep") + " geselecteerd.");
+        }
+        
+        Optional<Groep> groepOpt = groepRepo.geefGroep(groepStr, isLeerGroep);
+        
+        if (!groepOpt.isPresent()) {
+            if (isLeerGroep) {
+                throw new IllegalArgumentException("Die leergebied bestaat niet.");
+            }else{
+                throw new IllegalArgumentException("Die doelgroep bestaat niet.");
+            }
+        }
+        
+        Groep groep = groepOpt.get();
+        
+        for(Materiaal m : materialen){
+            if (isLeerGroep){
+                if (m.getLeergebieden().stream().anyMatch(g -> g.getId() == groep.getId())){
+                    throw new IllegalArgumentException("Er is nog een materiaal met dit leergebied.");
+                }
+            }else{
+                if (m.getDoelgroepen().stream().anyMatch(g -> g.getId() == groep.getId())){
+                    throw new IllegalArgumentException("Er is nog een materiaal met deze doelgroep.");
+                }
+            }
+        }
+        groepRepo.verwijderGroep(groep);
     }
 }

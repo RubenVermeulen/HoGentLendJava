@@ -78,46 +78,20 @@ public class GroepRepository {
         return result;
     }
 
-    public void verwijderGroep(String groepStr, boolean isLeerGroep) {
-        if (groepStr == null || groepStr.isEmpty()) {
-            throw new IllegalArgumentException("Je hebt geen " + (isLeerGroep ? "leergebied" : "doelgroep") + " geselecteerd.");
-        }
+    public Optional<Groep> geefGroep(String groepStr, boolean isLeerGroep){
         Optional<Groep> groepOpt;
         if (isLeerGroep) {
             groepOpt = getLeergebieden().stream().filter(s -> s.getGroep().equalsIgnoreCase(groepStr)).findFirst();
-            if (!groepOpt.isPresent()) {
-                throw new IllegalArgumentException("Die leergebied bestaat niet.");
-            }
         } else {
-            groepOpt = getDoelgroepen().stream().filter(s -> s.getGroep().equalsIgnoreCase(groepStr)).findFirst();
-            if (!groepOpt.isPresent()) {
-                throw new IllegalArgumentException("Die doelgroep bestaat niet.");
-            }
+            groepOpt = getDoelgroepen().stream().filter(s -> s.getGroep().equalsIgnoreCase(groepStr)).findFirst();            
         }
-
-            Query q = null;
-        try {
-            if (isLeerGroep) {
-                q = em.createQuery("SELECT materiaal_id FROM materiaal_doelgroepen WHERE doelgroep_id=?1");
-            } else {
-                q = em.createQuery("SELECT materiaal_id FROM materiaal_leergebieden WHERE leergebied_id=?1");
-            }
-            q.setParameter(1, groepOpt.get().getId());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (!q.getResultList().isEmpty()) {
-            if (isLeerGroep) {
-                throw new IllegalArgumentException("Er is nog een materiaal met dit leergebied.");
-            } else {
-                throw new IllegalArgumentException("Er is nog een materiaal met deze doelgroep.");
-            }
-        }
-
+        return groepOpt;
+    }
+    
+    public void verwijderGroep(Groep groep) {
         em.getTransaction().begin();
-        em.remove(groepOpt.get());
+        em.remove(groep);
         em.getTransaction().commit();
-        groepen.remove(groepOpt.get());
+        groepen.remove(groep);
     }
 }
