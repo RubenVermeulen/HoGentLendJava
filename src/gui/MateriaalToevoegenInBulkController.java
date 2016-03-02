@@ -11,13 +11,18 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBoxBuilder;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 
 public class MateriaalToevoegenInBulkController extends BorderPane {
 
@@ -29,11 +34,11 @@ public class MateriaalToevoegenInBulkController extends BorderPane {
     private Button gaTerugKnop;
     @FXML
     private Button voegToeKnop;
-    
+
     DomeinController domCon;
 
     public MateriaalToevoegenInBulkController(DomeinController domCon) {
-         this.domCon = domCon;
+        this.domCon = domCon;
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MateriaalToevoegenInBulk.fxml"));
         loader.setRoot(this);
@@ -44,47 +49,59 @@ public class MateriaalToevoegenInBulkController extends BorderPane {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        
-        
-        
 
     }
 
-
-    
-   
-    
-    
-  
-
     @FXML
     private void csvbestandKiezenOnAction(ActionEvent event) {
-                kiesCsvbestand();
-        
+        kiesCsvbestand();
+
     }
 
     @FXML
     private void gaTerugOnAction(ActionEvent event) {
-        Stage stage = (Stage) getScene().getWindow();
-        Scene scene = new Scene(new MainMenuFrameController(domCon));
-        stage.setScene(scene);
+        gaterugNaarmenu();
 
-        
     }
 
     @FXML
     private void voegMateriaalToeOnAction(ActionEvent event) {
-        System.out.println("ayy");
-            domCon.voegMaterialenToeInBulk(urlCsv.getText());
-            
-            
-        
+        if(controlerenOfCsvFileIsIngevuld()){
+        domCon.voegMaterialenToeInBulk(urlCsv.getText());
+        gaterugNaarmenu();
+        }
+
     }
-        private void kiesCsvbestand() {
+
+    private void kiesCsvbestand() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open csv bestand");
         File file = fileChooser.showOpenDialog(new Stage());
         urlCsv.setText(file.getPath());
+    }
+
+    private void gaterugNaarmenu() {
+        Stage stage = (Stage) getScene().getWindow();
+        Scene scene = new Scene(new MainMenuFrameController(domCon));
+        stage.setScene(scene);
+
+    }
+
+    private boolean controlerenOfCsvFileIsIngevuld() {
+        boolean isIngevuld=false;
+        if (urlCsv.getText().isEmpty()) {
+            
+            Stage dialogStage = new Stage();
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.setScene(new Scene(VBoxBuilder.create().
+                    children(new Text("Er is nog geen csvfile gekozen.")).
+                    alignment(Pos.BOTTOM_LEFT).padding(new Insets(30)).build()));
+            dialogStage.show();
+
+        }else{
+        isIngevuld=true;
+        }
+        return isIngevuld;
     }
 
 }
