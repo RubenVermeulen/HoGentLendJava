@@ -172,11 +172,32 @@ public class DomeinController {
         return firmaListToString(firmas);
     }
     
+    /**
+     * Vormt een firma list om naar een string list met firma namen.
+     * 
+     * @param firmas
+     * @return 
+     */
     private List<String> firmaListToString(List<Firma> firmas) {
         return firmas.stream().map(f -> f.getNaam()).collect(Collectors.toList());
     }
     
+    /**
+     * Voegt firma toe.
+     * 
+     * @param naam
+     * @param email 
+     */
     public void voegFirmaToe(String naam, String email) {
         firmaRepo.voegFirmaToe(naam, email);
+    }
+    
+    /**
+     * Verwijdert reservatie.
+     * 
+     * @param rv 
+     */
+    public void verwijderReservatie(ReservatieView rv) {
+        reservatieRepo.verwijderReservatie(rv);
     }
 }

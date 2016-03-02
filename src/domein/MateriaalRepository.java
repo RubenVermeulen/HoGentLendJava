@@ -124,7 +124,6 @@ public class MateriaalRepository {
      *
      * @param materiaalNaam
      * @return
-     * @throws java.lang.IllegalAccessException
      */
     public boolean verwijderMateriaal(String materiaalNaam) {
         if (materiaalNaam == null || materiaalNaam.isEmpty()) {
