@@ -228,13 +228,15 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Button fx:id="btnVoegResevatieToe" mnemonicParsing="false" onAction="#onActionBtnVoegResevatieToe" prefHeight="25.0" prefWidth="214.0" text="Voeg reservatie toe" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                                    <Button fx:id="btnVoegResevatieToe" mnemonicParsing="false" onAction="#onActionBtnVoegResevatieToe" prefHeight="25.0" prefWidth="214.0" text="Voeg nieuwe reservatie toe" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                                       <GridPane.margin>
+                                          <Insets right="102.0" />
+                                       </GridPane.margin></Button>
                                     <TextField fx:id="txfZoekReservatie" onAction="#onActionTxfZoekReservatie" prefHeight="25.0" prefWidth="307.0" promptText="zoeken..." GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
                                     <DatePicker fx:id="dtmStartDatum" onAction="#onActionDtmStartDatum" prefWidth="142.0" promptText="start datum..." GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
                                     <Button fx:id="btnZoekReservatie" mnemonicParsing="false" onAction="#onActionBtnZoekReservatie" prefHeight="25.0" prefWidth="214.0" text="Zoek reservaties" GridPane.columnIndex="3" GridPane.halignment="LEFT" />
                                     <DatePicker fx:id="dtmEindDatum" onAction="#onActionDtmEindDatum" prefHeight="25.0" prefWidth="142.0" promptText="eind datum..." GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
                                     <Label text="tot" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                                    <Button fx:id="btnVerwijderReservatieOud" mnemonicParsing="false" onAction="#onActionBtnVerwijderReservatie" prefHeight="25.0" prefWidth="215.0" text="Verwijder geselecteerde reservatie" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
                                  </children>
                               </GridPane>
                               <TableView fx:id="tvReservaties" prefHeight="554.0" prefWidth="720.0">

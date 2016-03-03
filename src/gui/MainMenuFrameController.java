@@ -97,8 +97,6 @@ public class MainMenuFrameController extends BorderPane {
     @FXML
     private Button btnVoegReservatieLijstToe;
     @FXML
-    private Button btnVerwijderReservatieOud;
-    @FXML
     private DatePicker dpOphaalmoment;
     @FXML
     private TextField txfOphaalmoment;
