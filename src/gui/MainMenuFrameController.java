@@ -357,7 +357,7 @@ public class MainMenuFrameController extends BorderPane {
     private void setVisibilityWijzigDetailsMateriaal(boolean b){
         btnWijzigReservatieDetails.setVisible(!b);
         btnVoegReservatieLijstToe.setVisible(!b);
-        btnVerwijderReservatie.setVisible(b);
+        btnVerwijderReservatie.setVisible(!b);
         
         btnBevestigWijzigingDetails.setVisible(b);
         btnAnnuleerWijzigingDetails.setVisible(b);
