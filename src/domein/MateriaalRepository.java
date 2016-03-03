@@ -91,7 +91,7 @@ public class MateriaalRepository {
             matView.setAantalOnbeschikbaar(0);   //zelf ingevuld
             matView.setArtikelNummer(artikelNummer);
 
-            List<String> doelGroepkes = new ArrayList<String>(Arrays.asList(doelgroepen.split(",")));
+            List<String> doelGroepkes = new ArrayList<>(Arrays.asList(doelgroepen.split(",")));
             matView.setDoelgroepen(doelGroepkes);
 
             matView.setEmailFirma(emailFirma);
@@ -99,14 +99,14 @@ public class MateriaalRepository {
             matView.setFotoUrl(fotoUrl);
 
             // TODO: fix this
-            List<String> leerGroepkes = new ArrayList<String>(Arrays.asList(leergebieden.split(",")));
+            List<String> leerGroepkes = new ArrayList<>(Arrays.asList(leergebieden.split(",")));
             matView.setLeergebieden(leerGroepkes);
 
             matView.setOmschrijving(omschrijving);
             matView.setPlaats(plaats);
             matView.setPrijs(prijs);
             matView.setUitleenbaarheid(uitleenbaarheid);
-
+            System.out.println(matView.toString());
             voegMateriaalToe(matView);
 
         }

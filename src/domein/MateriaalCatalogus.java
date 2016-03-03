@@ -79,6 +79,8 @@ public class MateriaalCatalogus {
                 .setLeergebieden(leerGroepen)
                 .setFirma(firma);
 
+        
+        System.out.println("firma: "+firma);
         //voeg materiaal toe aan repo
         materialen.add(materiaal);
 
