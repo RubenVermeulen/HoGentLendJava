@@ -8,16 +8,20 @@ package gui;
 import domein.DomeinController;
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -66,9 +70,9 @@ public class MateriaalToevoegenInBulkController extends BorderPane {
 
     @FXML
     private void voegMateriaalToeOnAction(ActionEvent event) {
-        if(controlerenOfCsvFileIsIngevuld()){
-        domCon.voegMaterialenToeInBulk(urlCsv.getText());
-        gaterugNaarmenu();
+        if (controlerenOfCsvFileIsIngevuld()) {
+            domCon.voegMaterialenToeInBulk(urlCsv.getText());
+            gaterugNaarmenu();
         }
 
     }
@@ -88,18 +92,31 @@ public class MateriaalToevoegenInBulkController extends BorderPane {
     }
 
     private boolean controlerenOfCsvFileIsIngevuld() {
-        boolean isIngevuld=false;
+        boolean isIngevuld = false;
         if (urlCsv.getText().isEmpty()) {
+            Alert alert = new Alert(
+                    Alert.AlertType.CONFIRMATION,
+                    String.format("Er is nog geen csvfile gekozen."),
+                    ButtonType.OK);
+
+            alert.setTitle("Opgelet");
+            alert.setHeaderText("Opgelet");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+
+                ((VBox) getParent()).getChildren().remove(this);
+            }
+
+            /*
             
             Stage dialogStage = new Stage();
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.setScene(new Scene(VBoxBuilder.create().
-                    children(new Text("Er is nog geen csvfile gekozen.")).
-                    alignment(Pos.CENTER).padding(new Insets(30)).build()));
-            dialogStage.show();
-
-        }else{
-        isIngevuld=true;
+                    children(new Text("Er is nog geen csvfile gekozen.")).padding(new Insets(30)).build()));
+            dialogStage.show();*/
+        } else {
+            isIngevuld = true;
         }
         return isIngevuld;
     }
