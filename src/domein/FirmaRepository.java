@@ -56,13 +56,13 @@ public class FirmaRepository {
         if (naam == null || naam.isEmpty())
             throw new IllegalArgumentException("Firma naam is verplicht");
         
-        if (email == null || email.isEmpty()) 
+        /*if (email == null || email.isEmpty()) 
             throw new IllegalArgumentException("Firma email is verplicht");
-        
+        */
         if (geefFirma(naam) != null)
             throw new IllegalArgumentException("Firma naam is al in gebruik");
         
-        if (! email.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$"))
+        if (email != null&& !email.isEmpty()&&! email.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$"))
             throw new IllegalArgumentException("Geef een geldig e-mailadres op");
         
         Firma firma = new Firma(naam);

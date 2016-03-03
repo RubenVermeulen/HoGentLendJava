@@ -31,7 +31,6 @@ public class MateriaalCatalogus {
         materialen = new ArrayList<>();
         groepRepo = new GroepRepository();
     }
-    
 
     public void loadMaterialen(List<Materiaal> materialen) {
         this.materialen = materialen;
@@ -41,7 +40,7 @@ public class MateriaalCatalogus {
     }
 
     public Materiaal voegMateriaalToe(MateriaalView mv) {
-               
+
         String urlFoto = mv.getFotoUrl();
         String naam = mv.getNaam();
         int aantal = mv.getAantal();
@@ -60,7 +59,7 @@ public class MateriaalCatalogus {
         validatieMateriaalView(urlFoto, naam, aantal, firmaEmail, prijs, aantalOnbeschikbaar);
 
         Materiaal materiaal = new Materiaal(naam, aantal);
-            
+
         // Geeft ofwel een firma object terug of wel de waarde NULL
         Firma firma = firmaRepo.geefFirma(firmaNaam);
 
@@ -79,8 +78,7 @@ public class MateriaalCatalogus {
                 .setLeergebieden(leerGroepen)
                 .setFirma(firma);
 
-        
-        System.out.println("firma: "+firma);
+        System.out.println("firma: " + firma);
         //voeg materiaal toe aan repo
         materialen.add(materiaal);
 
@@ -120,6 +118,12 @@ public class MateriaalCatalogus {
         }
 
         return materiaal;
+    }
+
+    protected FirmaRepository geefFirmaRepo() {
+
+        return firmaRepo;
+
     }
 
     /**
@@ -187,12 +191,12 @@ public class MateriaalCatalogus {
 
         // Valideer de gegevens
         validatieMateriaalView(urlFoto, naam, aantal, null, prijs, aantalOnbeschikbaar);
-        
+
         Firma firma = firmaRepo.geefFirma(firmanaam);
-        
+
         List<Groep> doelGroepen = groepRepo.geefDoelgroep(doelgroepenStr);
         List<Groep> leerGroepen = groepRepo.geefLeergroepen(leergebiedenStr);
-        
+
         materiaal.setAantal(mv.getAantal())
                 .setAantalOnbeschikbaar(mv.getAantalOnbeschikbaar())
                 .setArtikelnummer(mv.getArtikelNummer())
@@ -209,9 +213,10 @@ public class MateriaalCatalogus {
 
     public void validatieMateriaalView(String urlFoto, String naam, int aantal, String firmaEmail, double prijs, int aantalOnbeschikbaar) {
         //Exceptions werpen
-        if (urlFoto != null && ! urlFoto.isEmpty() && ! urlFoto.endsWith(".jpg") && ! urlFoto.endsWith(".png") &&  ! urlFoto.endsWith(".gif"))
+        if (urlFoto != null && !urlFoto.isEmpty() && !urlFoto.endsWith(".jpg") && !urlFoto.endsWith(".png") && !urlFoto.endsWith(".gif")) {
             throw new IllegalArgumentException("foto");
-        
+        }
+
         if (naam == null || naam.isEmpty()) {
             throw new IllegalArgumentException("naam");
         }
@@ -242,35 +247,33 @@ public class MateriaalCatalogus {
     }
 
     public void voegGroepToe(String text, boolean isLeergroep) {
-      groepRepo.voegGroepToe(text, isLeergroep);
+        groepRepo.voegGroepToe(text, isLeergroep);
     }
 
-    public void verwijderGroep(String groepStr, boolean isLeerGroep){
+    public void verwijderGroep(String groepStr, boolean isLeerGroep) {
         if (groepStr == null || groepStr.isEmpty()) {
             throw new IllegalArgumentException("Je hebt geen " + (isLeerGroep ? "leergebied" : "doelgroep") + " geselecteerd.");
         }
-        
+
         Optional<Groep> groepOpt = groepRepo.geefGroep(groepStr, isLeerGroep);
-        
+
         if (!groepOpt.isPresent()) {
             if (isLeerGroep) {
                 throw new IllegalArgumentException("Die leergebied bestaat niet.");
-            }else{
+            } else {
                 throw new IllegalArgumentException("Die doelgroep bestaat niet.");
             }
         }
-        
+
         Groep groep = groepOpt.get();
-        
-        for(Materiaal m : materialen){
-            if (isLeerGroep){
-                if (m.getLeergebieden().stream().anyMatch(g -> g.getId() == groep.getId())){
+
+        for (Materiaal m : materialen) {
+            if (isLeerGroep) {
+                if (m.getLeergebieden().stream().anyMatch(g -> g.getId() == groep.getId())) {
                     throw new IllegalArgumentException("Er is nog een materiaal met dit leergebied.");
                 }
-            }else{
-                if (m.getDoelgroepen().stream().anyMatch(g -> g.getId() == groep.getId())){
-                    throw new IllegalArgumentException("Er is nog een materiaal met deze doelgroep.");
-                }
+            } else if (m.getDoelgroepen().stream().anyMatch(g -> g.getId() == groep.getId())) {
+                throw new IllegalArgumentException("Er is nog een materiaal met deze doelgroep.");
             }
         }
         groepRepo.verwijderGroep(groep);

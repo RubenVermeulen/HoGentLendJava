@@ -12,8 +12,11 @@ import org.apache.commons.lang3.math.NumberUtils;
 import shared.MateriaalView;
 import util.ReadCSV;
 import util.JPAUtil;
+import domein.DomeinController;
 
 public class MateriaalRepository {
+
+    private DomeinController dc;
 
     private MateriaalCatalogus materiaalCatalogus;
     private EntityManager em;
@@ -23,7 +26,6 @@ public class MateriaalRepository {
 //        this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
 //        loadMaterialen();
 //    }
-
     MateriaalRepository(FirmaRepository firmaRepo) {
         materiaalCatalogus = new MateriaalCatalogus(firmaRepo);
         this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
@@ -36,7 +38,7 @@ public class MateriaalRepository {
     }
 
     public void voegMateriaalToe(MateriaalView mv) {
-        
+
         Materiaal materiaal = materiaalCatalogus.voegMateriaalToe(mv);
 
         //voeg materiaal toe aan db
@@ -92,14 +94,49 @@ public class MateriaalRepository {
             matView.setArtikelNummer(artikelNummer);
 
             List<String> doelGroepkes = new ArrayList<>(Arrays.asList(doelgroepen.split(",")));
+            List<String> leerGroepkes = new ArrayList<>(Arrays.asList(leergebieden.split(",")));
             matView.setDoelgroepen(doelGroepkes);
 
             matView.setEmailFirma(emailFirma);
+
+            try {
+                if ( !firma.isEmpty()) {
+                    materiaalCatalogus.geefFirmaRepo().voegFirmaToe(firma, emailFirma);
+                }
+            } catch (IllegalArgumentException e) {
+
+                e.getMessage();
+
+            }
+
+            if (!leergebieden.isEmpty()) {
+                for (String leergroep : leerGroepkes) {
+                    try {
+                        materiaalCatalogus.voegGroepToe(leergroep, true);
+                    } catch (IllegalArgumentException e) {
+
+                        e.getMessage();
+
+                    }
+                }
+
+            }
+
+            if (!doelgroepen.isEmpty()) {
+                for (String doelgroep : doelGroepkes) {
+                    try {
+                        materiaalCatalogus.voegGroepToe(doelgroep, false);
+                    } catch (IllegalArgumentException e) {
+
+                        e.getMessage();
+
+                    }
+                }
+            }
+
             matView.setFirma(firma);
             matView.setFotoUrl(fotoUrl);
 
-            // TODO: fix this
-            List<String> leerGroepkes = new ArrayList<>(Arrays.asList(leergebieden.split(",")));
             matView.setLeergebieden(leerGroepkes);
 
             matView.setOmschrijving(omschrijving);
@@ -222,7 +259,7 @@ public class MateriaalRepository {
         materiaalCatalogus.voegGroepToe(text, isLeerGroep);
     }
 
-    public void verwijderGroep(String groepStr, boolean isLeerGroep){
+    public void verwijderGroep(String groepStr, boolean isLeerGroep) {
         materiaalCatalogus.verwijderGroep(groepStr, isLeerGroep);
     }
 }
