@@ -117,12 +117,12 @@
                                 </rowConstraints>
                                  <children>
                                     <Label text="Gereserveerd door" GridPane.rowIndex="2" />
-                                    <Label fx:id="lblLenerNaam" text="Placeholder naam" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <Label fx:id="lblLenerEmail" text="Placeholder email" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Label fx:id="lblLenerNaam" text=" - " GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label fx:id="lblLenerEmail" text=" - " GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <Label text="Ophaalmoment" GridPane.rowIndex="4" />
                                     <Label text="Indienmoment" GridPane.rowIndex="5" />
-                                    <Label fx:id="lblOphaalmoment" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                    <Label fx:id="lblIndienmoment" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <Label fx:id="lblOphaalmoment" text=" - " GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <Label fx:id="lblIndienmoment" text=" - " GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                     <Label alignment="TOP_LEFT" text="Details Reservatie" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                        <font>
                                           <Font name="System Bold" size="12.0" />

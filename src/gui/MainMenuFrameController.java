@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -68,21 +69,27 @@ public class MainMenuFrameController extends BorderPane {
     @FXML
     private TableColumn<ReservatieView, String> tcMaterialen;
     @FXML
-    private ImageView btnVerwijderMateriaalLijn;
-    @FXML
-    private ImageView btnWijzigReservatieLijn;
-    @FXML
-    private ImageView btnVoegMateriaalLijnToe;
-    @FXML
     private VBox boxReservatieLijn;
     @FXML
-    private Label lblReservatieLener;
+    private Label lblLenerNaam;
     @FXML
-    private Label lblReservatieLenerEmail;
+    private Label lblLenerEmail;
     @FXML
-    private Label lblReservatieOphaalmoment;
+    private Label lblOphaalmoment;
     @FXML
-    private Label lblReservatiesIndienmoment;
+    private Label lblIndienmoment;
+    @FXML
+    private Button btnVoegResevatieToe;
+    @FXML
+    private TextField txfZoekReservatie;
+    @FXML
+    private DatePicker dtmStartDatum;
+    @FXML
+    private Button btnZoekReservatie;
+    @FXML
+    private DatePicker dtmEindDatum;
+    @FXML
+    private Button btnVerwijderReservatie;
 
     public MainMenuFrameController(DomeinController domCon) {
         this.domCon = domCon;
@@ -177,9 +184,9 @@ public class MainMenuFrameController extends BorderPane {
         List<ReservatieLijnView> rlv = rv.getReservatieLijnen();
         boxReservatieLijn.getChildren().clear();
         rlv.stream().forEach(rl -> boxReservatieLijn.getChildren().add(new ReservatieBoxController(rl, domCon)));
-        lblReservatieLener.setText(rv.getLener());
-        lblReservatieOphaalmoment.setText(rv.getOphaalmomentAlsString());
-        lblReservatiesIndienmoment.setText(rv.getIndienmomentAlsString());
+        lblLenerNaam.setText(rv.getLener());
+        lblOphaalmoment.setText(rv.getOphaalmomentAlsString());
+        lblIndienmoment.setText(rv.getIndienmomentAlsString());
         
     }
 
@@ -264,15 +271,27 @@ public class MainMenuFrameController extends BorderPane {
     }
 
     @FXML
-    private void onBtnVerwijderMateriaalLijn(MouseEvent event) {
+    private void onActionBtnVoegResevatieToe(ActionEvent event) {
     }
 
     @FXML
-    private void onBtnWijzigMateriaalLijn(MouseEvent event) {
+    private void onActionTxfZoekReservatie(ActionEvent event) {
     }
 
     @FXML
-    private void onbtnVoegMateriaalLijnToe(MouseEvent event) {
+    private void onActionDtmStartDatum(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionBtnZoekReservatie(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionDtmEindDatum(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionBtnVerwijderReservatie(ActionEvent event) {
     }
 
 }
