@@ -32,14 +32,14 @@ public class StartUp extends Application {// test xd
         // Gebruikers aanmaken
         StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
 
-        Gebruiker user = new Gebruiker("Ruben", "Vermeulen", "ruben.vermeulen.v4419@student.hogent.be",
-                passwordEncryptor.encryptPassword("rubsup"), false, false, true);
-        Gebruiker user2 = new Gebruiker("Sven", "Dedeene", "sven.dedeene.v6035@student.hogent.be",
-                passwordEncryptor.encryptPassword("sfonk"), true, false, false);
-        Gebruiker user3 = new Gebruiker("Alexander", "Van Damme", "alexander.vandamme.v7672@student.hogent.be",
-                passwordEncryptor.encryptPassword("alosk"), true, true, false);
-        Gebruiker user4 = new Gebruiker("Xander", "Berkein", "xander.berkein.v7629@student.hogent.be",
-                passwordEncryptor.encryptPassword("czandor"), false, true, true);
+        Gebruiker user = new Gebruiker("Ruben", "Vermeulen", "ruben@hogent.be",
+                passwordEncryptor.encryptPassword("ruben"), false, false, true);
+        Gebruiker user2 = new Gebruiker("Sven", "Dedeene", "sven@hogent.be",
+                passwordEncryptor.encryptPassword("sven"), true, false, false);
+        Gebruiker user3 = new Gebruiker("Alexander", "Van Damme", "alexander@hogent.be",
+                passwordEncryptor.encryptPassword("alexander"), true, true, false);
+        Gebruiker user4 = new Gebruiker("Xander", "Berkein", "xander@hogent.be",
+                passwordEncryptor.encryptPassword("xander"), false, true, true);
         Gebruiker user5 = new Gebruiker("Nieuwe", "Beheerder", "nieuwe.beheerder@hogent.be",
                 passwordEncryptor.encryptPassword(""), true, false, true);
 

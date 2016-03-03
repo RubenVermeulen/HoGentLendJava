@@ -155,7 +155,7 @@
                            </rowConstraints>
                            <children>
                               <Label text="Doelgroepen" GridPane.rowIndex="2" />
-                              <Label text="Leergroepen" GridPane.rowIndex="4" />
+                              <Label text="Leergebieden" GridPane.rowIndex="4" />
                               <Label text="Firma" GridPane.rowIndex="6" />
                               <CheckBox id="beschikbaar" fx:id="beschikbaarheid" mnemonicParsing="false" text="Beschikbaar" GridPane.rowIndex="8">
                                  <padding>
