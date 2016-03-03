@@ -175,15 +175,15 @@ public class StartUp extends Application {// test xd
         ReservatieLijn gereserveerdMateriaal1 = 
                 new ReservatieLijn(materialen[0], 1, LocalDateTime.now(), LocalDateTime.of(2016, 5, 2, 20, 10));
         ReservatieLijn gereserveerdMateriaal2 = 
-                new ReservatieLijn(materialen[1], 3, null, null);
+                new ReservatieLijn(materialen[1], 3, LocalDateTime.of(2016, 2, 3, 10, 30), LocalDateTime.of(2016, 2, 10, 10, 30));
         
         ReservatieLijn gereserveerdMateriaal3 = 
-                new ReservatieLijn(materialen[2], 5, null, null);
+                new ReservatieLijn(materialen[2], 5, LocalDateTime.of(2016, 3, 10, 10, 30), LocalDateTime.of(2016, 3, 17, 18, 30));
         
         ReservatieLijn gereserveerdMateriaal4 =
-                new ReservatieLijn(materialen[4], 4, null, null);
+                new ReservatieLijn(materialen[4], 4, LocalDateTime.of(2016, 3, 28, 10, 30), LocalDateTime.of(2016, 4, 5, 18, 30));
         ReservatieLijn gereserveerdMateriaal5 =
-                new ReservatieLijn(materialen[5], 3, null, null);
+                new ReservatieLijn(materialen[5], 3, LocalDateTime.of(2016, 3, 28, 10, 30), LocalDateTime.of(2016, 4, 5, 18, 30));
         
         reservatieLijnen.add(gereserveerdMateriaal1);
         reservatieLijnen.add(gereserveerdMateriaal2);

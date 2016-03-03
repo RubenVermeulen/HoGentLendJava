@@ -7,6 +7,7 @@ package shared;
 
 import domein.Reservatie;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -16,7 +17,6 @@ public class ReservatieLijnView {
     
     private Long id;
     
-    //wordt geconverteerd door util.LocalDateTimeAttributeConverter
     private LocalDateTime ophaalmoment;
     private LocalDateTime indienmoment;
     
@@ -69,6 +69,20 @@ public class ReservatieLijnView {
 
     public void setAantal(int aantal) {
         this.aantal = aantal;
+    }
+    
+    public String getOphaalmomentAlsString() {
+        return formatLocalDateTime(ophaalmoment);
+    }
+    
+    public String getIndienmomentAlsString() {
+        return formatLocalDateTime(indienmoment);
+    }
+    
+    private String formatLocalDateTime(LocalDateTime ldt){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yy HH:mm");
+        System.out.println(ldt.format(formatter));
+        return ldt.format(formatter);
     }
     
     

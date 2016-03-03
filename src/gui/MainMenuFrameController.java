@@ -4,6 +4,7 @@ import domein.DomeinController;
 import domein.Gebruiker;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,6 +38,7 @@ public class MainMenuFrameController extends BorderPane {
 
     private DomeinController domCon;
     private ReservatieBoxController rbc;
+    private ReservatieView geselecteerdeReservatie;
 
     @FXML
     private VBox materialenBox;
@@ -90,6 +92,30 @@ public class MainMenuFrameController extends BorderPane {
     private DatePicker dtmEindDatum;
     @FXML
     private Button btnVerwijderReservatie;
+    @FXML
+    private Button btnWijzigReservatieDetails;
+    @FXML
+    private Button btnVoegReservatieLijstToe;
+    @FXML
+    private Button btnVerwijderReservatieOud;
+    @FXML
+    private DatePicker dpOphaalmoment;
+    @FXML
+    private TextField txfOphaalmoment;
+    @FXML
+    private DatePicker dpIndienmoment;
+    @FXML
+    private TextField txfIndienmoment;
+    @FXML
+    private Label lblTotWijzigDetailsReservatie;
+    @FXML
+    private Label lblDetailOphaalmoment;
+    @FXML
+    private Label lblDetailIndienmoment;
+    @FXML
+    private Button btnBevestigWijzigingDetails;
+    @FXML
+    private Button btnAnnuleerWijzigingDetails;
 
     public MainMenuFrameController(DomeinController domCon) {
         this.domCon = domCon;
@@ -174,7 +200,11 @@ public class MainMenuFrameController extends BorderPane {
         tvReservaties.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if(newSelection != null){
                 setupReservatieLijnen(newSelection);
-                
+                geselecteerdeReservatie = newSelection;
+                setVisibilityWijzigDetailsMateriaal(false);
+            }
+            else{
+                boxReservatieLijn.getChildren().clear();
             }
         });
 
@@ -183,12 +213,13 @@ public class MainMenuFrameController extends BorderPane {
     private void setupReservatieLijnen(ReservatieView rv) {
         List<ReservatieLijnView> rlv = rv.getReservatieLijnen();
         boxReservatieLijn.getChildren().clear();
-        rlv.stream().forEach(rl -> boxReservatieLijn.getChildren().add(new ReservatieBoxController(rl, domCon)));
+        rlv.stream().forEach(rl -> boxReservatieLijn.getChildren().add(new ReservatieBoxController(rl, rv, domCon)));
         lblLenerNaam.setText(rv.getLener());
         lblOphaalmoment.setText(rv.getOphaalmomentAlsString());
         lblIndienmoment.setText(rv.getIndienmomentAlsString());
         
     }
+    
 
     @FXML
     private void menuActionUitloggen(ActionEvent event) {
@@ -292,6 +323,70 @@ public class MainMenuFrameController extends BorderPane {
 
     @FXML
     private void onActionBtnVerwijderReservatie(ActionEvent event) {
+        Alert alert = new Alert(
+                    Alert.AlertType.CONFIRMATION,
+                    String.format("Ben je zeker dat je deze reservatie wilt verwijderen?"),
+                    ButtonType.CANCEL,
+                    ButtonType.OK);
+
+            alert.setTitle("Opgelet");
+            alert.setHeaderText("Opgelet");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                domCon.verwijderReservatie(geselecteerdeReservatie);
+
+                initialiseerTableViewReservaties();
+
+                System.out.println("Reservatie verwijderd");
+            }
+    }
+
+    @FXML
+    private void onActionBtnWijzigReservatieDetails(ActionEvent event) {
+        setVisibilityWijzigDetailsMateriaal(true);
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        
+        dpOphaalmoment.setValue(geselecteerdeReservatie.getOphaalmoment().toLocalDate());
+        txfOphaalmoment.setText(geselecteerdeReservatie.getOphaalmoment().format(formatter));
+        dpIndienmoment.setValue(geselecteerdeReservatie.getIndienmoment().toLocalDate());
+        txfIndienmoment.setText(geselecteerdeReservatie.getIndienmoment().format(formatter));
+    }
+    
+    private void setVisibilityWijzigDetailsMateriaal(boolean b){
+        btnWijzigReservatieDetails.setVisible(!b);
+        btnVoegReservatieLijstToe.setVisible(!b);
+        btnVerwijderReservatie.setVisible(b);
+        
+        btnBevestigWijzigingDetails.setVisible(b);
+        btnAnnuleerWijzigingDetails.setVisible(b);
+        
+        lblDetailOphaalmoment.setVisible(!b);
+        lblDetailIndienmoment.setVisible(!b);
+        lblOphaalmoment.setVisible(!b);
+        lblIndienmoment.setVisible(!b);
+        
+        dpOphaalmoment.setVisible(b);
+        dpIndienmoment.setVisible(b);
+        txfOphaalmoment.setVisible(b);
+        txfIndienmoment.setVisible(b);
+        lblTotWijzigDetailsReservatie.setVisible(b);
+    }
+
+
+    @FXML
+    private void onActionVoegReservatieLijstToe(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionBtnBevestigWijzigingDetails(ActionEvent event) {
+        setVisibilityWijzigDetailsMateriaal(false);
+    }
+
+    @FXML
+    private void onActionBtnAnnuleerWijzigingDetails(ActionEvent event) {
+        setVisibilityWijzigDetailsMateriaal(false);
     }
 
 }
