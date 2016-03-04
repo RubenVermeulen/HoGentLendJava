@@ -55,14 +55,11 @@ public class MateriaalRepository {
 
         materialen = obj.run(csvFile);
 
-        System.out.println(materialen);
-
         for (String[] materiaal : materialen) {
             String naam = materiaal[1];
 
             String fotoUrl = materiaal[0];
 
-            System.out.println(materiaal[0]);
             String omschrijving = materiaal[2];
             String artikelNummer = materiaal[3];
             double prijs = NumberUtils.toDouble(materiaal[4], 0);
@@ -143,7 +140,7 @@ public class MateriaalRepository {
             matView.setPlaats(plaats);
             matView.setPrijs(prijs);
             matView.setUitleenbaarheid(uitleenbaarheid);
-            System.out.println(matView.toString());
+
             voegMateriaalToe(matView);
 
         }

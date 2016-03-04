@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import shared.MateriaalView;
 import util.JPAUtil;
 
 public class FirmaRepository {
@@ -75,11 +76,37 @@ public class FirmaRepository {
         
         firmas.add(firma);
         
-        System.out.println("MOIJSDMOFIJSDMOIFJ" + firmas);
-        System.out.println(geefFirma(naam));
-        
         return firma;
 
     }
     
+    /**
+     * Verwijder firma uit de database en uit het systeem.
+     * 
+     * @param naam
+     * @param materialen 
+     */
+    public void verwijderFirma(String naam, List<MateriaalView> materialen) {
+        if (naam == null || naam.isEmpty())
+            throw new IllegalArgumentException("Je hebt geen firma geselecteerd.");
+        
+        Firma firma = geefFirma(naam);
+        
+        if (firma == null)
+            throw new IllegalArgumentException("De firma bestaat niet.");
+        
+        // Controller of er nog een materiaal gekoppeld is aan de firma
+        for (MateriaalView m : materialen) {
+            if (m.getFirmaId() == firma.getId())
+                throw new IllegalArgumentException("Er bestaat nog een materiaal met deze firma.");
+        }
+        
+        // Firma uit lijst verwijderen
+        firmas.remove(firma);
+        
+        // Firma uit database verwijderen
+        em.getTransaction().begin();
+        em.remove(firma);
+        em.getTransaction().commit();
+    }
 }

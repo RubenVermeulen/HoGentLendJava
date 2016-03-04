@@ -162,10 +162,6 @@ public class DomeinController {
     
     public List<String> geefAlleFirmas() {
         List<Firma> firmas = firmaRepo.getFirmas();
-        System.out.println("Aantal firma's: " + firmas.size());
-        
-        for (Firma f : firmas)
-            System.out.println(f.getNaam() + "---");
         
         return firmaListToString(firmas);
     }
@@ -203,4 +199,7 @@ public class DomeinController {
         reservatieRepo.wijzigReservatie(rv);
     }
 
+    public void verwijderFirma(String naam) {
+        firmaRepo.verwijderFirma(naam, materiaalRepo.geefAlleMaterialen());
+    }
 }

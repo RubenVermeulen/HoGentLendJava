@@ -179,7 +179,7 @@
                               <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.rowIndex="7">
                                  <children>
                                     <ComboBox fx:id="cbFirmas" prefHeight="25.0" prefWidth="353.0" />
-                                    <Button mnemonicParsing="false" onAction="#onBtnActionFirma" prefHeight="25.0" prefWidth="175.0" text="Voeg toe" />
+                                    <Button mnemonicParsing="false" onAction="#onBtnActionFirma" prefHeight="25.0" prefWidth="175.0" text="Beheer" />
                                  </children>
                               </HBox>
                            </children>

@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -23,6 +24,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.controlsfx.control.CheckComboBox;
 import shared.MateriaalView;
 
@@ -191,6 +193,10 @@ public class MateriaalToevoegenController extends BorderPane {
 
     public void refreshFirmas(String selectedItem) {
         setupAlleFirmas();
+        
+        if (selectedItem == null || selectedItem.isEmpty()) 
+            selectedItem = mv.getFirma();
+
         cbFirmas.getSelectionModel().select(selectedItem);
     }
 
@@ -227,15 +233,31 @@ public class MateriaalToevoegenController extends BorderPane {
         prompt.initOwner(getScene().getWindow());
         prompt.setScene(promptScene);
         prompt.show();
+        
+        // Wanneer gebruiker de window aflsuit via het kruisje in de rechterbovenhoek worden de groepen opnieuw geladen
+        // ,want het is mogelijk dat de gebruiker een groep heeft verwijderd.
+        prompt.setOnCloseRequest(new EventHandler<WindowEvent>() {
+          public void handle(WindowEvent we) {
+              refreshGroepen();
+          }
+        }); 
     }
 
     private void promptFirmaToevoegen() {
-        Scene promptScene = new Scene(new VoegFirmaToeBoxController(dc, this), 300, 250);
+        Scene promptScene = new Scene(new VoegFirmaToeBoxController(dc, this), 400, 400);
         Stage prompt = new Stage();
         prompt.initModality(Modality.APPLICATION_MODAL);
         prompt.initOwner(getScene().getWindow());
         prompt.setScene(promptScene);
         prompt.show();
+        
+        // Wanneer gebruiker de window aflsuit via het kruisje in de rechterbovenhoek worden de firma's opnieuw geladen
+        // ,want het is mogelijk dat de gebruiker een firma heeft verwijderd.
+        prompt.setOnCloseRequest(new EventHandler<WindowEvent>() {
+          public void handle(WindowEvent we) {
+              refreshFirmas(null);
+          }
+        });   
     }
 
     public void initialiseerMateriaalWijzigen(MateriaalView mv) {

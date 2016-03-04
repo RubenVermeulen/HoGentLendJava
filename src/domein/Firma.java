@@ -24,6 +24,10 @@ public class Firma{
     public Firma(String naam) {
         this.naam = naam;
     }
+    
+    public long getId() {
+        return id;
+    }
 
     public String getNaam() {
         return naam;

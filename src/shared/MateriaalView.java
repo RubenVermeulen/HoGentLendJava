@@ -28,6 +28,7 @@ public class MateriaalView {
     private List<String> doelgroepen;
     private  List<String> leergebieden;
     private long id;
+    private long firmaId;
 
     public MateriaalView(String naam, int aantal) {
         this.naam = naam;
@@ -96,6 +97,11 @@ public class MateriaalView {
         this.id = id;
         return this;
     }
+    
+    public MateriaalView setFirmaId(long firmaId) {
+        this.firmaId = firmaId;
+        return this;
+    }
 
     public MateriaalView setNaam(String naam) {
         this.naam = naam;
@@ -162,6 +168,10 @@ public class MateriaalView {
 
     public long getId() {
         return id;
+    }
+    
+    public long getFirmaId() {
+        return firmaId;
     }
 
     @Override

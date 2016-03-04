@@ -34,9 +34,6 @@ public class MateriaalCatalogus {
 
     public void loadMaterialen(List<Materiaal> materialen) {
         this.materialen = materialen;
-
-        System.out.println(materialen);
-
     }
 
     public Materiaal voegMateriaalToe(MateriaalView mv) {
@@ -78,7 +75,6 @@ public class MateriaalCatalogus {
                 .setLeergebieden(leerGroepen)
                 .setFirma(firma);
 
-        System.out.println("firma: " + firma);
         //voeg materiaal toe aan repo
         materialen.add(materiaal);
 
@@ -171,7 +167,8 @@ public class MateriaalCatalogus {
                 .setDoelgroepen(groepListToString(m.getDoelgroepen()))
                 .setLeergebieden(groepListToString(m.getLeergebieden()))
                 .setPrijs(m.getPrijs())
-                .setId(Long.max(m.getId(), 0));
+                .setId(Long.max(m.getId(), 0))
+                .setFirmaId(m.getFirma() == null ? null : m.getFirma().getId());
 
         return mv;
     }
@@ -186,8 +183,6 @@ public class MateriaalCatalogus {
         int aantalOnbeschikbaar = mv.getAantalOnbeschikbaar();
         List<String> doelgroepenStr = mv.getDoelgroepen();
         List<String> leergebiedenStr = mv.getLeergebieden();
-
-        System.out.println(leergebiedenStr.toString());
 
         // Valideer de gegevens
         validatieMateriaalView(urlFoto, naam, aantal, null, prijs, aantalOnbeschikbaar);
@@ -259,9 +254,9 @@ public class MateriaalCatalogus {
 
         if (!groepOpt.isPresent()) {
             if (isLeerGroep) {
-                throw new IllegalArgumentException("Die leergebied bestaat niet.");
+                throw new IllegalArgumentException("Het leergebied bestaat niet.");
             } else {
-                throw new IllegalArgumentException("Die doelgroep bestaat niet.");
+                throw new IllegalArgumentException("Het doelgroep bestaat niet.");
             }
         }
 
