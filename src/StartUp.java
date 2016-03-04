@@ -9,6 +9,7 @@ import gui.LoginFrameController;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -166,61 +167,49 @@ public class StartUp extends Application {// test xd
 
         em.getTransaction().commit();
         
-        em.getTransaction().begin();
+        // Reservaties
+        //==================================
         
-        List<ReservatieLijn> reservatieLijnen = new ArrayList<>();
-        List<ReservatieLijn> reservatieLijnen2 = new ArrayList<>();
-        List<ReservatieLijn> reservatieLijnen3 = new ArrayList<>();
+        // Reservatie 1
+        Reservatie r1 = new Reservatie(user, LocalDateTime.of(2016, 2, 3, 10, 30), LocalDateTime.of(2016, 2, 10, 10, 30));
         
-        ReservatieLijn gereserveerdMateriaal1 = 
-                new ReservatieLijn(materialen[0], 1, LocalDateTime.now(), LocalDateTime.of(2016, 5, 2, 20, 10));
-        ReservatieLijn gereserveerdMateriaal2 = 
-                new ReservatieLijn(materialen[1], 3, LocalDateTime.of(2016, 2, 3, 10, 30), LocalDateTime.of(2016, 2, 10, 10, 30));
+        ReservatieLijn[] lijnenVoorReservatie1 = {
+            new ReservatieLijn(materialen[0], 1, LocalDateTime.now(), LocalDateTime.of(2016, 5, 2, 20, 10)),
+            new ReservatieLijn(materialen[1], 1, LocalDateTime.now(), LocalDateTime.of(2016, 8, 2, 20, 10)),
+        };
         
-        ReservatieLijn gereserveerdMateriaal3 = 
-                new ReservatieLijn(materialen[2], 5, LocalDateTime.of(2016, 3, 10, 10, 30), LocalDateTime.of(2016, 3, 17, 18, 30));
+        lijnenVoorReservatie1[0].setReservatie(r1);
+        lijnenVoorReservatie1[1].setReservatie(r1);
         
-        ReservatieLijn gereserveerdMateriaal4 =
-                new ReservatieLijn(materialen[4], 4, LocalDateTime.of(2016, 3, 28, 10, 30), LocalDateTime.of(2016, 4, 5, 18, 30));
-        ReservatieLijn gereserveerdMateriaal5 =
-                new ReservatieLijn(materialen[5], 3, LocalDateTime.of(2016, 3, 28, 10, 30), LocalDateTime.of(2016, 4, 5, 18, 30));
+        r1.setMaterialen(Arrays.asList(lijnenVoorReservatie1));
         
-        reservatieLijnen.add(gereserveerdMateriaal1);
-        reservatieLijnen.add(gereserveerdMateriaal2);
+        // Reservatie 2 
+        Reservatie r2 = new Reservatie(user2, LocalDateTime.of(2016, 3, 10, 10, 30), LocalDateTime.of(2016, 3, 17, 18, 30));
         
-        reservatieLijnen2.add(gereserveerdMateriaal3);
-        
-        reservatieLijnen3.add(gereserveerdMateriaal4);
-        reservatieLijnen3.add(gereserveerdMateriaal5);
-        
-        for (ReservatieLijn gm : reservatieLijnen)
-            em.persist(gm);
-        
-        for(ReservatieLijn gm : reservatieLijnen2)
-            em.persist(gm);
-        
-        for (ReservatieLijn gm : reservatieLijnen3)
-            em.persist(gm);
-        
-        
-        Reservatie reservatie = 
-                new Reservatie(user, LocalDateTime.of(2016, 2, 3, 10, 30), LocalDateTime.of(2016, 2, 10, 10, 30), reservatieLijnen);
+        ReservatieLijn[] lijnenVoorReservatie2 = {
+            new ReservatieLijn(materialen[3], 5, LocalDateTime.now(), LocalDateTime.of(2016, 5, 2, 20, 10)),
+        };
 
-        em.persist(reservatie);
+        lijnenVoorReservatie2[0].setReservatie(r2);
         
-        Reservatie reservatie2 =
-                new Reservatie(user2, LocalDateTime.of(2016, 3, 10, 10, 30), LocalDateTime.of(2016, 3, 17, 18, 30), reservatieLijnen2);
+        r2.setMaterialen(Arrays.asList(lijnenVoorReservatie2));
         
-        em.persist(reservatie2);
+        // Reservatielijnen
+        //==================================
+        em.getTransaction().begin();
+               
+        em.persist(r1);
+        em.persist(r2);
         
-        Reservatie reservatie3 =
-                new Reservatie(user3, LocalDateTime.of(2016, 3, 28, 10, 30), LocalDateTime.of(2016, 4, 5, 18, 30), reservatieLijnen3);
+        em.persist(lijnenVoorReservatie1[0]);
+        em.persist(lijnenVoorReservatie1[1]);  
         
-        em.persist(reservatie3);
+        em.persist(lijnenVoorReservatie2[0]);
         
         em.getTransaction().commit();
         
         em.close();
+        
         // niet sluiten want de domein laag heeft nu al andere acties met de emf
 //        emf.close();
 //        System.out.println("Closed");

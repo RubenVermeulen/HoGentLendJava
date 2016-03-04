@@ -249,9 +249,7 @@ public class MainMenuFrameController extends BorderPane {
 
     @FXML
     private void onBtnZoekMateriaalAction(ActionEvent event) {
-        System.out.println(txfZoekMateriaalFilter.getText());
         List<MateriaalView> mvs = domCon.geefMaterialenMetFilter(txfZoekMateriaalFilter.getText());
-        System.out.println(mvs);
         setupMaterials(mvs);
     }
 
@@ -292,8 +290,6 @@ public class MainMenuFrameController extends BorderPane {
                 domCon.verwijderBeheerder(geselecteerdeBeheerder);
 
                 vulTableViewOpMetBeheerders();
-
-                System.out.println("Beheerder verwijderd");
             }
         }
 

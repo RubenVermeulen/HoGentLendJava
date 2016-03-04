@@ -33,12 +33,12 @@ public class ReservatieLijn {
     private LocalDateTime indienmoment;
     
     @ManyToOne
-    @JoinColumn(name="materiaal_id")
+//    @JoinColumn(name="materiaal_id")
     private Materiaal materiaal;
     private int aantal;
     
     @ManyToOne
-    @JoinColumn(name="reservatie_id")
+//    @JoinColumn(name="reservatie_id")
     private Reservatie reservatie;
 
     public ReservatieLijn() {

@@ -39,7 +39,6 @@ public class ReservatieRepository {
     private void loadReservaties() {
         Query q = em.createQuery("SELECT r FROM Reservatie r");
         reservaties = (List<Reservatie>) q.getResultList();
-        System.out.println(reservaties);
     }
 
     public List<Long> geefAlleReservatieIds() {

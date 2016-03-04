@@ -38,12 +38,8 @@ public class FirmaRepository {
 
     public Firma geefFirma(String naam) {
         
-        for (Firma f : firmas) {
-            
-            System.out.println("xp" + f.getNaam());
-                
+        for (Firma f : firmas) {                
             if (f.getNaam().equals(naam)) {
-                System.out.println("xd" + f.getNaam());
                 return f;
             }
         }

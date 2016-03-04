@@ -53,6 +53,13 @@ public class Reservatie {
         this.indienmoment = indienmoment;
         this.materialen = materialen;
     }
+    
+    public Reservatie(Gebruiker lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment) {
+        this.lener = lener;
+        this.ophaalmoment = ophaalmoment;
+        this.indienmoment = indienmoment;
+//        this.materialen = materialen;
+    }
 
     public Long getId() {
         return id;
