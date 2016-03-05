@@ -181,7 +181,7 @@ public class StartUp extends Application {// test xd
         lijnenVoorReservatie1[0].setReservatie(r1);
         lijnenVoorReservatie1[1].setReservatie(r1);
         
-        r1.setMaterialen(Arrays.asList(lijnenVoorReservatie1));
+        r1.setReservatielijnen(Arrays.asList(lijnenVoorReservatie1));
         
         // Reservatie 2 
         Reservatie r2 = new Reservatie(user2, LocalDateTime.of(2016, 3, 10, 10, 30), LocalDateTime.of(2016, 3, 17, 18, 30));
@@ -192,7 +192,7 @@ public class StartUp extends Application {// test xd
 
         lijnenVoorReservatie2[0].setReservatie(r2);
         
-        r2.setMaterialen(Arrays.asList(lijnenVoorReservatie2));
+        r2.setReservatielijnen(Arrays.asList(lijnenVoorReservatie2));
         
         // Reservatielijnen
         //==================================

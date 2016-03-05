@@ -447,6 +447,9 @@ public class MateriaalToevoegenController extends BorderPane {
             case "onbeschikbaar":
                 lblErrorMessage.setText("Aantal onbeschikbare materialen moet groter zijn dan 0.");
                 errorOnbeschikbaar.setVisible(true);
+            case "onbeschikbaarAantal":
+                lblErrorMessage.setText("Aantal onbeschikbaar kan niet groter zijn dan aantal.");
+                errorOnbeschikbaar.setVisible(true);
         }
     }
 }

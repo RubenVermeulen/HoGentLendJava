@@ -98,7 +98,7 @@ public class ReservatieRepository {
         r.setIndienmoment(rv.getIndienmoment());
 
         List<ReservatieLijnView> lvn = rv.getReservatieLijnen();
-        List<Long> lnIds = r.getMaterialen().stream().map(l -> l.getId()).collect(Collectors.toList());
+        List<Long> lnIds = r.getReservatielijnen().stream().map(l -> l.getId()).collect(Collectors.toList());
         
         for (ReservatieLijnView lv : lvn) {
             if (lv.getId() == null) {
@@ -113,7 +113,7 @@ public class ReservatieRepository {
 
     private void verwijderReservatieLijn(Reservatie r, long rl) {
         em.getTransaction().begin();
-        Iterator<ReservatieLijn> it = r.getMaterialen().iterator();
+        Iterator<ReservatieLijn> it = r.getReservatielijnen().iterator();
         while (it.hasNext()) {
             if (it.next().getId() == rl) {
                 it.remove();
@@ -128,12 +128,12 @@ public class ReservatieRepository {
         em.getTransaction().begin();
         ReservatieLijn rl = new ReservatieLijn(matRepo.geefMateriaalMetId(rlv.getMateriaal().getId()), rlv.getAantal(), rlv.getOphaalmoment(), rlv.getIndienmoment());
         em.persist(rl);
-        r.getMaterialen().add(rl);
+        r.getReservatielijnen().add(rl);
         em.getTransaction().commit();
     }
 
     private void pasReservatieLijnAan(Reservatie r, ReservatieLijnView rlv) {
-        ReservatieLijn rl = r.getMaterialen().stream().filter(mrl -> mrl.getId() == rlv.getId()).findFirst().get();
+        ReservatieLijn rl = r.getReservatielijnen().stream().filter(mrl -> mrl.getId() == rlv.getId()).findFirst().get();
         validateOphaalEnIndienMomentsForLijn(rlv.getOphaalmoment(), rlv.getIndienmoment());
         em.getTransaction().begin();
         rl.setAantal(rlv.getAantal());

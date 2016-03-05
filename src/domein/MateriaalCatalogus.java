@@ -168,7 +168,7 @@ public class MateriaalCatalogus {
                 .setLeergebieden(groepListToString(m.getLeergebieden()))
                 .setPrijs(m.getPrijs())
                 .setId(Long.max(m.getId(), 0))
-                .setFirmaId(m.getFirma() == null ? null : m.getFirma().getId());
+                .setFirmaId(m.getFirma() == null ? -1 : m.getFirma().getId());
 
         return mv;
     }
@@ -226,6 +226,10 @@ public class MateriaalCatalogus {
 
         if (aantalOnbeschikbaar < 0) {
             throw new IllegalArgumentException("onbeschikbaar");
+        }
+        
+        if (aantalOnbeschikbaar > aantal) {
+            throw new IllegalArgumentException("onbeschikbaarAantal");
         }
     }
 

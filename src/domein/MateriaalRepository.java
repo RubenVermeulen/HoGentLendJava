@@ -233,12 +233,11 @@ public class MateriaalRepository {
 
         if (materiaal == null) {
             return false;
-        }
-
-        em.getTransaction().begin();
+        }    
 
         materiaalCatalogus.wijsAttributenMateriaalViewToeAanMateriaal(materiaalView, materiaal);
-
+        
+        em.getTransaction().begin();
         em.getTransaction().commit();
 
         return true;

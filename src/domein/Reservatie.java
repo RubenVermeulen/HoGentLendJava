@@ -42,23 +42,22 @@ public class Reservatie {
     private LocalDateTime indienmoment;
 
     @OneToMany(mappedBy = "reservatie", fetch = FetchType.EAGER, orphanRemoval = true)
-    private List<ReservatieLijn> materialen;
+    private List<ReservatieLijn> reservatielijen;
 
     public Reservatie() {
     }
 
-    public Reservatie(Gebruiker lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment, List<ReservatieLijn> materialen) {
-        this.lener = lener;
-        this.ophaalmoment = ophaalmoment;
-        this.indienmoment = indienmoment;
-        this.materialen = materialen;
-    }
+//    public Reservatie(Gebruiker lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment, List<ReservatieLijn> materialen) {
+//        this.lener = lener;
+//        this.ophaalmoment = ophaalmoment;
+//        this.indienmoment = indienmoment;
+//        this.materialen = materialen;
+//    }
     
     public Reservatie(Gebruiker lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment) {
         this.lener = lener;
         this.ophaalmoment = ophaalmoment;
         this.indienmoment = indienmoment;
-//        this.materialen = materialen;
     }
 
     public Long getId() {
@@ -93,18 +92,18 @@ public class Reservatie {
         this.indienmoment = indienmoment;
     }
 
-    public List<ReservatieLijn> getMaterialen() {
-        return materialen;
+    public List<ReservatieLijn> getReservatielijnen() {
+        return reservatielijen;
     }
 
-    public void setMaterialen(List<ReservatieLijn> materialen) {
-        this.materialen = materialen;
+    public void setReservatielijnen(List<ReservatieLijn> reservatielijen) {
+        this.reservatielijen = reservatielijen;
     }
 
     public ReservatieView toReservatieView() {
         List<ReservatieLijnView> gereserveerdeMaterialen = new ArrayList<>();
 
-        for (ReservatieLijn gm : materialen) {
+        for (ReservatieLijn gm : reservatielijen) {
             MateriaalView mv = gm.getMateriaal().toMateriaalView();
             ReservatieLijnView gmv
                     = new ReservatieLijnView(gm.getId(), gm.getOphaalmoment(), gm.getIndienmoment(), mv, gm.getAantal());
@@ -119,7 +118,7 @@ public class Reservatie {
 
     @Override
     public String toString() {
-        return "Reservatie{" + "id=" + id + ", lener=" + lener + ", ophaalmoment=" + ophaalmoment + ", indienmoment=" + indienmoment + ", materialen=" + materialen + '}';
+        return "Reservatie{" + "id=" + id + ", lener=" + lener + ", ophaalmoment=" + ophaalmoment + ", indienmoment=" + indienmoment + ", reservatielijen=" + reservatielijen + '}';
     }
     
     
