@@ -57,8 +57,8 @@ public class MateriaalCatalogus {
 
         Materiaal materiaal = new Materiaal(naam, aantal);
 
-        // Geeft ofwel een firma object terug of wel de waarde NULL
-        Firma firma = firmaRepo.geefFirma(firmaNaam);
+        Optional<Firma> firmaOpt = firmaRepo.geefFirma(firmaNaam);
+        Firma firma = firmaOpt.isPresent() ? firmaOpt.get() : null;
 
         List<Groep> doelGroepen = groepRepo.geefDoelgroep(doelgroepenStr);
         List<Groep> leerGroepen = groepRepo.geefLeergroepen(leergebiedenStr);
@@ -187,7 +187,8 @@ public class MateriaalCatalogus {
         // Valideer de gegevens
         validatieMateriaalView(urlFoto, naam, aantal, null, prijs, aantalOnbeschikbaar);
 
-        Firma firma = firmaRepo.geefFirma(firmanaam);
+        Optional<Firma> firmaOpt = firmaRepo.geefFirma(firmanaam);
+        Firma firma = firmaOpt.isPresent() ? firmaOpt.get() : null;
 
         List<Groep> doelGroepen = groepRepo.geefDoelgroep(doelgroepenStr);
         List<Groep> leerGroepen = groepRepo.geefLeergroepen(leergebiedenStr);

@@ -161,7 +161,7 @@ public class DomeinController {
     }
     
     public List<String> geefAlleFirmas() {
-        List<Firma> firmas = firmaRepo.getFirmas();
+        List<Firma> firmas = firmaRepo.getAllFirmasSorted();
         
         return firmaListToString(firmas);
     }
