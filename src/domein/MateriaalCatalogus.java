@@ -65,7 +65,7 @@ public class MateriaalCatalogus {
         Firma firma = firmaOpt.isPresent() ? firmaOpt.get() : null;
 
         List<Groep> doelGroepen = groepRepo.geefDoelgroep(doelgroepenStr);
-        List<Groep> leerGroepen = groepRepo.geefLeergroepen(leergebiedenStr);
+        List<Groep> leerGroepen = groepRepo.convertStringListToLeerGebiedenList(leergebiedenStr);
 
         //maak materiaal aan met gegevens uit de MateriaalView
         materiaal.setFoto(urlFoto)
@@ -195,7 +195,7 @@ public class MateriaalCatalogus {
         Firma firma = firmaOpt.isPresent() ? firmaOpt.get() : null;
 
         List<Groep> doelGroepen = groepRepo.geefDoelgroep(doelgroepenStr);
-        List<Groep> leerGroepen = groepRepo.geefLeergroepen(leergebiedenStr);
+        List<Groep> leerGroepen = groepRepo.convertStringListToLeerGebiedenList(leergebiedenStr);
 
         materiaal.setAantal(mv.getAantal())
                 .setAantalOnbeschikbaar(mv.getAantalOnbeschikbaar())
@@ -243,11 +243,11 @@ public class MateriaalCatalogus {
     }
 
     public List<Groep> geefAlleLeergebieden() {
-        return groepRepo.getLeergebieden();
+        return groepRepo.getLeerGebieden();
     }
 
     public List<Groep> geefAlleDoelgroepen() {
-        return groepRepo.getDoelgroepen();
+        return groepRepo.getDoelGroepen();
     }
 
     public void voegGroepToe(String text, boolean isLeergroep) {

@@ -10,88 +10,55 @@ import util.JPAUtil;
 
 public class GroepRepository {
 
-    private List<Groep> groepen;
+    private GroepCatalogus groepCat;
     private EntityManager em;
 
     public GroepRepository() {
         this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
-        loadFirmas();
+        loadGroepCatalogus();
     }
 
-    private void loadFirmas() {
+    private void loadGroepCatalogus() {
         Query q = em.createQuery("SELECT g FROM Groep g");
-        groepen = (List<Groep>) q.getResultList();
+        List<Groep> groepen = (List<Groep>) q.getResultList();
+        groepCat = new GroepCatalogus(groepen);
     }
 
-    public List<Groep> getLeergebieden() {
-        return groepen.stream().filter(g -> g.isLeerGroep()).collect(Collectors.toList());
+    public List<Groep> getLeerGebieden() {
+        return groepCat.getLeerGebieden();
     }
 
-    public List<Groep> getDoelgroepen() {
-        return groepen.stream().filter(g -> !g.isLeerGroep()).collect(Collectors.toList());
+    public List<Groep> getDoelGroepen() {
+        return groepCat.getDoelGroepen();
     }
 
-    public List<Groep> geefLeergroepen(List<String> groep) {
-        if (groep == null) {
-            return null;
-        }
-        List<Groep> result = new ArrayList<>();
-        for (Groep lg : getLeergebieden()) {
-            for (String str : groep) {
-                if (str.equalsIgnoreCase(lg.getGroep())) {
-                    result.add(lg);
-                }
-            }
-        }
-        return result;
+    public List<Groep> convertStringListToLeerGebiedenList(List<String> leerGebiedenStr) {
+        return groepCat.convertStringListToLeerGebiedenList(leerGebiedenStr);
     }
 
-    public List<Groep> geefDoelgroep(List<String> groep) {
-        if (groep == null) {
-            return null;
-        }
-        List<Groep> result = new ArrayList<>();
-        for (Groep lg : getDoelgroepen()) {
-            for (String str : groep) {
-                if (str.equalsIgnoreCase(lg.getGroep())) {
-                    result.add(lg);
-                }
-            }
-        }
-        return result;
+    public List<Groep> geefDoelgroep(List<String> doelGroepenStr) {
+        return groepCat.convertStringListToDoelGroepenList(doelGroepenStr);
     }
 
-    public Groep voegGroepToe(String groep, boolean isLeergroep) {
-        Groep result = new Groep(groep, isLeergroep);
-        if (isLeergroep) {
-            if (getLeergebieden().stream().map(g -> g.getGroep()).anyMatch(s -> s.equalsIgnoreCase(groep))) {
-                throw new IllegalArgumentException("Dit leergebied bestaat al.");
-            }
-        } else if (getDoelgroepen().stream().map(g -> g.getGroep()).anyMatch(s -> s.equalsIgnoreCase(groep))) {
-            throw new IllegalArgumentException("Deze doelgroep bestaat al.");
-        }
-
+    public Groep voegGroepToe(String groepNaam, boolean isLeerGebied) {
+        Groep groep = groepCat.voegGroepToe(groepNaam, isLeerGebied);
+        
         em.getTransaction().begin();
-        em.persist(result);
+        em.persist(groep);
         em.getTransaction().commit();
-        groepen.add(result);
-        return result;
+        
+        return groep;
     }
 
-    public Optional<Groep> geefGroep(String groepStr, boolean isLeerGroep){
-        Optional<Groep> groepOpt;
-        if (isLeerGroep) {
-            groepOpt = getLeergebieden().stream().filter(s -> s.getGroep().equalsIgnoreCase(groepStr)).findFirst();
-        } else {
-            groepOpt = getDoelgroepen().stream().filter(s -> s.getGroep().equalsIgnoreCase(groepStr)).findFirst();            
-        }
-        return groepOpt;
+    public Optional<Groep> geefGroep(String groepStr, boolean isLeerGebied){
+        return groepCat.geefGroep(groepStr, isLeerGebied);
     }
     
     public void verwijderGroep(Groep groep) {
+        groepCat.verwijderGroep(groep);
+        
         em.getTransaction().begin();
         em.remove(groep);
         em.getTransaction().commit();
-        groepen.remove(groep);
     }
 }
