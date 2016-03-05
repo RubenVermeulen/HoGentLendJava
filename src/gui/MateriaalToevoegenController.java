@@ -265,7 +265,7 @@ public class MateriaalToevoegenController extends BorderPane {
 
         // Labels wijzigen
         lblTitel.setText("Wijzig materiaal");
-        voegToeKnop.setText("Wijzig materiaal");
+        voegToeKnop.setText("Wijziging opslaan");
 
         // Velden aanvullen
         naam.setText(mv.getNaam());
