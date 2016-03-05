@@ -1,7 +1,4 @@
-/*
- * All rights reserved.
- */
-package domein;
+package domein.firma;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -9,10 +6,6 @@ import java.util.List;
 import java.util.Optional;
 import shared.MateriaalView;
 
-/**
- *
- * @author Sven
- */
 public class FirmaCatalogus {
 
     private final List<Firma> firmas;

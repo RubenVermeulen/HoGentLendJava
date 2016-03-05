@@ -5,6 +5,10 @@
  */
 package domein;
 
+import domein.groep.GroepRepository;
+import domein.groep.Groep;
+import domein.firma.FirmaRepository;
+import domein.firma.Firma;
 import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.util.ArrayList;
 import java.util.List;

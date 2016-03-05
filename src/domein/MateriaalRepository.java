@@ -1,5 +1,7 @@
 package domein;
 
+import domein.groep.Groep;
+import domein.firma.FirmaRepository;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;

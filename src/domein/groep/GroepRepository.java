@@ -1,4 +1,4 @@
-package domein;
+package domein.groep;
 
 import java.util.ArrayList;
 import java.util.List;

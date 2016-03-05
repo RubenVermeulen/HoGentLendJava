@@ -1,5 +1,6 @@
 package domein;
 
+import domein.firma.Firma;
 import org.junit.Assert;
 import org.junit.Test;
 

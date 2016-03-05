@@ -1,4 +1,4 @@
-package domein;
+package domein.firma;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +16,7 @@ public class FirmaRepository {
         this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
         loadFirmaCatalogus();
     }
-    
+
     private void loadFirmaCatalogus() {
         Query q = em.createQuery("SELECT f FROM Firma f ORDER BY f.naam");
         List<Firma> firmas = (List<Firma>) q.getResultList();
@@ -33,17 +33,17 @@ public class FirmaRepository {
 
     public Firma voegFirmaToe(String naam, String email) {
         Firma firma = firmaCat.voegFrimaToe(naam, email);
-        
+
         em.getTransaction().begin();
         em.persist(firma);
         em.getTransaction().commit();
-        
+
         return firma;
     }
-    
+
     public void verwijderFirma(String naam, List<MateriaalView> materialen) {
         Firma firmaToDelete = firmaCat.verwijderFirma(naam, materialen);
-        
+
         em.getTransaction().begin();
         em.remove(firmaToDelete);
         em.getTransaction().commit();
