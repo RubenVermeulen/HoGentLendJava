@@ -194,7 +194,7 @@ public class MateriaalToevoegenController extends BorderPane {
     public void refreshFirmas(String selectedItem) {
         setupAlleFirmas();
         
-        if (selectedItem == null || selectedItem.isEmpty()) 
+        if ((selectedItem == null || selectedItem.isEmpty()) && mv != null) 
             selectedItem = mv.getFirma();
 
         cbFirmas.getSelectionModel().select(selectedItem);
@@ -244,7 +244,7 @@ public class MateriaalToevoegenController extends BorderPane {
     }
 
     private void promptFirmaToevoegen() {
-        Scene promptScene = new Scene(new VoegFirmaToeBoxController(dc, this), 400, 400);
+        Scene promptScene = new Scene(new BeheerFirmasBoxController(dc, this), 400, 520);
         Stage prompt = new Stage();
         prompt.initModality(Modality.APPLICATION_MODAL);
         prompt.initOwner(getScene().getWindow());

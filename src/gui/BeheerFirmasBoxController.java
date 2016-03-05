@@ -6,10 +6,15 @@
 package gui;
 
 import domein.DomeinController;
+import domein.firma.Firma;
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -18,14 +23,16 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  * FXML Controller class
  *
  * @author ruben
  */
-public class VoegFirmaToeBoxController extends VBox {
+public class BeheerFirmasBoxController extends VBox {
 
     @FXML
     private Text lblTitel;
@@ -46,15 +53,24 @@ public class VoegFirmaToeBoxController extends VBox {
     @FXML
     private Button btnGaTerug;
     
+    @FXML
+    private ComboBox<String> cmbWijzig;
+    @FXML
+    private Label lblWijzig;
+    @FXML
+    private Button btnWijzig;
+    
     private DomeinController dc;
     private MateriaalToevoegenController parent;
     private String laatstToegevoegdeFirma;
+    private Color colorSucces = Color.web("#04B431");
+    private Color colorError = Color.web("FF0000");
 
-    public VoegFirmaToeBoxController(DomeinController dc, MateriaalToevoegenController parent) {
+    public BeheerFirmasBoxController(DomeinController dc, MateriaalToevoegenController parent) {
         this.dc = dc;
         this.parent = parent;
         
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("VoegFirmaToeBox.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("BeheerFirmasBox.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         
@@ -64,8 +80,7 @@ public class VoegFirmaToeBoxController extends VBox {
             throw new RuntimeException(ex);
         }
         
-        lblVoegToe.setVisible(false);
-        lblVerwijder.setVisible(false);
+        verbergLabels();
         
         // Initialiseer de lijst met firma's
         setupFirmas();
@@ -73,8 +88,7 @@ public class VoegFirmaToeBoxController extends VBox {
     
     @FXML
     private void onActionCmbVerwijder(ActionEvent event) {
-        lblVoegToe.setVisible(false);
-        lblVerwijder.setVisible(false);
+        verbergLabels();
     }
 
     @FXML
@@ -85,7 +99,7 @@ public class VoegFirmaToeBoxController extends VBox {
             dc.verwijderFirma(geselecteerdeFirma);
             
             // Zet tekst kleur
-            lblVerwijder.setTextFill(Color.web("#04B431"));
+            lblVerwijder.setTextFill(colorSucces);
             
             lblVerwijder.setText(String.format("De firma \"%s\" is succesvol verwijderd.",geselecteerdeFirma));
             
@@ -94,7 +108,7 @@ public class VoegFirmaToeBoxController extends VBox {
         }
         catch (IllegalArgumentException e) {
             // Zet tekst kleur
-            lblVerwijder.setTextFill(Color.web("#FF0000"));
+            lblVerwijder.setTextFill(colorError);
             
             lblVerwijder.setText(e.getMessage());   
         }
@@ -115,7 +129,7 @@ public class VoegFirmaToeBoxController extends VBox {
             dc.voegFirmaToe(naamFirma, txfEmailFirma.getText());
             
             // Zet tekst kleur
-            lblVoegToe.setTextFill(Color.web("#04B431"));
+            lblVoegToe.setTextFill(colorSucces);
             
             lblVoegToe.setText(String.format("De firma \"%s\" is succesvol toegevoegd.", naamFirma));
             
@@ -131,7 +145,7 @@ public class VoegFirmaToeBoxController extends VBox {
             txfEmailFirma.setText("");
         }catch(IllegalArgumentException e){
             // Zet tekst kleur
-            lblVoegToe.setTextFill(Color.web("#FF0000"));
+            lblVoegToe.setTextFill(colorError);
             
             lblVoegToe.setText(e.getMessage());
         }
@@ -150,79 +164,75 @@ public class VoegFirmaToeBoxController extends VBox {
     
     @FXML
     private void onKeyPressedTxfEmailFirma(KeyEvent event) {
-        lblVoegToe.setVisible(false);
-        lblVerwijder.setVisible(false);
+        verbergLabels();
     }
     
     private void setupFirmas() {
+        List<String> firmas = dc.geefAlleFirmas();
+        
         cmbVerwijder.getItems().clear();
-        cmbVerwijder.getItems().addAll(dc.geefAlleFirmas());
+        cmbVerwijder.getItems().addAll(firmas);
+        
+        cmbWijzig.getItems().clear();
+        cmbWijzig.getItems().addAll(firmas);
     }
-
-//    @FXML
-//    private TextField txfNaamFirma;
-//    @FXML
-//    private TextField txfEmailFirma;
-//    @FXML
-//    private Label lblInvalidFirma; 
-//    
-//    private DomeinController dc;
-//    private MateriaalToevoegenController parent;
-//    @FXML
-//    private Text lblTitel;
-//
-//    public VoegFirmaToeBoxController(DomeinController dc, MateriaalToevoegenController parent) {
-//        this.dc = dc;
-//        this.parent = parent;
-//        
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("VoegFirmaToeBox.fxml"));
-//        loader.setRoot(this);
-//        loader.setController(this);
-//        
-//        try {
-//            loader.load();
-//        } catch (IOException ex) {
-//            throw new RuntimeException(ex);
-//        }
-//    }
-//
-//
-//    @FXML
-//    private void onKeyPressedTxfEmailFirma(KeyEvent event) {
-//        lblInvalidFirma.setVisible(false);
-//    }
-//
-//    @FXML
-//    private void onActionTxfEmailFirma(ActionEvent event) {
-//        onActionBtnVoegToe(event);
-//    }
-//
-//    @FXML
-//    private void onActionAnnuleer(ActionEvent event) {
-//        Stage stage = (Stage) lblTitel.getScene().getWindow();
-//        stage.close();
-//    }
-//
-//    @FXML
-//    private void onActionBtnVoegToe(ActionEvent event) {
-//        Stage stage = (Stage) lblTitel.getScene().getWindow();
-//        
-//        try{
-//            dc.voegFirmaToe(txfNaamFirma.getText(), txfEmailFirma.getText());
-//        }catch(IllegalArgumentException e){
-//            lblInvalidFirma.setText(e.getMessage());
-//            lblInvalidFirma.setVisible(true);
-//            return;
-//        }
-//        
-//        parent.refreshFirmas(txfNaamFirma.getText());
-//        stage.close();
-//    }
 
     @FXML
     private void onKeyPressedTxfNaamFirma(KeyEvent event) {
+        verbergLabels();
     }
 
+    @FXML
+    private void onActionBtnWijzig(ActionEvent event) {
+        String geselecteerdeFirma = cmbWijzig.getValue();
+        
+        try {
+            if (geselecteerdeFirma == null)
+                throw new IllegalArgumentException("Je hebt geen firma geselecteerd.");
+            
+            Optional<Firma> firma = dc.geefFirma(geselecteerdeFirma);
+            
+            if ( ! firma.isPresent()) 
+                throw new IllegalArgumentException("De firma kon niet worden gevonden.");
+            
+            promptFirmaWijzigen(firma.get());
+        }
+        catch (IllegalArgumentException e) {
+            // Zet tekst kleur
+            lblWijzig.setTextFill(colorError);
+            
+            lblWijzig.setText(e.getMessage());
+            
+            lblWijzig.setVisible(true);
+        }  
+    }
+
+    private void verbergLabels() {
+        lblVoegToe.setVisible(false);
+        lblVerwijder.setVisible(false);
+        lblWijzig.setVisible(false);
+    }
+
+    @FXML
+    private void onActionCmbWijzig(ActionEvent event) {
+        verbergLabels();
+    }
     
+    private void promptFirmaWijzigen(Firma firma) {
+        Scene promptScene = new Scene(new WijzigFirmaBoxController(dc, this, firma), 400, 300);
+        Stage prompt = new Stage();
+        prompt.initModality(Modality.APPLICATION_MODAL);
+        prompt.initOwner(getScene().getWindow());
+        prompt.setScene(promptScene);
+        prompt.show();
+        
+        // Wanneer gebruiker de window aflsuit via het kruisje in de rechterbovenhoek worden de firma's opnieuw geladen
+        // ,want het is mogelijk dat de gebruiker een firma heeft verwijderd.
+        prompt.setOnCloseRequest(new EventHandler<WindowEvent>() {
+          public void handle(WindowEvent we) {
+              setupFirmas();
+          }
+        });   
+    }
     
 }

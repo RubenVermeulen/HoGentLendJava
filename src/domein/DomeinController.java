@@ -205,4 +205,8 @@ public class DomeinController {
     public void verwijderFirma(String naam) {
         firmaRepo.verwijderFirma(naam, materiaalRepo.geefAlleMaterialen());
     }
+    
+    public Optional<Firma> geefFirma(String naam) {
+        return firmaRepo.geefFirma(naam);
+    }
 }
