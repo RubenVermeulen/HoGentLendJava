@@ -1,5 +1,8 @@
 package domein;
 
+import domein.groep.Groep;
+import domein.firma.FirmaRepository;
+import domein.firma.Firma;
 import exceptions.GeenToegangException;
 import java.util.List;
 import java.util.Optional;

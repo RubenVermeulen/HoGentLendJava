@@ -1,4 +1,4 @@
-package domein;
+package domein.groep;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -49,7 +49,7 @@ public class Groep {
         return id;
     }    
     
-    boolean containsFilter(String filter) {
+    public boolean containsFilter(String filter) {
         return hasFilter(groep, filter);
     }
     private boolean hasFilter(String string, String filter){

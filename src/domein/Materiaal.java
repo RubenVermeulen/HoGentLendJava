@@ -1,5 +1,7 @@
 package domein;
 
+import domein.groep.Groep;
+import domein.firma.Firma;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

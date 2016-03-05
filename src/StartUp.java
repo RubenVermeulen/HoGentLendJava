@@ -1,8 +1,8 @@
 import domein.DomeinController;
-import domein.Firma;
+import domein.firma.Firma;
 import domein.Gebruiker;
 import domein.ReservatieLijn;
-import domein.Groep;
+import domein.groep.Groep;
 import domein.Materiaal;
 import domein.Reservatie;
 import gui.LoginFrameController;
