@@ -242,4 +242,13 @@ public class BeheerFirmasBoxController extends VBox {
     public void wijzigMateriaalView(MateriaalView mv) {
         parent.setMv(mv);
     }
+    
+    public void setLblWijzig(String message) {
+        lblWijzig.setText(message);
+    }
+    
+    public void toontLblWijzig() {
+        lblWijzig.setTextFill(colorSucces);
+        lblWijzig.setVisible(true);
+    }
 }

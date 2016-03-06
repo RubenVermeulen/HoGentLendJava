@@ -86,6 +86,8 @@ public class WijzigFirmaBoxController extends VBox {
     private void onActionBtnOpslaan(ActionEvent event) {
         String naamFirma = txfNaamFirma.getText();
         String emailFirma = txfEmailFirma.getText();
+        String oudeNaamFirma = firma.getNaam();
+        String message = "";
         
         // Wijzigt de huidige materiaal view
         MateriaalView mv = parent.geefMateriaalView();
@@ -98,6 +100,13 @@ public class WijzigFirmaBoxController extends VBox {
             
             parent.setupFirmas();
         
+            if (oudeNaamFirma.equals(naamFirma))
+                parent.setLblWijzig(String.format("De firma \"%s\" is succesvol gewijzigd.", oudeNaamFirma));
+            else 
+                parent.setLblWijzig(String.format("De firma \"%s\" is succesvol gewijzigd naar \"%s\".", oudeNaamFirma, naamFirma));
+            
+            parent.toontLblWijzig();
+            
             onActionBtnAnnuleer(event);
         }
         catch(IllegalArgumentException e) {
