@@ -452,4 +452,12 @@ public class MateriaalToevoegenController extends BorderPane {
                 errorOnbeschikbaar.setVisible(true);
         }
     }
+
+    public MateriaalView getMv() {
+        return mv;
+    }
+
+    public void setMv(MateriaalView mv) {
+        this.mv = mv;
+    }
 }

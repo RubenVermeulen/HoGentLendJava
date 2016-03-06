@@ -209,4 +209,8 @@ public class DomeinController {
     public Optional<Firma> geefFirma(String naam) {
         return firmaRepo.geefFirma(naam);
     }
+    
+    public void wijzigFirmas(Firma firma, String nieuweNaam, String nieuwEmailadres) {
+        materiaalRepo.wijzigFirmas(firma, nieuweNaam, nieuwEmailadres);
+    }
 }

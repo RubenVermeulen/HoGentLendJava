@@ -82,4 +82,11 @@ public class Firma {
     public String getEmail() {
         return email;
     }
+
+    @Override
+    public String toString() {
+        return "Firma{" + "id=" + id + ", naam=" + naam + ", email=" + email + '}';
+    }
+    
+    
 }

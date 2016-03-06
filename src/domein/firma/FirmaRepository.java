@@ -48,4 +48,9 @@ public class FirmaRepository {
         em.remove(firmaToDelete);
         em.getTransaction().commit();
     }
+
+    public void persisteerFirmas() {
+        em.getTransaction().begin();
+        em.getTransaction().commit();
+    }
 }

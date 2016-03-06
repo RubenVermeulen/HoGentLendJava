@@ -21,6 +21,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import shared.MateriaalView;
 
 /**
  * FXML Controller class
@@ -68,18 +69,41 @@ public class WijzigFirmaBoxController extends VBox {
     
     @FXML
     private void onKeyPressedTxfNaamFirma(KeyEvent event) {
+        verbergLabels();
     }
 
     @FXML
     private void onKeyPressedTxfEmailFirma(KeyEvent event) {
+        verbergLabels();
     }
 
     @FXML
     private void onActionTxfEmailFirma(ActionEvent event) {
+        onActionBtnOpslaan(event);
     }
 
     @FXML
     private void onActionBtnOpslaan(ActionEvent event) {
+        String naamFirma = txfNaamFirma.getText();
+        String emailFirma = txfEmailFirma.getText();
+        
+        // Wijzigt de huidige materiaal view
+        MateriaalView mv = parent.geefMateriaalView();
+        mv.setFirma(naamFirma);
+        mv.setEmailFirma(emailFirma);
+        
+        try {
+            // Wijzigt de firma voor alle materialen die dezelfde firma gebruiken
+            dc.wijzigFirmas(firma, naamFirma, emailFirma);
+            
+            parent.setupFirmas();
+        
+            onActionBtnAnnuleer(event);
+        }
+        catch(IllegalArgumentException e) {
+            lblMessage.setText(e.getMessage());
+            lblMessage.setVisible(true);
+        } 
     }
 
     @FXML
@@ -88,4 +112,7 @@ public class WijzigFirmaBoxController extends VBox {
         stage.close();
     }
     
+    private void verbergLabels() {
+        lblMessage.setVisible(false);
+    }
 }

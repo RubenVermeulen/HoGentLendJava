@@ -15,6 +15,7 @@ import shared.MateriaalView;
 import util.ReadCSV;
 import util.JPAUtil;
 import domein.DomeinController;
+import domein.firma.Firma;
 
 public class MateriaalRepository {
 
@@ -34,7 +35,7 @@ public class MateriaalRepository {
         loadMaterialen();
     }
 
-    private void loadMaterialen() {
+    public void loadMaterialen() {
         Query q = em.createQuery("SELECT m FROM Materiaal m");
         materiaalCatalogus.loadMaterialen((List<Materiaal>) q.getResultList());
     }
@@ -259,5 +260,9 @@ public class MateriaalRepository {
 
     public void verwijderGroep(String groepStr, boolean isLeerGroep) {
         materiaalCatalogus.verwijderGroep(groepStr, isLeerGroep);
+    }
+
+    public void wijzigFirmas(Firma firma, String nieuweNaam, String nieuwEmailadres) {
+        materiaalCatalogus.wijzigFirmas(firma, nieuweNaam, nieuwEmailadres);
     }
 }

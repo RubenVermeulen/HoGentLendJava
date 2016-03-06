@@ -26,6 +26,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import shared.MateriaalView;
 
 /**
  * FXML Controller class
@@ -158,7 +159,6 @@ public class BeheerFirmasBoxController extends VBox {
         Stage stage = (Stage) lblTitel.getScene().getWindow();
         
         parent.refreshFirmas(laatstToegevoegdeFirma);
-        
         stage.close();
     }
     
@@ -167,7 +167,7 @@ public class BeheerFirmasBoxController extends VBox {
         verbergLabels();
     }
     
-    private void setupFirmas() {
+    public void setupFirmas() {
         List<String> firmas = dc.geefAlleFirmas();
         
         cmbVerwijder.getItems().clear();
@@ -235,4 +235,11 @@ public class BeheerFirmasBoxController extends VBox {
         });   
     }
     
+    public MateriaalView geefMateriaalView() {
+        return parent.getMv();
+    }
+    
+    public void wijzigMateriaalView(MateriaalView mv) {
+        parent.setMv(mv);
+    }
 }
