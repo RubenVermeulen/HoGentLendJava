@@ -210,6 +210,12 @@ public class DomeinController {
         return firmaRepo.geefFirma(naam);
     }
     
+    /**
+     * 
+     * @param firma firma object uit de firma repository
+     * @param nieuweNaam nieuwe naam voor de firma
+     * @param nieuwEmailadres nieuw e-mailadrs voor de firma
+     */
     public void wijzigFirmas(Firma firma, String nieuweNaam, String nieuwEmailadres) {
         materiaalRepo.wijzigFirmas(firma, nieuweNaam, nieuwEmailadres);
     }

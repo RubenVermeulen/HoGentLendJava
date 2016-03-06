@@ -219,7 +219,7 @@ public class MateriaalRepository {
             return materiaalView;
         }
 
-        materiaalView = materiaalCatalogus.convertMateriaalToMateriaalView(materiaal);
+        materiaalView = materiaal.toMateriaalView();
 
         return materiaalView;
     }

@@ -4,8 +4,6 @@ import domein.groep.Groep;
 import domein.firma.Firma;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,11 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.OrderColumn;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import org.eclipse.persistence.annotations.CascadeOnDelete;
 import shared.MateriaalView;
 
 @Entity
@@ -242,6 +236,7 @@ public class Materiaal {
                 .setAantalOnbeschikbaar(aantalOnbeschikbaar)
                 .setUitleenbaarheid(uitleenbaarheid)
                 .setPlaats(plaats)
+                .setFirmaId(firma == null ? -1 : firma.getId())
                 .setFirma(firma == null ? null : firma.getNaam())
                 .setEmailFirma(firma == null ? null : firma.getEmail())
                 .setDoelgroepen(groepListToString(doelgroepen))

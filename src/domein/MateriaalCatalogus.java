@@ -1,25 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package domein;
 
 import domein.groep.GroepRepository;
 import domein.groep.Groep;
 import domein.firma.FirmaRepository;
 import domein.firma.Firma;
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import shared.MateriaalView;
 
-/**
- *
- * @author Xander
- */
 public class MateriaalCatalogus {
 
     private List<Materiaal> materialen;
@@ -36,10 +26,21 @@ public class MateriaalCatalogus {
         groepRepo = new GroepRepository();
     }
 
+    /**
+     * Initialiseert het attribuut materialen.
+     * 
+     * @param materialen Lijst van materialen
+     */
     public void loadMaterialen(List<Materiaal> materialen) {
         this.materialen = materialen;
     }
 
+    /**
+     * Voegt materiaal toe aan de database en aan de materialen lijst.
+     * 
+     * @param mv MateriaalView object
+     * @return 
+     */
     public Materiaal voegMateriaalToe(MateriaalView mv) {
 
         String urlFoto = mv.getFotoUrl();
@@ -85,16 +86,26 @@ public class MateriaalCatalogus {
         return (materiaal);
     }
 
+    /**
+     * Retourneert alle materialen.
+     * 
+     * @return Lijst van materialen
+     */
     public List<MateriaalView> geefAlleMaterialen() {
         List<MateriaalView> materiaalViews = new ArrayList();
 
         for (Materiaal m : materialen) {
-            materiaalViews.add(convertMateriaalToMateriaalView(m));
+            materiaalViews.add(m.toMateriaalView());
         }
 
         return materiaalViews;
     }
 
+    /**
+     * Verwijdert meegegeven materiaal uit de materialen lijst.
+     * 
+     * @param materiaal Materiaal object
+     */
     public void verwijderMateriaal(Materiaal materiaal) {
 
         materialen.remove(materiaal);
@@ -104,8 +115,8 @@ public class MateriaalCatalogus {
     /**
      * Retourneer een materiaal object gebaseerd op de meegegeven naam.
      *
-     * @param materiaalNaam
-     * @return
+     * @param materiaalNaam naam van het materiaal
+     * @return Materiaal object
      */
     public Materiaal geefMateriaal(String materiaalNaam) {
         Materiaal materiaal = null;
@@ -120,6 +131,11 @@ public class MateriaalCatalogus {
         return materiaal;
     }
 
+    /**
+     * Retourneert een firma repository object.
+     * 
+     * @return FirmaRepository object
+     */
     protected FirmaRepository geefFirmaRepo() {
 
         return firmaRepo;
@@ -129,8 +145,8 @@ public class MateriaalCatalogus {
     /**
      * Retourneer een materiaal object gebaseerd op de meegegeven id.
      *
-     * @param id
-     * @return
+     * @param id Id van de het materiaal
+     * @return Materiaal object
      */
     public Materiaal geefMateriaalMetId(long id) {
         Materiaal materiaal = null;
@@ -152,31 +168,18 @@ public class MateriaalCatalogus {
         List<MateriaalView> matViews = new ArrayList();
         for (Materiaal mat : materialen) {
             if (mat.containsFilter(filter)) {
-                matViews.add(convertMateriaalToMateriaalView(mat));
+                matViews.add(mat.toMateriaalView());
             }
         }
         return matViews;
     }
 
-    public MateriaalView convertMateriaalToMateriaalView(Materiaal m) {
-        MateriaalView mv = new MateriaalView(m.getNaam(), m.getAantal());
-        mv.setFotoUrl(m.getFoto())
-                .setOmschrijving(m.getBeschrijving())
-                .setArtikelNummer(m.getArtikelnummer())
-                .setAantalOnbeschikbaar(m.getAantalOnbeschikbaar())
-                .setUitleenbaarheid(m.isUitleenbaarheid())
-                .setPlaats(m.getPlaats())
-                .setFirma(m.getFirma() == null ? null : m.getFirma().getNaam())
-                .setEmailFirma(m.getFirma() == null ? null : m.getFirma().getEmail())
-                .setDoelgroepen(groepListToString(m.getDoelgroepen()))
-                .setLeergebieden(groepListToString(m.getLeergebieden()))
-                .setPrijs(m.getPrijs())
-                .setId(Long.max(m.getId(), 0))
-                .setFirmaId(m.getFirma() == null ? -1 : m.getFirma().getId());
-
-        return mv;
-    }
-
+    /**
+     * Wijst alle attributen van een materiaal view toe aan een materiaal.
+     * 
+     * @param mv Materiaal view object
+     * @param materiaal Materiaal object
+     */
     public void wijsAttributenMateriaalViewToeAanMateriaal(MateriaalView mv, Materiaal materiaal) {
 
         String urlFoto = mv.getFotoUrl();
@@ -211,6 +214,17 @@ public class MateriaalCatalogus {
                 .setFirma(firma);
     }
 
+    /**
+     * Valideert de meegegeven parameters.
+     * 
+     * @param urlFoto De foto url van de materiaal view
+     * @param naam De naam van de materiaal view
+     * @param aantal Het aantal van de materiaal view
+     * @param firmaEmail Het e-mailadres van de firma in de materiaal view
+     * @param prijs De prijs van de materiaal view
+     * @param aantalOnbeschikbaar Het aantal onbeschikbaar van de materiaal view
+     * @throws IllegalArgumentException *
+     */
     public void validatieMateriaalView(String urlFoto, String naam, int aantal, String firmaEmail, double prijs, int aantalOnbeschikbaar) {
         //Exceptions werpen
         if (urlFoto != null && !urlFoto.isEmpty() && !urlFoto.endsWith(".jpg") && !urlFoto.endsWith(".png") && !urlFoto.endsWith(".gif")) {
@@ -238,22 +252,51 @@ public class MateriaalCatalogus {
         }
     }
 
+    /**
+     * Vormt een lijst van groep objecten om naar een lijst van strings.
+     * 
+     * @param groepen Lijst van groep objecten
+     * @return Lijst van strings
+     */
     private List<String> groepListToString(List<Groep> groepen) {
         return groepen.stream().map(g -> g.getGroep()).collect(Collectors.toList());
     }
 
+    /**
+     * Retourneert alle groepen die een leergebied zijn.
+     * 
+     * @return Alle leergebieden
+     */
     public List<Groep> geefAlleLeergebieden() {
         return groepRepo.getLeerGebieden();
     }
 
+    /**
+     * Retourneert alle groepen die een doelgroep zijn.
+     * 
+     * @return Alle doelgroepen
+     */
     public List<Groep> geefAlleDoelgroepen() {
         return groepRepo.getDoelGroepen();
     }
 
+    /**
+     * Voegt een groep toe op basis van de 2 parameters.
+     * 
+     * @param text De naam van de groep
+     * @param isLeergroep Is de groep een leergroep of niet
+     */
     public void voegGroepToe(String text, boolean isLeergroep) {
         groepRepo.voegGroepToe(text, isLeergroep);
     }
 
+    /**
+     * Verwijdert de groep.
+     * 
+     * @param groepStr De naam van de groep
+     * @param isLeerGroep Is de groep een leergroep of een niet
+     * @throws IllegalArgumentException *
+     */
     public void verwijderGroep(String groepStr, boolean isLeerGroep) {
         if (groepStr == null || groepStr.isEmpty()) {
             throw new IllegalArgumentException("Je hebt geen " + (isLeerGroep ? "leergebied" : "doelgroep") + " geselecteerd.");
@@ -283,6 +326,15 @@ public class MateriaalCatalogus {
         groepRepo.verwijderGroep(groep);
     }
 
+    /**
+     * Wijzigt het firma object van de firma repository en wijzigt 
+     * alle materialen hun firma object zodat deze overeen komen met 
+     * de nieuwe waarden.
+     * 
+     * @param firma Het firma object dat zal worden gewijzigd
+     * @param nieuweNaam De nieuwe naam voor de firma
+     * @param nieuwEmailadres Het nieuwe e-mailadres voor de firma
+     */
     public void wijzigFirmas(Firma firma, String nieuweNaam, String nieuwEmailadres) {
         // Wijzigt voor elk materiaal object de firma naam en eventueel het firme e-mailadres.
         for (Materiaal m : materialen) {
