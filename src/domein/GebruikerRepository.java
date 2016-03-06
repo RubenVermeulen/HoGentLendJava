@@ -14,5 +14,7 @@ public interface GebruikerRepository {
     
     public ObservableList<Gebruiker> geefAlleBeheerders();
     
-    public Gebruiker geefGebruiker(String email);
+    public Gebruiker geefGebruikerViaEmail(String email);
+    
+    public Gebruiker geefGebruikerViaNaam(String naam);
 }

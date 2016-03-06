@@ -27,7 +27,7 @@ public class DomeinController {
         this.gebruikerRepo = gebruikerRepo;
         this.firmaRepo = new FirmaRepository();
         this.materiaalRepo = new MateriaalRepository(firmaRepo);
-        this.reservatieRepo = new ReservatieRepository(materiaalRepo);
+        this.reservatieRepo = new ReservatieRepository(materiaalRepo,gebruikerRepo);
         
     }
 
@@ -82,6 +82,10 @@ public class DomeinController {
 
     }
 
+    public void voegReservatieToe(ReservatieView rv){
+        reservatieRepo.voegReservatieToe(rv);
+    }
+    
     public void voegMaterialenToeInBulk(String csvFile) {
         materiaalRepo.voegMaterialenToeInBulk(csvFile);
     }
@@ -128,7 +132,7 @@ public class DomeinController {
     }
 
     public void stelAanAlsBeheerder(String email) {
-        Gebruiker gebruiker = gebruikerRepo.geefGebruiker(email);
+        Gebruiker gebruiker = gebruikerRepo.geefGebruikerViaEmail(email);
 
         checkKanAangemeldeBeheerderStatusWijzigenVan(gebruiker);
         gebruikerRepo.stelAanAlsBeheerder(gebruiker);

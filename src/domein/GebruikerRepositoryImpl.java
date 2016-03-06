@@ -64,7 +64,7 @@ public class GebruikerRepositoryImpl implements GebruikerRepository {
     }
 
     @Override
-    public Gebruiker geefGebruiker(String email) {
+    public Gebruiker geefGebruikerViaEmail(String email) {
         if (email == null || email.isEmpty())
             throw new IllegalArgumentException("Een e-mailadres is vereist.");
         
@@ -82,4 +82,27 @@ public class GebruikerRepositoryImpl implements GebruikerRepository {
         
         return gebruiker;
     }
+    
+    @Override
+    public Gebruiker geefGebruikerViaNaam(String naam) {
+        if (naam == null || naam.isEmpty())
+            throw new IllegalArgumentException("Een naam is vereist.");
+        
+        Gebruiker gebruiker = null;
+        
+        for (Gebruiker g : gebruikers) {
+            if (g.getAchternaam().equalsIgnoreCase(naam)) {
+                gebruiker = g;
+                break;
+            }  
+        }
+        
+        if (gebruiker == null)
+            throw new IllegalArgumentException("De gebruiker kon niet worden gevonden.");
+        
+        return gebruiker;
+    }
+    
+    
+    
 }

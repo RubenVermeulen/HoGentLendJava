@@ -28,11 +28,15 @@ public class ReservatieRepository {
     private List<Reservatie> reservaties;
     private EntityManager em;
     private MateriaalRepository matRepo;
+    private GebruikerRepository gebrRepo;
 
-    public ReservatieRepository(MateriaalRepository matRepo) {
+    
+
+    ReservatieRepository(MateriaalRepository materiaalRepo, GebruikerRepository gebruikerRepo) {
         reservaties = new ArrayList<>();
         this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
         this.matRepo = matRepo;
+        this.gebrRepo=gebruikerRepo;
         loadReservaties();
     }
 
@@ -85,7 +89,7 @@ public class ReservatieRepository {
         }
         return Optional.empty();
     }
-    
+
     public void wijzigReservatie(ReservatieView rv) {
         Optional<Reservatie> optR = geefReservatie(rv.getId());
         if (!optR.isPresent()) {
@@ -99,7 +103,7 @@ public class ReservatieRepository {
 
         List<ReservatieLijnView> lvn = rv.getReservatieLijnen();
         List<Long> lnIds = r.getReservatielijnen().stream().map(l -> l.getId()).collect(Collectors.toList());
-        
+
         for (ReservatieLijnView lv : lvn) {
             if (lv.getId() == null) {
                 voegReservatieLijnToe(r, lv);
@@ -146,6 +150,27 @@ public class ReservatieRepository {
         if (ophaal.isAfter(indien)) {
             throw new IllegalArgumentException("De ophaal datum kan niet na de indien datum liggen.");
         }
+    }
+
+    void voegReservatieToe(ReservatieView rv) {
+        long id = rv.getId();
+        String lener = rv.getLener();
+        LocalDateTime ophaalmoment = rv.getOphaalmoment();
+        LocalDateTime indienmoment = rv.getIndienmoment();
+        String ophaalmomentAlsString = rv.getOphaalmomentAlsString();
+        String indienmomentAlsString = rv.getIndienmomentAlsString();
+        String reservatieLijnenAlsString = rv.getReservatieLijnenAlsString();
+        List<ReservatieLijnView> reservatieLijnen = rv.getReservatieLijnen();
+        
+        Gebruiker deLener = gebrRepo.geefGebruikerViaNaam(lener);
+       
+        
+        Reservatie reservatie=new Reservatie(deLener, ophaalmoment, indienmoment);
+        
+       
+        
+        
+
     }
 
 }
