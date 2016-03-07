@@ -1,10 +1,10 @@
 import domein.DomeinController;
 import domein.firma.Firma;
 import domein.Gebruiker;
-import domein.ReservatieLijn;
+import domein.reservatie.ReservatieLijn;
 import domein.groep.Groep;
 import domein.materiaal.Materiaal;
-import domein.Reservatie;
+import domein.reservatie.Reservatie;
 import gui.LoginFrameController;
 import java.time.LocalDateTime;
 import java.time.LocalTime;

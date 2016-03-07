@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package domein;
+package domein.reservatie;
 
+import domein.Gebruiker;
+import domein.GebruikerRepository;
+import domein.materiaal.Materiaal;
 import domein.materiaal.MateriaalRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -31,7 +34,7 @@ public class ReservatieRepository {
     private MateriaalRepository matRepo;
     private GebruikerRepository gebrRepo;
 
-    ReservatieRepository(MateriaalRepository materiaalRepo, GebruikerRepository gebruikerRepo) {
+    public ReservatieRepository(MateriaalRepository materiaalRepo, GebruikerRepository gebruikerRepo) {
         reservaties = new ArrayList<>();
         this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
         this.matRepo = matRepo;
