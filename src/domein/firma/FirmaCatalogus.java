@@ -1,5 +1,6 @@
 package domein.firma;
 
+import domein.materiaal.Materiaal;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -94,4 +95,29 @@ public class FirmaCatalogus {
         return firma;
     }
 
+    /**
+     * Wijzigt het firma object van de firma repository en wijzigt 
+     * alle materialen hun firma object zodat deze overeen komen met 
+     * de nieuwe waarden.
+     * 
+     * @param firma Het firma object dat zal worden gewijzigd
+     * @param nieuweNaam De nieuwe naam voor de firma
+     * @param nieuwEmailadres Het nieuwe e-mailadres voor de firma
+     * @param materialen Alle materialen
+     */
+    public void wijzigFirmas(Firma firma, String nieuweNaam, String nieuwEmailadres, List<Materiaal> materialen) {
+        // Wijzigt voor elk materiaal object de firma naam en eventueel het firme e-mailadres.
+        for (Materiaal m : materialen) {
+            if (m.getFirma().getNaam().equals(firma.getNaam())) {
+                m.getFirma().setNaam(nieuweNaam);
+                m.getFirma().setEmail(nieuwEmailadres);
+            }    
+        }
+        
+        // Firma object komt van firma repository,
+        // deze wijzigigen moeten gebeuren om dat dan correct
+        // weg te schrijven naar de database.
+        firma.setNaam(nieuweNaam);
+        firma.setEmail(nieuwEmailadres);
+    }
 }
