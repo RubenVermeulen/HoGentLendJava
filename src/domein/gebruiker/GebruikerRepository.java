@@ -1,4 +1,4 @@
-package domein;
+package domein.gebruiker;
 
 import java.util.List;
 import java.util.Optional;

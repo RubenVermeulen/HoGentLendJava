@@ -1,7 +1,7 @@
 package gui;
 
 import domein.DomeinController;
-import domein.Gebruiker;
+import domein.gebruiker.Gebruiker;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

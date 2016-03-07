@@ -1,5 +1,7 @@
 package domein;
 
+import domein.gebruiker.Gebruiker;
+import domein.gebruiker.GebruikerRepository;
 import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,5 +1,8 @@
 package domein;
 
+import domein.gebruiker.GebruikerRepository;
+import domein.gebruiker.GebruikerRepositoryImpl;
+import domein.gebruiker.Gebruiker;
 import domein.reservatie.ReservatieRepository;
 import domein.materiaal.MateriaalRepository;
 import domein.groep.Groep;

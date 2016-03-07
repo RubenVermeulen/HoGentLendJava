@@ -5,7 +5,7 @@
  */
 package domein.reservatie;
 
-import domein.Gebruiker;
+import domein.gebruiker.Gebruiker;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

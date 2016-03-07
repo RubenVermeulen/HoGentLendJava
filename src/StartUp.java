@@ -1,6 +1,6 @@
 import domein.DomeinController;
 import domein.firma.Firma;
-import domein.Gebruiker;
+import domein.gebruiker.Gebruiker;
 import domein.reservatie.ReservatieLijn;
 import domein.groep.Groep;
 import domein.materiaal.Materiaal;

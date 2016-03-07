@@ -5,8 +5,8 @@
  */
 package domein.reservatie;
 
-import domein.Gebruiker;
-import domein.GebruikerRepository;
+import domein.gebruiker.Gebruiker;
+import domein.gebruiker.GebruikerRepository;
 import domein.materiaal.Materiaal;
 import domein.materiaal.MateriaalRepository;
 import java.time.LocalDateTime;
