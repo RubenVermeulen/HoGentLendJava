@@ -1,4 +1,4 @@
-package domein;
+package domein.materiaal;
 
 import domein.groep.GroepRepository;
 import domein.groep.Groep;

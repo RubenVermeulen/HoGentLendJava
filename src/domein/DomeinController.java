@@ -1,5 +1,6 @@
 package domein;
 
+import domein.materiaal.MateriaalRepository;
 import domein.groep.Groep;
 import domein.firma.FirmaRepository;
 import domein.firma.Firma;

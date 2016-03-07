@@ -3,7 +3,7 @@ import domein.firma.Firma;
 import domein.Gebruiker;
 import domein.ReservatieLijn;
 import domein.groep.Groep;
-import domein.Materiaal;
+import domein.materiaal.Materiaal;
 import domein.Reservatie;
 import gui.LoginFrameController;
 import java.time.LocalDateTime;
