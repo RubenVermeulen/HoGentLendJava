@@ -30,13 +30,11 @@ public class ReservatieRepository {
     private MateriaalRepository matRepo;
     private GebruikerRepository gebrRepo;
 
-    
-
     ReservatieRepository(MateriaalRepository materiaalRepo, GebruikerRepository gebruikerRepo) {
         reservaties = new ArrayList<>();
         this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
         this.matRepo = matRepo;
-        this.gebrRepo=gebruikerRepo;
+        this.gebrRepo = gebruikerRepo;
         loadReservaties();
     }
 
@@ -152,25 +150,50 @@ public class ReservatieRepository {
         }
     }
 
-    void voegReservatieToe(ReservatieView rv) {
+    public void voegReservatieToe(ReservatieView rv) {
         long id = rv.getId();
         String lener = rv.getLener();
+        String emailLener = rv.getEmailLener();
         LocalDateTime ophaalmoment = rv.getOphaalmoment();
         LocalDateTime indienmoment = rv.getIndienmoment();
         String ophaalmomentAlsString = rv.getOphaalmomentAlsString();
         String indienmomentAlsString = rv.getIndienmomentAlsString();
         String reservatieLijnenAlsString = rv.getReservatieLijnenAlsString();
-        List<ReservatieLijnView> reservatieLijnen = rv.getReservatieLijnen();
+        List<ReservatieLijnView> reservatieLijnViews = rv.getReservatieLijnen();
+
+        Gebruiker deLener = gebrRepo.geefGebruikerViaEmail(emailLener);
+        List<ReservatieLijn> reservatieLijnen = new ArrayList<>();
+
+        for (ReservatieLijnView rlView : reservatieLijnViews) {
+
+            MateriaalView mv = rlView.getMateriaal();
+            Materiaal m = matRepo.geefMateriaal(mv.getNaam());
+
+            ReservatieLijn rl = new ReservatieLijn(m, rlView.getAantal(), rlView.getOphaalmoment(), rlView.getIndienmoment());
+
+        }
+
+        validateOphaalEnIndienMomentsForLijn(ophaalmoment, indienmoment);
+        Reservatie reservatie = new Reservatie(deLener, ophaalmoment, indienmoment);
+
+        reservatie.setReservatielijnen(reservatieLijnen);
+
+        reservaties.add(reservatie);
+
         
-        Gebruiker deLener = gebrRepo.geefGebruikerViaNaam(lener);
-       
+        //reservatielijnen toevoegen aan db
+        rv.getReservatieLijnen().stream().forEach((rlv) -> {
+            voegReservatieLijnToe(reservatie, rlv);
+        });
         
-        Reservatie reservatie=new Reservatie(deLener, ophaalmoment, indienmoment);
         
-       
-        
+        //reservatie toevoegen aan db
+       em.getTransaction().begin();
+        em.persist(reservatie);
+        em.getTransaction().commit();
         
 
+        
     }
 
 }

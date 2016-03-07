@@ -18,6 +18,7 @@ public class ReservatieView {
     
     private long id;
     private String lener;
+    private String emailLener;
     private LocalDateTime ophaalmoment;
     private LocalDateTime indienmoment;
     private String ophaalmomentAlsString;
@@ -103,6 +104,14 @@ public class ReservatieView {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yy HH:mm");
         System.out.println(ldt.format(formatter));
         return ldt.format(formatter);
+    }
+
+    public String getEmailLener() {
+        return emailLener;
+    }
+
+    public void setEmailLener(String emailLener) {
+        this.emailLener = emailLener;
     }
     
 }
