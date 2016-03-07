@@ -1,4 +1,4 @@
-package domein;
+package domein.firma;
 
 import domein.firma.Firma;
 import org.junit.Assert;

@@ -1,4 +1,4 @@
-package domein;
+package domein.firma;
 
 import domein.firma.FirmaCatalogus;
 import domein.firma.Firma;
