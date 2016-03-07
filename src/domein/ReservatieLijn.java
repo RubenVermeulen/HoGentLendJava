@@ -5,6 +5,7 @@
  */
 package domein;
 
+import domein.materiaal.Materiaal;
 import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

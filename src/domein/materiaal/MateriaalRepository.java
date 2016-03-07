@@ -1,4 +1,4 @@
-package domein;
+package domein.materiaal;
 
 import domein.groep.Groep;
 import domein.firma.FirmaRepository;
@@ -15,6 +15,7 @@ import shared.MateriaalView;
 import util.ReadCSV;
 import util.JPAUtil;
 import domein.DomeinController;
+import domein.DomeinController;
 import domein.firma.Firma;
 
 public class MateriaalRepository {
@@ -29,7 +30,7 @@ public class MateriaalRepository {
 //        this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
 //        loadMaterialen();
 //    }
-    MateriaalRepository(FirmaRepository firmaRepo) {
+    public MateriaalRepository(FirmaRepository firmaRepo) {
         materiaalCatalogus = new MateriaalCatalogus(firmaRepo);
         this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
         loadMaterialen();
@@ -51,7 +52,7 @@ public class MateriaalRepository {
 
     }
 
-    void voegMaterialenToeInBulk(String csvFile) {
+    public void voegMaterialenToeInBulk(String csvFile) {
 
         ArrayList<String[]> materialen;
         ReadCSV obj = new ReadCSV();

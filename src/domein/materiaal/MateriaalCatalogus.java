@@ -1,4 +1,4 @@
-package domein;
+package domein.materiaal;
 
 import domein.groep.GroepRepository;
 import domein.groep.Groep;
@@ -28,7 +28,7 @@ public class MateriaalCatalogus {
 
     /**
      * Initialiseert het attribuut materialen.
-     * 
+     *
      * @param materialen Lijst van materialen
      */
     public void loadMaterialen(List<Materiaal> materialen) {
@@ -37,9 +37,9 @@ public class MateriaalCatalogus {
 
     /**
      * Voegt materiaal toe aan de database en aan de materialen lijst.
-     * 
+     *
      * @param mv MateriaalView object
-     * @return 
+     * @return
      */
     public Materiaal voegMateriaalToe(MateriaalView mv) {
 
@@ -88,7 +88,7 @@ public class MateriaalCatalogus {
 
     /**
      * Retourneert alle materialen.
-     * 
+     *
      * @return Lijst van materialen
      */
     public List<MateriaalView> geefAlleMaterialen() {
@@ -103,7 +103,7 @@ public class MateriaalCatalogus {
 
     /**
      * Verwijdert meegegeven materiaal uit de materialen lijst.
-     * 
+     *
      * @param materiaal Materiaal object
      */
     public void verwijderMateriaal(Materiaal materiaal) {
@@ -133,7 +133,7 @@ public class MateriaalCatalogus {
 
     /**
      * Retourneert een firma repository object.
-     * 
+     *
      * @return FirmaRepository object
      */
     protected FirmaRepository geefFirmaRepo() {
@@ -176,7 +176,7 @@ public class MateriaalCatalogus {
 
     /**
      * Wijst alle attributen van een materiaal view toe aan een materiaal.
-     * 
+     *
      * @param mv Materiaal view object
      * @param materiaal Materiaal object
      */
@@ -216,7 +216,7 @@ public class MateriaalCatalogus {
 
     /**
      * Valideert de meegegeven parameters.
-     * 
+     *
      * @param urlFoto De foto url van de materiaal view
      * @param naam De naam van de materiaal view
      * @param aantal Het aantal van de materiaal view
@@ -246,7 +246,7 @@ public class MateriaalCatalogus {
         if (aantalOnbeschikbaar < 0) {
             throw new IllegalArgumentException("onbeschikbaar");
         }
-        
+
         if (aantalOnbeschikbaar > aantal) {
             throw new IllegalArgumentException("onbeschikbaarAantal");
         }
@@ -254,7 +254,7 @@ public class MateriaalCatalogus {
 
     /**
      * Vormt een lijst van groep objecten om naar een lijst van strings.
-     * 
+     *
      * @param groepen Lijst van groep objecten
      * @return Lijst van strings
      */
@@ -264,7 +264,7 @@ public class MateriaalCatalogus {
 
     /**
      * Retourneert alle groepen die een leergebied zijn.
-     * 
+     *
      * @return Alle leergebieden
      */
     public List<Groep> geefAlleLeergebieden() {
@@ -273,7 +273,7 @@ public class MateriaalCatalogus {
 
     /**
      * Retourneert alle groepen die een doelgroep zijn.
-     * 
+     *
      * @return Alle doelgroepen
      */
     public List<Groep> geefAlleDoelgroepen() {
@@ -282,7 +282,7 @@ public class MateriaalCatalogus {
 
     /**
      * Voegt een groep toe op basis van de 2 parameters.
-     * 
+     *
      * @param text De naam van de groep
      * @param isLeergroep Is de groep een leergroep of niet
      */
@@ -292,7 +292,7 @@ public class MateriaalCatalogus {
 
     /**
      * Verwijdert de groep.
-     * 
+     *
      * @param groepStr De naam van de groep
      * @param isLeerGroep Is de groep een leergroep of een niet
      * @throws IllegalArgumentException *
@@ -327,10 +327,10 @@ public class MateriaalCatalogus {
     }
 
     /**
-     * Wijzigt het firma object van de firma repository en wijzigt 
-     * alle materialen hun firma object zodat deze overeen komen met 
-     * de nieuwe waarden.
-     * 
+     * Wijzigt het firma object van de firma repository en wijzigt alle
+     * materialen hun firma object zodat deze overeen komen met de nieuwe
+     * waarden.
+     *
      * @param firma Het firma object dat zal worden gewijzigd
      * @param nieuweNaam De nieuwe naam voor de firma
      * @param nieuwEmailadres Het nieuwe e-mailadres voor de firma

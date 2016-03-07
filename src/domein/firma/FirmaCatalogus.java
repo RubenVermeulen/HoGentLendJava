@@ -1,6 +1,6 @@
 package domein.firma;
 
-import domein.Materiaal;
+import domein.materiaal.Materiaal;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;

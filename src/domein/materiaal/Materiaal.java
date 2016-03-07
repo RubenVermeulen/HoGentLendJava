@@ -1,4 +1,4 @@
-package domein;
+package domein.materiaal;
 
 import domein.groep.Groep;
 import domein.firma.Firma;

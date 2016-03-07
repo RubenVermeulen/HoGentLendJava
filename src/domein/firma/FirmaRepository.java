@@ -1,6 +1,6 @@
 package domein.firma;
 
-import domein.Materiaal;
+import domein.materiaal.Materiaal;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;
