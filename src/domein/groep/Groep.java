@@ -30,14 +30,14 @@ public class Groep {
         return groep;
     }
 
-    public void setGroep(String groep) {
-        if (groep == null || groep.isEmpty()){
+    public final void setGroep(String groep) {
+        if (groep == null || groep.trim().isEmpty()){
             throw new IllegalArgumentException("De naam is niet ingevuld.");
         }
         this.groep = groep;
     }
 
-    public boolean isLeerGroep() {
+    public final boolean isLeerGroep() {
         return isLeerGroep;
     }
 
@@ -50,6 +50,9 @@ public class Groep {
     }    
     
     public boolean containsFilter(String filter) {
+        if (filter == null || filter.isEmpty()){
+            return true;
+        }
         return hasFilter(groep, filter);
     }
     private boolean hasFilter(String string, String filter){
