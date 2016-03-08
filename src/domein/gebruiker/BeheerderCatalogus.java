@@ -17,9 +17,9 @@ public class BeheerderCatalogus {
     }
 
     /**
-     * Geeft de optionele beheerder met het email en paswoord.
+     * Geeft de optionele beheerder met het e-maiadres en paswoord.
      * 
-     * @param email de email
+     * @param email het e-mailadres
      * @param userPass het paswoord
      * @return Leeg indien geen beheerder gevonden.
      */
@@ -44,7 +44,7 @@ public class BeheerderCatalogus {
     }
 
     /**
-     * Geeft een lijst met alleen de beheeders. Zonder de hoofdbeheerder.
+     * Geeft een lijst met alleen de beheerders. Zonder de hoofdbeheerder.
      * 
      * @return de lijst
      */
@@ -55,7 +55,7 @@ public class BeheerderCatalogus {
     }
 
     /**
-     * Zal de geven gebruiker toevoegen als beheer indien het een lector is.
+     * Zal de gegeven gebruiker toevoegen als beheerder indien het een lector is.
      * @param gebruiker de te beheerder te maken lector
      */
     public void voegToeAlsBeheerder(Gebruiker gebruiker) {
