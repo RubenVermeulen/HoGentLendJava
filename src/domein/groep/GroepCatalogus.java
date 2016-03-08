@@ -56,7 +56,7 @@ public class GroepCatalogus {
     }
 
     /**
-     * Voegt een nieuwe leergebied/doelgroep toe met de gegeven naam.
+     * Voegt een nieuw(e) leergebied/doelgroep toe met de gegeven naam.
      *
      * @param groepNaam de naam van de groep
      * @param isLeerGebied of het een leergebied of doelgroep is
@@ -91,7 +91,7 @@ public class GroepCatalogus {
     }
 
     /**
-     * Verwijder de groep met de gegeve groepStr e isleergroep, maar alleen als
+     * Verwijder de groep met de gegeven groepStr en isleergroep, maar alleen als
      * de groep niet meer in de materialen voorkomt.
      *
      * @param groepStr de naam van de groep
@@ -109,7 +109,7 @@ public class GroepCatalogus {
         Optional<Groep> groepOpt = geefGroep(groepStr, isLeerGroep);
 
         if (!groepOpt.isPresent()) {
-            throw new IllegalArgumentException(isLeerGroep ? "Het leergebied bestaat niet." : "Het doelgroep bestaat niet.");
+            throw new IllegalArgumentException(isLeerGroep ? "Het leergebied bestaat niet." : "De doelgroep bestaat niet.");
         }
         Groep groep = groepOpt.get();
         String expMsg = isLeerGroep ? "Er is nog een materiaal met dit leergebied." : "Er is nog een materiaal met deze doelgroep.";
