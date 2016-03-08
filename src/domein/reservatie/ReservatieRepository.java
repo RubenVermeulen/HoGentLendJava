@@ -37,7 +37,7 @@ public class ReservatieRepository {
     public ReservatieRepository(MateriaalRepository materiaalRepo, GebruikerRepository gebruikerRepo) {
         reservaties = new ArrayList<>();
         this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
-        this.matRepo = matRepo;
+        this.matRepo = materiaalRepo;
         this.gebrRepo = gebruikerRepo;
         loadReservaties();
     }
@@ -198,7 +198,7 @@ public class ReservatieRepository {
         List<ReservatieLijnView> gereserveerdeMaterialen = new ArrayList<>();
 
         for (ReservatieLijn gm : r.getReservatielijnen()) {
-            // TODO change dit
+            
             MateriaalView mv = matRepo.toMateriaalView(gm.getMateriaal());
             ReservatieLijnView gmv
                     = new ReservatieLijnView(gm.getId(), gm.getOphaalmoment(), gm.getIndienmoment(), mv, gm.getAantal());
