@@ -61,7 +61,7 @@ public class Gebruiker {
         return email;
     }
 
-    protected void setEmail(String email) {
+    protected final void setEmail(String email) {
         if (email != null) {
             email = email.toLowerCase();
         }
