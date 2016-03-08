@@ -32,8 +32,8 @@ public class DomeinController {
         this.gebruikerRepo = gebruikerRepo;
         this.firmaRepo = new FirmaRepository();
         this.materiaalRepo = new MateriaalRepository(firmaRepo);
-        this.reservatieRepo = new ReservatieRepository(materiaalRepo,gebruikerRepo);
-        
+        this.reservatieRepo = new ReservatieRepository(materiaalRepo, gebruikerRepo);
+
     }
 
     /**
@@ -82,15 +82,15 @@ public class DomeinController {
      *
      * @param mv
      */
-    public void voegMateriaalToe(MateriaalView mv) {        
+    public void voegMateriaalToe(MateriaalView mv) {
         materiaalRepo.voegMateriaalToe(mv);
 
     }
 
-    public void voegReservatieToe(ReservatieView rv){
+    public void voegReservatieToe(ReservatieView rv) {
         reservatieRepo.voegReservatieToe(rv);
     }
-    
+
     public void voegMaterialenToeInBulk(String csvFile) {
         materiaalRepo.voegMaterialenToeInBulk(csvFile);
     }
@@ -131,8 +131,8 @@ public class DomeinController {
     public void voegGroepToe(String text, boolean isLeerGroep) {
         materiaalRepo.voegGroepToe(text, isLeerGroep);
     }
-    
-    public void verwijderGroep(String groep, boolean isLeerGroep){
+
+    public void verwijderGroep(String groep, boolean isLeerGroep) {
         materiaalRepo.verwijderGroep(groep, isLeerGroep);
     }
 
@@ -171,56 +171,56 @@ public class DomeinController {
     public List<ReservatieView> geefAlleReservaties() {
         return reservatieRepo.geefAlleReservaties();
     }
-    
+
     public List<String> geefAlleFirmas() {
         List<Firma> firmas = firmaRepo.getAllFirmasSorted();
-        
+
         return firmaListToString(firmas);
     }
-    
+
     /**
      * Vormt een firma list om naar een string list met firma namen.
-     * 
+     *
      * @param firmas
-     * @return 
+     * @return
      */
     private List<String> firmaListToString(List<Firma> firmas) {
         return firmas.stream().map(f -> f.getNaam()).collect(Collectors.toList());
     }
-    
+
     /**
      * Voegt firma toe.
-     * 
+     *
      * @param naam
-     * @param email 
+     * @param email
      */
     public void voegFirmaToe(String naam, String email) {
         firmaRepo.voegFirmaToe(naam, email);
     }
-    
+
     /**
      * Verwijdert reservatie.
-     * 
-     * @param rv 
+     *
+     * @param rv
      */
     public void verwijderReservatie(ReservatieView rv) {
         reservatieRepo.verwijderReservatie(rv);
     }
-    
-    public void wijzigReservatie(ReservatieView rv){
+
+    public void wijzigReservatie(ReservatieView rv) {
         reservatieRepo.wijzigReservatie(rv);
     }
 
     public void verwijderFirma(String naam) {
         firmaRepo.verwijderFirma(naam, materiaalRepo.geefAlleMaterialen());
     }
-    
+
     public Optional<Firma> geefFirma(String naam) {
         return firmaRepo.geefFirma(naam);
     }
-    
+
     /**
-     * 
+     *
      * @param firma firma object uit de firma repository
      * @param nieuweNaam nieuwe naam voor de firma
      * @param nieuwEmailadres nieuw e-mailadrs voor de firma

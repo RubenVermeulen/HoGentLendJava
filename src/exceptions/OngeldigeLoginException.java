@@ -1,6 +1,6 @@
 package exceptions;
 
-public class OngeldigeLoginException extends RuntimeException{
+public class OngeldigeLoginException extends RuntimeException {
 
     public OngeldigeLoginException() {
     }
@@ -20,5 +20,5 @@ public class OngeldigeLoginException extends RuntimeException{
     public OngeldigeLoginException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
-    
+
 }

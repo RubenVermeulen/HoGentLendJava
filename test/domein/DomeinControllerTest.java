@@ -74,7 +74,7 @@ public class DomeinControllerTest {
         checkStringArrayAsserts(domCon.geefGegevensAangemeldeGebruiker(),
                 "", "", "");
     }
-    
+
     @Test
     public void testGeefGegevensAangemeldeGebruikerIsLeegNaGeldigMeldAanEnMeldAf() {
         assertTrue(domCon.meldAan(CORRECT_EMAIL, CORRECT_PASSWORD));

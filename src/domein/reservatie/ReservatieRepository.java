@@ -184,20 +184,16 @@ public class ReservatieRepository {
 
         reservaties.add(reservatie);
 
-        
         //reservatielijnen toevoegen aan db
         rv.getReservatieLijnen().stream().forEach((rlv) -> {
             voegReservatieLijnToe(reservatie, rlv);
         });
-        
-        
+
         //reservatie toevoegen aan db
-       em.getTransaction().begin();
+        em.getTransaction().begin();
         em.persist(reservatie);
         em.getTransaction().commit();
-        
 
-        
     }
 
 }

@@ -93,14 +93,8 @@ public class MateriaalToevoegenInBulkController extends BorderPane {
 
     private boolean controlerenOfCsvFileIsIngevuld() {
         boolean isIngevuld = false;
-        
-      
-        
-        
-        
-        
-        
-        if (urlCsv.getText().isEmpty()||(!urlCsv.getText().endsWith("csv")) ){
+
+        if (urlCsv.getText().isEmpty() || (!urlCsv.getText().endsWith("csv"))) {
             Alert alert = new Alert(
                     Alert.AlertType.CONFIRMATION,
                     String.format("Er is nog geen csvfile gekozen."),

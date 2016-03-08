@@ -198,17 +198,21 @@ public class Materiaal {
 
     public boolean containsFilter(String filter) {
         boolean hasGroepFilter = false;
-        if (doelgroepen != null){
-            for(Groep g : doelgroepen){
+        if (doelgroepen != null) {
+            for (Groep g : doelgroepen) {
                 hasGroepFilter = g.containsFilter(filter);
-                if (hasGroepFilter) break;
+                if (hasGroepFilter) {
+                    break;
+                }
             }
         }
-        if (!hasGroepFilter){
-            if (doelgroepen != null){
-                for(Groep g : doelgroepen){
+        if (!hasGroepFilter) {
+            if (doelgroepen != null) {
+                for (Groep g : doelgroepen) {
                     hasGroepFilter = g.containsFilter(filter);
-                    if (hasGroepFilter) break;
+                    if (hasGroepFilter) {
+                        break;
+                    }
                 }
             }
         }
@@ -248,17 +252,16 @@ public class Materiaal {
     }
 
     private List<String> groepListToString(List<Groep> groepen) {
-        
+
         List<String> lijst = new ArrayList<>();
-        
-        for(Groep g : groepen){
+
+        for (Groep g : groepen) {
             lijst.add(g.getGroep());
         }
         return lijst;
-        
+
         //is niet compatibel met JPA 2.1
         //return groepen.stream().map(g -> g.getGroep()).collect(Collectors.toList());
-       
     }
 
 }

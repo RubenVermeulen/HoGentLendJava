@@ -183,7 +183,7 @@ public class MainMenuFrameController extends BorderPane {
         tvReservaties.setPlaceholder(new Label("Er zijn nog geen reservaties."));
 
         List<ReservatieView> reservaties = domCon.geefAlleReservaties();
-                  
+
         ObservableList<ReservatieView> observableList = FXCollections.unmodifiableObservableList(
                 FXCollections.observableArrayList(reservaties.stream().collect(Collectors.toList())
                 ));
@@ -192,22 +192,21 @@ public class MainMenuFrameController extends BorderPane {
         tcIndienmoment.setCellValueFactory(new PropertyValueFactory<>("indienmomentAlsString"));
         tcLener.setCellValueFactory(new PropertyValueFactory<>("lener"));
         tcMaterialen.setCellValueFactory(new PropertyValueFactory<>("reservatieLijnenAlsString"));
-        
+
         tvReservaties.setItems(observableList);
-        
+
         tvReservaties.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if(newSelection != null){
+            if (newSelection != null) {
                 setupReservatieLijnen(newSelection);
                 geselecteerdeReservatie = newSelection;
                 setVisibilityWijzigDetailsMateriaal(false);
-            }
-            else{
+            } else {
                 boxReservatieLijn.getChildren().clear();
             }
         });
 
     }
-    
+
     private void setupReservatieLijnen(ReservatieView rv) {
         List<ReservatieLijnView> rlv = rv.getReservatieLijnen();
         boxReservatieLijn.getChildren().clear();
@@ -215,9 +214,8 @@ public class MainMenuFrameController extends BorderPane {
         lblLenerNaam.setText(rv.getLener());
         lblOphaalmoment.setText(rv.getOphaalmomentAlsString());
         lblIndienmoment.setText(rv.getIndienmomentAlsString());
-        
+
     }
-    
 
     @FXML
     private void menuActionUitloggen(ActionEvent event) {
@@ -318,56 +316,55 @@ public class MainMenuFrameController extends BorderPane {
     @FXML
     private void onActionBtnVerwijderReservatie(ActionEvent event) {
         Alert alert = new Alert(
-                    Alert.AlertType.CONFIRMATION,
-                    String.format("Ben je zeker dat je deze reservatie wilt verwijderen?"),
-                    ButtonType.CANCEL,
-                    ButtonType.OK);
+                Alert.AlertType.CONFIRMATION,
+                String.format("Ben je zeker dat je deze reservatie wilt verwijderen?"),
+                ButtonType.CANCEL,
+                ButtonType.OK);
 
-            alert.setTitle("Opgelet");
-            alert.setHeaderText("Opgelet");
+        alert.setTitle("Opgelet");
+        alert.setHeaderText("Opgelet");
 
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                domCon.verwijderReservatie(geselecteerdeReservatie);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            domCon.verwijderReservatie(geselecteerdeReservatie);
 
-                initialiseerTableViewReservaties();
+            initialiseerTableViewReservaties();
 
-                System.out.println("Reservatie verwijderd");
-            }
+            System.out.println("Reservatie verwijderd");
+        }
     }
 
     @FXML
     private void onActionBtnWijzigReservatieDetails(ActionEvent event) {
         setVisibilityWijzigDetailsMateriaal(true);
-        
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        
+
         dpOphaalmoment.setValue(geselecteerdeReservatie.getOphaalmoment().toLocalDate());
         txfOphaalmoment.setText(geselecteerdeReservatie.getOphaalmoment().format(formatter));
         dpIndienmoment.setValue(geselecteerdeReservatie.getIndienmoment().toLocalDate());
         txfIndienmoment.setText(geselecteerdeReservatie.getIndienmoment().format(formatter));
     }
-    
-    private void setVisibilityWijzigDetailsMateriaal(boolean b){
+
+    private void setVisibilityWijzigDetailsMateriaal(boolean b) {
         btnWijzigReservatieDetails.setVisible(!b);
         btnVoegReservatieLijstToe.setVisible(!b);
         btnVerwijderReservatie.setVisible(!b);
-        
+
         btnBevestigWijzigingDetails.setVisible(b);
         btnAnnuleerWijzigingDetails.setVisible(b);
-        
+
         lblDetailOphaalmoment.setVisible(!b);
         lblDetailIndienmoment.setVisible(!b);
         lblOphaalmoment.setVisible(!b);
         lblIndienmoment.setVisible(!b);
-        
+
         dpOphaalmoment.setVisible(b);
         dpIndienmoment.setVisible(b);
         txfOphaalmoment.setVisible(b);
         txfIndienmoment.setVisible(b);
         lblTotWijzigDetailsReservatie.setVisible(b);
     }
-
 
     @FXML
     private void onActionVoegReservatieLijstToe(ActionEvent event) {

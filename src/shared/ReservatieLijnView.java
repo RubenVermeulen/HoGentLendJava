@@ -14,12 +14,12 @@ import java.time.format.DateTimeFormatter;
  * @author Xander
  */
 public class ReservatieLijnView {
-    
+
     private Long id;
-    
+
     private LocalDateTime ophaalmoment;
     private LocalDateTime indienmoment;
-    
+
     private MateriaalView materiaal;
     private int aantal;
 
@@ -70,22 +70,19 @@ public class ReservatieLijnView {
     public void setAantal(int aantal) {
         this.aantal = aantal;
     }
-    
+
     public String getOphaalmomentAlsString() {
         return formatLocalDateTime(ophaalmoment);
     }
-    
+
     public String getIndienmomentAlsString() {
         return formatLocalDateTime(indienmoment);
     }
-    
-    private String formatLocalDateTime(LocalDateTime ldt){
+
+    private String formatLocalDateTime(LocalDateTime ldt) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yy HH:mm");
         System.out.println(ldt.format(formatter));
         return ldt.format(formatter);
     }
-    
-    
-    
-    
+
 }

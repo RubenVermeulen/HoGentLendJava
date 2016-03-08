@@ -125,7 +125,7 @@ public class LoginFrameController extends BorderPane {
         try {
             String email = txfEmailadres.getText().trim();
             String wachtwoord = pfWachtwoord.getText().trim();
-            
+
             if (!dc.meldAan(email, wachtwoord)) {
                 throw new OngeldigeLoginException("Emailadres of wachtwoord is incorrect. Gelieve opnieuw te proberen.");
             }

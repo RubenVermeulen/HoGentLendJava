@@ -20,136 +20,136 @@
 <?import javafx.scene.layout.VBox?>
 
 <fx:root prefHeight="242.0" prefWidth="950.0" style="-fx-border-color: #CCCCCC; -fx-border-width: 0 0 2 0;" type="VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <HBox minHeight="102.0" prefHeight="102.0" prefWidth="990.0" styleClass="matertiaalBlok">
-         <children>
-            <GridPane prefHeight="77.0" prefWidth="111.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <ImageView fx:id="imgvFoto" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                     <image>
-                        <Image url="@../images/default_materiaal_img.png" />
-                     </image>
-                     <viewport>
-                        <Rectangle2D />
-                     </viewport>
-                     <GridPane.margin>
+    <children>
+        <HBox minHeight="102.0" prefHeight="102.0" prefWidth="990.0" styleClass="matertiaalBlok">
+            <children>
+                <GridPane prefHeight="77.0" prefWidth="111.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <ImageView fx:id="imgvFoto" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                            <image>
+                                <Image url="@../images/default_materiaal_img.png" />
+                            </image>
+                            <viewport>
+                                <Rectangle2D />
+                            </viewport>
+                            <GridPane.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </GridPane.margin>
+                        </ImageView>
+                    </children>
+                    <HBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </GridPane.margin>
-                  </ImageView>
-               </children>
-               <HBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </HBox.margin>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </GridPane>
-            <GridPane prefHeight="102.0" prefWidth="155.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
+                    </HBox.margin>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </GridPane>
+                <GridPane prefHeight="102.0" prefWidth="155.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label fx:id="lblNaam" prefHeight="17.0" prefWidth="187.0" text="Geen naam." />
+                        <Label fx:id="lblAantal" prefHeight="17.0" prefWidth="186.0" text="Geen aantal stuks." GridPane.rowIndex="1" />
+                        <Label fx:id="lblPrijs" prefHeight="17.0" prefWidth="183.0" text="Geen prijs." GridPane.rowIndex="2" />
+                    </children>
+                    <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </HBox.margin>
+                </GridPane>
+                <TextArea fx:id="txtaBeschrijving" editable="false" prefHeight="92.0" prefWidth="313.0" text="Geen beschrijving." wrapText="true">
+                    <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </HBox.margin>
+                </TextArea>
+                <GridPane prefHeight="102.0" prefWidth="185.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label fx:id="lblCode" prefHeight="17.0" prefWidth="189.0" text="Geen artikel nummer.">
+                            <GridPane.margin>
+                                <Insets />
+                            </GridPane.margin>
+                        </Label>
+                        <Label fx:id="lblLocatie" prefHeight="17.0" prefWidth="179.0" text="Geen locatie." GridPane.rowIndex="2" />
+                        <CheckBox fx:id="ckbBeschikbaar" mnemonicParsing="false" onAction="#onBeschikbaarAction" prefHeight="26.0" prefWidth="185.0" text="Beschikbaar" GridPane.rowIndex="1" />
+                    </children>
+                    <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </HBox.margin>
+                </GridPane>
+                <GridPane prefHeight="150.0" prefWidth="120.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Button fx:id="btnVerwijder" mnemonicParsing="false" onAction="#onActionBtnVerwijder" prefHeight="25.0" prefWidth="170.0" text="Verwijder">
+                            <GridPane.margin>
+                                <Insets />
+                            </GridPane.margin>
+                        </Button>
+                        <Button fx:id="btnDetail" mnemonicParsing="false" onAction="#onDetailsAction" prefHeight="25.0" prefWidth="172.0" text="Details" GridPane.rowIndex="2">
+                            <GridPane.margin>
+                                <Insets />
+                            </GridPane.margin>
+                        </Button>
+                        <Button fx:id="btnBewerk" mnemonicParsing="false" onAction="#onActionBtnBewerk" prefHeight="25.0" prefWidth="123.0" text="Pas aan" GridPane.rowIndex="1" />
+                    </children>
+                    <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
+                    </HBox.margin>
+                </GridPane>
+            </children>
+            <padding>
+                <Insets bottom="5.0" />
+            </padding>
+        </HBox>
+        <GridPane fx:id="materiaalDetailsBox" minHeight="-Infinity" style="-fx-background-color: E3E3E3;">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="484.0" minWidth="10.0" prefWidth="147.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="959.0" minWidth="10.0" prefWidth="830.0" />
+            </columnConstraints>
+            <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label fx:id="lblNaam" prefHeight="17.0" prefWidth="187.0" text="Geen naam." />
-                  <Label fx:id="lblAantal" prefHeight="17.0" prefWidth="186.0" text="Geen aantal stuks." GridPane.rowIndex="1" />
-                  <Label fx:id="lblPrijs" prefHeight="17.0" prefWidth="183.0" text="Geen prijs." GridPane.rowIndex="2" />
-               </children>
-               <HBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin>
-            </GridPane>
-            <TextArea fx:id="txtaBeschrijving" editable="false" prefHeight="92.0" prefWidth="313.0" text="Geen beschrijving." wrapText="true">
-               <HBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </HBox.margin>
-            </TextArea>
-            <GridPane prefHeight="102.0" prefWidth="185.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label fx:id="lblCode" prefHeight="17.0" prefWidth="189.0" text="Geen artikel nummer.">
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                  </Label>
-                  <Label fx:id="lblLocatie" prefHeight="17.0" prefWidth="179.0" text="Geen locatie." GridPane.rowIndex="2" />
-                  <CheckBox fx:id="ckbBeschikbaar" mnemonicParsing="false" onAction="#onBeschikbaarAction" prefHeight="26.0" prefWidth="185.0" text="Beschikbaar" GridPane.rowIndex="1" />
-               </children>
-               <HBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin>
-            </GridPane>
-            <GridPane prefHeight="150.0" prefWidth="120.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Button fx:id="btnVerwijder" mnemonicParsing="false" onAction="#onActionBtnVerwijder" prefHeight="25.0" prefWidth="170.0" text="Verwijder">
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                  </Button>
-                  <Button fx:id="btnDetail" mnemonicParsing="false" onAction="#onDetailsAction" prefHeight="25.0" prefWidth="172.0" text="Details" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                  </Button>
-                  <Button fx:id="btnBewerk" mnemonicParsing="false" onAction="#onActionBtnBewerk" prefHeight="25.0" prefWidth="123.0" text="Pas aan" GridPane.rowIndex="1" />
-               </children>
-               <HBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
-               </HBox.margin>
-            </GridPane>
-         </children>
-         <padding>
-            <Insets bottom="5.0" />
-         </padding>
-      </HBox>
-      <GridPane fx:id="materiaalDetailsBox" minHeight="-Infinity" style="-fx-background-color: E3E3E3;">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="484.0" minWidth="10.0" prefWidth="147.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="959.0" minWidth="10.0" prefWidth="830.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label prefHeight="17.0" prefWidth="107.0" text="Firma:" GridPane.rowIndex="2" />
-            <Label text="Doelgroepen:" />
-            <Label text="Leergebieden" GridPane.rowIndex="1" />
-            <Label fx:id="lblFirmaNaam" text="Geen firma." GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label fx:id="lblDoelGroepen" text="Geen doelgroepen." GridPane.columnIndex="1" />
-            <Label fx:id="lblLeergebieden" text="Geen leergebieden." GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="E-mail firma" GridPane.rowIndex="3" />
-            <Label fx:id="lblEmailFirma" text="Geen firma e-mail." GridPane.columnIndex="1" GridPane.rowIndex="3" />
-         </children>
-         <padding>
-            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
-         </padding>
-      </GridPane>
-   </children>
+            </rowConstraints>
+            <children>
+                <Label prefHeight="17.0" prefWidth="107.0" text="Firma:" GridPane.rowIndex="2" />
+                <Label text="Doelgroepen:" />
+                <Label text="Leergebieden" GridPane.rowIndex="1" />
+                <Label fx:id="lblFirmaNaam" text="Geen firma." GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label fx:id="lblDoelGroepen" text="Geen doelgroepen." GridPane.columnIndex="1" />
+                <Label fx:id="lblLeergebieden" text="Geen leergebieden." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label text="E-mail firma" GridPane.rowIndex="3" />
+                <Label fx:id="lblEmailFirma" text="Geen firma e-mail." GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+            </padding>
+        </GridPane>
+    </children>
 </fx:root>

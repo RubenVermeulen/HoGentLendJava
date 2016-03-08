@@ -193,9 +193,10 @@ public class MateriaalToevoegenController extends BorderPane {
 
     public void refreshFirmas(String selectedItem) {
         setupAlleFirmas();
-        
-        if ((selectedItem == null || selectedItem.isEmpty()) && mv != null) 
+
+        if ((selectedItem == null || selectedItem.isEmpty()) && mv != null) {
             selectedItem = mv.getFirma();
+        }
 
         cbFirmas.getSelectionModel().select(selectedItem);
     }
@@ -233,14 +234,14 @@ public class MateriaalToevoegenController extends BorderPane {
         prompt.initOwner(getScene().getWindow());
         prompt.setScene(promptScene);
         prompt.show();
-        
+
         // Wanneer gebruiker de window aflsuit via het kruisje in de rechterbovenhoek worden de groepen opnieuw geladen
         // ,want het is mogelijk dat de gebruiker een groep heeft verwijderd.
         prompt.setOnCloseRequest(new EventHandler<WindowEvent>() {
-          public void handle(WindowEvent we) {
-              refreshGroepen();
-          }
-        }); 
+            public void handle(WindowEvent we) {
+                refreshGroepen();
+            }
+        });
     }
 
     private void promptFirmaToevoegen() {
@@ -250,14 +251,14 @@ public class MateriaalToevoegenController extends BorderPane {
         prompt.initOwner(getScene().getWindow());
         prompt.setScene(promptScene);
         prompt.show();
-        
+
         // Wanneer gebruiker de window aflsuit via het kruisje in de rechterbovenhoek worden de firma's opnieuw geladen
         // ,want het is mogelijk dat de gebruiker een firma heeft verwijderd.
         prompt.setOnCloseRequest(new EventHandler<WindowEvent>() {
-          public void handle(WindowEvent we) {
-              refreshFirmas(null);
-          }
-        });   
+            public void handle(WindowEvent we) {
+                refreshFirmas(null);
+            }
+        });
     }
 
     public void initialiseerMateriaalWijzigen(MateriaalView mv) {

@@ -24,19 +24,19 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "reservatie_lijn")
 public class ReservatieLijn {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     //wordt geconverteerd door util.LocalDateTimeAttributeConverter
     private LocalDateTime ophaalmoment;
     private LocalDateTime indienmoment;
-    
+
     @ManyToOne
     private Materiaal materiaal;
     private int aantal;
-    
+
     @ManyToOne
     private Reservatie reservatie;
 
@@ -102,8 +102,5 @@ public class ReservatieLijn {
     public String toString() {
         return "GereserveerdMateriaal{" + "id=" + id + ", ophaalmoment=" + ophaalmoment + ", indienmoment=" + indienmoment + ", materiaal=" + materiaal + ", aantal=" + aantal + ", reservatie=" + reservatie + '}';
     }
-    
-    
-    
-    
+
 }

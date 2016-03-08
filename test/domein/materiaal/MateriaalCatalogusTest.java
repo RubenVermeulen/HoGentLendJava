@@ -40,7 +40,7 @@ public class MateriaalCatalogusTest {
     @Test
     public void voegNieuwMateriaalToeVolledigCorrect() {
         // TODO: fix this
-  /*      MateriaalView mv = new MateriaalView(CORRECT_NAAM, CORRECT_AANTAL).setAantalOnbeschikbaar(CORRECT_AANTAL)
+        /*      MateriaalView mv = new MateriaalView(CORRECT_NAAM, CORRECT_AANTAL).setAantalOnbeschikbaar(CORRECT_AANTAL)
                 .setArtikelNummer("56465465sqf").setDoelgroepen("Doelgroep1, doelgroep2")
                 .setFotoUrl("C://pad/naar/url").setFirma("Firma").setEmailFirma("email@firma.be")
                 .setLeergebieden("Leergebied1,Leergebied2").setOmschrijving("Omschrijving")
@@ -79,7 +79,7 @@ public class MateriaalCatalogusTest {
         MateriaalView mv = new MateriaalView(CORRECT_NAAM, CORRECT_AANTAL).setEmailFirma("xander.berkein@gmiail=.com");
         materiaalCatalogus.voegMateriaalToe(mv);
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void voegNieuwMateriaalToePrijsKleinerDanNul() {
         MateriaalView mv = new MateriaalView(CORRECT_NAAM, CORRECT_AANTAL).setPrijs(-0.25);
@@ -100,6 +100,5 @@ public class MateriaalCatalogusTest {
                 && (mv1.getDoelgroepen() == null ? mv2.getDoelgroepen() == null : mv1.getDoelgroepen().equals(mv2.getDoelgroepen()))
                 && (mv1.getLeergebieden() == null ? mv2.getLeergebieden() == null : mv1.getLeergebieden().equals(mv2.getLeergebieden()));
     }
-
 
 }

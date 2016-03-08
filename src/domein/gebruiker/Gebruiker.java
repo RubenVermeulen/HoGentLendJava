@@ -92,6 +92,5 @@ public class Gebruiker {
     public void setLector(boolean lector) {
         this.lector = lector;
     }
-    
-    
+
 }

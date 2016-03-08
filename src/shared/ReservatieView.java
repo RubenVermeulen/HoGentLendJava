@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  * @author Xander
  */
 public class ReservatieView {
-    
+
     private long id;
     private String lener;
     private String emailLener;
@@ -33,7 +33,7 @@ public class ReservatieView {
         this.indienmoment = indienmoment;
         this.reservatieLijnen = gereserveerdeMaterialen;
         this.reservatieLijnenAlsString = reservatieLijnenToString(reservatieLijnen);
-        
+
         this.ophaalmomentAlsString = formatLocalDateTime(ophaalmoment);
         this.indienmomentAlsString = formatLocalDateTime(indienmoment);
     }
@@ -89,18 +89,18 @@ public class ReservatieView {
     public void setReservatieLijnen(List<ReservatieLijnView> gereserveerdeMaterialen) {
         this.reservatieLijnen = gereserveerdeMaterialen;
     }
-    
-    public String reservatieLijnenToString(){
+
+    public String reservatieLijnenToString() {
         String s = "";
         return reservatieLijnen.stream().map(m -> m.getMateriaal().getNaam()).collect(Collectors.joining(", "));
     }
-    
-    private String reservatieLijnenToString(List<ReservatieLijnView> rl){
+
+    private String reservatieLijnenToString(List<ReservatieLijnView> rl) {
         String s = "";
         return rl.stream().map(m -> m.getMateriaal().getNaam()).collect(Collectors.joining(", "));
     }
-    
-    private String formatLocalDateTime(LocalDateTime ldt){
+
+    private String formatLocalDateTime(LocalDateTime ldt) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yy HH:mm");
         System.out.println(ldt.format(formatter));
         return ldt.format(formatter);
@@ -113,5 +113,5 @@ public class ReservatieView {
     public void setEmailLener(String emailLener) {
         this.emailLener = emailLener;
     }
-    
+
 }

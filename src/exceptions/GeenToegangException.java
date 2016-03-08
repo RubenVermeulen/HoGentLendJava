@@ -1,6 +1,6 @@
 package exceptions;
 
-public class GeenToegangException extends RuntimeException{
+public class GeenToegangException extends RuntimeException {
 
     public GeenToegangException() {
     }
@@ -20,5 +20,5 @@ public class GeenToegangException extends RuntimeException{
     public GeenToegangException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
-    
+
 }

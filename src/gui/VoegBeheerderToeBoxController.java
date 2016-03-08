@@ -29,10 +29,10 @@ public class VoegBeheerderToeBoxController extends VBox {
 
     @FXML
     private TextField txfEmail;
-    
+
     private DomeinController dc;
     private MainMenuFrameController parent;
-    
+
     @FXML
     private Text lblBeheerder;
     @FXML
@@ -43,7 +43,7 @@ public class VoegBeheerderToeBoxController extends VBox {
     public VoegBeheerderToeBoxController(DomeinController domCon, MainMenuFrameController parent) {
         this.dc = domCon;
         this.parent = parent;
-        
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("VoegBeheerderToeBox.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -52,8 +52,7 @@ public class VoegBeheerderToeBoxController extends VBox {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-    }  
-
+    }
 
     @FXML
     private void onActionTxfEmail(ActionEvent event) {
@@ -69,10 +68,10 @@ public class VoegBeheerderToeBoxController extends VBox {
     @FXML
     private void onActionBtnVoegToe(ActionEvent event) {
         Stage stage = (Stage) lblBeheerder.getScene().getWindow();
-        
-        try{
+
+        try {
             dc.stelAanAlsBeheerder(txfEmail.getText());
-        }catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             lblInvalidEmail.setText(e.getMessage());
             lblInvalidEmail.setVisible(true);
             return;
@@ -85,5 +84,5 @@ public class VoegBeheerderToeBoxController extends VBox {
     private void onKeyPressedTxfEmail(KeyEvent event) {
         lblInvalidEmail.setVisible(false);
     }
-    
+
 }

@@ -101,11 +101,13 @@ public class MateriaalBoxController extends VBox {
             txtaBeschrijving.setText(mv.getOmschrijving());
         }
         if (isNotEmpty(mv.getFotoUrl())) {
-            InputStream ins = getClass().getResourceAsStream("/images/"+String.valueOf(mv.getFotoUrl()));
-            if (ins == null)
-                System.out.println("input stream is null :((((" + "/images/"+String.valueOf(mv.getFotoUrl()));
-            if (ins != null)
+            InputStream ins = getClass().getResourceAsStream("/images/" + String.valueOf(mv.getFotoUrl()));
+            if (ins == null) {
+                System.out.println("input stream is null :((((" + "/images/" + String.valueOf(mv.getFotoUrl()));
+            }
+            if (ins != null) {
                 imgvFoto.setImage(new Image(ins));
+            }
         }
         if (isNotEmpty(mv.getArtikelNummer())) {
             lblCode.setText(mv.getArtikelNummer());
@@ -114,15 +116,15 @@ public class MateriaalBoxController extends VBox {
             lblLocatie.setText(mv.getPlaats());
         }
         ckbBeschikbaar.setSelected(mv.isUitleenbaarheid());
-        
+
         if (isNotEmpty(mv.getDoelgroepen())) {
             lblDoelGroepen.setText(mv.getDoelgroepen().stream().collect(Collectors.joining(", ")));
         }
-        
+
         if (isNotEmpty(mv.getLeergebieden())) {
             lblLeergebieden.setText(mv.getLeergebieden().stream().collect(Collectors.joining(", ")));
         }
-        
+
         if (isNotEmpty(mv.getFirma())) {
             lblFirmaNaam.setText(mv.getFirma());
         }
@@ -134,7 +136,7 @@ public class MateriaalBoxController extends VBox {
     private boolean isNotEmpty(String string) {
         return string != null && !string.trim().isEmpty();
     }
-    
+
     private boolean isNotEmpty(List<String> strings) {
         return strings != null && !strings.isEmpty();
     }
@@ -153,31 +155,31 @@ public class MateriaalBoxController extends VBox {
     private void onBeschikbaarAction(ActionEvent event) {
         ckbBeschikbaar.setSelected(mv.isUitleenbaarheid());
     }
-    
+
     @FXML
-    private void onActionBtnVerwijder(ActionEvent event){
+    private void onActionBtnVerwijder(ActionEvent event) {
         Alert alert = new Alert(
                 Alert.AlertType.CONFIRMATION,
-                String.format("Ben je zeker dat je het materiaal met de naam \"%s\" wilt verwijderen?",mv.getNaam()),
-                ButtonType.CANCEL, 
+                String.format("Ben je zeker dat je het materiaal met de naam \"%s\" wilt verwijderen?", mv.getNaam()),
+                ButtonType.CANCEL,
                 ButtonType.OK);
-        
+
         alert.setTitle("Opgelet");
         alert.setHeaderText("Opgelet");
-        
+
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK){
+        if (result.isPresent() && result.get() == ButtonType.OK) {
             dc.verwijderMateriaal(mv.getNaam());
-            ((VBox)getParent()).getChildren().remove(this);
+            ((VBox) getParent()).getChildren().remove(this);
         }
-        
+
     }
 
     @FXML
     private void onActionBtnBewerk(ActionEvent event) {
         Stage stage = (Stage) getScene().getWindow();
         Scene scene = new Scene(new MateriaalToevoegenController(dc, mv));
-        stage.setScene(scene); 
+        stage.setScene(scene);
     }
 
 }

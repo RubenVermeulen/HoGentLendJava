@@ -26,7 +26,7 @@ public class MateriaalView {
     private String firma;
     private String emailFirma;
     private List<String> doelgroepen;
-    private  List<String> leergebieden;
+    private List<String> leergebieden;
     private long id;
     private long firmaId;
 
@@ -97,7 +97,7 @@ public class MateriaalView {
         this.id = id;
         return this;
     }
-    
+
     public MateriaalView setFirmaId(long firmaId) {
         this.firmaId = firmaId;
         return this;
@@ -107,7 +107,7 @@ public class MateriaalView {
         this.naam = naam;
         return this;
     }
-    
+
     public MateriaalView setAantal(int aantal) {
         this.aantal = aantal;
         return this;
@@ -169,7 +169,7 @@ public class MateriaalView {
     public long getId() {
         return id;
     }
-    
+
     public long getFirmaId() {
         return firmaId;
     }

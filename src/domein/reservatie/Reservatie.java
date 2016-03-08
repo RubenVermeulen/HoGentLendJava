@@ -54,7 +54,6 @@ public class Reservatie {
 //        this.indienmoment = indienmoment;
 //        this.materialen = materialen;
 //    }
-    
     public Reservatie(Gebruiker lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment) {
         this.lener = lener;
         this.ophaalmoment = ophaalmoment;
@@ -121,7 +120,5 @@ public class Reservatie {
     public String toString() {
         return "Reservatie{" + "id=" + id + ", lener=" + lener + ", ophaalmoment=" + ophaalmoment + ", indienmoment=" + indienmoment + ", reservatielijen=" + reservatielijen + '}';
     }
-    
-    
 
 }

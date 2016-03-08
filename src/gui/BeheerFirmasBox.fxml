@@ -11,79 +11,79 @@
 <?import javafx.scene.text.Text?>
 
 <fx:root alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="508.0" prefWidth="400.0" spacing="20.0" type="VBox" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Text fx:id="lblTitel" strokeType="OUTSIDE" strokeWidth="0.0" text="Beheren firma's" textAlignment="CENTER" wrappingWidth="247.13671875">
-         <font>
-            <Font size="15.0" />
-         </font>
-         <VBox.margin>
-            <Insets bottom="5.0" />
-         </VBox.margin>
-      </Text>
-      <VBox alignment="TOP_CENTER" layoutX="30.0" layoutY="75.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-border-color: #D1D1D1;">
-         <children>
-            <Label prefHeight="17.0" prefWidth="396.0" text="Wijzigen" underline="true">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-               <children>
-                  <ComboBox fx:id="cmbWijzig" onAction="#onActionCmbWijzig" prefHeight="25.0" prefWidth="263.0" promptText="-- selecteer een firma --" />
-                  <Button fx:id="btnWijzig" mnemonicParsing="false" onAction="#onActionBtnWijzig" prefHeight="25.0" prefWidth="100.0" text="Wijzig" />
-               </children>
-            </HBox>
-            <Label fx:id="lblWijzig" prefHeight="17.0" prefWidth="347.0" text="Firma gewijzigd!" textAlignment="CENTER" />
-         </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </VBox>
-      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-border-color: #D1D1D1;">
-         <children>
-            <Label prefHeight="17.0" prefWidth="396.0" text="Verwijderen" underline="true">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-               <children>
-                  <ComboBox fx:id="cmbVerwijder" onAction="#onActionCmbVerwijder" prefHeight="25.0" prefWidth="263.0" promptText="-- selecteer een firma --" />
-                  <Button fx:id="btnVerwijder" mnemonicParsing="false" onAction="#onActionBtnVerwijder" prefHeight="25.0" prefWidth="100.0" text="Verwijder" />
-               </children>
-            </HBox>
-            <Label fx:id="lblVerwijder" prefHeight="17.0" prefWidth="347.0" text="Firma verwijderd!" textAlignment="CENTER" />
-         </children>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </VBox>
-      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-border-color: #D1D1D1;">
-         <children>
-            <Label prefHeight="17.0" prefWidth="396.0" text="Toevoegen" underline="true">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <TextField fx:id="txfNaamFirma" onKeyPressed="#onKeyPressedTxfNaamFirma" prefHeight="25.0" prefWidth="263.0" promptText="Naam firma" />
-            <TextField fx:id="txfEmailFirma" onAction="#onActionTxfEmailFirma" onKeyPressed="#onKeyPressedTxfEmailFirma" prefHeight="25.0" prefWidth="263.0" promptText="E-mailadres firma" />
-            <Button fx:id="btnVoegToe" mnemonicParsing="false" onAction="#onActionBtnVoegToe" prefHeight="25.0" prefWidth="100.0" text="Voeg Toe" />
-            <Label fx:id="lblVoegToe" prefHeight="17.0" prefWidth="356.0" text="Firma toegevoegd!" textAlignment="CENTER" />
-         </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </VBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-         <children>
-            <Button fx:id="btnGaTerug" mnemonicParsing="false" onAction="#onActionBtnGaTerug" prefHeight="25.0" prefWidth="100.0" text="Ga Terug" />
-         </children>
-      </HBox>
-   </children>
-   <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-   </padding>
+    <children>
+        <Text fx:id="lblTitel" strokeType="OUTSIDE" strokeWidth="0.0" text="Beheren firma's" textAlignment="CENTER" wrappingWidth="247.13671875">
+            <font>
+                <Font size="15.0" />
+            </font>
+            <VBox.margin>
+                <Insets bottom="5.0" />
+            </VBox.margin>
+        </Text>
+        <VBox alignment="TOP_CENTER" layoutX="30.0" layoutY="75.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-border-color: #D1D1D1;">
+            <children>
+                <Label prefHeight="17.0" prefWidth="396.0" text="Wijzigen" underline="true">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
+                <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                    <children>
+                        <ComboBox fx:id="cmbWijzig" onAction="#onActionCmbWijzig" prefHeight="25.0" prefWidth="263.0" promptText="-- selecteer een firma --" />
+                        <Button fx:id="btnWijzig" mnemonicParsing="false" onAction="#onActionBtnWijzig" prefHeight="25.0" prefWidth="100.0" text="Wijzig" />
+                    </children>
+                </HBox>
+                <Label fx:id="lblWijzig" prefHeight="17.0" prefWidth="347.0" text="Firma gewijzigd!" textAlignment="CENTER" />
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+        </VBox>
+        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-border-color: #D1D1D1;">
+            <children>
+                <Label prefHeight="17.0" prefWidth="396.0" text="Verwijderen" underline="true">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
+                <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                    <children>
+                        <ComboBox fx:id="cmbVerwijder" onAction="#onActionCmbVerwijder" prefHeight="25.0" prefWidth="263.0" promptText="-- selecteer een firma --" />
+                        <Button fx:id="btnVerwijder" mnemonicParsing="false" onAction="#onActionBtnVerwijder" prefHeight="25.0" prefWidth="100.0" text="Verwijder" />
+                    </children>
+                </HBox>
+                <Label fx:id="lblVerwijder" prefHeight="17.0" prefWidth="347.0" text="Firma verwijderd!" textAlignment="CENTER" />
+            </children>
+            <VBox.margin>
+                <Insets />
+            </VBox.margin>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+        </VBox>
+        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-border-color: #D1D1D1;">
+            <children>
+                <Label prefHeight="17.0" prefWidth="396.0" text="Toevoegen" underline="true">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="txfNaamFirma" onKeyPressed="#onKeyPressedTxfNaamFirma" prefHeight="25.0" prefWidth="263.0" promptText="Naam firma" />
+                <TextField fx:id="txfEmailFirma" onAction="#onActionTxfEmailFirma" onKeyPressed="#onKeyPressedTxfEmailFirma" prefHeight="25.0" prefWidth="263.0" promptText="E-mailadres firma" />
+                <Button fx:id="btnVoegToe" mnemonicParsing="false" onAction="#onActionBtnVoegToe" prefHeight="25.0" prefWidth="100.0" text="Voeg Toe" />
+                <Label fx:id="lblVoegToe" prefHeight="17.0" prefWidth="356.0" text="Firma toegevoegd!" textAlignment="CENTER" />
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+        </VBox>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+            <children>
+                <Button fx:id="btnGaTerug" mnemonicParsing="false" onAction="#onActionBtnGaTerug" prefHeight="25.0" prefWidth="100.0" text="Ga Terug" />
+            </children>
+        </HBox>
+    </children>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
 </fx:root>

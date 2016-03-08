@@ -91,16 +91,16 @@ public class VoegGroepToeBoxController extends VBox {
         String teVerwijderenGroep = cmbVerwijder.selectionModelProperty().get().getSelectedItem();
         try {
             domCon.verwijderGroep(teVerwijderenGroep, isLeerGroep);
-            
+
             // Zet tekst kleur
             lblVerwijder.setTextFill(Color.web("#04B431"));
-            
-            lblVerwijder.setText(String.format("\"%s\" is succesvol verwijderd.",teVerwijderenGroep));
+
+            lblVerwijder.setText(String.format("\"%s\" is succesvol verwijderd.", teVerwijderenGroep));
             setupGroepen();
         } catch (IllegalArgumentException e) {
             // Zet tekst kleur
             lblVerwijder.setTextFill(Color.web("#FF0000"));
-            
+
             lblVerwijder.setText(e.getMessage());
         }
         lblVerwijder.setVisible(true);
@@ -120,18 +120,18 @@ public class VoegGroepToeBoxController extends VBox {
     @FXML
     private void onActionBtnVoegToe(ActionEvent event) {
         String toetevoegenGroep = txfVoegToe.getText();
-        try{
+        try {
             domCon.voegGroepToe(toetevoegenGroep, isLeerGroep);
-            
+
             // Zet tekst kleur
             lblVoegToe.setTextFill(Color.web("#04B431"));
-            
-            lblVoegToe.setText(String.format("\"%s\" is succesvol toegevoegd.",toetevoegenGroep));
+
+            lblVoegToe.setText(String.format("\"%s\" is succesvol toegevoegd.", toetevoegenGroep));
             setupGroepen();
-        }catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             // Zet tekst kleur
             lblVoegToe.setTextFill(Color.web("#FF0000"));
-            
+
             lblVoegToe.setText(e.getMessage());
         }
         lblVoegToe.setVisible(true);
@@ -185,4 +185,4 @@ public class VoegGroepToeBoxController extends VBox {
         lblInvalidGroep.setVisible(false);
     }
     
-*/
+ */

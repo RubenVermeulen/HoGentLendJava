@@ -37,22 +37,22 @@ public class GebruikerRepositoryImpl implements GebruikerRepository {
         Query q = em.createQuery("SELECT g FROM Gebruiker g");
         gebruikers = (List<Gebruiker>) q.getResultList();
     }
-    
-    public void stelAanAlsBeheerder(Gebruiker gebruiker){        
-        if ( ! gebruiker.isLector()) {
+
+    public void stelAanAlsBeheerder(Gebruiker gebruiker) {
+        if (!gebruiker.isLector()) {
             throw new IllegalArgumentException("De gebruiker moet een lector zijn.");
         }
-        
+
         em.getTransaction().begin();
         gebruiker.setBeheerder(true);
         em.getTransaction().commit();
     }
-    
-    public void verwijderBeheerder(Gebruiker gebruiker){       
+
+    public void verwijderBeheerder(Gebruiker gebruiker) {
         em.getTransaction().begin();
         gebruiker.setBeheerder(false);
         em.getTransaction().commit();
-        
+
         gebruikers.remove(gebruiker);
     }
 
@@ -60,49 +60,51 @@ public class GebruikerRepositoryImpl implements GebruikerRepository {
     public ObservableList<Gebruiker> geefAlleBeheerders() {
         return FXCollections.unmodifiableObservableList(
                 FXCollections.observableArrayList(gebruikers.stream().filter(Gebruiker::isBeheerder).collect(Collectors.toList())
-        ));
+                ));
     }
 
     @Override
     public Gebruiker geefGebruikerViaEmail(String email) {
-        if (email == null || email.isEmpty())
+        if (email == null || email.isEmpty()) {
             throw new IllegalArgumentException("Een e-mailadres is vereist.");
-        
+        }
+
         Gebruiker gebruiker = null;
-        
+
         for (Gebruiker g : gebruikers) {
             if (g.getEmail().equalsIgnoreCase(email)) {
                 gebruiker = g;
                 break;
-            }  
+            }
         }
-        
-        if (gebruiker == null)
+
+        if (gebruiker == null) {
             throw new IllegalArgumentException("De gebruiker kon niet worden gevonden.");
-        
+        }
+
         return gebruiker;
     }
-    
+
     @Override
     public Gebruiker geefGebruikerViaNaam(String naam) {
-        if (naam == null || naam.isEmpty())
+        if (naam == null || naam.isEmpty()) {
             throw new IllegalArgumentException("Een naam is vereist.");
-        
+        }
+
         Gebruiker gebruiker = null;
-        
+
         for (Gebruiker g : gebruikers) {
             if (g.getAchternaam().equalsIgnoreCase(naam)) {
                 gebruiker = g;
                 break;
-            }  
+            }
         }
-        
-        if (gebruiker == null)
+
+        if (gebruiker == null) {
             throw new IllegalArgumentException("De gebruiker kon niet worden gevonden.");
-        
+        }
+
         return gebruiker;
     }
-    
-    
-    
+
 }

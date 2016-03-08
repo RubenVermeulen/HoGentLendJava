@@ -42,31 +42,30 @@ public class WijzigFirmaBoxController extends VBox {
     private Button btnOpslaan;
     @FXML
     private Button btnAnnuleer;
-    
+
     private DomeinController dc;
     private BeheerFirmasBoxController parent;
     private Firma firma;
-    
-    
+
     public WijzigFirmaBoxController(DomeinController dc, BeheerFirmasBoxController parent, Firma firma) {
         this.dc = dc;
         this.parent = parent;
         this.firma = firma;
-        
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("WijzigFirmaBox.fxml"));
         loader.setRoot(this);
         loader.setController(this);
-        
+
         try {
             loader.load();
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-        
+
         txfNaamFirma.setText(firma.getNaam());
         txfEmailFirma.setText(firma.getEmail());
     }
-    
+
     @FXML
     private void onKeyPressedTxfNaamFirma(KeyEvent event) {
         verbergLabels();
@@ -88,39 +87,39 @@ public class WijzigFirmaBoxController extends VBox {
         String emailFirma = txfEmailFirma.getText();
         String oudeNaamFirma = firma.getNaam();
         String message = "";
-        
+
         // Wijzigt de huidige materiaal view
         MateriaalView mv = parent.geefMateriaalView();
         mv.setFirma(naamFirma);
         mv.setEmailFirma(emailFirma);
-        
+
         try {
             // Wijzigt de firma voor alle materialen die dezelfde firma gebruiken
             dc.wijzigFirmas(firma, naamFirma, emailFirma);
-            
+
             parent.setupFirmas();
-        
-            if (oudeNaamFirma.equals(naamFirma))
+
+            if (oudeNaamFirma.equals(naamFirma)) {
                 parent.setLblWijzig(String.format("De firma \"%s\" is succesvol gewijzigd.", oudeNaamFirma));
-            else 
+            } else {
                 parent.setLblWijzig(String.format("De firma \"%s\" is succesvol gewijzigd naar \"%s\".", oudeNaamFirma, naamFirma));
-            
+            }
+
             parent.toontLblWijzig();
-            
+
             onActionBtnAnnuleer(event);
-        }
-        catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             lblMessage.setText(e.getMessage());
             lblMessage.setVisible(true);
-        } 
+        }
     }
 
     @FXML
     private void onActionBtnAnnuleer(ActionEvent event) {
-        Stage stage = (Stage) lblTitel.getScene().getWindow();        
+        Stage stage = (Stage) lblTitel.getScene().getWindow();
         stage.close();
     }
-    
+
     private void verbergLabels() {
         lblMessage.setVisible(false);
     }

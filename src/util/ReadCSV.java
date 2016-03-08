@@ -25,34 +25,35 @@ import java.util.logging.Logger;
  */
 public class ReadCSV {
 
-    public ArrayList<String[]> run(String CSVFile)  {
-        ArrayList<String[]> materialen=new ArrayList<>();
-        
-          CSVReader reader = null;
+    public ArrayList<String[]> run(String CSVFile) {
+        ArrayList<String[]> materialen = new ArrayList<>();
+
+        CSVReader reader = null;
         try {
-            reader = new CSVReader(new FileReader(CSVFile), ';','\"',1);
-            
+            reader = new CSVReader(new FileReader(CSVFile), ';', '\"', 1);
+
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ReadCSV.class.getName()).log(Level.SEVERE, null, ex);
         }
-     String [] nextLine;
+        String[] nextLine;
         try {
             while ((nextLine = reader.readNext()) != null) {
                 materialen.add(nextLine);
-                for(int i=0;i<nextLine.length;i++){
-                    
+                for (int i = 0; i < nextLine.length; i++) {
+
                     System.out.println(nextLine[i]);
-                
+
                 }
-                
-            }  } catch (IOException ex) {
+
+            }
+        } catch (IOException ex) {
             Logger.getLogger(ReadCSV.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return materialen;
     }
 }
-   /*
+/*
 
         Scanner scanner = new Scanner(CSVFile);
         Scanner counter = new Scanner(CSVFile);
@@ -78,12 +79,9 @@ public class ReadCSV {
         
         
         }
-        */
+ */
 
-
-
-
-/*
+ /*
     
      public ArrayList<String[]> run(String CSVFile) {
 

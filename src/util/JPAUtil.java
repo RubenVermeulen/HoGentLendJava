@@ -13,17 +13,17 @@ import javax.persistence.Persistence;
  * @author ruben
  */
 public class JPAUtil {
+
     private final static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence");
-    
+
     private JPAUtil() {
     }
-    
+
     public static JPAUtil getInstance() {
         return JPAUtilHolder.INSTANCE;
     }
-    
-    private static class JPAUtilHolder
-    {
+
+    private static class JPAUtilHolder {
 
         private static final JPAUtil INSTANCE = new JPAUtil();
     }

@@ -18,7 +18,7 @@ public class FirmaCatalogusTest {
 
     private List<MateriaalView> materialenMetFrima_1;
     private List<Firma> firmas;
-    
+
     private FirmaCatalogus firmaCat;
 
     @Before

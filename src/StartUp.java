@@ -1,3 +1,4 @@
+
 import domein.DomeinController;
 import domein.firma.Firma;
 import domein.gebruiker.Gebruiker;
@@ -54,44 +55,43 @@ public class StartUp extends Application {// test xd
         // Materialen aanmaken
         Firma f1 = new Firma("Goaty Enterprise");
         f1.setEmail("info@goatyenterprise.be");
-        
+
         Firma f2 = new Firma("Deckers Boeken");
         f2.setEmail("info@deckersboeken.be");
-        
+
         em.persist(f1);
         em.persist(f2);
         em.getTransaction().commit();
-        
+
         em.getTransaction().begin();
-        Groep leergroep = new Groep("Lichamelijke opvoeding",true);
+        Groep leergroep = new Groep("Lichamelijke opvoeding", true);
         em.persist(leergroep);
-        
+
         Groep doelgroep = new Groep("Kleuteronderwijs", false);
         em.persist(doelgroep);
-        
-        leergroep = new Groep("Biologie",true);
+
+        leergroep = new Groep("Biologie", true);
         em.persist(leergroep);
-        
+
         doelgroep = new Groep("Lager onderwijs", false);
         em.persist(doelgroep);
-        leergroep = new Groep("Aardrijkskunde",true);
+        leergroep = new Groep("Aardrijkskunde", true);
         em.persist(leergroep);
-        
+
         List<Groep> doelgroepen2 = new ArrayList<Groep>();
         doelgroepen2.add(doelgroep);
-        
+
         doelgroep = new Groep("Secundair onderwijs", false);
         em.persist(doelgroep);
-        
+
         List<Groep> leergroepen = new ArrayList<Groep>();
         leergroepen.add(leergroep);
-        
+
         List<Groep> doelgroepen = new ArrayList<Groep>();
         doelgroepen.add(doelgroep);
-        
-        
+
         em.getTransaction().commit();
-        
+
         em.getTransaction().begin();
         Materiaal[] materialen = {
             new Materiaal("Wereldbol", 10)
@@ -159,63 +159,59 @@ public class StartUp extends Application {// test xd
             .setLeergebieden(leergroepen)
             .setPlaats("Lokaal B4.035")
             .setPrijs(27.95)
-            .setUitleenbaarheid(false) };
+            .setUitleenbaarheid(false)};
 
         for (Materiaal m : materialen) {
             em.persist(m);
         }
 
         em.getTransaction().commit();
-        
+
         // Reservaties
         //==================================
-        
         // Reservatie 1
         Reservatie r1 = new Reservatie(user, LocalDateTime.of(2016, 2, 3, 10, 30), LocalDateTime.of(2016, 2, 10, 10, 30));
-        
+
         ReservatieLijn[] lijnenVoorReservatie1 = {
             new ReservatieLijn(materialen[0], 1, LocalDateTime.now(), LocalDateTime.of(2016, 5, 2, 20, 10)),
-            new ReservatieLijn(materialen[1], 1, LocalDateTime.now(), LocalDateTime.of(2016, 8, 2, 20, 10)),
-        };
-        
+            new ReservatieLijn(materialen[1], 1, LocalDateTime.now(), LocalDateTime.of(2016, 8, 2, 20, 10)),};
+
         lijnenVoorReservatie1[0].setReservatie(r1);
         lijnenVoorReservatie1[1].setReservatie(r1);
-        
+
         r1.setReservatielijnen(Arrays.asList(lijnenVoorReservatie1));
-        
+
         // Reservatie 2 
         Reservatie r2 = new Reservatie(user2, LocalDateTime.of(2016, 3, 10, 10, 30), LocalDateTime.of(2016, 3, 17, 18, 30));
-        
+
         ReservatieLijn[] lijnenVoorReservatie2 = {
-            new ReservatieLijn(materialen[3], 5, LocalDateTime.now(), LocalDateTime.of(2016, 5, 2, 20, 10)),
-        };
+            new ReservatieLijn(materialen[3], 5, LocalDateTime.now(), LocalDateTime.of(2016, 5, 2, 20, 10)),};
 
         lijnenVoorReservatie2[0].setReservatie(r2);
-        
+
         r2.setReservatielijnen(Arrays.asList(lijnenVoorReservatie2));
-        
+
         // Reservatielijnen
         //==================================
         em.getTransaction().begin();
-               
+
         em.persist(r1);
         em.persist(r2);
-        
+
         em.persist(lijnenVoorReservatie1[0]);
-        em.persist(lijnenVoorReservatie1[1]);  
-        
+        em.persist(lijnenVoorReservatie1[1]);
+
         em.persist(lijnenVoorReservatie2[0]);
-        
+
         em.getTransaction().commit();
-        
+
         em.close();
-        
+
         // niet sluiten want de domein laag heeft nu al andere acties met de emf
 //        emf.close();
 //        System.out.println("Closed");
-        
         DomeinController domCont = new DomeinController();
-  //      domCont.geefAlleReservaties().toString();
+        //      domCont.geefAlleReservaties().toString();
         Scene scene = new Scene(new LoginFrameController(domCont));
 //        Scene scene = new Scene(new MainMenuFrameController(domCont));
         scene.getStylesheets().add("/gui/styles.css");

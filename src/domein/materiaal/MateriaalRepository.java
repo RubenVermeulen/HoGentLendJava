@@ -101,7 +101,7 @@ public class MateriaalRepository {
             matView.setEmailFirma(emailFirma);
 
             try {
-                if ( !firma.isEmpty()) {
+                if (!firma.isEmpty()) {
                     materiaalCatalogus.geefFirmaRepo().voegFirmaToe(firma, emailFirma);
                 }
             } catch (IllegalArgumentException e) {
@@ -237,10 +237,10 @@ public class MateriaalRepository {
 
         if (materiaal == null) {
             return false;
-        }    
+        }
 
         materiaalCatalogus.wijsAttributenMateriaalViewToeAanMateriaal(materiaalView, materiaal);
-        
+
         em.getTransaction().begin();
         em.getTransaction().commit();
 
