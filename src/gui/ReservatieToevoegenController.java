@@ -47,6 +47,10 @@ public class ReservatieToevoegenController extends BorderPane {
     private TextField txfAantal;
     
     private final DomeinController dc;
+    @FXML
+    private TextField txfOphaalhhmm;
+    @FXML
+    private TextField txfIndienhhmm;
 
     public ReservatieToevoegenController(DomeinController dc) {
         this.dc = dc;
@@ -72,6 +76,8 @@ public class ReservatieToevoegenController extends BorderPane {
 
     @FXML
     private void btnReservatieToevoegenOnAction(ActionEvent event) {
+        
+        
         String emailLener = txfEmailadres.getText().trim();
         LocalDateTime ophaalmoment = null;
         LocalDateTime indienmoment = null;
@@ -79,6 +85,12 @@ public class ReservatieToevoegenController extends BorderPane {
         
         LocalDate ophMoment=dpOphaalmoment.getValue();
         LocalDate indMoment=dpIndienmoment.getValue();
+        String indienHHmm=txfIndienhhmm.getText().trim();
+        String ophaalHHmm=txfIndienhhmm.getText().trim();
+        
+        //van hh:mm intjes maken nog toevoegen
+        
+        
         
        ophaalmoment= ophMoment.atTime(0, 0);
        indienmoment= indMoment.atTime(0, 0);
@@ -91,8 +103,13 @@ public class ReservatieToevoegenController extends BorderPane {
         reservatieLijnen.add(new ReservatieLijnView(ophaalmoment, indienmoment, materiaalView, aantal));
 
         ReservatieView rv = new ReservatieView(emailLener, ophaalmoment, indienmoment,reservatiemoment , reservatieLijnen);
+        
+        try{
         dc.voegReservatieToe(rv);
-
+        } catch(IllegalArgumentException e){
+            System.out.println(e.getMessage()); //moet nog label worden
+        
+        }
         
         
         Stage stage = (Stage) getScene().getWindow();
@@ -105,8 +122,5 @@ public class ReservatieToevoegenController extends BorderPane {
         combMaterialen.getItems().addAll(dc.geefAlleMaterialen());
     }
 
-    @FXML
-    private void btnMateriaalBijvoegen(ActionEvent event) {
-    }
 
 }
