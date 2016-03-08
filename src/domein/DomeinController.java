@@ -35,9 +35,14 @@ public class DomeinController {
 
     }
 
+    /* -------------------------------- */
+    // AANGEMELDE
+    /* -------------------------------- */
     /**
+     * Meld een beheerder aan met het gegeven email en ongeencrypteerd
+     * wachtwoord.
      *
-     * @param email gebruiker email
+     * @param email beheerder email
      * @param wachtwoord ongeencrypteerd wachtwoord
      * @return true indien de gebruiker nu is aangemeld, false indien het email
      * en/of wachtwoord verkeerd waren.
@@ -56,15 +61,8 @@ public class DomeinController {
     }
 
     /**
-     * Meld de gebruiker af.
-     */
-    public void meldAf() {
-        aangemelde = null;
-    }
-
-    /**
-     * Geeft de gegevens van de aangemelde gebruiker. Indien geen aangemelde
-     * gebruiker, geeft arrays van lege strings.
+     * Geeft de gegevens van de aangemelde beheerder. Indien geen aangemelde
+     * beheerder, geeft arrays van lege strings.
      *
      * @return String[3] - voornaam, achternaam, email
      */
@@ -77,62 +75,177 @@ public class DomeinController {
     }
 
     /**
-     * TODO xander schrijf dit
+     * @return Of de aangemelde beheerder een hoofdbeheer is of niet.
+     */
+    public boolean isAangemeldeHoofdbeheerder() {
+        return aangemelde.isHoofdbeheerder();
+    }
+
+    /**
+     * Meld de aangemelde beheerder af.
+     */
+    public void meldAf() {
+        aangemelde = null;
+    }
+
+    /* -------------------------------- */
+    // MATERIALEN
+    /* -------------------------------- */
+    /**
+     * Voeg een nieuw materiaal toe op basis van de gegevens die in de
+     * materiaalview zitten.
      *
-     * @param mv
+     * @param mv de materiaalview
      */
     public void voegMateriaalToe(MateriaalView mv) {
         materiaalRepo.voegMateriaalToe(mv);
 
     }
 
-    public void voegReservatieToe(ReservatieView rv) {
-        reservatieRepo.voegReservatieToe(rv);
+    /**
+     * Voegt alle materialen toe die in het csv bestand van het gegeven path
+     * zitten.
+     *
+     * @param csvFilePath het path naar het csv bestand
+     */
+    public void voegMaterialenToeInBulk(String csvFilePath) {
+        materiaalRepo.voegMaterialenToeInBulk(csvFilePath);
     }
 
-    public void voegMaterialenToeInBulk(String csvFile) {
-        materiaalRepo.voegMaterialenToeInBulk(csvFile);
+    /**
+     * Zal het materiaal met het materiaal id van in de materiaalview aanpassen
+     * zodat de attributen hetzelfde zijn als de gegevens materiaalview.
+     *
+     * @param mv het aan te passen materiaal in de vorm van een materiaalview
+     */
+    public void wijzigMateriaal(MateriaalView mv) {
+        materiaalRepo.wijzigMateriaal(mv);
     }
 
-    public List<MateriaalView> geefAlleMaterialen() {
-        return materiaalRepo.geefAlleMaterialen();
-    }
-
+    /**
+     * Verwijderd het materiaal met de gegeven naam.
+     *
+     * @param materiaalNaam de materiaal naam
+     */
     public void verwijderMateriaal(String materiaalNaam) {
         materiaalRepo.verwijderMateriaal(materiaalNaam);
     }
 
+    /**
+     * Geeft alle materialen terug in de vorm van MateriaalViews.
+     *
+     * @return een lijst van materiaalviews
+     */
+    public List<MateriaalView> geefAlleMaterialen() {
+        return materiaalRepo.geefAlleMaterialen();
+    }
+
+    /**
+     * Geeft alle materialen in de vorm van een materiaalview waarin de filter
+     * string voorkomt.
+     *
+     * @param filter de zin/woorden voor op te filteren
+     * @return een lijst van materiaalviews waarin de filter voorkomt
+     */
     public List<MateriaalView> geefMaterialenMetFilter(String filter) {
         return materiaalRepo.geefMaterialenMetFilter(filter);
     }
 
-    public boolean wijzigMateriaal(MateriaalView mv) {
-        return materiaalRepo.wijzigMateriaal(mv);
-    }
-
-    public List<String> geefAlleDoelgroepen() {
-        return groepListToString(materiaalRepo.geefAlleDoelgroepen());
-    }
-
-    public List<String> geefAlleLeergebieden() {
-        return groepListToString(materiaalRepo.geefAlleLeergebieden());
-    }
-
-    private List<String> groepListToString(List<Groep> groepen) {
-        return groepen.stream().map(g -> g.getGroep()).collect(Collectors.toList());
-    }
-
+    /* -------------------------------- */
+    // GROEPEN
+    /* -------------------------------- */
+    /**
+     * Voeg een nieuwe groep toe met gegeven naam en isleergroep.
+     *
+     * @param text de naam van de nieuwe groep
+     * @param isLeerGroep of het een doelgroep of leergebied is.
+     */
     public void voegGroepToe(String text, boolean isLeerGroep) {
         materiaalRepo.voegGroepToe(text, isLeerGroep);
     }
 
+    /**
+     * Verwijdert de groep met gegeven naar en isleergroep.
+     *
+     * @param groep de naam van de te verwijderen groep
+     * @param isLeerGroep of het een doelgroep of leergebied is
+     */
     public void verwijderGroep(String groep, boolean isLeerGroep) {
         materiaalRepo.verwijderGroep(groep, isLeerGroep);
     }
 
+    /**
+     * Geeft alle doelgroepen in de vorm van een string list.
+     *
+     * @return de string list
+     */
+    public List<String> geefAlleDoelgroepen() {
+        return groepListToString(materiaalRepo.geefAlleDoelgroepen());
+    }
+
+    /**
+     * Geeft alle leergebieden in de vorm van een string list.
+     *
+     * @return de string list
+     */
+    public List<String> geefAlleLeergebieden() {
+        return groepListToString(materiaalRepo.geefAlleLeergebieden());
+    }
+
+    /* -------------------------------- */
+    // RESERVATIES
+    /* -------------------------------- */
+    /**
+     * Voeg een nieuwe reservatie toe op basis van de gegevens die in de
+     * reservatieview zitten.
+     *
+     * @param rv de reservatieview
+     */
+    public void voegReservatieToe(ReservatieView rv) {
+        reservatieRepo.voegReservatieToe(rv);
+    }
+
+    /**
+     * Zal de resevatie met het reservatie id van in de reservatieview aanpassen
+     * zodat de attributen hetzelfde zijn als de gegevens ReservatieView.
+     *
+     * @param rv het aan te passen reservaite in de vorm van een reservatieview
+     */
+    public void wijzigReservatie(ReservatieView rv) {
+        reservatieRepo.wijzigReservatie(rv);
+    }
+
+    /**
+     * Verwijder de reservatie die overeenkomt met de gegeven reservatieview.
+     *
+     * @param rv de reservatieview
+     */
+    public void verwijderReservatie(ReservatieView rv) {
+        reservatieRepo.verwijderReservatie(rv);
+    }
+
+    /**
+     * Geeft alle reservatie in de vorm van reservatieviews.
+     *
+     * @return de lijst van reservatieviews
+     */
+    public List<ReservatieView> geefAlleReservaties() {
+        return reservatieRepo.geefAlleReservaties();
+    }
+
+    /* -------------------------------- */
+    // BEHEERDERS
+    /* -------------------------------- */
+    /**
+     * Stel de lector met als email de gegeven email aan als een beheerder.
+     *
+     * @param email het email adres.
+     * @throws IllegalArgumentException indien geen gebruiker is gevonden met
+     * het gegeven email adres
+     */
     public void stelAanAlsBeheerder(String email) {
         Optional<Gebruiker> gebruikerOpt = gebruikerRepo.geefGebruikerViaEmail(email);
-        if (gebruikerOpt.isPresent()){
+        if (gebruikerOpt.isPresent()) {
             throw new IllegalArgumentException("Geen gebruiker met het geven email adres gevonden.");
         }
         Gebruiker gebruiker = gebruikerOpt.get();
@@ -140,9 +253,84 @@ public class DomeinController {
         gebruikerRepo.stelAanAlsBeheerder(gebruiker);
     }
 
+    /**
+     * Neemt de beheerder status van de gegeven gebruiker weg.
+     *
+     * @param gebruiker de te demotiveren gebruiker
+     */
     public void verwijderBeheerder(Gebruiker gebruiker) {
         checkKanAangemeldeBeheerderStatusWijzigenVan(gebruiker);
         gebruikerRepo.verwijderBeheerder(gebruiker);
+    }
+
+    /**
+     * Geeft alle gebruikers die beheerder zijn. Maar niet de hoofdbeheerder.
+     *
+     * @return de observablelist van beheerders
+     */
+    public ObservableList<Gebruiker> geefObservableListBeheerdersZonderHoofdBeheerders() {
+        return gebruikerRepo.geefObservableListBeheerdersZonderHoofdBeheerders();
+    }
+
+    /* -------------------------------- */
+    // FIRMAS
+    /* -------------------------------- */
+    /**
+     * Voegt een nieuwe firma toe met de gegven naam en contact email adres.
+     *
+     * @param naam de naam
+     * @param email het email adres
+     */
+    public void voegFirmaToe(String naam, String email) {
+        firmaRepo.voegFirmaToe(naam, email);
+    }
+
+    /**
+     * Geeft de gegeven firme een nieuwe naam en email adres.
+     *
+     * @param firma de te wijzigen firma
+     * @param nieuweNaam de nieuwe naam
+     * @param nieuwEmailadres het nieuwe emailadres
+     */
+    public void wijzigFirmas(Firma firma, String nieuweNaam, String nieuwEmailadres) {
+        materiaalRepo.wijzigFirmas(firma, nieuweNaam, nieuwEmailadres);
+    }
+
+    /**
+     * Verwijdert de firma met de gegeven naam.
+     *
+     * @param naam de naam van de te verwijderen firma
+     */
+    public void verwijderFirma(String naam) {
+        firmaRepo.verwijderFirma(naam, materiaalRepo.geefAlleMaterialen());
+    }
+
+    /**
+     * Geeft een optionele firma met de gegeven naam.
+     *
+     * @param naam de naam van de te zoeken firma
+     * @return leeg indien geen firma gevonden werd
+     */
+    public Optional<Firma> geefFirma(String naam) {
+        return firmaRepo.geefFirma(naam);
+    }
+
+    /**
+     * Geeft alle namen van alle firmas.
+     *
+     * @return de string lijst met al de namen van alle firmas
+     */
+    public List<String> geefAlleFirmas() {
+        List<Firma> firmas = firmaRepo.getAllFirmasSorted();
+
+        return firmaListToString(firmas);
+    }
+
+    /* -------------------------------- */
+    // HELPERS
+    /* -------------------------------- */
+    private List<String> groepListToString(List<Groep> groepen) {
+        return groepen.stream().map(g -> g.getGroep()).collect(Collectors.toList());
     }
 
     private void checkKanAangemeldeBeheerderStatusWijzigenVan(Gebruiker gebruiker) {
@@ -154,72 +342,8 @@ public class DomeinController {
         }
     }
 
-    public ObservableList<Gebruiker> geefAlleBeheerders() {
-        return gebruikerRepo.geefObservableListBeheerdersZonderHoofdBeheerders();
-    }
-
-    public Gebruiker getAangemelde() {
-        return aangemelde;
-    }
-
-    public List<ReservatieView> geefAlleReservaties() {
-        return reservatieRepo.geefAlleReservaties();
-    }
-
-    public List<String> geefAlleFirmas() {
-        List<Firma> firmas = firmaRepo.getAllFirmasSorted();
-
-        return firmaListToString(firmas);
-    }
-
-    /**
-     * Vormt een firma list om naar een string list met firma namen.
-     *
-     * @param firmas
-     * @return
-     */
     private List<String> firmaListToString(List<Firma> firmas) {
         return firmas.stream().map(f -> f.getNaam()).collect(Collectors.toList());
     }
 
-    /**
-     * Voegt firma toe.
-     *
-     * @param naam
-     * @param email
-     */
-    public void voegFirmaToe(String naam, String email) {
-        firmaRepo.voegFirmaToe(naam, email);
-    }
-
-    /**
-     * Verwijdert reservatie.
-     *
-     * @param rv
-     */
-    public void verwijderReservatie(ReservatieView rv) {
-        reservatieRepo.verwijderReservatie(rv);
-    }
-
-    public void wijzigReservatie(ReservatieView rv) {
-        reservatieRepo.wijzigReservatie(rv);
-    }
-
-    public void verwijderFirma(String naam) {
-        firmaRepo.verwijderFirma(naam, materiaalRepo.geefAlleMaterialen());
-    }
-
-    public Optional<Firma> geefFirma(String naam) {
-        return firmaRepo.geefFirma(naam);
-    }
-
-    /**
-     *
-     * @param firma firma object uit de firma repository
-     * @param nieuweNaam nieuwe naam voor de firma
-     * @param nieuwEmailadres nieuw e-mailadrs voor de firma
-     */
-    public void wijzigFirmas(Firma firma, String nieuweNaam, String nieuwEmailadres) {
-        materiaalRepo.wijzigFirmas(firma, nieuweNaam, nieuwEmailadres);
-    }
 }

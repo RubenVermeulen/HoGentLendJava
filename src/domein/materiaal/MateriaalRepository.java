@@ -231,12 +231,12 @@ public class MateriaalRepository {
 
     }
 
-    public boolean wijzigMateriaal(MateriaalView materiaalView) {
+    public void wijzigMateriaal(MateriaalView materiaalView) {
 
         Materiaal materiaal = materiaalCatalogus.geefMateriaalMetId(materiaalView.getId());
 
         if (materiaal == null) {
-            return false;
+            return;
         }
 
         materiaalCatalogus.wijsAttributenMateriaalViewToeAanMateriaal(materiaalView, materiaal);
@@ -244,7 +244,6 @@ public class MateriaalRepository {
         em.getTransaction().begin();
         em.getTransaction().commit();
 
-        return true;
     }
 
     public List<Groep> geefAlleDoelgroepen() {

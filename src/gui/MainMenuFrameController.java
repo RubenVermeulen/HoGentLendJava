@@ -151,7 +151,7 @@ public class MainMenuFrameController extends BorderPane {
         tvBeheerders.setPlaceholder(new Label("Er zijn nog geen beheerders"));
 
         // Disable knoppen als je geen hoofdbeheerder bent
-        if (!domCon.getAangemelde().isHoofdbeheerder()) {
+        if (!domCon.isAangemeldeHoofdbeheerder()) {
             btnStelAanAlsBeheerder.setDisable(true);
             btnVerwijderBeheerder.setDisable(true);
         }
@@ -166,7 +166,7 @@ public class MainMenuFrameController extends BorderPane {
 
     public void vulTableViewOpMetBeheerders() {
         // TableView opvullen met data
-        tvBeheerders.setItems(domCon.geefAlleBeheerders());
+        tvBeheerders.setItems(domCon.geefObservableListBeheerdersZonderHoofdBeheerders());
     }
 
     private void promptBeheerderToevoegen() {
