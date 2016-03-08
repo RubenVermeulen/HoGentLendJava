@@ -1,5 +1,6 @@
 package domein.groep;
 
+import domein.materiaal.Materiaal;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;
@@ -52,11 +53,33 @@ public class GroepRepository {
         return groepCat.geefGroep(groepStr, isLeerGebied);
     }
 
-    public void verwijderGroep(Groep groep) {
-        groepCat.verwijderGroep(groep);
-
-        em.getTransaction().begin();
-        em.remove(groep);
-        em.getTransaction().commit();
+    public void verwijderGroep(String groepStr, boolean leerGroep, List<Materiaal> materialen) {
+        // TODO: sven fix this
+//        if (groepStr == null || groepStr.isEmpty()) {
+//            throw new IllegalArgumentException("Je hebt geen " + (isLeerGroep ? "leergebied" : "doelgroep") + " geselecteerd.");
+//        }
+//
+//        Optional<Groep> groepOpt = groepRepo.geefGroep(groepStr, isLeerGroep);
+//
+//        if (!groepOpt.isPresent()) {
+//            if (isLeerGroep) {
+//                throw new IllegalArgumentException("Het leergebied bestaat niet.");
+//            } else {
+//                throw new IllegalArgumentException("Het doelgroep bestaat niet.");
+//            }
+//        }
+//
+//        Groep groep = groepOpt.get();
+//
+//        for (Materiaal m : materialen) {
+//            if (isLeerGroep) {
+//                if (m.getLeergebieden().stream().anyMatch(g -> g.getId() == groep.getId())) {
+//                    throw new IllegalArgumentException("Er is nog een materiaal met dit leergebied.");
+//                }
+//            } else if (m.getDoelgroepen().stream().anyMatch(g -> g.getId() == groep.getId())) {
+//                throw new IllegalArgumentException("Er is nog een materiaal met deze doelgroep.");
+//            }
+//        }
+//        groepRepo.verwijderGroep(groep);
     }
 }

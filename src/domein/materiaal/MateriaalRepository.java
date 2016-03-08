@@ -30,6 +30,14 @@ public class MateriaalRepository {
         materiaalCat = new MateriaalCatalogus(materialen, firmaRepo);
     }
 
+    public Optional<Materiaal> geefMateriaal(String materiaalNaam) {
+        return materiaalCat.geefMateriaal(materiaalNaam);
+    }
+
+    public Optional<Materiaal> geefMateriaalMetId(long id) {
+        return materiaalCat.geefMateriaalMetId(id);
+    }
+    
     public void voegMateriaalToe(MateriaalView mv) {
         Materiaal materiaal = materiaalCat.voegMateriaalToe(mv);
         em.getTransaction().begin();
@@ -42,45 +50,25 @@ public class MateriaalRepository {
         bulkToevoeger.voegMaterialenToeInBulk(csvFile);
     }
 
-    public List<MateriaalView> geefAlleMaterialen() {
-        return materiaalCat.geefAlleMaterialen();
+    public void wijzigMateriaal(MateriaalView materiaalView) {
+        materiaalCat.wijsAttributenMateriaalViewToeAanMateriaal(materiaalView);
+        em.getTransaction().begin();
+        em.getTransaction().commit();
     }
-
+    
     public void verwijderMateriaal(String materiaalNaam) {
         Materiaal mat = materiaalCat.verwijderMateriaal(materiaalNaam);
         em.getTransaction().begin();
         em.remove(mat);
         em.getTransaction().commit();
     }
-
-    public Optional<Materiaal> geefMateriaal(String materiaalNaam) {
-        return materiaalCat.geefMateriaal(materiaalNaam);
+    
+    public List<MateriaalView> geefAlleMaterialen() {
+        return materiaalCat.geefAlleMaterialenViews();
     }
-
-    public Optional<Materiaal> geefMateriaalMetId(long id) {
-        return materiaalCat.geefMateriaalMetId(id);
-    }
-
-    public MateriaalView geefMateriaalView(String materiaalNaam) {
-       return materiaalCat.geefMateriaalView(materiaalNaam);
-    }
-
+    
     public List<MateriaalView> geefMaterialenMetFilter(String filter) {
         return materiaalCat.geefMaterialenMetFilter(filter);
-    }
-
-    public void wijzigMateriaal(MateriaalView materiaalView) {
-        materiaalCat.wijsAttributenMateriaalViewToeAanMateriaal(materiaalView);
-        em.getTransaction().begin();
-        em.getTransaction().commit();
-    }
-
-    public List<Groep> geefAlleDoelgroepen() {
-        return materiaalCat.geefAlleDoelgroepen();
-    }
-
-    public List<Groep> geefAlleLeergebieden() {
-        return materiaalCat.geefAlleLeergebieden();
     }
 
     public void voegGroepToe(String text, boolean isLeerGroep) {
@@ -90,11 +78,23 @@ public class MateriaalRepository {
     public void verwijderGroep(String groepStr, boolean isLeerGroep) {
         materiaalCat.verwijderGroep(groepStr, isLeerGroep);
     }
+    
+    public List<Groep> geefAlleDoelgroepen() {
+        return materiaalCat.geefAlleDoelgroepen();
+    }
+
+    public List<Groep> geefAlleLeergebieden() {
+        return materiaalCat.geefAlleLeergebieden();
+    }
 
     public void wijzigFirmas(Firma firma, String nieuweNaam, String nieuwEmailadres) {
         materiaalCat.wijzigFirmas(firma, nieuweNaam, nieuwEmailadres);
     }
 
+    public MateriaalView geefMateriaalView(String materiaalNaam) {
+       return materiaalCat.geefMateriaalView(materiaalNaam);
+    }
+    
     public MateriaalView toMateriaalView(Materiaal materiaal) {
         return materiaalCat.toMateriaalView(materiaal);
     }

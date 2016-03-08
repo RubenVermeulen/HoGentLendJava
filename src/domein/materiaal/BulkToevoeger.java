@@ -64,7 +64,7 @@ public class BulkToevoeger {
 
             try {
                 if (!firma.isEmpty()) {
-                    matCat.geefFirmaRepo().voegFirmaToe(firma, emailFirma);
+                    matCat.voegFirmaToe(firma, emailFirma);
                 }
             } catch (IllegalArgumentException e) {
                 // ignore
