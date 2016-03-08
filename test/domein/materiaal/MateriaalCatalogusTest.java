@@ -20,10 +20,6 @@ import org.junit.Before;
 import org.junit.Test;
 import shared.MateriaalView;
 
-/**
- *
- * @author Xander
- */
 public class MateriaalCatalogusTest {
 
     private MateriaalCatalogus materiaalCatalogus;
@@ -220,12 +216,11 @@ public class MateriaalCatalogusTest {
         assertTrue(materiaalCatalogus.geefAlleMaterialenViews().get(0) instanceof MateriaalView);
     }
     
-//    @Test 
-//    public void toMateriaalViewEnkelNaamEnAantal() {           
-//        mv = materiaalCatalogus.toMateriaalView(m1);
-//        
-//        assertTrue(compareMateriaalViewWithMateriaal(mv, m1));
-//    }
+    @Test 
+    public void toMateriaalViewEnkelNaamEnAantal() {           
+        mv = materiaalCatalogus.toMateriaalView(m1);
+        assertTrue(compareMateriaalViewWithMateriaal(mv, m1));
+    }
     
     @Test
     public void toMateriaalViewCompleet() {
@@ -287,8 +282,8 @@ public class MateriaalCatalogusTest {
         
         return (mv.getNaam().equals(mat.getNaam()))
                 && (mv.getAantal() == mat.getAantal())
-                && (mv.getFirma() == null ? mat.getFirma().getNaam() == null : mv.getFirma().equals(mat.getFirma().getNaam()))
-                && (mv.getEmailFirma() == null ? mat.getFirma().getEmail() == null : mv.getEmailFirma().equals(mat.getFirma().getEmail()))
+                && (mv.getFirma() == null ? mat.getFirma() == null : mat.getFirma() == null ? false :  mv.getFirma().equals(mat.getFirma().getNaam()))
+                && (mv.getEmailFirma() == null ? mat.getFirma() == null : mat.getFirma() == null ? false : mv.getEmailFirma().equals(mat.getFirma().getEmail()))
                 && (mv.getFotoUrl() == null ? mat.getFoto()== null : mv.getFotoUrl().equals(mat.getFoto()))
                 && (mv.getOmschrijving() == null ? mat.getBeschrijving()== null : mv.getOmschrijving().equals(mat.getBeschrijving()))
                 && (mv.getArtikelNummer() == null ? mat.getArtikelnummer()== null : mv.getArtikelNummer().equals(mat.getArtikelnummer()))
