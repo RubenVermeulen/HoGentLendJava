@@ -8,6 +8,7 @@ package gui;
 import domein.DomeinController;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -74,6 +75,14 @@ public class ReservatieToevoegenController extends BorderPane {
         String emailLener = txfEmailadres.getText().trim();
         LocalDateTime ophaalmoment = null;
         LocalDateTime indienmoment = null;
+        LocalDateTime reservatiemoment=LocalDateTime.now();
+        
+        LocalDate ophMoment=dpOphaalmoment.getValue();
+        LocalDate indMoment=dpIndienmoment.getValue();
+        
+       ophaalmoment= ophMoment.atTime(0, 0);
+       indienmoment= indMoment.atTime(0, 0);
+        
         MateriaalView materiaalView = combMaterialen.getValue();
         int aantal = Integer.parseInt(txfAantal.getText());
 
@@ -81,9 +90,14 @@ public class ReservatieToevoegenController extends BorderPane {
 
         reservatieLijnen.add(new ReservatieLijnView(ophaalmoment, indienmoment, materiaalView, aantal));
 
-        ReservatieView rv = new ReservatieView(emailLener, ophaalmoment, LocalDateTime.MIN, LocalDateTime.MIN, reservatieLijnen);
+        ReservatieView rv = new ReservatieView(emailLener, ophaalmoment, indienmoment,reservatiemoment , reservatieLijnen);
         dc.voegReservatieToe(rv);
 
+        
+        
+        Stage stage = (Stage) getScene().getWindow();
+        Scene scene = new Scene(new MainMenuFrameController(dc));
+        stage.setScene(scene);
     }
 
     private void setupAlleMaterialen() {
