@@ -61,6 +61,11 @@ public class Reservatie {
         this(lener, ophaalmoment, indienmoment, LocalDateTime.now(), false);
     }
     
+     public Reservatie(Gebruiker lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment,
+             LocalDateTime reservatiemoment) {
+        this(lener, ophaalmoment, indienmoment, reservatiemoment, false);
+    }
+    
    public Reservatie(Gebruiker lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment, 
            LocalDateTime reservatiemoment, boolean opgehaald) {
         this.lener = lener;

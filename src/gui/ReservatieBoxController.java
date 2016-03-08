@@ -8,6 +8,7 @@ package gui;
 import domein.DomeinController;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +28,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import shared.MateriaalView;
 import shared.ReservatieLijnView;
 import shared.ReservatieView;
@@ -105,7 +107,7 @@ public class ReservatieBoxController extends GridPane {
 
         lblNaam.setText(mv.getNaam());
         int beschikbaar = mv.getAantal() - mv.getAantalOnbeschikbaar();
-        lblAantal.setText(String.format("%d van de %d beschikbaar", beschikbaar, mv.getAantal()));
+        lblAantal.setText(String.format("nog %d van de %d beschikbaar", beschikbaar, mv.getAantal()));
 
         if (isNotEmpty(mv.getFotoUrl())) {
             InputStream ins = getClass().getResourceAsStream("/images/" + String.valueOf(mv.getFotoUrl()));
@@ -123,6 +125,12 @@ public class ReservatieBoxController extends GridPane {
             lblLocatie.setText(mv.getPlaats());
         }
 
+        int conflict = dc.heeftConflicten(rlv, rv.getReservatiemoment());
+        if (conflict < 0) {
+            lblAantal.setText(String.format("Conflict! Slechts %d beschikbaar", rlv.getAantal()+conflict));
+            lblAantal.setTextFill(Color.web("#d70000"));
+            lblAantalGereserveerd.setTextFill(Color.web("#d70000"));
+        } 
         lblAantalGereserveerd.setText(String.valueOf(rlv.getAantal()) + " gereserveerd");
         lblOphaalmoment.setText(rlv.getOphaalmomentAlsString());
         lblIndienmoment.setText(rlv.getIndienmomentAlsString());
@@ -164,7 +172,7 @@ public class ReservatieBoxController extends GridPane {
 
         alert.setTitle("Opgelet");
         alert.setHeaderText("Opgelet");
-        
+
         if (isNotEmpty(mv.getFotoUrl())) {
             InputStream ins = getClass().getResourceAsStream("/images/" + String.valueOf(mv.getFotoUrl()));
             if (ins == null) {

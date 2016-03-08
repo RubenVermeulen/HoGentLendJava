@@ -116,7 +116,7 @@ public class StartUp extends Application {// test xd
             .setPlaats("Lokaal B4.035")
             .setPrijs(49.99)
             .setUitleenbaarheid(true),
-            new Materiaal("Wetenschappelijke rekenmachine", 10)
+            new Materiaal("Wetenschappelijke rekenmachine", 8)
             .setAantalOnbeschikbaar(0)
             .setArtikelnummer("A64645")
             .setBeschrijving("De wetenschappelijke rekenmachine FX-92 van Casio is de perfecte metgezel voor op school.")
@@ -182,14 +182,27 @@ public class StartUp extends Application {// test xd
         r1.setReservatielijnen(Arrays.asList(lijnenVoorReservatie1));
 
         // Reservatie 2 
-        Reservatie r2 = new Reservatie(user2, LocalDateTime.of(2016, 3, 10, 10, 30), LocalDateTime.of(2016, 3, 17, 18, 30));
+        Reservatie r2 = new Reservatie(user2, LocalDateTime.of(2016, 3, 7, 10, 30), LocalDateTime.of(2016, 3, 11, 18, 30),
+                LocalDateTime.of(2016, 2, 2, 20, 10));
 
         ReservatieLijn[] lijnenVoorReservatie2 = {
-            new ReservatieLijn(materialen[3], 5, LocalDateTime.now(), LocalDateTime.of(2016, 5, 2, 20, 10)),};
+            new ReservatieLijn(materialen[2], 5, LocalDateTime.of(2016, 3, 7, 10, 30), LocalDateTime.of(2016, 3, 11, 18, 30))};
 
         lijnenVoorReservatie2[0].setReservatie(r2);
 
         r2.setReservatielijnen(Arrays.asList(lijnenVoorReservatie2));
+
+        // Reservatie 3
+        Reservatie r3 = new Reservatie(user3, LocalDateTime.of(2016, 3, 7, 10, 30), LocalDateTime.of(2016, 3, 11, 18, 30),
+                LocalDateTime.of(2016, 2, 3, 20, 10));
+        
+        ReservatieLijn[] lijnenVoorReservatie3 = {
+            new ReservatieLijn(materialen[2], 4, LocalDateTime.of(2016, 3, 7, 10, 30), LocalDateTime.of(2016, 3, 11, 18, 30))};
+
+        lijnenVoorReservatie3[0].setReservatie(r3);
+
+        r3.setReservatielijnen(Arrays.asList(lijnenVoorReservatie3));
+        
 
         // Reservatielijnen
         //==================================
@@ -197,11 +210,14 @@ public class StartUp extends Application {// test xd
 
         em.persist(r1);
         em.persist(r2);
+        em.persist(r3);
 
         em.persist(lijnenVoorReservatie1[0]);
         em.persist(lijnenVoorReservatie1[1]);
 
         em.persist(lijnenVoorReservatie2[0]);
+        
+        em.persist(lijnenVoorReservatie3[0]);
 
         em.getTransaction().commit();
 
