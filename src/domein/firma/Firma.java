@@ -87,6 +87,5 @@ public class Firma {
     public String toString() {
         return "Firma{" + "id=" + id + ", naam=" + naam + ", email=" + email + '}';
     }
-    
-    
+
 }

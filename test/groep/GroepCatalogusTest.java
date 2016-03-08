@@ -45,9 +45,9 @@ public class GroepCatalogusTest {
     }
 
     @Test
-    public void testConvertStringListToLeerGebiedenListReturnsJuisteLeergebieden() {
-        List<Groep> leergebieden = groepCat.convertStringListToLeerGebiedenList(
-                Arrays.asList(leerGebied.getGroep(), leerGebied2.getGroep())
+    public void testConvertStringListToGroepListReturnsJuisteLeergebieden() {
+        List<Groep> leergebieden = groepCat.convertStringListToGroepList(
+                Arrays.asList(leerGebied.getGroep(), leerGebied2.getGroep()), true
         );
         Assert.assertEquals(2, leergebieden.size());
         Assert.assertEquals(leerGebied, leergebieden.get(0));
@@ -55,9 +55,9 @@ public class GroepCatalogusTest {
     }
 
     @Test
-    public void testConvertStringListToDoelGroepenListReturnsJuisteDoelgroepen() {
-        List<Groep> doelGroepen = groepCat.convertStringListToDoelGroepenList(
-                Arrays.asList(doelGroep.getGroep(), doelGroep2.getGroep())
+    public void testConvertStringListToGroepListReturnsJuisteDoelgroepen() {
+        List<Groep> doelGroepen = groepCat.convertStringListToGroepList(
+                Arrays.asList(doelGroep.getGroep(), doelGroep2.getGroep()), false
         );
         Assert.assertEquals(2, doelGroepen.size());
         Assert.assertEquals(doelGroep, doelGroepen.get(0));
@@ -100,9 +100,9 @@ public class GroepCatalogusTest {
         Assert.assertEquals(leerGebied.getGroep(), lg.getGroep());
         Assert.assertEquals(leerGebied.isLeerGroep(), lg.isLeerGroep());
     }
-    
+
     @Test
-    public void testVerwijderGroepZorgtDatGroepVerwijdertIs(){
+    public void testVerwijderGroepZorgtDatGroepVerwijdertIs() {
         groepCat.verwijderGroep(doelGroep);
         Assert.assertEquals(false, groepCat.geefGroep(doelGroep.getGroep(), doelGroep.isLeerGroep()).isPresent());
     }

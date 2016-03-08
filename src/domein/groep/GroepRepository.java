@@ -1,9 +1,7 @@
 package domein.groep;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import util.JPAUtil;
@@ -33,30 +31,30 @@ public class GroepRepository {
     }
 
     public List<Groep> convertStringListToLeerGebiedenList(List<String> leerGebiedenStr) {
-        return groepCat.convertStringListToLeerGebiedenList(leerGebiedenStr);
+        return groepCat.convertStringListToGroepList(leerGebiedenStr, true);
     }
 
     public List<Groep> geefDoelgroep(List<String> doelGroepenStr) {
-        return groepCat.convertStringListToDoelGroepenList(doelGroepenStr);
+        return groepCat.convertStringListToGroepList(doelGroepenStr, false);
     }
 
     public Groep voegGroepToe(String groepNaam, boolean isLeerGebied) {
         Groep groep = groepCat.voegGroepToe(groepNaam, isLeerGebied);
-        
+
         em.getTransaction().begin();
         em.persist(groep);
         em.getTransaction().commit();
-        
+
         return groep;
     }
 
-    public Optional<Groep> geefGroep(String groepStr, boolean isLeerGebied){
+    public Optional<Groep> geefGroep(String groepStr, boolean isLeerGebied) {
         return groepCat.geefGroep(groepStr, isLeerGebied);
     }
-    
+
     public void verwijderGroep(Groep groep) {
         groepCat.verwijderGroep(groep);
-        
+
         em.getTransaction().begin();
         em.remove(groep);
         em.getTransaction().commit();
