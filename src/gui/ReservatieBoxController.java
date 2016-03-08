@@ -172,19 +172,7 @@ public class ReservatieBoxController extends GridPane {
         iv.setFitWidth(70);
         iv.setPreserveRatio(true);
         alert.setGraphic(iv);
-        if (isNotEmpty(mv.getFotoUrl())) {
-            InputStream ins = getClass().getResourceAsStream("/images/" + String.valueOf(mv.getFotoUrl()));
-            if (ins == null) {
-                System.out.println("input stream is null :((((" + "/images/" + String.valueOf(mv.getFotoUrl()));
-            }
-            if (ins != null) {
-                ImageView iv = new ImageView(new Image(ins));
-                iv.setFitHeight(70);
-                iv.setFitWidth(70);
-                iv.setPreserveRatio(true);
-                alert.setGraphic(iv);
-            }
-        }
+       
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
