@@ -10,6 +10,7 @@ import util.JPAUtil;
 import domein.DomeinController;
 import domein.firma.Firma;
 import exceptions.BulkToevoegenMisluktException;
+import java.util.Optional;
 
 public class MateriaalRepository {
 
@@ -31,12 +32,9 @@ public class MateriaalRepository {
 
     public void voegMateriaalToe(MateriaalView mv) {
         Materiaal materiaal = materiaalCat.voegMateriaalToe(mv);
-
-        //voeg materiaal toe aan db
         em.getTransaction().begin();
         em.persist(materiaal);
         em.getTransaction().commit();
-
     }
 
     public void voegMaterialenToeInBulk(String csvFile) throws BulkToevoegenMisluktException {
@@ -46,97 +44,35 @@ public class MateriaalRepository {
 
     public List<MateriaalView> geefAlleMaterialen() {
         return materiaalCat.geefAlleMaterialen();
-
     }
 
-    /**
-     * Retourneert een boolean die aangeeft of het materiaal verwijderd is of
-     * niet.
-     *
-     * @param materiaalNaam
-     * @return
-     */
-    public boolean verwijderMateriaal(String materiaalNaam) {
-        if (materiaalNaam == null || materiaalNaam.isEmpty()) {
-            throw new IllegalArgumentException("De parameter materiaalNaam mag niet leeg of null zijn.");
-        }
-
-        Materiaal materiaal = this.geefMateriaal(materiaalNaam);
-
-        if (materiaal != null) {
-            em.getTransaction().begin();
-
-            try {
-                em.remove(materiaal);
-                em.getTransaction().commit();
-
-                materiaalCat.verwijderMateriaal(materiaal);
-
-                return true;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        return false;
+    public void verwijderMateriaal(String materiaalNaam) {
+        Materiaal mat = materiaalCat.verwijderMateriaal(materiaalNaam);
+        em.getTransaction().begin();
+        em.remove(mat);
+        em.getTransaction().commit();
     }
 
-    /**
-     * Retourneert materiaal uit de database die hoort bij de meegegeven naam.
-     *
-     * @param id
-     * @return
-     */
-    public Materiaal geefMateriaal(String materiaalNaam) {
-
+    public Optional<Materiaal> geefMateriaal(String materiaalNaam) {
         return materiaalCat.geefMateriaal(materiaalNaam);
-
     }
 
-    /**
-     * Retourneert materiaal uit de database die hoort bij de meegegeven id.
-     *
-     * @param id
-     * @return
-     */
-    public Materiaal geefMateriaalMetId(long id) {
-
+    public Optional<Materiaal> geefMateriaalMetId(long id) {
         return materiaalCat.geefMateriaalMetId(id);
-
     }
 
     public MateriaalView geefMateriaalView(String materiaalNaam) {
-        Materiaal materiaal = geefMateriaal(materiaalNaam);
-        MateriaalView materiaalView = null;
-
-        if (materiaal == null) {
-            return materiaalView;
-        }
-
-        materiaalView = materiaalCat.toMateriaalView(materiaal);
-
-        return materiaalView;
+       return materiaalCat.geefMateriaalView(materiaalNaam);
     }
 
     public List<MateriaalView> geefMaterialenMetFilter(String filter) {
-
         return materiaalCat.geefMaterialenMetFilter(filter);
-
     }
 
     public void wijzigMateriaal(MateriaalView materiaalView) {
-
-        Materiaal materiaal = materiaalCat.geefMateriaalMetId(materiaalView.getId());
-
-        if (materiaal == null) {
-            return;
-        }
-
-        materiaalCat.wijsAttributenMateriaalViewToeAanMateriaal(materiaalView, materiaal);
-
+        materiaalCat.wijsAttributenMateriaalViewToeAanMateriaal(materiaalView);
         em.getTransaction().begin();
         em.getTransaction().commit();
-
     }
 
     public List<Groep> geefAlleDoelgroepen() {

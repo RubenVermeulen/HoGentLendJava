@@ -93,10 +93,18 @@ public class MateriaalCatalogus {
      *
      * @param materiaal Materiaal object
      */
-    public void verwijderMateriaal(Materiaal materiaal) {
+    public Materiaal verwijderMateriaal(String materiaalNaam) {
+        if (materiaalNaam == null || materiaalNaam.isEmpty()) {
+            throw new IllegalArgumentException("De materiaal naam is verplicht.");
+        }
 
-        materialen.remove(materiaal);
-
+        Optional<Materiaal> materiaalOpt = geefMateriaal(materiaalNaam);
+        if (!materiaalOpt.isPresent()){
+            throw new IllegalArgumentException("Er is geen materiaal met deze naam.");
+        }
+        Materiaal mat = materiaalOpt.get();
+        materialen.remove(mat);
+        return mat;
     }
 
     /**
@@ -105,17 +113,13 @@ public class MateriaalCatalogus {
      * @param materiaalNaam naam van het materiaal
      * @return Materiaal object
      */
-    public Materiaal geefMateriaal(String materiaalNaam) {
-        Materiaal materiaal = null;
-
+    public Optional<Materiaal> geefMateriaal(String materiaalNaam) {
         for (Materiaal m : materialen) {
             if (m.getNaam().equals(materiaalNaam)) {
-                materiaal = m;
-                break;
+                return Optional.of(m);
             }
         }
-
-        return materiaal;
+        return Optional.empty();
     }
 
     /**
@@ -135,17 +139,14 @@ public class MateriaalCatalogus {
      * @param id Id van de het materiaal
      * @return Materiaal object
      */
-    public Materiaal geefMateriaalMetId(long id) {
-        Materiaal materiaal = null;
-
+    public Optional<Materiaal> geefMateriaalMetId(long id) {
         for (Materiaal m : materialen) {
             if (m.getId() == id) {
-                materiaal = m;
-                break;
+                return Optional.of(m);
             }
         }
 
-        return materiaal;
+        return Optional.empty();
     }
 
     public List<MateriaalView> geefMaterialenMetFilter(String filter) {
@@ -167,8 +168,13 @@ public class MateriaalCatalogus {
      * @param mv Materiaal view object
      * @param materiaal Materiaal object
      */
-    public void wijsAttributenMateriaalViewToeAanMateriaal(MateriaalView mv, Materiaal materiaal) {
-
+    public void wijsAttributenMateriaalViewToeAanMateriaal(MateriaalView mv) {
+        Optional<Materiaal> matOpt = geefMateriaalMetId(mv.getId());
+        if (!matOpt.isPresent()) {
+            throw new IllegalArgumentException("Er bestaat geen materiaal behorend tot de materiaal view.");
+        }
+        Materiaal materiaal  = matOpt.get();
+        
         String urlFoto = mv.getFotoUrl();
         String naam = mv.getNaam();
         int aantal = mv.getAantal();
@@ -342,5 +348,14 @@ public class MateriaalCatalogus {
                 .setPrijs(mat.getPrijs())
                 .setId(Long.max(mat.getId(), 0));
         return mv;
+    }
+
+    public MateriaalView geefMateriaalView(String materiaalNaam) {
+        Optional<Materiaal> materiaalOpt = geefMateriaal(materiaalNaam);
+        if (materiaalOpt.isPresent()) {
+            return toMateriaalView(materiaalOpt.get());
+        }else{
+            return null;
+        }
     }
 }
