@@ -93,6 +93,10 @@ public class MateriaalCatalogus {
         //Exceptions werpen
         validatieMateriaalView(newFotoUrl, naam, aantal, prijs, aantalOnbeschikbaar);
 
+        if (materialen.stream().anyMatch(m -> m.getNaam().equalsIgnoreCase(naam))){
+            throw new IllegalArgumentException("naam");
+        }
+        
         Materiaal materiaal = new Materiaal(naam, aantal);
 
         Optional<Firma> firmaOpt = firmaRepo.geefFirma(firmaNaam);
@@ -179,7 +183,6 @@ public class MateriaalCatalogus {
      * Wijst alle attributen van een materiaal view toe aan een materiaal.
      *
      * @param mv Materiaal view object
-     * @param materiaal Materiaal object
      */
     public void wijsAttributenMateriaalViewToeAanMateriaal(MateriaalView mv) {
         Optional<Materiaal> matOpt = geefMateriaalMetId(mv.getId());
@@ -187,7 +190,7 @@ public class MateriaalCatalogus {
             throw new IllegalArgumentException("Er bestaat geen materiaal voor de materiaal view.");
         }
         Materiaal materiaal = matOpt.get();
-
+        
         String newFotoUrl = mv.getNewFotoUrl();
         String naam = mv.getNaam();
         int aantal = mv.getAantal();
@@ -200,6 +203,10 @@ public class MateriaalCatalogus {
         // Valideer de gegevens
         validatieMateriaalView(newFotoUrl, naam, aantal, prijs, aantalOnbeschikbaar);
 
+        if (materialen.stream().anyMatch(m -> m.getId() != mv.getId() && m.getNaam().equalsIgnoreCase(naam))){
+            throw new IllegalArgumentException("naam");
+        }
+        
         Optional<Firma> firmaOpt = firmaRepo.geefFirma(firmanaam);
         Firma firma = firmaOpt.isPresent() ? firmaOpt.get() : null;
 

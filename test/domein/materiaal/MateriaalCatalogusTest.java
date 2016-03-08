@@ -32,6 +32,7 @@ public class MateriaalCatalogusTest {
     private final int CORRECT_AANTAL = 15;
 
     private Materiaal m1 = new Materiaal("Wereldbol", 5);
+    private int m1Id;
     private Materiaal m2 = new Materiaal("Atlas", 15);
 
     private Firma f1 = new Firma("Firma", "email@firma.be");
@@ -48,7 +49,7 @@ public class MateriaalCatalogusTest {
 
     @Before
     public void before() {
-        m1.setId(5);
+        m1.setId(m1Id = 5);
 
         materialen = new ArrayList<>(Arrays.asList(m1, m2));
 
@@ -69,7 +70,7 @@ public class MateriaalCatalogusTest {
 
         assertTrue(compareMateriaalViews(mv, materiaalCatalogus.geefAlleMaterialenViews().get(2)));
     }
-
+    
     @Test
     public void voegNieuwMateriaalToeVolledigCorrect() {
         mv.setAantalOnbeschikbaar(CORRECT_AANTAL)
@@ -91,7 +92,12 @@ public class MateriaalCatalogusTest {
         assertTrue(compareMateriaalViews(mv, toegevoegdMv));
         assertEquals(mv.getPrijs(), toegevoegdMv.getPrijs(), 0.001);
     }
-
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void voegNieuwMateriaalMetNaamDieAlBestaat() {
+        materiaalCatalogus.voegMateriaalToe(new MateriaalView(m1.getNaam(), CORRECT_AANTAL));
+    }
+    
     @Test(expected = IllegalArgumentException.class)
     public void voegNieuwMateriaalToeNaamIsEmpty() {
         mv.setNaam("");
@@ -246,7 +252,7 @@ public class MateriaalCatalogusTest {
 
     @Test
     public void wijsAttributenMateriaalViewToeAanMateriaalCorrect() {
-        mv.setId(5)
+        mv.setId(m1Id)
                 .setAantalOnbeschikbaar(CORRECT_AANTAL)
                 .setArtikelNummer("56465465sqf")
                 .setDoelgroepen(Arrays.asList("Doelgroep1", "doelgroep2"))
@@ -257,14 +263,19 @@ public class MateriaalCatalogusTest {
                 .setOmschrijving("Omschrijving")
                 .setPlaats("Plaats")
                 .setPrijs(2.22)
-                .setUitleenbaarheid(true);
+                .setUitleenbaarheid(true)
+                .setNaam("Een nieuwe naam");
 
         materiaalCatalogus.wijsAttributenMateriaalViewToeAanMateriaal(mv);
 
         assertTrue(compareMateriaalViewWithMateriaal(mv, m1));
-
     }
-
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void wijsAttributenMateriaalViewToeMetBestaandeNaam(){
+        materiaalCatalogus.wijsAttributenMateriaalViewToeAanMateriaal(new MateriaalView(m2.getNaam(), 1).setId(m1Id));
+    }
+    
     private boolean compareMateriaalViews(MateriaalView mv1, MateriaalView mv2) {
 
         return (mv1.getNaam().equals(mv2.getNaam()))
