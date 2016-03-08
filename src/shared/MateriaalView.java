@@ -15,7 +15,8 @@ import java.util.List;
 public class MateriaalView {
 
     private String naam;
-    private String fotoUrl;
+    private byte[] fotoBytes;
+    private boolean fotoBytesChanged;
     private String omschrijving;
     private String artikelNummer;
     private double prijs;
@@ -29,17 +30,19 @@ public class MateriaalView {
     private List<String> leergebieden;
     private long id;
     private long firmaId;
+    private String newFotoUrl;
 
     public MateriaalView(String naam, int aantal) {
         this.naam = naam;
         this.aantal = aantal;
+        fotoBytesChanged = false;
     }
 
     //eerst maak je MateriaalView aan met naam en aantal (deze zijn verplicht)
     //via setters kan je mogelijk verdere gegevens aanvullen
     //setters geven het object MateriaalView zelf terug, zodat we aan setter-chaning kunnen doen
-    public MateriaalView setFotoUrl(String fotoUrl) {
-        this.fotoUrl = fotoUrl;
+    public MateriaalView setFotoBytes(byte[] fotoBytes) {
+        this.fotoBytes = fotoBytes;
         return this;
     }
 
@@ -113,15 +116,26 @@ public class MateriaalView {
         return this;
     }
 
+    public MateriaalView setFotoBytesChanged(boolean fotoBytesChanged) {
+        this.fotoBytesChanged = fotoBytesChanged;
+        return this;
+    }
+    
+    public MateriaalView setNewFotoUrl(String newFotoUrl) {
+        this.newFotoUrl = newFotoUrl;
+        return this;
+    }
+    
+
     //getters
     public String getNaam() {
         return naam;
     }
 
-    public String getFotoUrl() {
-        return fotoUrl;
+    public boolean isFotoBytesChanged() {
+        return fotoBytesChanged;
     }
-
+    
     public String getOmschrijving() {
         return omschrijving;
     }
@@ -136,6 +150,10 @@ public class MateriaalView {
 
     public int getAantal() {
         return aantal;
+    }
+    
+    public byte[] getFotoBytes(){
+        return fotoBytes;
     }
 
     public int getAantalOnbeschikbaar() {
@@ -174,9 +192,13 @@ public class MateriaalView {
         return firmaId;
     }
 
+    public String getNewFotoUrl() {
+        return newFotoUrl;
+    }
+    
     @Override
     public String toString() {
-        return "MateriaalView{" + "naam=" + naam + ", fotoUrl=" + fotoUrl + ", omschrijving=" + omschrijving + ", artikelNummer=" + artikelNummer + ", prijs=" + prijs + ", aantal=" + aantal + ", aantalOnbeschikbaar=" + aantalOnbeschikbaar + ", uitleenbaarheid=" + uitleenbaarheid + ", plaats=" + plaats + ", firma=" + firma + ", emailFirma=" + emailFirma + ", doelgroepen=" + doelgroepen + ", leergebieden=" + leergebieden + ", id=" + id + '}';
+        return "MateriaalView{" + "naam=" + naam + ", fotoBytes=" + fotoBytes + ", omschrijving=" + omschrijving + ", artikelNummer=" + artikelNummer + ", prijs=" + prijs + ", aantal=" + aantal + ", aantalOnbeschikbaar=" + aantalOnbeschikbaar + ", uitleenbaarheid=" + uitleenbaarheid + ", plaats=" + plaats + ", firma=" + firma + ", emailFirma=" + emailFirma + ", doelgroepen=" + doelgroepen + ", leergebieden=" + leergebieden + ", id=" + id + ", firmaId=" + firmaId + '}';
     }
 
 }

@@ -9,11 +9,14 @@ import domein.firma.FirmaRepository;
 import domein.firma.Firma;
 import exceptions.BulkToevoegenMisluktException;
 import exceptions.GeenToegangException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
 import shared.MateriaalView;
+import shared.ReservatieLijnView;
 import shared.ReservatieView;
 
 public class DomeinController {
@@ -326,6 +329,10 @@ public class DomeinController {
         List<Firma> firmas = firmaRepo.getAllFirmasSorted();
 
         return firmaListToString(firmas);
+    }
+    
+    public int heeftConflicten(ReservatieLijnView rlv, LocalDateTime reservatiemoment){
+        return reservatieRepo.heeftConflicten(rlv, reservatiemoment);
     }
 
     /* -------------------------------- */

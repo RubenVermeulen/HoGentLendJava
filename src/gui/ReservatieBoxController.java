@@ -8,6 +8,7 @@ package gui;
 import domein.DomeinController;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
@@ -27,9 +28,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import shared.MateriaalView;
 import shared.ReservatieLijnView;
 import shared.ReservatieView;
+import util.ImageUtil;
 
 /**
  * FXML Controller class
@@ -105,17 +108,10 @@ public class ReservatieBoxController extends GridPane {
 
         lblNaam.setText(mv.getNaam());
         int beschikbaar = mv.getAantal() - mv.getAantalOnbeschikbaar();
-        lblAantal.setText(String.format("%d van de %d beschikbaar", beschikbaar, mv.getAantal()));
+        lblAantal.setText(String.format("nog %d van de %d beschikbaar", beschikbaar, mv.getAantal()));
 
-        if (isNotEmpty(mv.getFotoUrl())) {
-            InputStream ins = getClass().getResourceAsStream("/images/" + String.valueOf(mv.getFotoUrl()));
-            if (ins == null) {
-                System.out.println("input stream is null :((((" + "/images/" + String.valueOf(mv.getFotoUrl()));
-            }
-            if (ins != null) {
-                imgvFoto.setImage(new Image(ins));
-            }
-        }
+        imgvFoto.setImage(ImageUtil.byteArrayToImage(mv.getFotoBytes()));
+
         if (isNotEmpty(mv.getArtikelNummer())) {
             lblCode.setText(mv.getArtikelNummer());
         }
@@ -123,6 +119,12 @@ public class ReservatieBoxController extends GridPane {
             lblLocatie.setText(mv.getPlaats());
         }
 
+        int conflict = dc.heeftConflicten(rlv, rv.getReservatiemoment());
+        if (conflict < 0) {
+            lblAantal.setText(String.format("Conflict! Slechts %d beschikbaar", rlv.getAantal()+conflict));
+            lblAantal.setTextFill(Color.web("#d70000"));
+            lblAantalGereserveerd.setTextFill(Color.web("#d70000"));
+        } 
         lblAantalGereserveerd.setText(String.valueOf(rlv.getAantal()) + " gereserveerd");
         lblOphaalmoment.setText(rlv.getOphaalmomentAlsString());
         lblIndienmoment.setText(rlv.getIndienmomentAlsString());
@@ -164,20 +166,13 @@ public class ReservatieBoxController extends GridPane {
 
         alert.setTitle("Opgelet");
         alert.setHeaderText("Opgelet");
-        
-        if (isNotEmpty(mv.getFotoUrl())) {
-            InputStream ins = getClass().getResourceAsStream("/images/" + String.valueOf(mv.getFotoUrl()));
-            if (ins == null) {
-                System.out.println("input stream is null :((((" + "/images/" + String.valueOf(mv.getFotoUrl()));
-            }
-            if (ins != null) {
-                ImageView iv = new ImageView(new Image(ins));
-                iv.setFitHeight(70);
-                iv.setFitWidth(70);
-                iv.setPreserveRatio(true);
-                alert.setGraphic(iv);
-            }
-        }
+
+        ImageView iv = new ImageView(ImageUtil.byteArrayToImage(mv.getFotoBytes()));
+        iv.setFitHeight(70);
+        iv.setFitWidth(70);
+        iv.setPreserveRatio(true);
+        alert.setGraphic(iv);
+       
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {

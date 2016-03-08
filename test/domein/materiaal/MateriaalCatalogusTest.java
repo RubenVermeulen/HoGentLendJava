@@ -9,6 +9,7 @@ import domein.firma.Firma;
 import domein.firma.FirmaRepository;
 import domein.groep.Groep;
 import domein.groep.GroepRepository;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,6 +20,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import shared.MateriaalView;
+import util.ImageUtil;
 
 public class MateriaalCatalogusTest {
 
@@ -28,72 +30,80 @@ public class MateriaalCatalogusTest {
 
     private final String CORRECT_NAAM = "NaamTest";
     private final int CORRECT_AANTAL = 15;
-    
+
     private Materiaal m1 = new Materiaal("Wereldbol", 5);
+    private int m1Id;
     private Materiaal m2 = new Materiaal("Atlas", 15);
-    
+
     private Firma f1 = new Firma("Firma", "email@firma.be");
-    
+
     private Groep g1 = new Groep("Doelgroep1", false);
     private Groep g2 = new Groep("doelgroep2", false);
     private Groep g3 = new Groep("Leergebied1", true);
     private Groep g4 = new Groep("Leergebied2", true);
-    
+
     private List<Materiaal> materialen;
-    
+
     private MateriaalView mv;
-    
+    private File tempFotoFile;
+
     @Before
     public void before() {
-        m1.setId(5);
-        
+        m1.setId(m1Id = 5);
+
         materialen = new ArrayList<>(Arrays.asList(m1, m2));
-        
+
         firmaRepository = new FirmaRepository(Arrays.asList(f1));
         groepsRepository = new GroepRepository(Arrays.asList(g1, g2, g3, g4));
 
         materiaalCatalogus = new MateriaalCatalogus(materialen, firmaRepository, groepsRepository);
-        
+
         mv = new MateriaalView(CORRECT_NAAM, CORRECT_AANTAL);
 
+        tempFotoFile = ImageUtil.getResourceAsFile("/images/default_materiaal_img.png");
     }
 
     @Test
     public void voegNieuwMateriaalToeEnkelNaamEnAantal() {
         MateriaalView mv = new MateriaalView(CORRECT_NAAM, CORRECT_AANTAL);
         materiaalCatalogus.voegMateriaalToe(mv);
-        
+
         assertTrue(compareMateriaalViews(mv, materiaalCatalogus.geefAlleMaterialenViews().get(2)));
     }
-
+    
     @Test
     public void voegNieuwMateriaalToeVolledigCorrect() {
         mv.setAantalOnbeschikbaar(CORRECT_AANTAL)
-            .setArtikelNummer("56465465sqf")
-                .setDoelgroepen(Arrays.asList("Doelgroep1","doelgroep2"))
-                .setFotoUrl("C://pad/naar/url.jpg")
+                .setArtikelNummer("56465465sqf")
+                .setDoelgroepen(Arrays.asList("Doelgroep1", "doelgroep2"))
+                .setNewFotoUrl(tempFotoFile.getPath())
                 .setFirma("Firma")
                 .setEmailFirma("email@firma.be")
-                .setLeergebieden(Arrays.asList("Leergebied1","Leergebied2"))
+                .setLeergebieden(Arrays.asList("Leergebied1", "Leergebied2"))
                 .setOmschrijving("Omschrijving")
                 .setPlaats("Plaats")
                 .setPrijs(2.22)
                 .setUitleenbaarheid(true);
-        
+
         materiaalCatalogus.voegMateriaalToe(mv);
-        
+
         MateriaalView toegevoegdMv = materiaalCatalogus.geefAlleMaterialenViews().get(2);
-        
+
         assertTrue(compareMateriaalViews(mv, toegevoegdMv));
         assertEquals(mv.getPrijs(), toegevoegdMv.getPrijs(), 0.001);
     }
-
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void voegNieuwMateriaalMetNaamDieAlBestaat() {
+        materiaalCatalogus.voegMateriaalToe(new MateriaalView(m1.getNaam(), CORRECT_AANTAL));
+    }
+    
     @Test(expected = IllegalArgumentException.class)
     public void voegNieuwMateriaalToeNaamIsEmpty() {
         mv.setNaam("");
         materiaalCatalogus.voegMateriaalToe(mv);
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void voegNieuwMateriaalToeNaamIsNull() {
         mv.setNaam(null);
@@ -117,158 +127,171 @@ public class MateriaalCatalogusTest {
         mv.setPrijs(-0.25);
         materiaalCatalogus.voegMateriaalToe(mv);
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void voegNieuwMateriaalToeFouteFotoExtensie() {
-        mv.setFotoUrl("c:/images/foto.icon");
-        
+        mv.setNewFotoUrl("c:/images/foto.icon");
+
         materiaalCatalogus.voegMateriaalToe(mv);
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void voegNieuwMateriaalToeAantalOnbeschikbaarGroterDanAantal() {
         mv.setAantal(5);
         mv.setAantalOnbeschikbaar(10);
-        
+
         materiaalCatalogus.voegMateriaalToe(mv);
     }
-    
+
     @Test
     public void voegNieuwMateriaalToeAantalOnbeschikbaarGelijkAanAantal() {
         mv.setAantal(5);
         mv.setAantalOnbeschikbaar(5);
-        
+
         materiaalCatalogus.voegMateriaalToe(mv);
-        
-        assertEquals(mv.getAantal() , materiaalCatalogus.geefAlleMaterialenViews().get(2).getAantal());
+
+        assertEquals(mv.getAantal(), materiaalCatalogus.geefAlleMaterialenViews().get(2).getAantal());
         assertEquals(mv.getAantalOnbeschikbaar(), materiaalCatalogus.geefAlleMaterialenViews().get(2).getAantalOnbeschikbaar());
     }
-    
+
     @Test
     public void voegNieuwMateriaalToeAantalOnbeschikbaarKleinerDanAantal() {
         mv.setAantal(5);
         mv.setAantalOnbeschikbaar(2);
-        
+
         materiaalCatalogus.voegMateriaalToe(mv);
-        
-        assertEquals(mv.getAantal() , materiaalCatalogus.geefAlleMaterialenViews().get(2).getAantal());
+
+        assertEquals(mv.getAantal(), materiaalCatalogus.geefAlleMaterialenViews().get(2).getAantal());
         assertEquals(mv.getAantalOnbeschikbaar(), materiaalCatalogus.geefAlleMaterialenViews().get(2).getAantalOnbeschikbaar());
     }
-    
-    @Test 
+
+    @Test
     public void geefMateriaalBestaandMateriaal() {
-        assertEquals(m1 , materiaalCatalogus.geefMateriaal(m1.getNaam()).get());
+        assertEquals(m1, materiaalCatalogus.geefMateriaal(m1.getNaam()).get());
     }
-    
-    @Test 
+
+    @Test
     public void geefMateriaalNietBestaandMateriaal() {
-        assertEquals(Optional.empty() , materiaalCatalogus.geefMateriaal("blabla"));
+        assertEquals(Optional.empty(), materiaalCatalogus.geefMateriaal("blabla"));
     }
-    
+
     @Test
     public void verwijderMateriaalBestaandMateriaal() {
-        assertEquals(m1 , materiaalCatalogus.verwijderMateriaal(m1.getNaam()));
+        assertEquals(m1, materiaalCatalogus.verwijderMateriaal(m1.getNaam()));
         assertEquals(1, materiaalCatalogus.geefAlleMaterialenViews().size());
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void verwijderMateriaalNietBestaandMateriaal() {
         materiaalCatalogus.verwijderMateriaal("blabla");
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void verwijderMateriaalNaamIsNull() {
         materiaalCatalogus.verwijderMateriaal(null);
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void verwijderMateriaalNaamIsEmpty() {
         materiaalCatalogus.verwijderMateriaal("");
     }
-    
+
     @Test
     public void geefAlleMaterialenViews() {
         assertEquals(2, materiaalCatalogus.geefAlleMaterialenViews().size());
         assertTrue(materiaalCatalogus.geefAlleMaterialenViews().get(0) instanceof MateriaalView);
     }
-    
+
     @Test
     public void geefMaterialenMetFilterIsNull() {
         assertEquals(2, materiaalCatalogus.geefMaterialenMetFilter(null).size());
         assertTrue(materiaalCatalogus.geefAlleMaterialenViews().get(0) instanceof MateriaalView);
     }
-    
+
     @Test
     public void geefMaterialenMetFilterIsEmpty() {
         assertEquals(2, materiaalCatalogus.geefMaterialenMetFilter("").size());
         assertTrue(materiaalCatalogus.geefAlleMaterialenViews().get(0) instanceof MateriaalView);
     }
-    
+
     @Test
     public void geefMaterialenMetFilterGeeftEenResultaat() {
         assertEquals(1, materiaalCatalogus.geefMaterialenMetFilter("Wereld").size());
         assertTrue(materiaalCatalogus.geefAlleMaterialenViews().get(0) instanceof MateriaalView);
     }
-    
+
     @Test
     public void geefMaterialenMetFilterGeeftGeenResultaat() {
         assertEquals(0, materiaalCatalogus.geefMaterialenMetFilter("Eskimo").size());
         assertTrue(materiaalCatalogus.geefAlleMaterialenViews().get(0) instanceof MateriaalView);
     }
-    
-    @Test 
-    public void toMateriaalViewEnkelNaamEnAantal() {           
+
+    @Test
+    public void toMateriaalViewEnkelNaamEnAantal() {
         mv = materiaalCatalogus.toMateriaalView(m1);
         assertTrue(compareMateriaalViewWithMateriaal(mv, m1));
     }
-    
+
     @Test
     public void toMateriaalViewCompleet() {
         m1.setFirma(f1)
                 .setDoelgroepen(Arrays.asList(g1, g2))
                 .setLeergebieden(Arrays.asList(g3, g4))
-                .setFoto("c:/foto.jpg")
+                .setFotoBytes(ImageUtil.imageFileToByteArray(tempFotoFile))
                 .setBeschrijving("Een beschrijving")
                 .setArtikelnummer("ABC123")
                 .setAantalOnbeschikbaar(5)
                 .setAantal(10)
                 .setUitleenbaarheid(true)
                 .setPlaats("Lokaal B4.013");
-        
-        
+
         mv = materiaalCatalogus.toMateriaalView(m1);
-        
+
         assertTrue(compareMateriaalViewWithMateriaal(mv, m1));
     }
-    
-    @Test 
+
+    @Test
     public void wijsAttributenMateriaalViewToeAanMateriaalCorrect() {
-        mv.setId(5)
+        mv.setId(m1Id)
                 .setAantalOnbeschikbaar(CORRECT_AANTAL)
                 .setArtikelNummer("56465465sqf")
-                .setDoelgroepen(Arrays.asList("Doelgroep1","doelgroep2"))
-                .setFotoUrl("C://pad/naar/url.jpg")
+                .setDoelgroepen(Arrays.asList("Doelgroep1", "doelgroep2"))
+                .setNewFotoUrl(tempFotoFile.getPath())
                 .setFirma("Firma")
                 .setEmailFirma("email@firma.be")
-                .setLeergebieden(Arrays.asList("Leergebied1","Leergebied2"))
+                .setLeergebieden(Arrays.asList("Leergebied1", "Leergebied2"))
                 .setOmschrijving("Omschrijving")
                 .setPlaats("Plaats")
                 .setPrijs(2.22)
-                .setUitleenbaarheid(true);
-        
-        materiaalCatalogus.wijsAttributenMateriaalViewToeAanMateriaal(mv);
-        
-        assertTrue(compareMateriaalViewWithMateriaal(mv, m1));
-                
-    }
+                .setUitleenbaarheid(true)
+                .setNaam("Een nieuwe naam");
 
+        materiaalCatalogus.wijsAttributenMateriaalViewToeAanMateriaal(mv);
+
+        assertTrue(compareMateriaalViewWithMateriaal(mv, m1));
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void wijsAttributenMateriaalViewToeMetBestaandeNaam(){
+        materiaalCatalogus.wijsAttributenMateriaalViewToeAanMateriaal(new MateriaalView(m2.getNaam(), 1).setId(m1Id));
+    }
+    
     private boolean compareMateriaalViews(MateriaalView mv1, MateriaalView mv2) {
-        
+
         return (mv1.getNaam().equals(mv2.getNaam()))
                 && (mv1.getAantal() == mv2.getAantal())
                 && (mv1.getFirma() == null ? mv2.getFirma() == null : mv1.getFirma().equals(mv2.getFirma()))
                 && (mv1.getEmailFirma() == null ? mv2.getEmailFirma() == null : mv1.getEmailFirma().equals(mv2.getEmailFirma()))
-                && (mv1.getFotoUrl() == null ? mv2.getFotoUrl() == null : mv1.getFotoUrl().equals(mv2.getFotoUrl()))
+                && 
+                (
+                    mv1.getNewFotoUrl() != null
+                        ?
+                        (mv2.getNewFotoUrl() != null ? mv1.getNewFotoUrl().equals(mv2.getNewFotoUrl()) 
+                            : Arrays.equals(ImageUtil.imageFileToByteArray(mv1.getNewFotoUrl()), mv2.getFotoBytes()))
+                        : 
+                        (mv2.getNewFotoUrl() != null ? Arrays.equals(ImageUtil.imageFileToByteArray(mv2.getNewFotoUrl()), mv1.getFotoBytes())
+                            : Arrays.equals(mv1.getFotoBytes(), mv2.getFotoBytes()))
+                )
                 && (mv1.getOmschrijving() == null ? mv2.getOmschrijving() == null : mv1.getOmschrijving().equals(mv2.getOmschrijving()))
                 && (mv1.getArtikelNummer() == null ? mv2.getArtikelNummer() == null : mv1.getArtikelNummer().equals(mv2.getArtikelNummer()))
                 && (mv1.getAantalOnbeschikbaar() == mv2.getAantalOnbeschikbaar())
@@ -279,22 +302,27 @@ public class MateriaalCatalogusTest {
     }
 
     private boolean compareMateriaalViewWithMateriaal(MateriaalView mv, Materiaal mat) {
-        
+
         return (mv.getNaam().equals(mat.getNaam()))
                 && (mv.getAantal() == mat.getAantal())
-                && (mv.getFirma() == null ? mat.getFirma() == null : mat.getFirma() == null ? false :  mv.getFirma().equals(mat.getFirma().getNaam()))
+                && (mv.getFirma() == null ? mat.getFirma() == null : mat.getFirma() == null ? false : mv.getFirma().equals(mat.getFirma().getNaam()))
                 && (mv.getEmailFirma() == null ? mat.getFirma() == null : mat.getFirma() == null ? false : mv.getEmailFirma().equals(mat.getFirma().getEmail()))
-                && (mv.getFotoUrl() == null ? mat.getFoto()== null : mv.getFotoUrl().equals(mat.getFoto()))
-                && (mv.getOmschrijving() == null ? mat.getBeschrijving()== null : mv.getOmschrijving().equals(mat.getBeschrijving()))
-                && (mv.getArtikelNummer() == null ? mat.getArtikelnummer()== null : mv.getArtikelNummer().equals(mat.getArtikelnummer()))
+                && (
+                    mv.getNewFotoUrl() == null
+                    ?
+                    mat.getFotoBytes() == null ? mv.getFotoBytes() == null : Arrays.equals(mv.getFotoBytes(), mat.getFotoBytes())
+                    :
+                    mat.getFotoBytes() == null ? false : Arrays.equals(ImageUtil.imageFileToByteArray(mv.getNewFotoUrl()), mat.getFotoBytes())
+                )
+                && (mv.getOmschrijving() == null ? mat.getBeschrijving() == null : mv.getOmschrijving().equals(mat.getBeschrijving()))
+                && (mv.getArtikelNummer() == null ? mat.getArtikelnummer() == null : mv.getArtikelNummer().equals(mat.getArtikelnummer()))
                 && (mv.getAantalOnbeschikbaar() == mat.getAantalOnbeschikbaar())
                 && (mv.isUitleenbaarheid() == mat.isUitleenbaarheid())
                 && (mv.getPlaats() == null ? mat.getPlaats() == null : mv.getPlaats().equals(mat.getPlaats()))
                 && (mv.getDoelgroepen() == null ? mv.getDoelgroepen() == null : mv.getDoelgroepen().equals(geefGroepen(mat.getDoelgroepen())))
-                && (mv.getLeergebieden() == null ? mv.getLeergebieden() == null : mv.getLeergebieden().equals(geefGroepen(mat.getLeergebieden())))
-                ;
+                && (mv.getLeergebieden() == null ? mv.getLeergebieden() == null : mv.getLeergebieden().equals(geefGroepen(mat.getLeergebieden())));
     }
-    
+
     private List<String> geefGroepen(List<Groep> groepen) {
         return groepen.stream().map(Groep::getGroep).collect(Collectors.toList());
     }

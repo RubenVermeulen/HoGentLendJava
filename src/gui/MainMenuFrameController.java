@@ -28,6 +28,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import shared.MateriaalView;
@@ -75,8 +76,6 @@ public class MainMenuFrameController extends BorderPane {
     @FXML
     private Label lblLenerNaam;
     @FXML
-    private Label lblLenerEmail;
-    @FXML
     private Label lblOphaalmoment;
     @FXML
     private Label lblIndienmoment;
@@ -114,6 +113,12 @@ public class MainMenuFrameController extends BorderPane {
     private Button btnBevestigWijzigingDetails;
     @FXML
     private Button btnAnnuleerWijzigingDetails;
+    @FXML
+    private Label lblStatus;
+    @FXML
+    private Label lblReservatiemoment;
+    @FXML
+    private Button btnReservatieOpgehaald;
 
     public MainMenuFrameController(DomeinController domCon) {
         this.domCon = domCon;
@@ -212,9 +217,30 @@ public class MainMenuFrameController extends BorderPane {
         boxReservatieLijn.getChildren().clear();
         rlv.stream().forEach(rl -> boxReservatieLijn.getChildren().add(new ReservatieBoxController(rl, rv, domCon)));
         lblLenerNaam.setText(rv.getLener());
-        lblLenerEmail.setText(rv.getEmailLener());
         lblOphaalmoment.setText(rv.getOphaalmomentAlsString());
         lblIndienmoment.setText(rv.getIndienmomentAlsString());
+        lblReservatiemoment.setText(rv.getReservatiemomentAlsString());
+        lblStatus.setTextFill(Color.web("#000000"));
+
+        boolean status = rv.isOpgehaald();
+        if (status == true) {
+            lblStatus.setText("Opgehaald.");
+        } else {
+            boolean check = false;
+            for (ReservatieLijnView rsvlv : rlv) {
+                if (domCon.heeftConflicten(rsvlv, rv.getReservatiemoment()) < 0) {
+                    check = true;
+                    break;
+                }
+            }
+            if(check){
+                lblStatus.setText("Conflict! Niet alle materialen kunnen worden opgehaald!");
+                lblStatus.setTextFill(Color.web("#d70000"));
+            }
+            else{
+                lblStatus.setText("Nog niet opgehaald");
+            }
+        }
 
     }
 
@@ -322,7 +348,7 @@ public class MainMenuFrameController extends BorderPane {
     private void onActionBtnVerwijderReservatie(ActionEvent event) {
         Alert alert = new Alert(
                 Alert.AlertType.CONFIRMATION,
-                String.format("Ben je zeker dat je de reservatie van %s wilt verwijderen?", 
+                String.format("Ben je zeker dat je de reservatie van %s wilt verwijderen?",
                         geselecteerdeReservatie.getLener()),
                 ButtonType.CANCEL,
                 ButtonType.OK);
@@ -385,5 +411,10 @@ public class MainMenuFrameController extends BorderPane {
     private void onActionBtnAnnuleerWijzigingDetails(ActionEvent event) {
         setVisibilityWijzigDetailsMateriaal(false);
     }
+
+    @FXML
+    private void onActionBtnReservatieOpgehaald(ActionEvent event) {
+    }
+
 
 }

@@ -202,7 +202,7 @@ public class ReservatieRepository {
         List<ReservatieLijnView> gereserveerdeMaterialen = new ArrayList<>();
 
         for (ReservatieLijn gm : r.getReservatielijnen()) {
-            
+
             MateriaalView mv = matRepo.toMateriaalView(gm.getMateriaal());
             ReservatieLijnView gmv
                     = new ReservatieLijnView(gm.getId(), gm.getOphaalmoment(), gm.getIndienmoment(), mv, gm.getAantal());
@@ -210,9 +210,46 @@ public class ReservatieRepository {
         }
 
         ReservatieView rv = new ReservatieView(r.getId(), r.getLener().getVoornaam() + " " + r.getLener().getAchternaam(),
-                r.getLener().getEmail(),r.getOphaalmoment(), r.getIndienmoment(), r.getReservatiemoment(), gereserveerdeMaterialen);
+                r.getLener().getEmail(), r.getOphaalmoment(), r.getIndienmoment(), r.getReservatiemoment(), gereserveerdeMaterialen);
 
         return rv;
+    }
+
+    public int heeftConflicten(ReservatieLijnView rlv, LocalDateTime reservatiemoment) {
+
+        System.out.println("Start geef conflicten");
+        
+        int aantalOver = rlv.getMateriaal().getAantal() - rlv.getMateriaal().getAantalOnbeschikbaar();
+
+        System.out.println("Aantal over = " + aantalOver);
+        
+        if (aantalOver > 0) {
+            return 0;
+        }
+
+        LocalDateTime indienmoment = rlv.getIndienmoment();
+        LocalDateTime ophaalmoment = rlv.getOphaalmoment();
+        long materiaalId = rlv.getMateriaal().getId();
+
+
+        for (Reservatie r : reservaties) {
+            Optional<ReservatieLijn> lijstItem
+                    = r.getReservatielijnen().stream().filter(
+                            rl -> ((rl.getMateriaal().getId() == materiaalId)
+                            && (((rl.getOphaalmoment().isBefore(ophaalmoment) || rl.getOphaalmoment().isEqual(ophaalmoment))
+                            && rl.getIndienmoment().isAfter(ophaalmoment))
+                            || (rl.getOphaalmoment().isAfter(ophaalmoment) && rl.getOphaalmoment().isBefore(indienmoment))))
+                            && rl.getReservatie().getReservatiemoment().isAfter(reservatiemoment)
+                    ).findFirst();
+            if(lijstItem.isPresent()){
+                aantalOver += lijstItem.get().getAantal();
+                System.out.println("Aantal over (nadat een gevonden is) " + aantalOver);
+                if(aantalOver >= 0)
+                    return 0;
+            }
+        }
+
+        return aantalOver;
     }
 
 }

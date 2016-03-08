@@ -33,6 +33,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import shared.MateriaalView;
+import util.ImageUtil;
 
 public class MateriaalBoxController extends VBox {
 
@@ -100,15 +101,9 @@ public class MateriaalBoxController extends VBox {
         if (isNotEmpty(mv.getOmschrijving())) {
             txtaBeschrijving.setText(mv.getOmschrijving());
         }
-        if (isNotEmpty(mv.getFotoUrl())) {
-            InputStream ins = getClass().getResourceAsStream("/images/" + String.valueOf(mv.getFotoUrl()));
-            if (ins == null) {
-                System.out.println("input stream is null :((((" + "/images/" + String.valueOf(mv.getFotoUrl()));
-            }
-            if (ins != null) {
-                imgvFoto.setImage(new Image(ins));
-            }
-        }
+
+        imgvFoto.setImage(ImageUtil.byteArrayToImage(mv.getFotoBytes()));
+
         if (isNotEmpty(mv.getArtikelNummer())) {
             lblCode.setText(mv.getArtikelNummer());
         }
@@ -166,17 +161,12 @@ public class MateriaalBoxController extends VBox {
 
         alert.setTitle("Opgelet");
         alert.setHeaderText("Opgelet");
-        
-        if (isNotEmpty(mv.getFotoUrl())) {
-            InputStream ins = getClass().getResourceAsStream("/images/" + String.valueOf(mv.getFotoUrl()));
-            if (ins != null) {
-                ImageView iv = new ImageView(new Image(ins));
-                iv.setFitHeight(70);
-                iv.setFitWidth(70);
-                iv.setPreserveRatio(true);
-                alert.setGraphic(iv);
-            }
-        }
+
+        ImageView iv = new ImageView(ImageUtil.byteArrayToImage(mv.getFotoBytes()));
+        iv.setFitHeight(70);
+        iv.setFitWidth(70);
+        iv.setPreserveRatio(true);
+        alert.setGraphic(iv);
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
