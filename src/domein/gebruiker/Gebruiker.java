@@ -30,7 +30,7 @@ public class Gebruiker {
     public Gebruiker(String voornaam, String achternaam, String email, String paswoord, boolean hoofdbeheerder, boolean beheerder, boolean lector) {
         this.voornaam = voornaam;
         this.achternaam = achternaam;
-        this.email = email;
+        setEmail(email);
         this.paswoord = paswoord;
         this.hoofdbeheerder = hoofdbeheerder;
         this.beheerder = beheerder;
@@ -62,6 +62,9 @@ public class Gebruiker {
     }
 
     protected void setEmail(String email) {
+        if (email != null) {
+            email = email.toLowerCase();
+        }
         this.email = email;
     }
 
@@ -91,6 +94,11 @@ public class Gebruiker {
 
     public void setLector(boolean lector) {
         this.lector = lector;
+    }
+
+    @Override
+    public String toString() {
+        return "Gebruiker{" + "id=" + id + ", voornaam=" + voornaam + ", achternaam=" + achternaam + ", email=" + email + ", paswoord=" + paswoord + ", hoofdbeheerder=" + hoofdbeheerder + ", beheerder=" + beheerder + ", lector=" + lector + '}';
     }
 
 }

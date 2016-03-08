@@ -2,6 +2,7 @@ package domein;
 
 import domein.gebruiker.Gebruiker;
 import domein.gebruiker.GebruikerRepository;
+import domein.gebruiker.GebruikerRepository;
 import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,9 +34,9 @@ public class DomeinControllerTest {
     public void before() {
         // GebruikerRepository dummy training
         dummyGebruikerRepo = mock(GebruikerRepository.class, "dummyGebruikerRepo");
-        when(dummyGebruikerRepo.getGebruiker(anyString(), anyString()))
+        when(dummyGebruikerRepo.getBeheerder(anyString(), anyString()))
                 .thenReturn(Optional.empty());
-        when(dummyGebruikerRepo.getGebruiker(CORRECT_EMAIL, CORRECT_PASSWORD))
+        when(dummyGebruikerRepo.getBeheerder(CORRECT_EMAIL, CORRECT_PASSWORD))
                 .thenReturn(Optional.of(new Gebruiker(CORRECT_VOORNAAM, CORRECT_ACHTERNAAM, CORRECT_EMAIL, CORRECT_PASSWORD_HASH, HOOFDBEEHERDER, BEHEERDER, LECTOR)));
 
         domCon = new DomeinController(dummyGebruikerRepo);

@@ -1,7 +1,6 @@
 package domein;
 
 import domein.gebruiker.GebruikerRepository;
-import domein.gebruiker.GebruikerRepositoryImpl;
 import domein.gebruiker.Gebruiker;
 import domein.reservatie.ReservatieRepository;
 import domein.materiaal.MateriaalRepository;
@@ -25,7 +24,7 @@ public class DomeinController {
     private Gebruiker aangemelde;
 
     public DomeinController() {
-        this(new GebruikerRepositoryImpl());
+        this(new GebruikerRepository());
     }
 
     public DomeinController(GebruikerRepository gebruikerRepo) {
@@ -44,7 +43,7 @@ public class DomeinController {
      * en/of wachtwoord verkeerd waren.
      */
     public boolean meldAan(String email, String wachtwoord) {
-        Optional<Gebruiker> optGeb = gebruikerRepo.getGebruiker(email, wachtwoord);
+        Optional<Gebruiker> optGeb = gebruikerRepo.getBeheerder(email, wachtwoord);
 
         // Is optGeb aanwezig en een hoofdbeheerder of beheerder
         if (optGeb.isPresent() && (optGeb.get().isHoofdbeheerder() || optGeb.get().isBeheerder())) {
@@ -137,8 +136,11 @@ public class DomeinController {
     }
 
     public void stelAanAlsBeheerder(String email) {
-        Gebruiker gebruiker = gebruikerRepo.geefGebruikerViaEmail(email);
-
+        Optional<Gebruiker> gebruikerOpt = gebruikerRepo.geefGebruikerViaEmail(email);
+        if (gebruikerOpt.isPresent()){
+            throw new IllegalArgumentException("Geen gebruiker met het geven email adres gevonden.");
+        }
+        Gebruiker gebruiker = gebruikerOpt.get();
         checkKanAangemeldeBeheerderStatusWijzigenVan(gebruiker);
         gebruikerRepo.stelAanAlsBeheerder(gebruiker);
     }
@@ -161,7 +163,7 @@ public class DomeinController {
     }
 
     public ObservableList<Gebruiker> geefAlleBeheerders() {
-        return gebruikerRepo.geefAlleBeheerders();
+        return gebruikerRepo.geefObservableListBeheerdersZonderHoofdBeheerders();
     }
 
     public Gebruiker getAangemelde() {

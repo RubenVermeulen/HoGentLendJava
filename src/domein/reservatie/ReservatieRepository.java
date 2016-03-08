@@ -165,7 +165,11 @@ public class ReservatieRepository {
         String reservatieLijnenAlsString = rv.getReservatieLijnenAlsString();
         List<ReservatieLijnView> reservatieLijnViews = rv.getReservatieLijnen();
 
-        Gebruiker deLener = gebrRepo.geefGebruikerViaEmail(emailLener);
+        Optional<Gebruiker> deLenerOpt = gebrRepo.geefGebruikerViaEmail(emailLener);
+        if (!deLenerOpt.isPresent()){
+            throw new IllegalArgumentException("Geen gebruiker gevonden met het geven email adres.");
+        }
+        Gebruiker deLener = deLenerOpt.get();
         List<ReservatieLijn> reservatieLijnen = new ArrayList<>();
 
         for (ReservatieLijnView rlView : reservatieLijnViews) {
