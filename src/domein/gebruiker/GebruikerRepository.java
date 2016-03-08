@@ -21,24 +21,15 @@ public class GebruikerRepository {
         loadBeheerderCatalogus();
     }
 
-    public Optional<Gebruiker> getBeheerder(String email, String userPass) {
-        return beheerderCat.getBeheerder(email, userPass);
-    }
-
     private void loadBeheerderCatalogus() {
         Query q = em.createQuery("SELECT g FROM Gebruiker g WHERE g.beheerder = true OR g.hoofdbeheerder = true");
         List<Gebruiker> beheerders = (List<Gebruiker>) q.getResultList();
         System.out.println(beheerders);
         this.beheerderCat = new BeheerderCatalogus(beheerders);
     }
-
-    public void stelAanAlsBeheerder(Gebruiker gebruiker) {
-        em.getTransaction().begin();
-        if (!gebruiker.isLector()) {
-            throw new IllegalArgumentException("De gebruiker moet een lector zijn.");
-        }
-        gebruiker.setBeheerder(true);
-        em.getTransaction().commit();
+    
+    public Optional<Gebruiker> getBeheerder(String email, String userPass) {
+        return beheerderCat.getBeheerder(email, userPass);
     }
 
     public void verwijderBeheerder(Gebruiker gebruiker) {
@@ -52,6 +43,15 @@ public class GebruikerRepository {
         return beheerderCat.geefObservableListBeheerdersZonderHoofdBeheerders();
     }
 
+    public void stelAanAlsBeheerder(Gebruiker gebruiker) {
+        em.getTransaction().begin();
+        if (!gebruiker.isLector()) {
+            throw new IllegalArgumentException("De gebruiker moet een lector zijn.");
+        }
+        gebruiker.setBeheerder(true);
+        em.getTransaction().commit();
+    }
+    
     public Optional<Gebruiker> geefGebruikerViaEmail(String email) {
         if (email == null || email.trim().isEmpty()) {
             throw new IllegalArgumentException("Een e-mailadres is vereist.");

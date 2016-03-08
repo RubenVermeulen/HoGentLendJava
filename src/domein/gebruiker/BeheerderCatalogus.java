@@ -16,6 +16,13 @@ public class BeheerderCatalogus {
         this.beheerders = beheerders;
     }
 
+    /**
+     * Geeft de optionele beheerder met het email en paswoord.
+     * 
+     * @param email de email
+     * @param userPass het paswoord
+     * @return Leeg indien geen beheerder gevonden.
+     */
     public Optional<Gebruiker> getBeheerder(String email, String userPass) {
         if (email == null || userPass == null) {
             return Optional.empty(); // zal geen gebruikers hebben zonder email of wachtwoord
@@ -26,11 +33,21 @@ public class BeheerderCatalogus {
         return gebruiker;
     }
 
+    /**
+     * Maakt de gegeven gebruiker geen beheerder meer.
+     * 
+     * @param gebruiker de gebruiker
+     */
     public void verwijderBeheerder(Gebruiker gebruiker) {
         gebruiker.setBeheerder(false);
         beheerders.remove(gebruiker);
     }
 
+    /**
+     * Geeft een lijst met alleen de beheeders. Zonder de hoofdbeheerder.
+     * 
+     * @return de lijst
+     */
     public ObservableList<Gebruiker> geefObservableListBeheerdersZonderHoofdBeheerders() {
         return FXCollections.unmodifiableObservableList(
                 FXCollections.observableArrayList(beheerders.stream().filter(g -> g.isBeheerder()).collect(Collectors.toList()))
