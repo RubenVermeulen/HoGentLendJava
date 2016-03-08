@@ -212,6 +212,7 @@ public class MainMenuFrameController extends BorderPane {
         boxReservatieLijn.getChildren().clear();
         rlv.stream().forEach(rl -> boxReservatieLijn.getChildren().add(new ReservatieBoxController(rl, rv, domCon)));
         lblLenerNaam.setText(rv.getLener());
+        lblLenerEmail.setText(rv.getEmailLener());
         lblOphaalmoment.setText(rv.getOphaalmomentAlsString());
         lblIndienmoment.setText(rv.getIndienmomentAlsString());
 
@@ -317,7 +318,8 @@ public class MainMenuFrameController extends BorderPane {
     private void onActionBtnVerwijderReservatie(ActionEvent event) {
         Alert alert = new Alert(
                 Alert.AlertType.CONFIRMATION,
-                String.format("Ben je zeker dat je deze reservatie wilt verwijderen?"),
+                String.format("Ben je zeker dat je de reservatie van %s wilt verwijderen?", 
+                        geselecteerdeReservatie.getLener()),
                 ButtonType.CANCEL,
                 ButtonType.OK);
 

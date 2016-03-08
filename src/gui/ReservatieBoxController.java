@@ -95,6 +95,7 @@ public class ReservatieBoxController extends GridPane {
 
         btnBevestigWijziging.setVisible(false);
         btnAnnuleerWijziging.setVisible(false);
+        this.rv = rv;
         setupReservaties(rlv);
     }
 
@@ -155,13 +156,28 @@ public class ReservatieBoxController extends GridPane {
     private void onBtnVerwijder(ActionEvent event) {
 
         Alert alert = new Alert(
-                Alert.AlertType.WARNING,
-                String.format("Ben je zeker dat je dit materiaal uit de reservatie wilt verwijderen?"),
+                Alert.AlertType.CONFIRMATION,
+                String.format("Ben je zeker dat je het materiaal %s uit de reservatie van %s wilt verwijderen?",
+                        mv.getNaam(), rv.getLener()),
                 ButtonType.CANCEL,
                 ButtonType.OK);
 
         alert.setTitle("Opgelet");
         alert.setHeaderText("Opgelet");
+        
+        if (isNotEmpty(mv.getFotoUrl())) {
+            InputStream ins = getClass().getResourceAsStream("/images/" + String.valueOf(mv.getFotoUrl()));
+            if (ins == null) {
+                System.out.println("input stream is null :((((" + "/images/" + String.valueOf(mv.getFotoUrl()));
+            }
+            if (ins != null) {
+                ImageView iv = new ImageView(new Image(ins));
+                iv.setFitHeight(70);
+                iv.setFitWidth(70);
+                iv.setPreserveRatio(true);
+                alert.setGraphic(iv);
+            }
+        }
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -182,20 +198,6 @@ public class ReservatieBoxController extends GridPane {
 
     @FXML
     private void onBtnAnnuleerWijziging(ActionEvent event) {
-//         Alert alert = new Alert(
-//                Alert.AlertType.WARNING,
-//                String.format("Ben je zeker dat je het wijzigen van de reservatie wilt annuleren?"),
-//                ButtonType.CANCEL,
-//                ButtonType.OK);
-//
-//        alert.setTitle("Opgelet");
-//        alert.setHeaderText("Opgelet");
-//
-//        Optional<ButtonType> result = alert.showAndWait();
-//        if (result.isPresent() && result.get() == ButtonType.OK) {
-//            //dc.wijzigReservatie(rv);
-//            setVisibleBewerken(false);
-//        }
         setVisibleBewerken(false);
     }
 
