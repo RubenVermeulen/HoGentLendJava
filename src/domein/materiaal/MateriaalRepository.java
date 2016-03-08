@@ -220,7 +220,7 @@ public class MateriaalRepository {
             return materiaalView;
         }
 
-        materiaalView = materiaal.toMateriaalView();
+        materiaalView = materiaalCatalogus.toMateriaalView(materiaal);
 
         return materiaalView;
     }
@@ -265,5 +265,9 @@ public class MateriaalRepository {
 
     public void wijzigFirmas(Firma firma, String nieuweNaam, String nieuwEmailadres) {
         materiaalCatalogus.wijzigFirmas(firma, nieuweNaam, nieuwEmailadres);
+    }
+
+    public MateriaalView toMateriaalView(Materiaal materiaal) {
+        return materiaalCatalogus.toMateriaalView(materiaal);
     }
 }

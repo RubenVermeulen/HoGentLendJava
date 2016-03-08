@@ -56,16 +56,10 @@ public class ReservatieRepository {
         List<ReservatieView> reservatieViews = new ArrayList();
 
         for (Reservatie r : reservaties) {
-            reservatieViews.add(convertReservatieToReservatieView(r));
+            reservatieViews.add(toReservatieView(r));
         }
 
         return reservatieViews;
-
-    }
-
-    private ReservatieView convertReservatieToReservatieView(Reservatie r) {
-
-        return r.toReservatieView();
 
     }
 
@@ -166,7 +160,7 @@ public class ReservatieRepository {
         List<ReservatieLijnView> reservatieLijnViews = rv.getReservatieLijnen();
 
         Optional<Gebruiker> deLenerOpt = gebrRepo.geefGebruikerViaEmail(emailLener);
-        if (!deLenerOpt.isPresent()){
+        if (!deLenerOpt.isPresent()) {
             throw new IllegalArgumentException("Geen gebruiker gevonden met het geven email adres.");
         }
         Gebruiker deLener = deLenerOpt.get();
@@ -198,6 +192,23 @@ public class ReservatieRepository {
         em.persist(reservatie);
         em.getTransaction().commit();
 
+    }
+
+    public ReservatieView toReservatieView(Reservatie r) {
+        List<ReservatieLijnView> gereserveerdeMaterialen = new ArrayList<>();
+
+        for (ReservatieLijn gm : r.getReservatielijnen()) {
+            // TODO change dit
+            MateriaalView mv = matRepo.toMateriaalView(gm.getMateriaal());
+            ReservatieLijnView gmv
+                    = new ReservatieLijnView(gm.getId(), gm.getOphaalmoment(), gm.getIndienmoment(), mv, gm.getAantal());
+            gereserveerdeMaterialen.add(gmv);
+        }
+
+        ReservatieView rv = new ReservatieView(r.getId(), r.getLener().getVoornaam() + " " + r.getLener().getAchternaam(),
+                r.getOphaalmoment(), r.getIndienmoment(), gereserveerdeMaterialen);
+
+        return rv;
     }
 
 }

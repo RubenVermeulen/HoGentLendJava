@@ -100,22 +100,6 @@ public class Reservatie {
         this.reservatielijen = reservatielijen;
     }
 
-    public ReservatieView toReservatieView() {
-        List<ReservatieLijnView> gereserveerdeMaterialen = new ArrayList<>();
-
-        for (ReservatieLijn gm : reservatielijen) {
-            MateriaalView mv = gm.getMateriaal().toMateriaalView();
-            ReservatieLijnView gmv
-                    = new ReservatieLijnView(gm.getId(), gm.getOphaalmoment(), gm.getIndienmoment(), mv, gm.getAantal());
-            gereserveerdeMaterialen.add(gmv);
-        }
-
-        ReservatieView rv = new ReservatieView(id, lener.getVoornaam() + " " + lener.getAchternaam(),
-                ophaalmoment, indienmoment, gereserveerdeMaterialen);
-
-        return rv;
-    }
-
     @Override
     public String toString() {
         return "Reservatie{" + "id=" + id + ", lener=" + lener + ", ophaalmoment=" + ophaalmoment + ", indienmoment=" + indienmoment + ", reservatielijen=" + reservatielijen + '}';

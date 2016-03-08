@@ -95,7 +95,7 @@ public class MateriaalCatalogus {
         List<MateriaalView> materiaalViews = new ArrayList();
 
         for (Materiaal m : materialen) {
-            materiaalViews.add(m.toMateriaalView());
+            materiaalViews.add(toMateriaalView(m));
         }
 
         return materiaalViews;
@@ -168,7 +168,7 @@ public class MateriaalCatalogus {
         List<MateriaalView> matViews = new ArrayList();
         for (Materiaal mat : materialen) {
             if (mat.containsFilter(filter)) {
-                matViews.add(mat.toMateriaalView());
+                matViews.add(toMateriaalView(mat));
             }
         }
         return matViews;
@@ -337,5 +337,23 @@ public class MateriaalCatalogus {
      */
     public void wijzigFirmas(Firma firma, String nieuweNaam, String nieuwEmailadres) {
         firmaRepo.wijzigFirmas(firma, nieuweNaam, nieuwEmailadres, materialen);
+    }
+    
+    public MateriaalView toMateriaalView(Materiaal mat) {
+        MateriaalView mv = new MateriaalView(mat.getNaam(), mat.getAantal());
+        mv.setFotoUrl(mat.getFoto())
+                .setOmschrijving(mat.getBeschrijving())
+                .setArtikelNummer(mat.getArtikelnummer())
+                .setAantalOnbeschikbaar(mat.getAantalOnbeschikbaar())
+                .setUitleenbaarheid(mat.isUitleenbaarheid())
+                .setPlaats(mat.getPlaats())
+                .setFirmaId(mat.getFirma() == null ? -1 : mat.getFirma().getId())
+                .setFirma(mat.getFirma() == null ? null : mat.getFirma().getNaam())
+                .setEmailFirma(mat.getFirma() == null ? null : mat.getFirma().getEmail())
+                .setDoelgroepen(groepListToString(mat.getDoelgroepen()))
+                .setLeergebieden(groepListToString(mat.getLeergebieden()))
+                .setPrijs(mat.getPrijs())
+                .setId(Long.max(mat.getId(), 0));
+        return mv;
     }
 }

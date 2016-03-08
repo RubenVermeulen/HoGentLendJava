@@ -63,6 +63,9 @@ public class Materiaal {
     }
 
     public boolean containsFilter(String filter) {
+        if (filter == null || filter.isEmpty()){
+            return true;
+        }
         boolean hasGroepFilter = false;
         if (doelgroepen != null) {
             for (Groep g : doelgroepen) {
@@ -73,8 +76,8 @@ public class Materiaal {
             }
         }
         if (!hasGroepFilter) {
-            if (doelgroepen != null) {
-                for (Groep g : doelgroepen) {
+            if (leergebieden != null) {
+                for (Groep g : leergebieden) {
                     hasGroepFilter = g.containsFilter(filter);
                     if (hasGroepFilter) {
                         break;
@@ -96,35 +99,6 @@ public class Materiaal {
     @Override
     public String toString() {
         return "Materiaal{" + "id=" + id + ", firma=" + firma + ", foto=" + foto + ", naam=" + naam + ", beschrijving=" + beschrijving + ", artikelnummer=" + artikelnummer + ", prijs=" + prijs + ", aantal=" + aantal + ", aantalOnbeschikbaar=" + aantalOnbeschikbaar + ", uitleenbaarheid=" + uitleenbaarheid + ", plaats=" + plaats + ", doelgroepen=" + doelgroepen + ", leergebieden=" + leergebieden + '}';
-    }
-
-    public MateriaalView toMateriaalView() {
-        MateriaalView mv = new MateriaalView(naam, aantal);
-        mv.setFotoUrl(foto)
-                .setOmschrijving(beschrijving)
-                .setArtikelNummer(artikelnummer)
-                .setAantalOnbeschikbaar(aantalOnbeschikbaar)
-                .setUitleenbaarheid(uitleenbaarheid)
-                .setPlaats(plaats)
-                .setFirmaId(firma == null ? -1 : firma.getId())
-                .setFirma(firma == null ? null : firma.getNaam())
-                .setEmailFirma(firma == null ? null : firma.getEmail())
-                .setDoelgroepen(groepListToString(doelgroepen))
-                .setLeergebieden(groepListToString(leergebieden))
-                .setPrijs(prijs)
-                .setId(Long.max(id, 0));
-        return mv;
-    }
-
-    private List<String> groepListToString(List<Groep> groepen) {
-        List<String> lijst = new ArrayList<>();
-
-        for (Groep g : groepen) {
-            lijst.add(g.getGroep());
-        }
-        return lijst;
-        //is niet compatibel met JPA 2.1
-        //return groepen.stream().map(g -> g.getGroep()).collect(Collectors.toList());
     }
 
     /* BEGIN SETTERS */
