@@ -16,10 +16,10 @@ public class DomeinControllerTest {
 
     private final String CORRECT_VOORNAAM = "Test";
     private final String CORRECT_ACHTERNAAM = "Email";
-    private final String CORRECT_EMAIL = "TestEmail@test.com";
+    private final String CORRECT_EMAIL = "testemail@test.com";
     private final String CORRECT_PASSWORD = "rubsup";
     private final String CORRECT_PASSWORD_HASH = "phQwxXirQXoxORs1hBuWctW6AuGTX5MiaYuMgs1N/BJOAWkFU6I0GGqZv7jYL1xY";
-    private final String FOUT_EMAIL = "emailTest@test.com";
+    private final String FOUT_EMAIL = "emailtest@test.com";
     private final String FOUT_PASSWORD = "blahblah";
     private final boolean HOOFDBEEHERDER = true;
     private final boolean BEHEERDER = true;
