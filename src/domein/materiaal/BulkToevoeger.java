@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.lang3.math.NumberUtils;
 import shared.MateriaalView;
 
@@ -91,7 +89,7 @@ public class BulkToevoeger {
             }
 
             matView.setFirma(firma);
-            matView.setFotoUrl(fotoUrl);
+            matView.setNewFotoUrl(fotoUrl);
             matView.setLeergebieden(leerGroepkes);
             matView.setOmschrijving(omschrijving);
             matView.setPlaats(plaats);

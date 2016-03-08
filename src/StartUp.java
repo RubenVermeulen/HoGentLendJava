@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import org.jasypt.util.password.StrongPasswordEncryptor;
+import util.ImageUtil;
 import util.JPAUtil;
 
 public class StartUp extends Application {// test xd
@@ -100,7 +101,7 @@ public class StartUp extends Application {// test xd
             .setBeschrijving("Deze mooie wereldbol met verlichting heeft 25 cm doorsnee en werkt op stroom.")
             .setDoelgroepen(doelgroepen2)
             .setFirma(f1)
-            .setFoto("temp_wereldbol.jpg")
+            .setFotoBytes(ImageUtil.imageFileToByteArray(ImageUtil.getResourceAsFile("/images/temp_wereldbol.jpg")))
             .setLeergebieden(leergroepen)
             .setPlaats("Lokaal B4.035")
             .setPrijs(19.99)
@@ -111,7 +112,7 @@ public class StartUp extends Application {// test xd
             .setBeschrijving("Zou u wel eens een tijdreis willen maken tussen de provincie Noord-Holland van nu en het Noord-Holland van 1959? Hoe zag uw provincie er toen uit, hoe zag uw dorp of stad er uit? En wat is er allemaal veranderd in die 50 jaar? Met de Topografische DubbelAtlas van Utrecht ziet u het - letterlijk - in één oogopslag.")
             .setDoelgroepen(doelgroepen)
             .setFirma(f1)
-            .setFoto("temp_atlas.jpg")
+            .setFotoBytes(ImageUtil.imageFileToByteArray(ImageUtil.getResourceAsFile("/images/temp_atlas.jpg")))
             .setLeergebieden(leergroepen)
             .setPlaats("Lokaal B4.035")
             .setPrijs(49.99)
@@ -122,7 +123,7 @@ public class StartUp extends Application {// test xd
             .setBeschrijving("De wetenschappelijke rekenmachine FX-92 van Casio is de perfecte metgezel voor op school.")
             .setDoelgroepen(doelgroepen)
             .setFirma(f1)
-            .setFoto("temp_rekenmachine.jpg")
+            .setFotoBytes(ImageUtil.imageFileToByteArray(ImageUtil.getResourceAsFile("/images/temp_rekenmachine.jpg")))
             .setLeergebieden(leergroepen)
             .setPlaats("Lokaal B4.035")
             .setPrijs(27.95)
@@ -133,7 +134,7 @@ public class StartUp extends Application {// test xd
             .setBeschrijving("Deze mooie wereldbol met verlichting heeft 25 cm doorsnee en werkt op stroom.")
             .setDoelgroepen(doelgroepen)
             .setFirma(f1)
-            .setFoto("temp_wereldbol.jpg")
+            .setFotoBytes(ImageUtil.imageFileToByteArray(ImageUtil.getResourceAsFile("/images/temp_wereldbol.jpg")))
             .setLeergebieden(leergroepen)
             .setPlaats("Lokaal B4.035")
             .setPrijs(19.99)
@@ -144,7 +145,7 @@ public class StartUp extends Application {// test xd
             .setBeschrijving("Zou u wel eens een tijdreis willen maken tussen de provincie Noord-Holland van nu en het Noord-Holland van 1959? Hoe zag uw provincie er toen uit, hoe zag uw dorp of stad er uit? En wat is er allemaal veranderd in die 50 jaar? Met de Topografische DubbelAtlas van Utrecht ziet u het - letterlijk - in één oogopslag.")
             .setDoelgroepen(doelgroepen)
             .setFirma(f1)
-            .setFoto("temp_atlas.jpg")
+            .setFotoBytes(ImageUtil.imageFileToByteArray(ImageUtil.getResourceAsFile("/images/temp_atlas.jpg")))
             .setLeergebieden(leergroepen)
             .setPlaats("Lokaal B4.035")
             .setPrijs(49.99)
@@ -155,7 +156,7 @@ public class StartUp extends Application {// test xd
             .setBeschrijving("De wetenschappelijke rekenmachine FX-92 van Casio is de perfecte metgezel voor op school.")
             .setDoelgroepen(doelgroepen)
             .setFirma(f1)
-            .setFoto("temp_rekenmachine.jpg")
+            .setFotoBytes(ImageUtil.imageFileToByteArray(ImageUtil.getResourceAsFile("/images/temp_rekenmachine.jpg")))
             .setLeergebieden(leergroepen)
             .setPlaats("Lokaal B4.035")
             .setPrijs(27.95)

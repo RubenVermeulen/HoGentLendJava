@@ -30,6 +30,7 @@ import javafx.scene.layout.VBox;
 import shared.MateriaalView;
 import shared.ReservatieLijnView;
 import shared.ReservatieView;
+import util.ImageUtil;
 
 /**
  * FXML Controller class
@@ -107,15 +108,8 @@ public class ReservatieBoxController extends GridPane {
         int beschikbaar = mv.getAantal() - mv.getAantalOnbeschikbaar();
         lblAantal.setText(String.format("%d van de %d beschikbaar", beschikbaar, mv.getAantal()));
 
-        if (isNotEmpty(mv.getFotoUrl())) {
-            InputStream ins = getClass().getResourceAsStream("/images/" + String.valueOf(mv.getFotoUrl()));
-            if (ins == null) {
-                System.out.println("input stream is null :((((" + "/images/" + String.valueOf(mv.getFotoUrl()));
-            }
-            if (ins != null) {
-                imgvFoto.setImage(new Image(ins));
-            }
-        }
+        imgvFoto.setImage(ImageUtil.byteArrayToImage(mv.getFotoBytes()));
+
         if (isNotEmpty(mv.getArtikelNummer())) {
             lblCode.setText(mv.getArtikelNummer());
         }
@@ -164,20 +158,12 @@ public class ReservatieBoxController extends GridPane {
 
         alert.setTitle("Opgelet");
         alert.setHeaderText("Opgelet");
-        
-        if (isNotEmpty(mv.getFotoUrl())) {
-            InputStream ins = getClass().getResourceAsStream("/images/" + String.valueOf(mv.getFotoUrl()));
-            if (ins == null) {
-                System.out.println("input stream is null :((((" + "/images/" + String.valueOf(mv.getFotoUrl()));
-            }
-            if (ins != null) {
-                ImageView iv = new ImageView(new Image(ins));
-                iv.setFitHeight(70);
-                iv.setFitWidth(70);
-                iv.setPreserveRatio(true);
-                alert.setGraphic(iv);
-            }
-        }
+
+        ImageView iv = new ImageView(ImageUtil.byteArrayToImage(mv.getFotoBytes()));
+        iv.setFitHeight(70);
+        iv.setFitWidth(70);
+        iv.setPreserveRatio(true);
+        alert.setGraphic(iv);
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
