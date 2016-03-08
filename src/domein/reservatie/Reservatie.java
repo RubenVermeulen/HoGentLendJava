@@ -41,6 +41,9 @@ public class Reservatie {
     //wordt geconverteerd door util.LocalDateTimeAttributeConverter
     private LocalDateTime ophaalmoment;
     private LocalDateTime indienmoment;
+    private LocalDateTime reservatiemoment;
+    
+    private boolean opgehaald;
 
     @OneToMany(mappedBy = "reservatie", fetch = FetchType.EAGER, orphanRemoval = true)
     private List<ReservatieLijn> reservatielijen;
@@ -55,10 +58,19 @@ public class Reservatie {
 //        this.materialen = materialen;
 //    }
     public Reservatie(Gebruiker lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment) {
+        this(lener, ophaalmoment, indienmoment, LocalDateTime.now(), false);
+    }
+    
+   public Reservatie(Gebruiker lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment, 
+           LocalDateTime reservatiemoment, boolean opgehaald) {
         this.lener = lener;
         this.ophaalmoment = ophaalmoment;
         this.indienmoment = indienmoment;
+        this.reservatiemoment = reservatiemoment;
+        this.opgehaald = opgehaald;
     }
+   
+    
 
     public Long getId() {
         return id;

@@ -6,6 +6,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -79,6 +80,9 @@
             <GridPane.margin>
                 <Insets />
             </GridPane.margin>
+         <tooltip>
+            <Tooltip text="Bekijk materiaal in materiaallijst" />
+         </tooltip>
         </Button>
         <Button fx:id="btnWijzig" maxWidth="35.0" mnemonicParsing="false" onAction="#onBtnWijzig" prefHeight="35.0" GridPane.columnIndex="3" GridPane.rowSpan="4">
             <graphic>
@@ -91,6 +95,9 @@
             <GridPane.margin>
                 <Insets />
             </GridPane.margin>
+         <tooltip>
+            <Tooltip text="Wijzig de reservatiedetails van dit materiaal" />
+         </tooltip>
         </Button>
         <Button fx:id="btnVerwijder" maxWidth="35.0" mnemonicParsing="false" onAction="#onBtnVerwijder" prefHeight="35.0" GridPane.columnIndex="3" GridPane.rowSpan="4" GridPane.valignment="BOTTOM">
             <graphic>
@@ -103,6 +110,9 @@
             <GridPane.margin>
                 <Insets />
             </GridPane.margin>
+         <tooltip>
+            <Tooltip text="Verwijder dit materiaal uit de reservatie" />
+         </tooltip>
         </Button>
         <TextField fx:id="txfGereserveerd" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="30.0" promptText="#" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
         <Label fx:id="lblAantalGereserveerdWijzig" text="Gereserveerd" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -138,6 +148,9 @@
                     </image>
                 </ImageView>
             </graphic>
+         <tooltip>
+            <Tooltip text="Bevestig wijzigingen" />
+         </tooltip>
         </Button>
         <Button fx:id="btnAnnuleerWijziging" maxWidth="35.0" mnemonicParsing="false" onAction="#onBtnAnnuleerWijziging" prefHeight="35.0" GridPane.columnIndex="3" GridPane.rowSpan="4" GridPane.valignment="BOTTOM">
             <graphic>
@@ -147,6 +160,9 @@
                     </image>
                 </ImageView>
             </graphic>
+         <tooltip>
+            <Tooltip text="Annuleer wijzigingen" />
+         </tooltip>
         </Button>
     </children>
     <padding>
