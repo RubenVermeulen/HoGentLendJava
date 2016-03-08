@@ -2,6 +2,7 @@ package domein.firma;
 
 import domein.firma.FirmaCatalogus;
 import domein.firma.Firma;
+import domein.materiaal.Materiaal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -107,5 +108,24 @@ public class FirmaCatalogusTest {
         Firma f = firmaCat.verwijderFirma(firma2.getNaam(), materialenMetFrima_1);
         Assert.assertEquals(firma2.getNaam(), f.getNaam());
         Assert.assertEquals(firma2.getEmail(), f.getEmail());
+    }
+    
+    @Test 
+    public void testWijzigFirma() {
+        List<Materiaal> materialen = new ArrayList<>(Arrays.asList(
+                new Materiaal("Wereldbol", 5),
+                new Materiaal("Atlas", 10)
+        ));
+        
+        materialen.get(0).setFirma(firma2);
+        materialen.get(1).setFirma(firma1);
+        
+        firmaCat.wijzigFirmas(firma2, "Nieuwe naam", "test@gmail.com", materialen);
+        
+        Assert.assertEquals("Nieuwe naam", materialen.get(0).getFirma().getNaam());
+        Assert.assertEquals("test@gmail.com", materialen.get(0).getFirma().getEmail());
+        
+        Assert.assertEquals(firma1.getNaam(), materialen.get(1).getFirma().getNaam());
+        Assert.assertEquals(firma1.getEmail(), materialen.get(1).getFirma().getEmail());
     }
 }

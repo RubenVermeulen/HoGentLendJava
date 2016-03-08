@@ -16,6 +16,15 @@ public class GroepRepository {
         this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
         loadGroepCatalogus();
     }
+    
+    /**
+     * Gebruikt voor testen.
+     * 
+     * @param groepen 
+     */
+    public GroepRepository(List<Groep> groepen) {
+        groepCat = new GroepCatalogus(groepen);
+    }
 
     private void loadGroepCatalogus() {
         Query q = em.createQuery("SELECT g FROM Groep g");

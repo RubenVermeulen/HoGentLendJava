@@ -17,6 +17,15 @@ public class FirmaRepository {
         this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
         loadFirmaCatalogus();
     }
+    
+    /**
+     * Gebruikt voor testen.
+     * 
+     * @param firmas 
+     */
+    public FirmaRepository(List<Firma> firmas) {
+        firmaCat = new FirmaCatalogus(firmas);
+    }
 
     private void loadFirmaCatalogus() {
         Query q = em.createQuery("SELECT f FROM Firma f ORDER BY f.naam");

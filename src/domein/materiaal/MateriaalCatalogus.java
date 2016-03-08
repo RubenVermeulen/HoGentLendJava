@@ -21,6 +21,19 @@ public class MateriaalCatalogus {
         this.firmaRepo = firmaRepo;
         groepRepo = new GroepRepository();
     }
+    
+    /**
+     * Enkel gebruikt voor testklasse.
+     * 
+     * @param materialen
+     * @param firmaRepo
+     * @param groepRepo 
+     */
+    public MateriaalCatalogus(List<Materiaal> materialen, FirmaRepository firmaRepo, GroepRepository groepRepo) {
+        this.materialen = materialen;
+        this.firmaRepo = firmaRepo;
+        this.groepRepo = groepRepo;
+    }
 
     /**
      * Retourneer een materiaal object gebaseerd op de meegegeven id.
@@ -77,7 +90,7 @@ public class MateriaalCatalogus {
         List<String> leergebiedenStr = mv.getLeergebieden();
 
         //Exceptions werpen
-        validatieMateriaalView(urlFoto, naam, aantal, firmaEmail, prijs, aantalOnbeschikbaar);
+        validatieMateriaalView(urlFoto, naam, aantal, prijs, aantalOnbeschikbaar);
 
         Materiaal materiaal = new Materiaal(naam, aantal);
 
@@ -168,7 +181,7 @@ public class MateriaalCatalogus {
     public void wijsAttributenMateriaalViewToeAanMateriaal(MateriaalView mv) {
         Optional<Materiaal> matOpt = geefMateriaalMetId(mv.getId());
         if (!matOpt.isPresent()) {
-            throw new IllegalArgumentException("Er bestaat geen materiaal behorend tot de materiaal view.");
+            throw new IllegalArgumentException("Er bestaat geen materiaal voor de materiaal view.");
         }
         Materiaal materiaal = matOpt.get();
 
@@ -182,7 +195,7 @@ public class MateriaalCatalogus {
         List<String> leergebiedenStr = mv.getLeergebieden();
 
         // Valideer de gegevens
-        validatieMateriaalView(urlFoto, naam, aantal, null, prijs, aantalOnbeschikbaar);
+        validatieMateriaalView(urlFoto, naam, aantal, prijs, aantalOnbeschikbaar);
 
         Optional<Firma> firmaOpt = firmaRepo.geefFirma(firmanaam);
         Firma firma = firmaOpt.isPresent() ? firmaOpt.get() : null;
@@ -210,7 +223,7 @@ public class MateriaalCatalogus {
      * @param mat het om te zetten materiaal
      * @return de materiaalview met dezelde gegevens als het opgegeven materiaal
      */
-    public MateriaalView toMateriaalView(Materiaal mat) {
+    public MateriaalView toMateriaalView(Materiaal mat) {        
         MateriaalView mv = new MateriaalView(mat.getNaam(), mat.getAantal());
         mv.setFotoUrl(mat.getFoto())
                 .setOmschrijving(mat.getBeschrijving())
@@ -262,7 +275,7 @@ public class MateriaalCatalogus {
     }
 
     private void validatieMateriaalView(String urlFoto, String naam, int aantal,
-            String firmaEmail, double prijs, int aantalOnbeschikbaar) {
+            double prijs, int aantalOnbeschikbaar) {
         //Exceptions werpen
         if (urlFoto != null && !urlFoto.isEmpty() && !urlFoto.endsWith(".jpg") && !urlFoto.endsWith(".png") && !urlFoto.endsWith(".gif")) {
             throw new IllegalArgumentException("foto");
@@ -290,6 +303,9 @@ public class MateriaalCatalogus {
     }
 
     private List<String> groepListToString(List<Groep> groepen) {
+        if (groepen == null)
+            return null;
+        
         return groepen.stream().map(g -> g.getGroep()).collect(Collectors.toList());
     }
 }

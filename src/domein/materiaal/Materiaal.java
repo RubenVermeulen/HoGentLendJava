@@ -165,6 +165,10 @@ public class Materiaal {
         return this;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     /* EINDE  SETTERS */
 
  /* BEGIN GETTERS */
