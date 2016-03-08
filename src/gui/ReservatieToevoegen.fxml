@@ -30,7 +30,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root prefHeight="578.0" prefWidth="1309.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="474.0" prefWidth="1309.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ReservatieToevoegenController">
     <left>
         <VBox prefHeight="578.0" prefWidth="1309.0" BorderPane.alignment="CENTER">
             <children>
@@ -41,7 +41,7 @@
                                 <Font name="System Bold" size="40.0" />
                             </font>
                             <HBox.margin>
-                                <Insets left="420.0" top="20.0" />
+                                <Insets bottom="20.0" left="420.0" top="20.0" />
                             </HBox.margin>
                         </Label>
                     </children>
@@ -52,33 +52,96 @@
                             <children>
                                 <VBox prefHeight="414.0" prefWidth="389.0">
                                     <children>
-                                        <Label prefHeight="35.0" prefWidth="213.0" text="Reservatie voor" />
-                                        <TextField promptText="emailadres" />
+                                        <Label prefHeight="35.0" prefWidth="213.0" text="Reservatie voor">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font></Label>
+                                        <TextField fx:id="txfEmailadres" promptText="emailadres">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                 </VBox.margin></TextField>
                                     </children>
                                 </VBox>
                             </children>
                         </HBox>
                         <HBox prefHeight="414.0" prefWidth="477.0">
                             <children>
-                                <Label text="Materialen" />
+                        <VBox prefHeight="227.0" prefWidth="477.0">
+                           <children>
+                                      <Label text="Materialen">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="combMaterialen" prefHeight="51.0" prefWidth="535.0">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </ComboBox>
+                           </children>
+                        </VBox>
                             </children>
                         </HBox>
                         <HBox prefHeight="414.0" prefWidth="214.0">
                             <children>
-                                <Label text="Ophaalmoment" />
+                        <VBox prefHeight="414.0" prefWidth="230.0">
+                           <children>
+                                      <Label text="Ophaalmoment">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <DatePicker fx:id="dpOphaalmoment">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </DatePicker>
+                           </children>
+                        </VBox>
                             </children>
                         </HBox>
                         <HBox prefHeight="414.0" prefWidth="252.0">
                             <children>
-                                <Label text="Indienmoment" />
+                        <VBox prefHeight="414.0" prefWidth="384.0">
+                           <children>
+                                      <Label text="Indienmoment">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="20.0" top="10.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <DatePicker fx:id="dpIndienmoment">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="20.0" top="10.0" />
+                                 </VBox.margin>
+                              </DatePicker>
+                           </children>
+                        </VBox>
                             </children>
                         </HBox>
                     </children>
                 </HBox>
-                <HBox prefHeight="100.0" prefWidth="200.0">
+                <HBox prefHeight="180.0" prefWidth="1309.0">
                     <children>
-                        <Button mnemonicParsing="false" text="Ga terug" />
-                        <Button mnemonicParsing="false" text="Reservatie toevoegen en opslaan" />
+                        <Button mnemonicParsing="false" onAction="#btngaTerugOnAction" text="Ga terug">
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="420.0" />
+                     </HBox.margin></Button>
+                        <Button mnemonicParsing="false" onAction="#btnReservatieToevoegenOnAction" text="Reservatie toevoegen en opslaan">
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="10.0" />
+                     </HBox.margin></Button>
                     </children>
                 </HBox>
             </children>

@@ -112,6 +112,22 @@ public class Reservatie {
         this.reservatielijen = reservatielijen;
     }
 
+    public LocalDateTime getReservatiemoment() {
+        return reservatiemoment;
+    }
+
+    public void setReservatiemoment(LocalDateTime reservatiemoment) {
+        this.reservatiemoment = reservatiemoment;
+    }
+
+    public boolean isOpgehaald() {
+        return opgehaald;
+    }
+
+    public void setOpgehaald(boolean opgehaald) {
+        this.opgehaald = opgehaald;
+    }
+
     @Override
     public String toString() {
         return "Reservatie{" + "id=" + id + ", lener=" + lener + ", ophaalmoment=" + ophaalmoment + ", indienmoment=" + indienmoment + ", reservatielijen=" + reservatielijen + '}';

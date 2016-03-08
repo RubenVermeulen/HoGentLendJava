@@ -21,22 +21,27 @@ public class ReservatieView {
     private String emailLener;
     private LocalDateTime ophaalmoment;
     private LocalDateTime indienmoment;
+    private LocalDateTime reservatiemoment;
     private String ophaalmomentAlsString;
     private String indienmomentAlsString;
+    private String reservatiemomentAlsString;
     private String reservatieLijnenAlsString;
+    private boolean opgehaald;
     private List<ReservatieLijnView> reservatieLijnen;
 
-    public ReservatieView(long id, String lener, String emailLener, LocalDateTime ophaalmoment, LocalDateTime indienmoment, List<ReservatieLijnView> gereserveerdeMaterialen) {
+    public ReservatieView(long id, String lener, String emailLener, LocalDateTime ophaalmoment, LocalDateTime indienmoment, LocalDateTime reservatiemoment, List<ReservatieLijnView> gereserveerdeMaterialen) {
         this.id = id;
         this.lener = lener;
         this.emailLener = emailLener;
         this.ophaalmoment = ophaalmoment;
         this.indienmoment = indienmoment;
+        this.reservatiemoment = reservatiemoment;
         this.reservatieLijnen = gereserveerdeMaterialen;
         this.reservatieLijnenAlsString = reservatieLijnenToString(reservatieLijnen);
 
         this.ophaalmomentAlsString = formatLocalDateTime(ophaalmoment);
         this.indienmomentAlsString = formatLocalDateTime(indienmoment);
+        this.reservatiemomentAlsString = formatLocalDateTime(reservatiemoment);
     }
     
     public String getOphaalmomentAlsString() {
@@ -45,6 +50,10 @@ public class ReservatieView {
 
     public String getIndienmomentAlsString() {
         return indienmomentAlsString;
+    }
+    
+    public String getReservatiemomentAlsString(){
+        return reservatiemomentAlsString;
     }
 
     public String getReservatieLijnenAlsString() {
@@ -81,6 +90,22 @@ public class ReservatieView {
 
     public void setIndienmoment(LocalDateTime indienmoment) {
         this.indienmoment = indienmoment;
+    }
+
+    public LocalDateTime getReservatiemoment() {
+        return reservatiemoment;
+    }
+
+    public void setReservatiemoment(LocalDateTime reservatiemoment) {
+        this.reservatiemoment = reservatiemoment;
+    }
+
+    public boolean isOpgehaald() {
+        return opgehaald;
+    }
+
+    public void setOpgehaald(boolean opgehaald) {
+        this.opgehaald = opgehaald;
     }
 
     public List<ReservatieLijnView> getReservatieLijnen() {
