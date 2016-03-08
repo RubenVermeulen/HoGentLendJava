@@ -5,16 +5,28 @@
  */
 package gui;
 
+import domein.DomeinController;
+import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import shared.MateriaalView;
+import shared.ReservatieView;
+import shared.ReservatieLijnView;
 
 /**
  * FXML Controller class
@@ -31,16 +43,70 @@ public class ReservatieToevoegenController extends BorderPane {
     private DatePicker dpIndienmoment;
     @FXML
     private ComboBox<MateriaalView> combMaterialen;
+    @FXML
+    private TextField txfAantal;
+    
+    private final DomeinController dc;
 
-    
-    
+    public ReservatieToevoegenController(DomeinController dc) {
+        this.dc = dc;
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ReservatieToevoegen.fxml"));
+        loader.setRoot(this);
+        loader.setController(this);
+
+        try {
+            loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        setupAlleMaterialen();
+    }
 
     @FXML
     private void btngaTerugOnAction(ActionEvent event) {
+        Stage stage = (Stage) getScene().getWindow();
+        Scene scene = new Scene(new MainMenuFrameController(dc));
+        stage.setScene(scene);
     }
 
     @FXML
     private void btnReservatieToevoegenOnAction(ActionEvent event) {
+        String emailLener = txfEmailadres.getText().trim();
+        LocalDateTime ophaalmoment = null;
+        LocalDateTime indienmoment = null;
+        LocalDateTime reservatiemoment=LocalDateTime.now();
+        
+        LocalDate ophMoment=dpOphaalmoment.getValue();
+        LocalDate indMoment=dpIndienmoment.getValue();
+        
+       ophaalmoment= ophMoment.atTime(0, 0);
+       indienmoment= indMoment.atTime(0, 0);
+        
+        MateriaalView materiaalView = combMaterialen.getValue();
+        int aantal = Integer.parseInt(txfAantal.getText());
+
+        List<ReservatieLijnView> reservatieLijnen = new ArrayList<>();
+
+        reservatieLijnen.add(new ReservatieLijnView(ophaalmoment, indienmoment, materiaalView, aantal));
+
+        ReservatieView rv = new ReservatieView(emailLener, ophaalmoment, indienmoment,reservatiemoment , reservatieLijnen);
+        dc.voegReservatieToe(rv);
+
+        
+        
+        Stage stage = (Stage) getScene().getWindow();
+        Scene scene = new Scene(new MainMenuFrameController(dc));
+        stage.setScene(scene);
     }
-    
+
+    private void setupAlleMaterialen() {
+        combMaterialen.getItems().clear();
+        combMaterialen.getItems().addAll(dc.geefAlleMaterialen());
+    }
+
+    @FXML
+    private void btnMateriaalBijvoegen(ActionEvent event) {
+    }
+
 }

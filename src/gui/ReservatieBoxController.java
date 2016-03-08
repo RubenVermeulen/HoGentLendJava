@@ -32,6 +32,7 @@ import javafx.scene.paint.Color;
 import shared.MateriaalView;
 import shared.ReservatieLijnView;
 import shared.ReservatieView;
+import util.ImageUtil;
 
 /**
  * FXML Controller class
@@ -109,15 +110,8 @@ public class ReservatieBoxController extends GridPane {
         int beschikbaar = mv.getAantal() - mv.getAantalOnbeschikbaar();
         lblAantal.setText(String.format("nog %d van de %d beschikbaar", beschikbaar, mv.getAantal()));
 
-        if (isNotEmpty(mv.getFotoUrl())) {
-            InputStream ins = getClass().getResourceAsStream("/images/" + String.valueOf(mv.getFotoUrl()));
-            if (ins == null) {
-                System.out.println("input stream is null :((((" + "/images/" + String.valueOf(mv.getFotoUrl()));
-            }
-            if (ins != null) {
-                imgvFoto.setImage(new Image(ins));
-            }
-        }
+        imgvFoto.setImage(ImageUtil.byteArrayToImage(mv.getFotoBytes()));
+
         if (isNotEmpty(mv.getArtikelNummer())) {
             lblCode.setText(mv.getArtikelNummer());
         }
@@ -173,6 +167,11 @@ public class ReservatieBoxController extends GridPane {
         alert.setTitle("Opgelet");
         alert.setHeaderText("Opgelet");
 
+        ImageView iv = new ImageView(ImageUtil.byteArrayToImage(mv.getFotoBytes()));
+        iv.setFitHeight(70);
+        iv.setFitWidth(70);
+        iv.setPreserveRatio(true);
+        alert.setGraphic(iv);
         if (isNotEmpty(mv.getFotoUrl())) {
             InputStream ins = getClass().getResourceAsStream("/images/" + String.valueOf(mv.getFotoUrl()));
             if (ins == null) {

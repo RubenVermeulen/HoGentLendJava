@@ -319,7 +319,11 @@ public class MainMenuFrameController extends BorderPane {
     }
 
     @FXML
-    private void onActionBtnVoegResevatieToe(ActionEvent event) {
+    private void onActionBtnVoegReservatieToe(ActionEvent event) {
+        Stage stage = (Stage) getScene().getWindow();
+        Scene scene = new Scene(new ReservatieToevoegenController(domCon));
+        stage.setScene(scene);
+        
     }
 
     @FXML

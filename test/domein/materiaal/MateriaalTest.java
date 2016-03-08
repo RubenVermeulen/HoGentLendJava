@@ -45,6 +45,24 @@ public class MateriaalTest {
         verifyContainsFilterResult(mat, false, NOT_VALID_FILTERS);
     }
 
+    @Test
+    public void testSetNaamKanNietLeegZijn() {
+        final String[] LEGE_STRINGS = new String[]{null, "", " ", "\t "};
+        Materiaal mat = new Materiaal("geldige naam", 0);
+        for (String str : LEGE_STRINGS) {
+            try {
+                mat.setNaam(str);
+                Assert.fail("Het materiaal accepteerde een lege naam string.");
+            } catch (IllegalArgumentException e)    {
+            }
+            try {
+                new Materiaal(str, 1);
+                Assert.fail("Het materiaal accepteerde een lege naam string.");
+            } catch (IllegalArgumentException e) {
+            }
+        }
+    }
+
     private void verifyContainsFilterResult(Materiaal materiaalToTest, boolean expectedResult, String[] filtersToTest) {
         for (String filter : filtersToTest) {
             Assert.assertEquals(expectedResult, materiaalToTest.containsFilter(filter));

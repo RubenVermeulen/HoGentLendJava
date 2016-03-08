@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -28,7 +29,9 @@ public class Materiaal {
     @ManyToOne
     private Firma firma;
 
-    private String foto;
+    @Lob
+    private byte[] fotoBytes;
+    
     private String naam;
 
     // We hanteren het datatype text in de database zodat we niet zullen worden gehindered door een max aantal karakters.
@@ -98,7 +101,7 @@ public class Materiaal {
 
     @Override
     public String toString() {
-        return "Materiaal{" + "id=" + id + ", firma=" + firma + ", foto=" + foto + ", naam=" + naam + ", beschrijving=" + beschrijving + ", artikelnummer=" + artikelnummer + ", prijs=" + prijs + ", aantal=" + aantal + ", aantalOnbeschikbaar=" + aantalOnbeschikbaar + ", uitleenbaarheid=" + uitleenbaarheid + ", plaats=" + plaats + ", doelgroepen=" + doelgroepen + ", leergebieden=" + leergebieden + '}';
+        return "Materiaal{" + "id=" + id + ", firma=" + firma + ", naam=" + naam + ", beschrijving=" + beschrijving + ", artikelnummer=" + artikelnummer + ", prijs=" + prijs + ", aantal=" + aantal + ", aantalOnbeschikbaar=" + aantalOnbeschikbaar + ", uitleenbaarheid=" + uitleenbaarheid + ", plaats=" + plaats + ", doelgroepen=" + doelgroepen + ", leergebieden=" + leergebieden + '}';
     }
 
     /* BEGIN SETTERS */
@@ -117,11 +120,6 @@ public class Materiaal {
 
     public Materiaal setFirma(Firma firma) {
         this.firma = firma;
-        return this;
-    }
-
-    public Materiaal setFoto(String foto) {
-        this.foto = foto;
         return this;
     }
 
@@ -154,6 +152,11 @@ public class Materiaal {
         this.plaats = plaats;
         return this;
     }
+    
+    public Materiaal setFotoBytes(byte[] fotoBytes){
+        this.fotoBytes = fotoBytes;
+        return this;
+    }
 
     public Materiaal setDoelgroepen(List<Groep> doelgroepen) {
         this.doelgroepen = doelgroepen;
@@ -163,6 +166,10 @@ public class Materiaal {
     public Materiaal setLeergebieden(List<Groep> leergebieden) {
         this.leergebieden = leergebieden;
         return this;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     /* EINDE  SETTERS */
@@ -184,8 +191,8 @@ public class Materiaal {
         return firma;
     }
 
-    public String getFoto() {
-        return foto;
+    public byte[] getFotoBytes(){
+        return fotoBytes;
     }
 
     public String getNaam() {

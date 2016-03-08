@@ -27,6 +27,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.controlsfx.control.CheckComboBox;
 import shared.MateriaalView;
+import util.ImageUtil;
 
 public class MateriaalToevoegenController extends BorderPane {
 
@@ -277,17 +278,8 @@ public class MateriaalToevoegenController extends BorderPane {
         locatie.setText(mv.getPlaats());
         beschrijving.setText(mv.getOmschrijving());
         beschikbaarheid.setSelected(mv.isUitleenbaarheid());
-        urlFoto.setText(mv.getFotoUrl());
-
-        if (!mv.getFotoUrl().isEmpty()) {
-            InputStream ins = getClass().getResourceAsStream("/images/" + String.valueOf(mv.getFotoUrl()));
-            if (ins == null) {
-                System.out.println("input stream is null :((((" + "/images/" + String.valueOf(mv.getFotoUrl()));
-            }
-            if (ins != null) {
-                previewFoto.setImage(new Image(ins));
-            }
-        }
+        
+        previewFoto.setImage(ImageUtil.byteArrayToImage(mv.getFotoBytes()));
 
         // Doelgroepen checken
         for (String doelgroep : doelgroepen.getItems()) {
@@ -355,7 +347,7 @@ public class MateriaalToevoegenController extends BorderPane {
         matView.setDoelgroepen(new ArrayList(doelgroepen.getCheckModel().getCheckedItems()));
         matView.setFirma(cbFirmas.getValue());
 
-        matView.setFotoUrl(urlFoto.getText());
+        matView.setNewFotoUrl(urlFoto.getText());
 
         matView.setLeergebieden(new ArrayList(leergroepen.getCheckModel().getCheckedItems()));
 
@@ -448,9 +440,13 @@ public class MateriaalToevoegenController extends BorderPane {
             case "onbeschikbaar":
                 lblErrorMessage.setText("Aantal onbeschikbare materialen moet groter zijn dan 0.");
                 errorOnbeschikbaar.setVisible(true);
+                break;
             case "onbeschikbaarAantal":
                 lblErrorMessage.setText("Aantal onbeschikbaar kan niet groter zijn dan aantal.");
                 errorOnbeschikbaar.setVisible(true);
+                break;
+            default:
+                lblErrorMessage.setText(e.getMessage());
         }
     }
 
