@@ -2,6 +2,7 @@ package groep;
 
 import domein.groep.Groep;
 import domein.groep.GroepCatalogus;
+import domein.materiaal.Materiaal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -101,10 +102,55 @@ public class GroepCatalogusTest {
         Assert.assertEquals(leerGebied.isLeerGroep(), lg.isLeerGroep());
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testVerwijderGroepWerktNietAlsDoelGroepNogInMateriaalZit() {
+        List<Materiaal> materialen = new ArrayList<>(Arrays.asList(
+                new Materiaal("een materiaal", 1).setDoelgroepen(new ArrayList<>(Arrays.asList(doelGroep)))
+        ));
+        groepCat.verwijderGroep(doelGroep.getGroep(), doelGroep.isLeerGroep(), materialen);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testVerwijderGroepWerktNietAlsLeergebiedNogInMateriaalZit() {
+        List<Materiaal> materialen = new ArrayList<>(Arrays.asList(
+                new Materiaal("een materiaal", 1).setLeergebieden(new ArrayList<>(Arrays.asList(leerGebied)))
+        ));
+        groepCat.verwijderGroep(leerGebied.getGroep(), leerGebied.isLeerGroep(), materialen);
+    }
+
     @Test
-    public void testVerwijderGroepZorgtDatGroepVerwijdertIs() {
-        groepCat.verwijderGroep(doelGroep);
-        Assert.assertEquals(false, groepCat.geefGroep(doelGroep.getGroep(), doelGroep.isLeerGroep()).isPresent());
+    public void testVerwijderGroepWerktNietMetOngeldigeOfOnbestaandeGroepNaam() {
+        List<Materiaal> materialen = new ArrayList<>();
+        final String[] ONGELDIGE_NAMEN = new String[]{
+            null,
+            " ",
+            "\t  \t",
+            "onbestaande groep"
+        };
+        for (String ongeldigeNaam : ONGELDIGE_NAMEN) {
+            try {
+                groepCat.verwijderGroep(ongeldigeNaam, true, materialen);
+                Assert.fail("verwijderGroep gooide geen exceptie bij het verwijderen van een ongeldige groepsnaam.");
+            } catch (IllegalArgumentException e) {
+            }
+        }
+    }
+    
+    @Test
+    public void testVerwijderGroepWerkt(){
+        List<Materiaal> materialen = new ArrayList<>();
+        groepCat.verwijderGroep(doelGroep.getGroep(), doelGroep.isLeerGroep(), materialen);
+        groepCat.verwijderGroep(leerGebied.getGroep(), leerGebied.isLeerGroep(), materialen);
+        
+        Assert.assertFalse(groepCat.geefGroep(doelGroep.getGroep(), doelGroep.isLeerGroep()).isPresent());
+        Assert.assertFalse(groepCat.geefGroep(leerGebied.getGroep(), leerGebied.isLeerGroep()).isPresent());
+    }
+
+    private List<Materiaal> maakMateriaalListMetTweeMaterialenEenMetDoelGroepEnEenMetLeergebied() {
+        return new ArrayList<>(Arrays.asList(
+                new Materiaal("een materiaal", 1).setDoelgroepen(new ArrayList<>(Arrays.asList(doelGroep))),
+                new Materiaal("een materiaal", 1).setLeergebieden(new ArrayList<>(Arrays.asList(leerGebied)))
+        ));
     }
 
 }

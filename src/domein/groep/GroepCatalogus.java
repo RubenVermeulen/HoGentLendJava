@@ -1,5 +1,6 @@
 package domein.groep;
 
+import domein.materiaal.Materiaal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -90,12 +91,36 @@ public class GroepCatalogus {
     }
 
     /**
-     * Verwijder de gegeven groep.
+     * Verwijder de groep met de gegeve groepStr e isleergroep, maar alleen als
+     * de groep niet meer in de materialen voorkomt.
      *
-     * @param groep de te verwijderen groep
+     * @param groepStr de naam van de groep
+     * @param isLeerGroep of het een leergebied of doelgroep is
+     * @param materialen alle materialen die niet de te verwijderen groep mag
+     * bevatten
+     * @return de verwijderde groep
+     * @throws IllegalArgumentException indien groepsnaam niet bestaat of
+     * ongeldig is of indien de groep nog voorkomt in de materialen lijst
      */
-    public void verwijderGroep(Groep groep) {
+    public Groep verwijderGroep(String groepStr, boolean isLeerGroep, List<Materiaal> materialen) {
+        if (groepStr == null || groepStr.isEmpty()) {
+            throw new IllegalArgumentException("Je hebt geen " + (isLeerGroep ? "leergebied" : "doelgroep") + " geselecteerd.");
+        }
+        Optional<Groep> groepOpt = geefGroep(groepStr, isLeerGroep);
+
+        if (!groepOpt.isPresent()) {
+            throw new IllegalArgumentException(isLeerGroep ? "Het leergebied bestaat niet." : "Het doelgroep bestaat niet.");
+        }
+        Groep groep = groepOpt.get();
+        String expMsg = isLeerGroep ? "Er is nog een materiaal met dit leergebied." : "Er is nog een materiaal met deze doelgroep.";
+        for (Materiaal m : materialen) {
+            List<Groep> teZoekenGroep = isLeerGroep ? m.getLeergebieden() : m.getDoelgroepen();
+            if (teZoekenGroep.stream().anyMatch(g -> g.getId() == groep.getId())) {
+                throw new IllegalArgumentException(expMsg);
+            }
+        }
         groepen.remove(groep);
+        return groep;
     }
 
     private List<Groep> getInTeZoekenGroepen(boolean isLeerGroep) {

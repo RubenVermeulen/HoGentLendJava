@@ -228,6 +228,7 @@ public class MateriaalCatalogus {
         return mv;
     }
 
+    // al de protected methodes zijn methodes die het gewoon doorgeven, dit behoort dus dus niet tot MateriaalCatalogusTest
     protected void verwijderGroep(String groepStr, boolean isLeerGroep) {
         groepRepo.verwijderGroep(groepStr, isLeerGroep, materialen);
     }

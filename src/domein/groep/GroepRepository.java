@@ -53,33 +53,10 @@ public class GroepRepository {
         return groepCat.geefGroep(groepStr, isLeerGebied);
     }
 
-    public void verwijderGroep(String groepStr, boolean leerGroep, List<Materiaal> materialen) {
-        // TODO: sven fix this
-//        if (groepStr == null || groepStr.isEmpty()) {
-//            throw new IllegalArgumentException("Je hebt geen " + (isLeerGroep ? "leergebied" : "doelgroep") + " geselecteerd.");
-//        }
-//
-//        Optional<Groep> groepOpt = groepRepo.geefGroep(groepStr, isLeerGroep);
-//
-//        if (!groepOpt.isPresent()) {
-//            if (isLeerGroep) {
-//                throw new IllegalArgumentException("Het leergebied bestaat niet.");
-//            } else {
-//                throw new IllegalArgumentException("Het doelgroep bestaat niet.");
-//            }
-//        }
-//
-//        Groep groep = groepOpt.get();
-//
-//        for (Materiaal m : materialen) {
-//            if (isLeerGroep) {
-//                if (m.getLeergebieden().stream().anyMatch(g -> g.getId() == groep.getId())) {
-//                    throw new IllegalArgumentException("Er is nog een materiaal met dit leergebied.");
-//                }
-//            } else if (m.getDoelgroepen().stream().anyMatch(g -> g.getId() == groep.getId())) {
-//                throw new IllegalArgumentException("Er is nog een materiaal met deze doelgroep.");
-//            }
-//        }
-//        groepRepo.verwijderGroep(groep);
+    public void verwijderGroep(String groepStr, boolean isLeerGroep, List<Materiaal> materialen) {
+        Groep verwijderdeGroep = groepCat.verwijderGroep(groepStr, isLeerGroep, materialen);
+        em.getTransaction().begin();
+        em.remove(verwijderdeGroep);
+        em.getTransaction().commit();
     }
 }
