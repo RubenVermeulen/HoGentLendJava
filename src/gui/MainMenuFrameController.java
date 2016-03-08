@@ -117,6 +117,8 @@ public class MainMenuFrameController extends BorderPane {
     private Label lblStatus;
     @FXML
     private Label lblReservatiemoment;
+    @FXML
+    private Button btnReservatieOpgehaald;
 
     public MainMenuFrameController(DomeinController domCon) {
         this.domCon = domCon;
@@ -408,6 +410,10 @@ public class MainMenuFrameController extends BorderPane {
     @FXML
     private void onActionBtnAnnuleerWijzigingDetails(ActionEvent event) {
         setVisibilityWijzigDetailsMateriaal(false);
+    }
+
+    @FXML
+    private void onActionBtnReservatieOpgehaald(ActionEvent event) {
     }
 
 

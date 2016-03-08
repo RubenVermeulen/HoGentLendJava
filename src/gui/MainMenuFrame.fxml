@@ -269,7 +269,7 @@
                               <Insets top="10.0" />
                            </GridPane.margin>
                                   </ScrollPane>
-                        <Button alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="250.0" text="Markeer reservatie als opgehaald" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <Button fx:id="btnReservatieOpgehaald" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onActionBtnReservatieOpgehaald" prefHeight="30.0" prefWidth="250.0" text="Markeer reservatie als opgehaald" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                             </children>
                         </GridPane>
                     </content>
