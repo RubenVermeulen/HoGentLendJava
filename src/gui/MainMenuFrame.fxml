@@ -13,6 +13,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -160,6 +161,9 @@
                                                             </image>
                                                         </ImageView>
                                                     </graphic>
+                                       <tooltip>
+                                          <Tooltip text="Voeg een nieuw materiaal toe aan deze reservatie" />
+                                       </tooltip>
                                                 </Button>
                                                 <DatePicker fx:id="dpOphaalmoment" maxWidth="-Infinity" prefWidth="105.0" visible="false" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                                                     <GridPane.margin>
