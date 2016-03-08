@@ -123,6 +123,7 @@ public class MainMenuFrameController extends BorderPane {
     private Tab materiaalBeheerTab;
     @FXML
     private TabPane tabPane;
+    private Button btnReservatieOpgehaald;
 
     public MainMenuFrameController(DomeinController domCon) {
         this.domCon = domCon;
@@ -421,4 +422,9 @@ public class MainMenuFrameController extends BorderPane {
         txfZoekMateriaalFilter.setText(materialName);
         onBtnZoekMateriaalAction(null);
     }
+    @FXML
+    private void onActionBtnReservatieOpgehaald(ActionEvent event) {
+    }
+
+
 }
