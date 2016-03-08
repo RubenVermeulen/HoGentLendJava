@@ -241,14 +241,14 @@ public class DomeinController {
     /**
      * Stel de lector met als email de gegeven email aan als een beheerder.
      *
-     * @param email het email adres.
+     * @param email het e-mailadres.
      * @throws IllegalArgumentException indien geen gebruiker is gevonden met
-     * het gegeven email adres
+     * het gegeven e-mailadres
      */
     public void stelAanAlsBeheerder(String email) {
         Optional<Gebruiker> gebruikerOpt = gebruikerRepo.geefGebruikerViaEmail(email);
         if (gebruikerOpt.isPresent()) {
-            throw new IllegalArgumentException("Geen gebruiker met het geven email adres gevonden.");
+            throw new IllegalArgumentException("Geen gebruiker met het geven e-mailadres gevonden.");
         }
         Gebruiker gebruiker = gebruikerOpt.get();
         checkKanAangemeldeBeheerderStatusWijzigenVan(gebruiker);
@@ -258,7 +258,7 @@ public class DomeinController {
     /**
      * Neemt de beheerder status van de gegeven gebruiker weg.
      *
-     * @param gebruiker de te demotiveren gebruiker
+     * @param gebruiker de te degraderen gebruiker
      */
     public void verwijderBeheerder(Gebruiker gebruiker) {
         checkKanAangemeldeBeheerderStatusWijzigenVan(gebruiker);
@@ -278,7 +278,7 @@ public class DomeinController {
     // FIRMAS
     /* -------------------------------- */
     /**
-     * Voegt een nieuwe firma toe met de gegven naam en contact email adres.
+     * Voegt een nieuwe firma toe met de gegven naam en contact e-mailadres.
      *
      * @param naam de naam
      * @param email het email adres
@@ -288,11 +288,11 @@ public class DomeinController {
     }
 
     /**
-     * Geeft de gegeven firme een nieuwe naam en email adres.
+     * Geeft de gegeven firma een nieuwe naam en e-mailadres.
      *
      * @param firma de te wijzigen firma
      * @param nieuweNaam de nieuwe naam
-     * @param nieuwEmailadres het nieuwe emailadres
+     * @param nieuwEmailadres het nieuwe e-mailadres
      */
     public void wijzigFirmas(Firma firma, String nieuweNaam, String nieuwEmailadres) {
         materiaalRepo.wijzigFirmas(firma, nieuweNaam, nieuwEmailadres);
@@ -320,7 +320,7 @@ public class DomeinController {
     /**
      * Geeft alle namen van alle firmas.
      *
-     * @return de string lijst met al de namen van alle firmas
+     * @return de string lijst met al de namen van alle firma's
      */
     public List<String> geefAlleFirmas() {
         List<Firma> firmas = firmaRepo.getAllFirmasSorted();

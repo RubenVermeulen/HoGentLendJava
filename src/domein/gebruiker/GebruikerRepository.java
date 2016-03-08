@@ -53,8 +53,8 @@ public class GebruikerRepository {
             throw new IllegalArgumentException("Een e-mailadres is vereist.");
         }
         email = email.toLowerCase();
-        Query q = em.createQuery("SELECT g FROM Gebruiker g WHERE g.email = :arg0");
-        q.setParameter(0, email);
+        Query q = em.createQuery("SELECT g FROM Gebruiker g WHERE g.email = ?1");
+        q.setParameter(1, email);
         Optional<Gebruiker> result;
         try {
             result = Optional.of((Gebruiker) q.getSingleResult());

@@ -43,6 +43,16 @@ public class ReservatieView {
         this.indienmomentAlsString = formatLocalDateTime(indienmoment);
         this.reservatiemomentAlsString = formatLocalDateTime(reservatiemoment);
     }
+
+    public ReservatieView(String emailLener, LocalDateTime ophaalmoment, LocalDateTime indienmoment, LocalDateTime reservatiemoment,List<ReservatieLijnView> reservatieLijnen) {
+        this.emailLener = emailLener;
+        this.ophaalmoment = ophaalmoment;
+        this.indienmoment = indienmoment;
+        this.reservatiemoment = reservatiemoment;
+        this.reservatieLijnen = reservatieLijnen;
+    }
+    
+    
     
     public String getOphaalmomentAlsString() {
         return ophaalmomentAlsString;
