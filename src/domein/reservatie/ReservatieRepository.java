@@ -206,7 +206,7 @@ public class ReservatieRepository {
         }
 
         ReservatieView rv = new ReservatieView(r.getId(), r.getLener().getVoornaam() + " " + r.getLener().getAchternaam(),
-                r.getLener().getEmail(),r.getOphaalmoment(), r.getIndienmoment(), gereserveerdeMaterialen);
+                r.getLener().getEmail(),r.getOphaalmoment(), r.getIndienmoment(), r.getReservatiemoment(), gereserveerdeMaterialen);
 
         return rv;
     }
