@@ -20,6 +20,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -117,6 +119,10 @@ public class MainMenuFrameController extends BorderPane {
     private Label lblStatus;
     @FXML
     private Label lblReservatiemoment;
+    @FXML
+    private Tab materiaalBeheerTab;
+    @FXML
+    private TabPane tabPane;
 
     public MainMenuFrameController(DomeinController domCon) {
         this.domCon = domCon;
@@ -213,7 +219,7 @@ public class MainMenuFrameController extends BorderPane {
     private void setupReservatieLijnen(ReservatieView rv) {
         List<ReservatieLijnView> rlv = rv.getReservatieLijnen();
         boxReservatieLijn.getChildren().clear();
-        rlv.stream().forEach(rl -> boxReservatieLijn.getChildren().add(new ReservatieBoxController(rl, rv, domCon)));
+        rlv.stream().forEach(rl -> boxReservatieLijn.getChildren().add(new ReservatieBoxController(rl, rv, domCon, this)));
         lblLenerNaam.setText(rv.getLener());
         lblOphaalmoment.setText(rv.getOphaalmomentAlsString());
         lblIndienmoment.setText(rv.getIndienmomentAlsString());
@@ -410,5 +416,9 @@ public class MainMenuFrameController extends BorderPane {
         setVisibilityWijzigDetailsMateriaal(false);
     }
 
-
+    public void zetOpMateriaal(String materialName){
+        tabPane.getSelectionModel().select(materiaalBeheerTab);
+        txfZoekMateriaalFilter.setText(materialName);
+        onBtnZoekMateriaalAction(null);
+    }
 }
