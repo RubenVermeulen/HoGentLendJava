@@ -26,9 +26,10 @@ public class ReservatieView {
     private String reservatieLijnenAlsString;
     private List<ReservatieLijnView> reservatieLijnen;
 
-    public ReservatieView(long id, String lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment, List<ReservatieLijnView> gereserveerdeMaterialen) {
+    public ReservatieView(long id, String lener, String emailLener, LocalDateTime ophaalmoment, LocalDateTime indienmoment, List<ReservatieLijnView> gereserveerdeMaterialen) {
         this.id = id;
         this.lener = lener;
+        this.emailLener = emailLener;
         this.ophaalmoment = ophaalmoment;
         this.indienmoment = indienmoment;
         this.reservatieLijnen = gereserveerdeMaterialen;
@@ -37,7 +38,7 @@ public class ReservatieView {
         this.ophaalmomentAlsString = formatLocalDateTime(ophaalmoment);
         this.indienmomentAlsString = formatLocalDateTime(indienmoment);
     }
-
+    
     public String getOphaalmomentAlsString() {
         return ophaalmomentAlsString;
     }
