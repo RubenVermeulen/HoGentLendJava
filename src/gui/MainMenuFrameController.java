@@ -218,6 +218,7 @@ public class MainMenuFrameController extends BorderPane {
         lblOphaalmoment.setText(rv.getOphaalmomentAlsString());
         lblIndienmoment.setText(rv.getIndienmomentAlsString());
         lblReservatiemoment.setText(rv.getReservatiemomentAlsString());
+        lblStatus.setTextFill(Color.web("#000000"));
 
         boolean status = rv.isOpgehaald();
         if (status == true) {
