@@ -44,9 +44,9 @@
         </MenuBar>
     </top>
     <center>
-        <TabPane prefHeight="223.0" prefWidth="237.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <TabPane fx:id="tabPane" prefHeight="223.0" prefWidth="237.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
             <tabs>
-                <Tab text="Materiaal Beheer">
+                <Tab fx:id="materiaalBeheerTab" text="Materiaal Beheer">
                     <content>
                         <HBox spacing="20.0">
                             <children>
