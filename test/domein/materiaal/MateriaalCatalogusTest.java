@@ -20,10 +20,6 @@ import org.junit.Before;
 import org.junit.Test;
 import shared.MateriaalView;
 
-/**
- *
- * @author Xander
- */
 public class MateriaalCatalogusTest {
 
     private MateriaalCatalogus materiaalCatalogus;
