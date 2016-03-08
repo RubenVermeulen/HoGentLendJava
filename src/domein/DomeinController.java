@@ -258,7 +258,7 @@ public class DomeinController {
     /**
      * Neemt de beheerder status van de gegeven gebruiker weg.
      *
-     * @param gebruiker de te demotiveren gebruiker
+     * @param gebruiker de te degraderen gebruiker
      */
     public void verwijderBeheerder(Gebruiker gebruiker) {
         checkKanAangemeldeBeheerderStatusWijzigenVan(gebruiker);
