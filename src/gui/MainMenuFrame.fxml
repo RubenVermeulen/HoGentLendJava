@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
@@ -123,7 +117,7 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                       <children>
-                                          <Button fx:id="btnVoegResevatieToe" mnemonicParsing="false" onAction="#onActionBtnVoegResevatieToe" prefHeight="25.0" prefWidth="214.0" text="Voeg nieuwe reservatie toe" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                                          <Button fx:id="btnVoegResevatieToe" mnemonicParsing="false" onAction="#onActionBtnVoegReservatieToe" prefHeight="25.0" prefWidth="214.0" text="Voeg nieuwe reservatie toe" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                                               <GridPane.margin>
                                                   <Insets right="102.0" />
                                               </GridPane.margin>

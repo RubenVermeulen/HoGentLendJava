@@ -410,4 +410,5 @@ public class MainMenuFrameController extends BorderPane {
         setVisibilityWijzigDetailsMateriaal(false);
     }
 
+
 }
