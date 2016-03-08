@@ -31,6 +31,15 @@ public class ReservatieLijnView {
         this.aantal = aantal;
     }
 
+    public ReservatieLijnView(LocalDateTime ophaalmoment, LocalDateTime indienmoment, MateriaalView materiaal, int aantal) {
+        this.ophaalmoment = ophaalmoment;
+        this.indienmoment = indienmoment;
+        this.materiaal = materiaal;
+        this.aantal = aantal;
+    }
+
+    
+    
     public Long getId() {
         return id;
     }

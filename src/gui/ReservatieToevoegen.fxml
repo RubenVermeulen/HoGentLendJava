@@ -41,7 +41,7 @@
                                 <Font name="System Bold" size="40.0" />
                             </font>
                             <HBox.margin>
-                                <Insets bottom="20.0" left="420.0" top="20.0" />
+                                <Insets bottom="20.0" left="460.0" top="20.0" />
                             </HBox.margin>
                         </Label>
                     </children>
@@ -63,69 +63,90 @@
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
                                  </VBox.margin></TextField>
+                              <VBox prefHeight="414.0" prefWidth="230.0">
+                                 <children>
+                                            <Label text="Ophaalmoment">
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <DatePicker fx:id="dpOphaalmoment">
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                       </VBox.margin>
+                                    </DatePicker>
+                                    <VBox prefHeight="414.0" prefWidth="384.0">
+                                       <children>
+                                                  <Label text="Indienmoment">
+                                             <VBox.margin>
+                                                <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                             </VBox.margin>
+                                             <font>
+                                                <Font name="System Bold" size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <DatePicker fx:id="dpIndienmoment">
+                                             <VBox.margin>
+                                                <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                             </VBox.margin>
+                                          </DatePicker>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </VBox>
                                     </children>
                                 </VBox>
                             </children>
                         </HBox>
-                        <HBox prefHeight="414.0" prefWidth="477.0">
+                        <HBox prefHeight="378.0" prefWidth="944.0">
                             <children>
-                        <VBox prefHeight="227.0" prefWidth="477.0">
+                        <VBox prefHeight="378.0" prefWidth="531.0">
                            <children>
-                                      <Label text="Materialen">
+                                      <Label text="Materiaal">
                                  <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
                                  </VBox.margin>
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="combMaterialen" prefHeight="51.0" prefWidth="535.0">
+                              <HBox prefHeight="66.0" prefWidth="943.0">
+                                 <children>
+                                    <ComboBox fx:id="combMaterialen" prefHeight="51.0" prefWidth="461.0">
+                                       <HBox.margin>
+                                          <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
+                                       </HBox.margin>
+                                    </ComboBox>
+                                 </children>
+                              </HBox>
+                              <Button mnemonicParsing="false" onAction="#btnMateriaalBijvoegen" text="+">
                                  <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
                                  </VBox.margin>
-                              </ComboBox>
+                                 <font>
+                                    <Font name="System Bold" size="27.0" />
+                                 </font>
+                              </Button>
                            </children>
                         </VBox>
-                            </children>
-                        </HBox>
-                        <HBox prefHeight="414.0" prefWidth="214.0">
-                            <children>
-                        <VBox prefHeight="414.0" prefWidth="230.0">
+                        <VBox prefHeight="378.0" prefWidth="414.0">
                            <children>
-                                      <Label text="Ophaalmoment">
+                              <Label text="Aantal">
                                  <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
                                  </VBox.margin>
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
                               </Label>
-                              <DatePicker fx:id="dpOphaalmoment">
+                              <TextField fx:id="txfAantal" prefHeight="51.0" prefWidth="213.0">
                                  <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    <Insets bottom="10.0" left="10.0" right="150.0" top="10.0" />
                                  </VBox.margin>
-                              </DatePicker>
-                           </children>
-                        </VBox>
-                            </children>
-                        </HBox>
-                        <HBox prefHeight="414.0" prefWidth="252.0">
-                            <children>
-                        <VBox prefHeight="414.0" prefWidth="384.0">
-                           <children>
-                                      <Label text="Indienmoment">
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="20.0" top="10.0" />
-                                 </VBox.margin>
-                                 <font>
-                                    <Font name="System Bold" size="24.0" />
-                                 </font>
-                              </Label>
-                              <DatePicker fx:id="dpIndienmoment">
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="20.0" top="10.0" />
-                                 </VBox.margin>
-                              </DatePicker>
+                              </TextField>
                            </children>
                         </VBox>
                             </children>
