@@ -55,16 +55,6 @@ public class FirmaRepository {
         em.getTransaction().commit();
     }
 
-    /**
-     * Wijzigt het firma object van de firma repository en wijzigt alle
-     * materialen hun firma object zodat deze overeen komen met de nieuwe
-     * waarden.
-     *
-     * @param firma Het firma object dat zal worden gewijzigd
-     * @param nieuweNaam De nieuwe naam voor de firma
-     * @param nieuwEmailadres Het nieuwe e-mailadres voor de firma
-     * @param materialen Alle materialen
-     */
     public void wijzigFirmas(Firma firma, String nieuweNaam, String nieuwEmailadres, List<Materiaal> materialen) {
         firmaCat.wijzigFirmas(firma, nieuweNaam, nieuwEmailadres, materialen);
         persisteerFirmas();

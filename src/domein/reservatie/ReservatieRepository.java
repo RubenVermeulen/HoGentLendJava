@@ -126,7 +126,7 @@ public class ReservatieRepository {
 
     private void voegReservatieLijnToe(Reservatie r, ReservatieLijnView rlv) {
         em.getTransaction().begin();
-        ReservatieLijn rl = new ReservatieLijn(matRepo.geefMateriaalMetId(rlv.getMateriaal().getId()), rlv.getAantal(), rlv.getOphaalmoment(), rlv.getIndienmoment());
+        ReservatieLijn rl = new ReservatieLijn(matRepo.geefMateriaalMetId(rlv.getMateriaal().getId()).get(), rlv.getAantal(), rlv.getOphaalmoment(), rlv.getIndienmoment());
         em.persist(rl);
         r.getReservatielijnen().add(rl);
         em.getTransaction().commit();
@@ -169,7 +169,7 @@ public class ReservatieRepository {
         for (ReservatieLijnView rlView : reservatieLijnViews) {
 
             MateriaalView mv = rlView.getMateriaal();
-            Materiaal m = matRepo.geefMateriaal(mv.getNaam());
+            Materiaal m = matRepo.geefMateriaal(mv.getNaam()).get();
 
             ReservatieLijn rl = new ReservatieLijn(m, rlView.getAantal(), rlView.getOphaalmoment(), rlView.getIndienmoment());
 
