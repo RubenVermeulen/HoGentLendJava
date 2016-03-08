@@ -94,11 +94,6 @@ public class DomeinController {
         materiaalRepo.voegMaterialenToeInBulk(csvFile);
     }
 
-    /**
-     * TODO Xander schrijf dit
-     *
-     * @return
-     */
     public List<MateriaalView> geefAlleMaterialen() {
         return materiaalRepo.geefAlleMaterialen();
     }
@@ -157,9 +152,6 @@ public class DomeinController {
         if (gebruiker == null) {
             throw new IllegalArgumentException("De gebruiker bestaat niet.");
         }
-//        if (!gebruiker.isLector()){
-//            throw new IllegalArgumentException("De gebruiker is geen lector.");
-//        }
     }
 
     public ObservableList<Gebruiker> geefAlleBeheerders() {

@@ -54,4 +54,16 @@ public class BeheerderCatalogus {
         );
     }
 
+    /**
+     * Zal de geven gebruiker toevoegen als beheer indien het een lector is.
+     * @param gebruiker de te beheerder te maken lector
+     */
+    public void voegToeAlsBeheerder(Gebruiker gebruiker) {
+        if (!gebruiker.isLector()) {
+            throw new IllegalArgumentException("De gebruiker moet een lector zijn.");
+        }
+        gebruiker.setBeheerder(true);
+        beheerders.add(gebruiker);
+    }
+
 }

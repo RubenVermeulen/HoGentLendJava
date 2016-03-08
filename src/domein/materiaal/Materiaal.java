@@ -51,8 +51,6 @@ public class Materiaal {
     @JoinTable(name = "materiaal_leergebieden", joinColumns = @JoinColumn(name = "materiaal_id"),
             inverseJoinColumns = @JoinColumn(name = "leergebied_id"))
     private List<Groep> leergebieden = new ArrayList();
-
-    ;
     
     protected Materiaal() {
         // default constructor for jpa
@@ -60,140 +58,8 @@ public class Materiaal {
 
     //naam en aantal zijn verplicht
     public Materiaal(String naam, int aantal) {
-        this.naam = naam;
-        this.aantal = aantal;
-    }
-
-    public Materiaal setFirma(Firma firma) {
-        this.firma = firma;
-        return this;
-    }
-
-    public Materiaal setFoto(String foto) {
-        this.foto = foto;
-        return this;
-    }
-
-    public Materiaal setNaam(String naam) {
-        this.naam = naam;
-        return this;
-    }
-
-    public Materiaal setBeschrijving(String beschrijving) {
-        this.beschrijving = beschrijving;
-        return this;
-    }
-
-    public Materiaal setArtikelnummer(String artikelnummer) {
-        this.artikelnummer = artikelnummer;
-        return this;
-    }
-
-    public Materiaal setPrijs(double prijs) {
-        this.prijs = prijs;
-        return this;
-    }
-
-    public Materiaal setAantal(int aantal) {
-        this.aantal = aantal;
-        return this;
-    }
-
-    public Materiaal setAantalOnbeschikbaar(int aantalOnbeschikbaar) {
-        this.aantalOnbeschikbaar = aantalOnbeschikbaar;
-        return this;
-    }
-
-    public Materiaal setUitleenbaarheid(boolean uitleenbaarheid) {
-        this.uitleenbaarheid = uitleenbaarheid;
-        return this;
-    }
-
-    public Materiaal setPlaats(String plaats) {
-        this.plaats = plaats;
-        return this;
-    }
-
-    public Materiaal setDoelgroepen(List<Groep> doelgroepen) {
-        this.doelgroepen = doelgroepen;
-
-        /* if (groepen != null){
-            List<Groep> tgroepen = getLeergebieden();
-            tgroepen.addAll(doelgroepen);
-            setGroepen(tgroepen);
-        }else{
-            setGroepen(doelgroepen);
-        }*/
-        return this;
-    }
-
-    public Materiaal setLeergebieden(List<Groep> leergebieden) {
-        this.leergebieden = leergebieden;
-        return this;
-        /*   if (groepen != null){
-            List<Groep> tgroepen = getDoelgroepen();
-            tgroepen.addAll(leergebieden);
-            setGroepen(tgroepen);
-        }else{
-            setGroepen(leergebieden);
-        }
-        return this;*/
-    }
-
-    public List<Groep> getDoelgroepen() {
-        return doelgroepen;
-        //if (groepen == null) return null;
-        // return groepen.stream().filter(g -> !g.isIsLeerGroep()).collect(Collectors.toList());
-    }
-
-    public List<Groep> getLeergebieden() {
-        return leergebieden;
-        // if (groepen == null) return null;
-        //  return groepen.stream().filter(g -> g.isIsLeerGroep()).collect(Collectors.toList());
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public Firma getFirma() {
-        return firma;
-    }
-
-    public String getFoto() {
-        return foto;
-    }
-
-    public String getNaam() {
-        return naam;
-    }
-
-    public String getBeschrijving() {
-        return beschrijving;
-    }
-
-    public String getArtikelnummer() {
-        return artikelnummer;
-    }
-
-    public double getPrijs() {
-        return prijs;
-    }
-
-    public int getAantal() {
-        return aantal;
-    }
-
-    public int getAantalOnbeschikbaar() {
-        return aantalOnbeschikbaar;
-    }
-
-    public boolean isUitleenbaarheid() {
-        return uitleenbaarheid;
-    }
-
-    public String getPlaats() {
-        return plaats;
+        setNaam(naam);
+        setAantal(aantal);
     }
 
     public boolean containsFilter(String filter) {
@@ -247,21 +113,138 @@ public class Materiaal {
                 .setLeergebieden(groepListToString(leergebieden))
                 .setPrijs(prijs)
                 .setId(Long.max(id, 0));
-
         return mv;
     }
 
     private List<String> groepListToString(List<Groep> groepen) {
-
         List<String> lijst = new ArrayList<>();
 
         for (Groep g : groepen) {
             lijst.add(g.getGroep());
         }
         return lijst;
-
         //is niet compatibel met JPA 2.1
         //return groepen.stream().map(g -> g.getGroep()).collect(Collectors.toList());
     }
+
+    /* BEGIN SETTERS */
+    public final Materiaal setNaam(String naam) {
+        if (naam == null || naam.trim().isEmpty()) {
+            throw new IllegalArgumentException("De naam van een materiaal is verplicht.");
+        }
+        this.naam = naam;
+        return this;
+    }
+
+    public Materiaal setBeschrijving(String beschrijving) {
+        this.beschrijving = beschrijving;
+        return this;
+    }
+
+    public Materiaal setFirma(Firma firma) {
+        this.firma = firma;
+        return this;
+    }
+
+    public Materiaal setFoto(String foto) {
+        this.foto = foto;
+        return this;
+    }
+
+    public Materiaal setArtikelnummer(String artikelnummer) {
+        this.artikelnummer = artikelnummer;
+        return this;
+    }
+
+    public Materiaal setPrijs(double prijs) {
+        this.prijs = prijs;
+        return this;
+    }
+
+    public Materiaal setAantal(int aantal) {
+        this.aantal = aantal;
+        return this;
+    }
+
+    public Materiaal setAantalOnbeschikbaar(int aantalOnbeschikbaar) {
+        this.aantalOnbeschikbaar = aantalOnbeschikbaar;
+        return this;
+    }
+
+    public Materiaal setUitleenbaarheid(boolean uitleenbaarheid) {
+        this.uitleenbaarheid = uitleenbaarheid;
+        return this;
+    }
+
+    public Materiaal setPlaats(String plaats) {
+        this.plaats = plaats;
+        return this;
+    }
+
+    public Materiaal setDoelgroepen(List<Groep> doelgroepen) {
+        this.doelgroepen = doelgroepen;
+        return this;
+    }
+
+    public Materiaal setLeergebieden(List<Groep> leergebieden) {
+        this.leergebieden = leergebieden;
+        return this;
+    }
+
+    /* EINDE  SETTERS */
+
+ /* BEGIN GETTERS */
+    public List<Groep> getDoelgroepen() {
+        return doelgroepen;
+    }
+
+    public List<Groep> getLeergebieden() {
+        return leergebieden;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public Firma getFirma() {
+        return firma;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public String getNaam() {
+        return naam;
+    }
+
+    public String getBeschrijving() {
+        return beschrijving;
+    }
+
+    public String getArtikelnummer() {
+        return artikelnummer;
+    }
+
+    public double getPrijs() {
+        return prijs;
+    }
+
+    public int getAantal() {
+        return aantal;
+    }
+
+    public int getAantalOnbeschikbaar() {
+        return aantalOnbeschikbaar;
+    }
+
+    public boolean isUitleenbaarheid() {
+        return uitleenbaarheid;
+    }
+
+    public String getPlaats() {
+        return plaats;
+    }
+    /* EINDE GETTERS */
 
 }

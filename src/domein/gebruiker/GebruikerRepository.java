@@ -27,7 +27,7 @@ public class GebruikerRepository {
         System.out.println(beheerders);
         this.beheerderCat = new BeheerderCatalogus(beheerders);
     }
-    
+
     public Optional<Gebruiker> getBeheerder(String email, String userPass) {
         return beheerderCat.getBeheerder(email, userPass);
     }
@@ -36,7 +36,6 @@ public class GebruikerRepository {
         em.getTransaction().begin();
         beheerderCat.verwijderBeheerder(gebruiker);
         em.getTransaction().commit();
-
     }
 
     public ObservableList<Gebruiker> geefObservableListBeheerdersZonderHoofdBeheerders() {
@@ -45,19 +44,16 @@ public class GebruikerRepository {
 
     public void stelAanAlsBeheerder(Gebruiker gebruiker) {
         em.getTransaction().begin();
-        if (!gebruiker.isLector()) {
-            throw new IllegalArgumentException("De gebruiker moet een lector zijn.");
-        }
-        gebruiker.setBeheerder(true);
+        beheerderCat.voegToeAlsBeheerder(gebruiker);
         em.getTransaction().commit();
     }
-    
+
     public Optional<Gebruiker> geefGebruikerViaEmail(String email) {
         if (email == null || email.trim().isEmpty()) {
             throw new IllegalArgumentException("Een e-mailadres is vereist.");
         }
         email = email.toLowerCase();
-        Query q = em.createQuery("SELECT g FROM Gebruiker g WHERE g.email LIKE :arg0");
+        Query q = em.createQuery("SELECT g FROM Gebruiker g WHERE g.email = :arg0");
         q.setParameter(0, email);
         Optional<Gebruiker> result;
         try {
