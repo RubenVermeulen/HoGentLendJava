@@ -16,23 +16,10 @@ public class MateriaalCatalogus {
     private FirmaRepository firmaRepo;
     private GroepRepository groepRepo;
 
-    public MateriaalCatalogus() {
-        this(new FirmaRepository());
-    }
-
-    MateriaalCatalogus(FirmaRepository firmaRepo) {
-        this.firmaRepo = firmaRepo;
-        materialen = new ArrayList<>();
-        groepRepo = new GroepRepository();
-    }
-
-    /**
-     * Initialiseert het attribuut materialen.
-     *
-     * @param materialen Lijst van materialen
-     */
-    public void loadMaterialen(List<Materiaal> materialen) {
+    public MateriaalCatalogus(List<Materiaal> materialen, FirmaRepository firmaRepo) {
         this.materialen = materialen;
+        this.firmaRepo = firmaRepo;
+        groepRepo = new GroepRepository();
     }
 
     /**
@@ -338,7 +325,7 @@ public class MateriaalCatalogus {
     public void wijzigFirmas(Firma firma, String nieuweNaam, String nieuwEmailadres) {
         firmaRepo.wijzigFirmas(firma, nieuweNaam, nieuwEmailadres, materialen);
     }
-    
+
     public MateriaalView toMateriaalView(Materiaal mat) {
         MateriaalView mv = new MateriaalView(mat.getNaam(), mat.getAantal());
         mv.setFotoUrl(mat.getFoto())

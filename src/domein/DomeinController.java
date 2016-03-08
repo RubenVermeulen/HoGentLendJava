@@ -7,6 +7,7 @@ import domein.materiaal.MateriaalRepository;
 import domein.groep.Groep;
 import domein.firma.FirmaRepository;
 import domein.firma.Firma;
+import exceptions.BulkToevoegenMisluktException;
 import exceptions.GeenToegangException;
 import java.util.List;
 import java.util.Optional;
@@ -107,8 +108,9 @@ public class DomeinController {
      * zitten.
      *
      * @param csvFilePath het path naar het csv bestand
+     * @throws exceptions.BulkToevoegenMisluktException indien het bulk toevoegen mislukt is
      */
-    public void voegMaterialenToeInBulk(String csvFilePath) {
+    public void voegMaterialenToeInBulk(String csvFilePath) throws BulkToevoegenMisluktException {
         materiaalRepo.voegMaterialenToeInBulk(csvFilePath);
     }
 

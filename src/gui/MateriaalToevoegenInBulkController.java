@@ -6,6 +6,7 @@
 package gui;
 
 import domein.DomeinController;
+import exceptions.BulkToevoegenMisluktException;
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
@@ -71,7 +72,11 @@ public class MateriaalToevoegenInBulkController extends BorderPane {
     @FXML
     private void voegMateriaalToeOnAction(ActionEvent event) {
         if (controlerenOfCsvFileIsIngevuld()) {
-            domCon.voegMaterialenToeInBulk(urlCsv.getText());
+            try{
+                domCon.voegMaterialenToeInBulk(urlCsv.getText());
+            }catch(BulkToevoegenMisluktException e){
+                // TODO voor alosk: de message e.getMessage() aan de gebruiker tonen
+            }
             gaterugNaarmenu();
         }
 
