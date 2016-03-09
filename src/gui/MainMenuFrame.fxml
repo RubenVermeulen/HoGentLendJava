@@ -257,7 +257,7 @@
                                  </tooltip>
                                           </Button>
                               <Label text="Status" GridPane.rowIndex="2" />
-                              <Label fx:id="lblStatus" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label fx:id="lblStatus" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <Label text="Gereserveerd op" GridPane.rowIndex="4" />
                                       </children>
                                   </GridPane>

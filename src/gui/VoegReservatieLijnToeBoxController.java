@@ -7,15 +7,22 @@ package gui;
 
 import domein.DomeinController;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import shared.MateriaalView;
+import shared.ReservatieLijnView;
 import shared.ReservatieView;
 
 /**
@@ -43,6 +50,12 @@ public class VoegReservatieLijnToeBoxController extends GridPane {
     private ComboBox<MateriaalView> cbMaterialen;
     @FXML
     private DatePicker dpIndienmoment;
+    @FXML
+    private Label lblTitel;
+    @FXML
+    private TextField txfOphaalmoment;
+    @FXML
+    private Label lblError;
     
     VoegReservatieLijnToeBoxController(DomeinController dc, ReservatieView rv, MainMenuFrameController parent) {
         this.dc = dc;
@@ -62,19 +75,66 @@ public class VoegReservatieLijnToeBoxController extends GridPane {
     }
     
     private void setupVoegReseravtieLijnToeBox(ReservatieView rv) {
+        lblTitel.setText(String.format("Voeg materiaal toe aan de reservatie van", rv.getLener()));
+        
         cbMaterialen.getItems().clear();
         cbMaterialen.getItems().addAll(dc.geefAlleMaterialen());
         
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        
         dpOphaalmoment.setValue(rv.getOphaalmoment().toLocalDate());
-        dpIndienmoment.setValue(rv.getOphaalmoment().toLocalDate());
+        txfOphaalmoment.setText(rv.getOphaalmoment().format(formatter));
+        dpIndienmoment.setValue(rv.getIndienmoment().toLocalDate());
+        txfIndienmoment.setText(rv.getIndienmoment().format(formatter));
+        
+        
     }
 
     @FXML
     private void onActionBtnVoegReservatieLijnToe(ActionEvent event) {
+        dpOphaalmoment.setValue(dpOphaalmoment.getConverter().fromString(dpOphaalmoment.getEditor().getText()));
+        dpIndienmoment.setValue(dpIndienmoment.getConverter().fromString(dpIndienmoment.getEditor().getText()));
+        
+        try{
+        LocalDateTime ophaalmoment = convertToLocalDateTime(dpOphaalmoment.getValue(), txfOphaalmoment.getText());
+        LocalDateTime indienmoment = convertToLocalDateTime(dpIndienmoment.getValue(), txfIndienmoment.getText());
+        
+        if(cbMaterialen.getValue() == null)
+            throw new IllegalArgumentException("Gelieve een materiaal te selecteren!");
+        
+        if (txfAantal.getText() == null || txfAantal.getText().isEmpty()) {
+            throw new IllegalArgumentException("Aantal moet ingevuld zijn!");
+        }
+        
+        int aantal = Integer.parseInt(txfAantal.getText());
+        MateriaalView mv = cbMaterialen.getValue();
+        
+        ReservatieLijnView rlv = new ReservatieLijnView(ophaalmoment, indienmoment, mv, aantal);
+        rv.getReservatieLijnen().add(rlv);
+        
+        dc.wijzigReservatie(rv);
+        }
+        catch(IllegalArgumentException e){
+            lblError.setText(e.getMessage());
+            lblError.setVisible(true);
+        }
+        
     }
 
     @FXML
     private void onActionBtnAnnuleer(ActionEvent event) {
+        Stage stage = (Stage) lblTitel.getScene().getWindow();
+        stage.close();
+    }
+    
+    private LocalDateTime convertToLocalDateTime(LocalDate datum, String tijd) {
+        if (!tijd.contains(":")) {
+            throw new IllegalArgumentException("Tijd moet er als volgt uit zien: uur:minuten");
+        }
+        int uur = Integer.parseInt(tijd.substring(0, tijd.indexOf(":")));
+        int minuten = Integer.parseInt(tijd.substring(tijd.indexOf(":") + 1, tijd.length()));
+        LocalTime time = LocalTime.of(uur, minuten);
+        return LocalDateTime.of(datum, time);
     }
 
     
