@@ -67,34 +67,17 @@ public class ReservatieRepository {
 
     //kan niet getest worden (test child methodes voegReservatieLijnToe, pasReservatieLijnAan, verwijderReservatieLijn)
     public void wijzigReservatie(ReservatieView rv) {
-        Optional<Reservatie> optR = geefReservatie(rv.getId());
-        if (!optR.isPresent()) {
-            throw new IllegalArgumentException("De gegeven reservatie bestaat niet.");
+        ReservatieChanges rChanges = reservatieCat.geefReservatieChanges(rv);
+        Reservatie r = rChanges.getReservatie();
+        for(ReservatieLijnView lv : rChanges.getWijzigenLijnen()){
+            pasReservatieLijnAan(r, lv);
         }
-        Reservatie r = optR.get();
-
-        reservatieCat.validateOphaalEnIndienMomentsForLijn(rv.getOphaalmoment(), rv.getIndienmoment());
-        r.setOphaalmoment(rv.getOphaalmoment());
-        r.setIndienmoment(rv.getIndienmoment());
-        r.setOpgehaald(rv.isOpgehaald());
-
-        List<ReservatieLijnView> lvn = rv.getReservatieLijnen();
-        List<Long> lnIds = r.getReservatielijnen().stream().map(l -> l.getId()).collect(Collectors.toList());
-
-        for (ReservatieLijnView lv : lvn) {
-            if (lv.getId() == null) {
-                voegReservatieLijnToe(r, lv);
-            } else {
-                pasReservatieLijnAan(r, lv);
-            }
+        for(ReservatieLijnView lv : rChanges.getToevoegenLijnen()){
+            voegReservatieLijnToe(r, lv);
         }
-        List<Long> lijnViewIds = lvn.stream().map(l -> l.getId()).collect(Collectors.toList());
-        for (Long lijnId : lnIds) {
-            if (!lijnViewIds.contains(lijnId)) {
-                verwijderReservatieLijn(r, lijnId);
-            }
+        for(Long id : rChanges.getVerwijderenLijnIds()){
+            verwijderReservatieLijn(r, id);
         }
-
     }
 
     private void verwijderReservatieLijn(Reservatie r, long rl) {
