@@ -9,6 +9,7 @@ import domein.gebruiker.Gebruiker;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,6 +22,7 @@ import javax.persistence.Table;
 import shared.ReservatieLijnView;
 import shared.MateriaalView;
 import shared.ReservatieView;
+import util.MyDateUtil;
 
 /**
  *
@@ -75,7 +77,18 @@ public class Reservatie {
         this.opgehaald = opgehaald;
     }
    
-    
+    public boolean containsFilter(String sFilter, LocalDateTime dtOphaal, LocalDateTime dtIndien){
+        boolean filterInLijnen = false;
+        for(ReservatieLijn l : reservatielijen){
+            filterInLijnen = l.containsFilter(sFilter, dtOphaal, dtIndien);
+            if (filterInLijnen) break;
+        }
+        
+        boolean filterInLener = lener.containsFilter(sFilter);
+        boolean filterDatums = MyDateUtil.doesFirstPairOverlapWithSecond(dtOphaal, dtIndien, ophaalmoment, indienmoment);
+        
+        return filterInLijnen || filterInLener || filterDatums;
+    }
 
     public Long getId() {
         return id;

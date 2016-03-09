@@ -80,6 +80,41 @@ public class ReservatieCatalogus {
         return Optional.empty();
     }
 
+    public ReservatieChanges geefReservatieChanges(ReservatieView rv) {
+        Optional<Reservatie> optR = geefReservatie(rv.getId());
+        if (!optR.isPresent()) {
+            throw new IllegalArgumentException("De gegeven reservatie bestaat niet.");
+        }
+        Reservatie r = optR.get();
+        validateOphaalEnIndienMomentsForLijn(rv.getOphaalmoment(), rv.getIndienmoment());
+        r.setOphaalmoment(rv.getOphaalmoment());
+        r.setIndienmoment(rv.getIndienmoment());
+        r.setOpgehaald(rv.isOpgehaald());
+
+        List<ReservatieLijnView> lvn = rv.getReservatieLijnen();
+        List<Long> lnIds = r.getReservatielijnen().stream().map(l -> l.getId()).collect(Collectors.toList());
+
+        List<ReservatieLijnView> wijzigenLijnen = new ArrayList();
+        List<ReservatieLijnView> toevoegenLijnen = new ArrayList();
+        List<Long> verwijderenLijnIds = new ArrayList();
+
+        for (ReservatieLijnView lv : lvn) {
+            if (lv.getId() == null) {
+                toevoegenLijnen.add(lv);
+            } else {
+                wijzigenLijnen.add(lv);
+            }
+        }
+        List<Long> lijnViewIds = lvn.stream().map(l -> l.getId()).collect(Collectors.toList());
+        for (Long lijnId : lnIds) {
+            if (!lijnViewIds.contains(lijnId)) {
+                verwijderenLijnIds.add(lijnId);
+            }
+        }
+        
+        return new ReservatieChanges(r, wijzigenLijnen, toevoegenLijnen, verwijderenLijnIds);
+    }
+
     public ReservatieLijn verwijderReservatieLijn(Reservatie r, long rl) {
         Iterator<ReservatieLijn> it = r.getReservatielijnen().iterator();
         while (it.hasNext()) {
@@ -108,13 +143,13 @@ public class ReservatieCatalogus {
         rl.setIndienmoment(rlv.getIndienmoment());
         rl.getMateriaal().setAantalOnbeschikbaar(rlv.getMateriaal().getAantalOnbeschikbaar());
     }
-    
+
     public void validateOphaalEnIndienMomentsForLijn(LocalDateTime ophaal, LocalDateTime indien) {
         if (ophaal.isAfter(indien)) {
             throw new IllegalArgumentException("De ophaal datum kan niet na de indien datum liggen.");
         }
     }
-    
+
     public Reservatie voegReservatieToe(ReservatieView rv) {
         long id = rv.getId();
         String lener = rv.getLener();
@@ -155,7 +190,7 @@ public class ReservatieCatalogus {
         return reservatie;
 
     }
-    
+
     public int heeftConflicten(ReservatieLijnView rlv, LocalDateTime reservatiemoment) {
 
         System.out.println("Start geef conflicten");
@@ -192,8 +227,6 @@ public class ReservatieCatalogus {
 
         return aantalOver;
     }
-    
-    
 
     public ReservatieView toReservatieView(Reservatie r) {
         List<ReservatieLijnView> gereserveerdeMaterialen = new ArrayList<>();
@@ -213,7 +246,6 @@ public class ReservatieCatalogus {
         return rv;
     }
 
-    
     List<ReservatieView> geefReservatiesMetFilter(String filter) {
         throw new UnsupportedOperationException("Not supported yet.");
         //To change body of generated methods, choose Tools | Templates.

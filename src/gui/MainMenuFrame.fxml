@@ -195,7 +195,7 @@
                                     <Tooltip text="Verwijder de volledige reservatie" />
                                  </tooltip>
                                           </Button>
-                                          <Button fx:id="btnVoegReservatieLijstToe" maxWidth="35.0" mnemonicParsing="false" onAction="#onActionVoegReservatieLijstToe" prefHeight="35.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="6" GridPane.valignment="TOP">
+                                          <Button fx:id="btnVoegReservatieLijnToe" maxWidth="35.0" mnemonicParsing="false" onAction="#onActionVoegReservatieLijnToe" prefHeight="35.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="6" GridPane.valignment="TOP">
                                               <graphic>
                                                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                                       <image>

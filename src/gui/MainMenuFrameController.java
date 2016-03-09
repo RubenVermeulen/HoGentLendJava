@@ -100,8 +100,6 @@ public class MainMenuFrameController extends BorderPane {
     @FXML
     private Button btnWijzigReservatieDetails;
     @FXML
-    private Button btnVoegReservatieLijstToe;
-    @FXML
     private TextField txfOphaalmoment;
     @FXML
     private TextField txfIndienmoment;
@@ -129,6 +127,8 @@ public class MainMenuFrameController extends BorderPane {
     private DatePicker dpOphaalmoment;
     @FXML
     private DatePicker dpIndienmoment;
+    @FXML
+    private Button btnVoegReservatieLijnToe;
 
     public MainMenuFrameController(DomeinController domCon) {
         this.domCon = domCon;
@@ -396,7 +396,7 @@ public class MainMenuFrameController extends BorderPane {
 
     private void setVisibilityWijzigDetailsMateriaal(boolean b) {
         btnWijzigReservatieDetails.setVisible(!b);
-        btnVoegReservatieLijstToe.setVisible(!b);
+        btnVoegReservatieLijnToe.setVisible(!b);
         btnVerwijderReservatie.setVisible(!b);
 
         btnBevestigWijzigingDetails.setVisible(b);
@@ -414,14 +414,6 @@ public class MainMenuFrameController extends BorderPane {
         lblTotWijzigDetailsReservatie.setVisible(b);
     }
 
-    @FXML
-    private void onActionVoegReservatieLijstToe(ActionEvent event) {
-//        geselecteerdeReservatie.getReservatieLijnen().add(new ReservatieLijnView(LocalDateTime.now(), LocalDateTime.now(),
-//                null, 1));
-//        domCon.wijzigReservatie(geselecteerdeReservatie);
-//        initialiseerTableViewReservaties();
-//        setupReservatieLijnen(geselecteerdeReservatie);
-    }
 
     @FXML
     private void onActionBtnBevestigWijzigingDetails(ActionEvent event) {
@@ -477,6 +469,16 @@ public class MainMenuFrameController extends BorderPane {
         domCon.wijzigReservatie(geselecteerdeReservatie);
         initialiseerTableViewReservaties();
         setupReservatieLijnen(geselecteerdeReservatie);
+    }
+
+    @FXML
+    protected void onActionVoegReservatieLijnToe(ActionEvent event) {
+        Scene promptScene = new Scene(new VoegReservatieLijnToeBoxController(domCon, geselecteerdeReservatie, this)); //,width, hoogte);
+        Stage prompt = new Stage();
+        prompt.initModality(Modality.APPLICATION_MODAL);
+        prompt.initOwner(getScene().getWindow());
+        prompt.setScene(promptScene);
+        prompt.show();
     }
 
 }
