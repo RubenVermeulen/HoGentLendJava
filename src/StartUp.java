@@ -245,6 +245,8 @@ public class StartUp extends Application {// test xd
         Config c = new Config();
         c.setStandaardIndientijd(LocalTime.NOON);
         c.setStandaardOphaaltijd(LocalTime.MIDNIGHT);
+        c.setStandaardOphaalDag("maandag");
+        c.setStandaardIndienDag("vrijdag");
         
         em.getTransaction().begin();
         em.persist(c);
@@ -266,10 +268,7 @@ public class StartUp extends Application {// test xd
         stage.show();
     }
 
-    public static void main(String... args) {
-        System.out.println("WEEK DAY -----------------------");
-        System.out.println(WeekFields.ISO.dayOfWeek());
-        
+    public static void main(String... args) {        
         Application.launch(StartUp.class, args);
     }
 }

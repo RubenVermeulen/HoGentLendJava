@@ -20,6 +20,8 @@ public class Config {
     
     private LocalTime standaardOphaaltijd;
     private LocalTime standaardIndientijd;
+    private String standaardOphaalDag;
+    private String standaardIndienDag;
     
     public long getId() {
         
@@ -38,7 +40,7 @@ public class Config {
         this.standaardOphaaltijd = standaardOphaaltijd;
     }
 
-    public LocalTime getStandaardIndoentijd() {
+    public LocalTime getStandaardIndientijd() {
         return standaardIndientijd;
     }
 
@@ -46,8 +48,26 @@ public class Config {
         this.standaardIndientijd = standaardIndientijd;
     }
 
+    public String getStandaardOphaalDag() {
+        return standaardOphaalDag;
+    }
+
+    public void setStandaardOphaalDag(String standaardOphaalDag) {
+        this.standaardOphaalDag = standaardOphaalDag;
+    }
+
+    public String getStandaardIndienDag() {
+        return standaardIndienDag;
+    }
+
+    public void setStandaardIndienDag(String standaardIndienDag) {
+        this.standaardIndienDag = standaardIndienDag;
+    }
+
     public void applyvView(ConfigView view){
         standaardOphaaltijd = view.getStandaardOphaaltijd();
         standaardIndientijd = view.getStandaardIndientijd();
+        standaardOphaalDag = view.getStandaardOphaalDag();
+        standaardIndienDag = view.getStandaardIndienDag();
     }
 }

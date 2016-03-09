@@ -13,6 +13,7 @@ import exceptions.BulkToevoegenMisluktException;
 import exceptions.GeenToegangException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -360,6 +361,10 @@ public class DomeinController {
     public void saveConfig(ConfigView view) {
         config.applyvView(view);
         configLoader.save();
+    }
+        
+    public ConfigView geefConfigView() {
+        return new ConfigView(config.getStandaardOphaaltijd(), config.getStandaardIndientijd(), config.getStandaardOphaalDag(), config.getStandaardIndienDag());
     }
 
     /* -------------------------------- */

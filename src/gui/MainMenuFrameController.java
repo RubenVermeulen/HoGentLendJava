@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
@@ -30,10 +33,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import shared.ConfigView;
 import shared.MateriaalView;
 import shared.ReservatieLijnView;
 import shared.ReservatieView;
@@ -127,9 +132,24 @@ public class MainMenuFrameController extends BorderPane {
     private DatePicker dpIndienmoment;
     @FXML
     private Button btnVoegReservatieLijnToe;
+    @FXML
+    private Button btnInstellingenOpslaan;
+    @FXML
+    private TextField txfInstellingenOphaaltijd;
+    @FXML
+    private TextField txfInstellingenIndientijd;
+    @FXML
+    private Label lblInstellingenMessage;
+    
+    private ConfigView configView;
+    @FXML
+    private ComboBox<String> cbInstellingenOphaalDag;
+    @FXML
+    private ComboBox<String> cbInstellingenIndienDag;
 
     public MainMenuFrameController(DomeinController domCon) {
         this.domCon = domCon;
+        this.configView = domCon.geefConfigView();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenuFrame.fxml"));
         loader.setRoot(this);
@@ -146,6 +166,8 @@ public class MainMenuFrameController extends BorderPane {
         initialiseerTableViewBeheerders();
 
         initialiseerTableViewReservaties();
+        
+        initialiseerInstellingen();
     }
 
     private void setupMaterials(List<MateriaalView> materials) {
@@ -506,4 +528,82 @@ public class MainMenuFrameController extends BorderPane {
         datumPick.setValue(datumPick.getConverter().fromString(datumPick.getEditor().getText()));
     }
 
+    @FXML
+    private void onActionBtnInstellingenOpslaan(ActionEvent event) {
+        try {
+            configView.setStandaardOphaalDag(cbInstellingenOphaalDag.getValue());
+            configView.setStandaardOphaaltijd(convertToLocalDateTime(txfInstellingenOphaaltijd.getText(), "standaard ophaaltijd"));
+            configView.setStandaardIndienDag(cbInstellingenIndienDag.getValue());
+            configView.setStandaardIndientijd(convertToLocalDateTime(txfInstellingenIndientijd.getText(), "standaard indientijd"));
+            
+            domCon.saveConfig(configView);
+            
+            lblInstellingenMessage.setTextFill(Color.web("#04B431"));
+            lblInstellingenMessage.setText("De instellingen zijn succesvol opgeslagen.");
+            
+            initialiseerInstellingen();
+        }
+        catch (IllegalArgumentException e) {
+            lblInstellingenMessage.setTextFill(Color.web("#FF0000"));
+            lblInstellingenMessage.setText(e.getMessage());   
+        }
+        
+        lblInstellingenMessage.setVisible(true);
+    }
+
+    private void initialiseerInstellingen() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        
+        txfInstellingenIndientijd.setText(configView.getStandaardIndientijd().format(formatter));
+        txfInstellingenOphaaltijd.setText(configView.getStandaardOphaaltijd().format(formatter));
+        
+        List<String> dagen = new ArrayList<>(Arrays.asList("maandag", "dinsdag", "woensdag", "donderdag", "vrijdag"));
+        
+        cbInstellingenOphaalDag.getItems().clear();
+        cbInstellingenOphaalDag.getItems().addAll(dagen);
+        cbInstellingenIndienDag.getItems().clear();
+        cbInstellingenIndienDag.getItems().addAll(dagen);
+        
+        cbInstellingenOphaalDag.getSelectionModel().select(configView.getStandaardOphaalDag());
+        cbInstellingenIndienDag.getSelectionModel().select(configView.getStandaardIndienDag());
+    }
+    
+    private LocalTime convertToLocalDateTime(String tijd, String veld) {
+        if (tijd.isEmpty()) {
+            throw new IllegalArgumentException(String.format("Het veld %s mag niet leeg zijn.", veld));
+        }
+        
+        if (!tijd.contains(":")) {
+            throw new IllegalArgumentException("Tijd moet er als volgt uit zien: uur:minuten");
+        }
+        
+        int uur = Integer.parseInt(tijd.substring(0, tijd.indexOf(":")));
+        int minuten = Integer.parseInt(tijd.substring(tijd.indexOf(":") + 1, tijd.length()));
+        LocalTime time = LocalTime.of(uur, minuten);
+        return time;
+    }
+
+    @FXML
+    private void onKeyPressedTxfInstellingenOphaaltijd(KeyEvent event) {
+        verbergInstellingenLabel();
+    }
+
+    @FXML
+    private void onKeyPressedTxfInstellingenIndientijd(KeyEvent event) {
+        verbergInstellingenLabel();
+    }
+
+    @FXML
+    private void onActionCbInstellingenOphaalDag(ActionEvent event) {
+        verbergInstellingenLabel();
+    }
+
+    @FXML
+    private void onActionCbInstellingenIndiendag(ActionEvent event) {
+        verbergInstellingenLabel();
+    }
+    
+    private void verbergInstellingenLabel() {
+        lblInstellingenMessage.setVisible(false);
+    }
 }
