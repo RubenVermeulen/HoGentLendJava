@@ -65,7 +65,7 @@ public class Reservatie {
         this.lener = lener;
         this.ophaalmoment = ophaalmoment;
         this.indienmoment = indienmoment;
-        this.reservatiemoment = reservatiemoment;
+        setReservatiemoment(reservatiemoment);
         this.opgehaald = opgehaald;
     }
    
@@ -132,7 +132,8 @@ public class Reservatie {
         return reservatiemoment;
     }
 
-    public void setReservatiemoment(LocalDateTime reservatiemoment) {
+    private void setReservatiemoment(LocalDateTime reservatiemoment) {
+        reservatiemoment = reservatiemoment.plusSeconds(LocalDateTime.now().getSecond()).plusNanos(LocalDateTime.now().getNano());
         this.reservatiemoment = reservatiemoment;
     }
 

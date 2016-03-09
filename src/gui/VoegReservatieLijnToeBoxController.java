@@ -99,6 +99,7 @@ public class VoegReservatieLijnToeBoxController extends GridPane {
         LocalDateTime ophaalmoment = convertToLocalDateTime(dpOphaalmoment.getValue(), txfOphaalmoment.getText());
         LocalDateTime indienmoment = convertToLocalDateTime(dpIndienmoment.getValue(), txfIndienmoment.getText());
         
+        
         if(cbMaterialen.getValue() == null)
             throw new IllegalArgumentException("Gelieve een materiaal te selecteren!");
         
@@ -111,13 +112,17 @@ public class VoegReservatieLijnToeBoxController extends GridPane {
         
         ReservatieLijnView rlv = new ReservatieLijnView(ophaalmoment, indienmoment, mv, aantal);
         rv.getReservatieLijnen().add(rlv);
-        
         dc.wijzigReservatie(rv);
         }
         catch(IllegalArgumentException e){
             lblError.setText(e.getMessage());
             lblError.setVisible(true);
+            return;
         }
+        
+        parent.initialiseerTableViewReservaties();
+        Stage stage = (Stage) lblTitel.getScene().getWindow();
+        stage.close();
         
     }
 
