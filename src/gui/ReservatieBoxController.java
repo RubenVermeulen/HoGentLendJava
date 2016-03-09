@@ -84,8 +84,10 @@ public class ReservatieBoxController extends GridPane {
     private TextField txfIndienmoment;
     @FXML
     private Button btnAnnuleerWijziging;
+    
+    private MainMenuFrameController parentController;
 
-    ReservatieBoxController(ReservatieLijnView rlv, ReservatieView rv, DomeinController dc) {
+    ReservatieBoxController(ReservatieLijnView rlv, ReservatieView rv, DomeinController dc, MainMenuFrameController parentController) {
         this.dc = dc;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ReservatieBox.fxml"));
         loader.setRoot(this);
@@ -95,6 +97,7 @@ public class ReservatieBoxController extends GridPane {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
+        this.parentController = parentController;
 
         btnBevestigWijziging.setVisible(false);
         btnAnnuleerWijziging.setVisible(false);
@@ -184,6 +187,7 @@ public class ReservatieBoxController extends GridPane {
 
     @FXML
     private void onBtnBekijk(ActionEvent event) {
+        parentController.zetOpMateriaal(mv.getNaam());
     }
 
     @FXML

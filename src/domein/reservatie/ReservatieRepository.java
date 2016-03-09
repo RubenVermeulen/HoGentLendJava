@@ -169,6 +169,10 @@ public class ReservatieRepository {
         for (ReservatieLijnView rlView : reservatieLijnViews) {
 
             MateriaalView mv = rlView.getMateriaal();
+            
+            if(mv.getNaam().equals("")){
+            throw new IllegalArgumentException("Er is geen materiaal ingevuld.");
+            }
             Materiaal m = matRepo.geefMateriaal(mv.getNaam()).get();
 
             ReservatieLijn rl = new ReservatieLijn(m, rlView.getAantal(), rlView.getOphaalmoment(), rlView.getIndienmoment());
