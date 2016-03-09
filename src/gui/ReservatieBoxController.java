@@ -113,7 +113,7 @@ public class ReservatieBoxController extends GridPane {
 
         lblNaam.setText(mv.getNaam());
         int beschikbaar = mv.getAantal() - mv.getAantalOnbeschikbaar();
-        lblAantal.setText(String.format("nog %d van de %d beschikbaar", beschikbaar, mv.getAantal()));
+        lblAantal.setText(String.format("Nog %d van de %d beschikbaar", beschikbaar, mv.getAantal()));
 
         imgvFoto.setImage(ImageUtil.byteArrayToImage(mv.getFotoBytes()));
 

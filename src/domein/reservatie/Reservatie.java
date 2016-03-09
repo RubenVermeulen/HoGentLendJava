@@ -58,7 +58,7 @@ public class Reservatie {
 //        this.materialen = materialen;
 //    }
     public Reservatie(Gebruiker lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment) {
-        this(lener, ophaalmoment, indienmoment, LocalDateTime.now(), false);
+        this(lener, ophaalmoment, indienmoment, LocalDateTime.now());
     }
     
      public Reservatie(Gebruiker lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment,
