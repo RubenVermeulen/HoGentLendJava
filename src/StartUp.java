@@ -1,5 +1,6 @@
 
 import domein.DomeinController;
+import domein.config.Config;
 import domein.firma.Firma;
 import domein.gebruiker.Gebruiker;
 import domein.reservatie.ReservatieLijn;
@@ -236,6 +237,16 @@ public class StartUp extends Application {// test xd
 
         em.getTransaction().commit();
 
+        // Config
+        //==================================
+        Config c = new Config();
+        c.setStandaardIndienmoment(LocalDateTime.of(2016, 3, 7, 10, 30));
+        c.setStandaardOphaalmoment(LocalDateTime.of(2016, 3, 7, 10, 30));
+        
+        em.getTransaction().begin();
+        em.persist(c);
+        em.getTransaction().commit();
+        
         em.close();
 
         // niet sluiten want de domein laag heeft nu al andere acties met de emf
