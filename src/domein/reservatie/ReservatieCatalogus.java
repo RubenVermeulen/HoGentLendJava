@@ -19,10 +19,6 @@ import shared.MateriaalView;
 import shared.ReservatieLijnView;
 import shared.ReservatieView;
 
-/**
- *
- * @author Xander
- */
 public class ReservatieCatalogus {
 
     private MateriaalRepository materiaalRepo;
@@ -167,7 +163,6 @@ public class ReservatieCatalogus {
         LocalDateTime ophaalmoment = rv.getOphaalmoment();
         LocalDateTime indienmoment = rv.getIndienmoment();
         LocalDateTime reservatiemoment = rv.getReservatiemoment();
-        System.out.println("TOEGEVOEGD : " + rv.getReservatiemoment().toString());
         List<ReservatieLijnView> reservatieLijnViews = rv.getReservatieLijnen();
 
         Optional<Gebruiker> deLenerOpt = gebruikersRepo.geefGebruikerViaEmail(emailLener);
@@ -206,11 +201,10 @@ public class ReservatieCatalogus {
 
     public int heeftConflicten(ReservatieLijnView rlv, LocalDateTime reservatiemoment) {
 
-        System.out.println("Start geef conflicten");
 
         int aantalOver = rlv.getMateriaal().getAantal() - rlv.getMateriaal().getAantalOnbeschikbaar();
 
-        System.out.println("Aantal over = " + aantalOver);
+  
 
         if (aantalOver > 0) {
             return 0;
@@ -231,7 +225,6 @@ public class ReservatieCatalogus {
                     ).findFirst();
             if (lijstItem.isPresent()) {
                 aantalOver += lijstItem.get().getAantal();
-                System.out.println("Aantal over (nadat een gevonden is) " + aantalOver);
                 if (aantalOver >= 0) {
                     return 0;
                 }

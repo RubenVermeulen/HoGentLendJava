@@ -1,6 +1,7 @@
 package domein.config;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,16 +13,16 @@ import util.LocalDateTimeAttributeConverter;
 
 @Entity
 @Table(name = "config")
-public class Config {
-
+public class Config {    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
-    private LocalDateTime standaardOphaalmoment;
-    private LocalDateTime standaardIndienmoment;
-
-    public Long getId() {
+    private LocalTime standaardOphaaltijd;
+    private LocalTime standaardIndientijd;
+    
+    public long getId() {
+        
         return id;
     }
 
@@ -29,24 +30,24 @@ public class Config {
         this.id = id;
     }
 
-    public LocalDateTime getStandaardOphaalmoment() {
-        return standaardOphaalmoment;
+    public LocalTime getStandaardOphaaltijd() {
+        return standaardOphaaltijd;
     }
 
-    public void setStandaardOphaalmoment(LocalDateTime standaardOphaalmoment) {
-        this.standaardOphaalmoment = standaardOphaalmoment;
+    public void setStandaardOphaaltijd(LocalTime standaardOphaaltijd) {
+        this.standaardOphaaltijd = standaardOphaaltijd;
     }
 
-    public LocalDateTime getStandaardIndienmoment() {
-        return standaardIndienmoment;
+    public LocalTime getStandaardIndoentijd() {
+        return standaardIndientijd;
     }
 
-    public void setStandaardIndienmoment(LocalDateTime standaardIndienmoment) {
-        this.standaardIndienmoment = standaardIndienmoment;
+    public void setStandaardIndientijd(LocalTime standaardIndientijd) {
+        this.standaardIndientijd = standaardIndientijd;
     }
-    
+
     public void applyvView(ConfigView view){
-        standaardIndienmoment = view.getStandaardIndienmoment();
-        standaardOphaalmoment = view.getStandaardOphaalmoment();
+        standaardOphaaltijd = view.getStandaardOphaaltijd();
+        standaardIndientijd = view.getStandaardIndientijd();
     }
 }

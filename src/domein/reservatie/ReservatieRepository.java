@@ -23,10 +23,6 @@ import shared.MateriaalView;
 import shared.ReservatieView;
 import util.JPAUtil;
 
-/**
- *
- * @author Xander
- */
 public class ReservatieRepository {
 
 //    private List<Reservatie> reservaties;
@@ -69,13 +65,13 @@ public class ReservatieRepository {
     public void wijzigReservatie(ReservatieView rv) {
         ReservatieChanges rChanges = reservatieCat.geefReservatieChanges(rv);
         Reservatie r = rChanges.getReservatie();
-        for(ReservatieLijnView lv : rChanges.getWijzigenLijnen()){
+        for (ReservatieLijnView lv : rChanges.getWijzigenLijnen()) {
             pasReservatieLijnAan(r, lv);
         }
-        for(ReservatieLijnView lv : rChanges.getToevoegenLijnen()){
+        for (ReservatieLijnView lv : rChanges.getToevoegenLijnen()) {
             voegReservatieLijnToe(r, lv);
         }
-        for(Long id : rChanges.getVerwijderenLijnIds()){
+        for (Long id : rChanges.getVerwijderenLijnIds()) {
             verwijderReservatieLijn(r, id);
         }
     }
@@ -104,7 +100,7 @@ public class ReservatieRepository {
 
     public void voegReservatieToe(ReservatieView rv) {
         Reservatie reservatie = reservatieCat.voegReservatieToe(rv);
-        
+
         //reservatielijnen toevoegen aan db
         rv.getReservatieLijnen().stream().forEach((rlv) -> {
             voegReservatieLijnToe(reservatie, rlv);

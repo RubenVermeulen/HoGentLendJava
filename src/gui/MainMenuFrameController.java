@@ -34,6 +34,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import shared.ConfigView;
 import shared.MateriaalView;
 import shared.ReservatieLijnView;
 import shared.ReservatieView;
@@ -127,6 +128,12 @@ public class MainMenuFrameController extends BorderPane {
     private DatePicker dpIndienmoment;
     @FXML
     private Button btnVoegReservatieLijnToe;
+    @FXML
+    private Button btnInstellingenOpslaan;
+    @FXML
+    private TextField txfInstellingenOphaaltijd;
+    @FXML
+    private TextField txfInstellingenIndientijd;
 
     public MainMenuFrameController(DomeinController domCon) {
         this.domCon = domCon;
@@ -146,6 +153,8 @@ public class MainMenuFrameController extends BorderPane {
         initialiseerTableViewBeheerders();
 
         initialiseerTableViewReservaties();
+        
+        initialiseerInstellingen();
     }
 
     private void setupMaterials(List<MateriaalView> materials) {
@@ -191,20 +200,20 @@ public class MainMenuFrameController extends BorderPane {
         prompt.show();
     }
 
-    protected void initialiseerTableViewReservaties(){
+    protected void initialiseerTableViewReservaties() {
         setupTableViewReservaties(domCon.geefAlleReservaties());
     }
-    
-    protected void initialiseerTableViewReservatiesMetFilter(){
+
+    protected void initialiseerTableViewReservatiesMetFilter() {
         setupTableViewReservaties(
                 domCon.geefAlleReservatiesMetFiler(
                         txfZoekReservatie.getText(),
-                        dtmStartDatum.getValue() == null ? null : LocalDateTime.of(dtmStartDatum.getValue(), LocalTime.of(0,0)),
-                        dtmEindDatum.getValue() == null ? null : LocalDateTime.of(dtmEindDatum.getValue(), LocalTime.of(0,0))
+                        dtmStartDatum.getValue() == null ? null : LocalDateTime.of(dtmStartDatum.getValue(), LocalTime.of(0, 0)),
+                        dtmEindDatum.getValue() == null ? null : LocalDateTime.of(dtmEindDatum.getValue(), LocalTime.of(0, 0))
                 )
         );
     }
-    
+
     protected void setupTableViewReservaties(List<ReservatieView> reservaties) {
         tvReservaties.setPlaceholder(new Label("Er zijn geen reservaties."));
 
@@ -247,8 +256,6 @@ public class MainMenuFrameController extends BorderPane {
         rlv.stream().forEach(rl -> boxReservatieLijn.getChildren().add(new ReservatieBoxController(rl, rv, domCon, this)));
         lblLenerNaam.setText(rv.getLener());
         lblOphaalmoment.setText(rv.getOphaalmomentAlsString());
-        System.out.println("Hier is het net opgehaald: " + rv.getOphaalmomentAlsString());
-        System.out.println(rv.getOphaalmoment().toString());
         lblIndienmoment.setText(rv.getIndienmomentAlsString());
         lblReservatiemoment.setText(rv.getReservatiemomentAlsString());
         lblStatus.setTextFill(Color.web("#000000"));
@@ -398,8 +405,6 @@ public class MainMenuFrameController extends BorderPane {
             domCon.verwijderReservatie(geselecteerdeReservatie);
 
             initialiseerTableViewReservaties();
-
-            System.out.println("Reservatie verwijderd");
         }
     }
 
@@ -435,7 +440,6 @@ public class MainMenuFrameController extends BorderPane {
         lblTotWijzigDetailsReservatie.setVisible(b);
     }
 
-
     @FXML
     private void onActionBtnBevestigWijzigingDetails(ActionEvent event) {
         applyDatePickerValue(dpOphaalmoment);
@@ -466,9 +470,6 @@ public class MainMenuFrameController extends BorderPane {
         }
         int uur = Integer.parseInt(tijd.substring(0, tijd.indexOf(":")));
         int minuten = Integer.parseInt(tijd.substring(tijd.indexOf(":") + 1, tijd.length()));
-        System.out.println("dit zoek ik");
-        System.out.println(uur + ":" + minuten);
-        System.out.println(datum.toString());
         LocalTime time = LocalTime.of(uur, minuten);
         return LocalDateTime.of(datum, time);
     }
@@ -502,8 +503,28 @@ public class MainMenuFrameController extends BorderPane {
         prompt.show();
     }
 
+    @FXML
+    protected void onBtnActionToonAlle(ActionEvent event) {
+        txfZoekReservatie.setText("");
+        dtmStartDatum.setValue(null);
+        dtmEindDatum.setValue(null);
+        initialiseerTableViewReservatiesMetFilter();
+    }
+
     private void applyDatePickerValue(DatePicker datumPick) {
         datumPick.setValue(datumPick.getConverter().fromString(datumPick.getEditor().getText()));
     }
 
+    @FXML
+    private void onActionBtnInstellingenOpslaan(ActionEvent event) {
+    }
+
+    private void initialiseerInstellingen() {
+        ConfigView configView = domCon.geefConfigView();
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        
+        txfInstellingenIndientijd.setText(configView.getStandaardIndientijd().format(formatter));
+        txfInstellingenOphaaltijd.setText(configView.getStandaardOphaaltijd().format(formatter));
+    }
 }

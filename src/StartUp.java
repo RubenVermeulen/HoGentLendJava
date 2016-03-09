@@ -10,6 +10,7 @@ import domein.reservatie.Reservatie;
 import gui.LoginFrameController;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,6 +28,8 @@ public class StartUp extends Application {// test xd
 
     @Override
     public void start(Stage stage) {
+        
+        
         // Database test
         EntityManagerFactory emf = JPAUtil.getEntityManagerFactory();
         EntityManager em = emf.createEntityManager();
@@ -240,8 +243,8 @@ public class StartUp extends Application {// test xd
         // Config
         //==================================
         Config c = new Config();
-        c.setStandaardIndienmoment(LocalDateTime.of(2016, 3, 7, 10, 30));
-        c.setStandaardOphaalmoment(LocalDateTime.of(2016, 3, 7, 10, 30));
+        c.setStandaardIndientijd(LocalTime.NOON);
+        c.setStandaardOphaaltijd(LocalTime.MIDNIGHT);
         
         em.getTransaction().begin();
         em.persist(c);
@@ -263,7 +266,7 @@ public class StartUp extends Application {// test xd
         stage.show();
     }
 
-    public static void main(String... args) {
+    public static void main(String... args) {        
         Application.launch(StartUp.class, args);
     }
 }

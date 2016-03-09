@@ -1,29 +1,30 @@
 package shared;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class ConfigView {
-    private LocalDateTime standaardOphaalmoment;
-    private LocalDateTime standaardIndienmoment;
+    private LocalTime standaardOphaaltijd;
+    private LocalTime standaardIndientijd;
 
-    public ConfigView(LocalDateTime standaardOphaalmoment, LocalDateTime standaardIndienmoment) {
-        this.standaardOphaalmoment = standaardOphaalmoment;
-        this.standaardIndienmoment = standaardIndienmoment;
+    public ConfigView(LocalTime standaardOphaaltijd, LocalTime standaardIndientijd) {
+        this.standaardOphaaltijd = standaardOphaaltijd;
+        this.standaardIndientijd = standaardIndientijd;
     }
 
-    public LocalDateTime getStandaardOphaalmoment() {
-        return standaardOphaalmoment;
+    public LocalTime getStandaardOphaaltijd() {
+        return standaardOphaaltijd;
     }
 
-    public void setStandaardOphaalmoment(LocalDateTime standaardOphaalmoment) {
-        this.standaardOphaalmoment = standaardOphaalmoment;
+    public void setStandaardOphaaltijd(LocalTime standaardOphaaltijd) {
+        this.standaardOphaaltijd = standaardOphaaltijd;
     }
 
-    public LocalDateTime getStandaardIndienmoment() {
-        return standaardIndienmoment;
+    public LocalTime getStandaardIndientijd() {
+        return standaardIndientijd;
     }
 
-    public void setStandaardIndienmoment(LocalDateTime standaardIndienmoment) {
-        this.standaardIndienmoment = standaardIndienmoment;
+    public void setStandaardIndientijd(LocalTime standaardIndientijd) {
+        this.standaardIndientijd = standaardIndientijd;
     }
 }
