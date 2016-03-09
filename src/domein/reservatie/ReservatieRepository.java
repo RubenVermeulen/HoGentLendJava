@@ -125,8 +125,8 @@ public class ReservatieRepository {
         return reservatieCat.heeftConflicten(rlv, reservatiemoment);
     }
 
-    public List<ReservatieView> geefReservatiesMetFilter(String filter) {
-        return reservatieCat.geefReservatiesMetFilter(filter);
+    public List<ReservatieView> geefAlleReservatiesMetFiler(String filter, LocalDateTime dtOphaal, LocalDateTime dtIndien) {
+        return reservatieCat.geefAlleReservatiesMetFiler(filter, dtOphaal, dtIndien);
     }
 
 }

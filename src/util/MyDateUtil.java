@@ -14,7 +14,7 @@ public class MyDateUtil {
         if (a2 == null) {
             a2 = LocalDateTime.MAX;
         }
-        if (a2.isBefore(a1) || b1.isBefore(b2)){
+        if (a2.isBefore(a1) || b2.isBefore(b1)){
             return false;
         }
         if (a1.isEqual(a2)) {

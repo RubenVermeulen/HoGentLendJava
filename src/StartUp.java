@@ -187,33 +187,33 @@ public class StartUp extends Application {// test xd
         r1.setReservatielijnen(Arrays.asList(lijnenVoorReservatie1));
 
         // Reservatie 2 
-        Reservatie r2 = new Reservatie(user2, LocalDateTime.of(2016, 3, 7, 10, 30), LocalDateTime.of(2016, 3, 11, 18, 30),
+        Reservatie r2 = new Reservatie(user2, LocalDateTime.of(2016, 3, 7, 10, 30), LocalDateTime.of(2016, 3, 9, 18, 30),
                 LocalDateTime.of(2016, 2, 2, 20, 10));
 
         ReservatieLijn[] lijnenVoorReservatie2 = {
-            new ReservatieLijn(materialen[2], 5, LocalDateTime.of(2016, 3, 7, 10, 30), LocalDateTime.of(2016, 3, 11, 18, 30))};
+            new ReservatieLijn(materialen[2], 5, LocalDateTime.of(2016, 3, 7, 10, 30), LocalDateTime.of(2016, 3, 9, 18, 30))};
 
         lijnenVoorReservatie2[0].setReservatie(r2);
 
         r2.setReservatielijnen(Arrays.asList(lijnenVoorReservatie2));
 
         // Reservatie 3
-        Reservatie r3 = new Reservatie(user3, LocalDateTime.of(2016, 3, 7, 10, 30), LocalDateTime.of(2016, 3, 11, 18, 30),
+        Reservatie r3 = new Reservatie(user3, LocalDateTime.of(2016, 3, 9, 10, 30), LocalDateTime.of(2016, 3, 10, 18, 30),
                 LocalDateTime.of(2016, 2, 3, 20, 10));
         
         ReservatieLijn[] lijnenVoorReservatie3 = {
-            new ReservatieLijn(materialen[2], 5, LocalDateTime.of(2016, 3, 7, 10, 30), LocalDateTime.of(2016, 3, 11, 18, 30))};
+            new ReservatieLijn(materialen[2], 5, LocalDateTime.of(2016, 3, 9, 10, 30), LocalDateTime.of(2016, 3, 10, 18, 30))};
 
         lijnenVoorReservatie3[0].setReservatie(r3);
 
         r3.setReservatielijnen(Arrays.asList(lijnenVoorReservatie3));
         
         // Reservatie 4
-        Reservatie r4 = new Reservatie(user4, LocalDateTime.of(2016, 3, 7, 10, 30), LocalDateTime.of(2016, 3, 11, 18, 30),
+        Reservatie r4 = new Reservatie(user4, LocalDateTime.of(2016, 3, 7, 15, 30), LocalDateTime.of(2016, 3, 20, 18, 30),
                 LocalDateTime.of(2016, 2, 4, 20, 10));
         
         ReservatieLijn[] lijnenVoorReservatie4 = {
-            new ReservatieLijn(materialen[2], 2, LocalDateTime.of(2016, 3, 7, 10, 30), LocalDateTime.of(2016, 3, 11, 18, 30))};
+            new ReservatieLijn(materialen[2], 2, LocalDateTime.of(2016, 3, 7, 10, 30), LocalDateTime.of(2016, 3, 20, 18, 30))};
 
         lijnenVoorReservatie4[0].setReservatie(r4);
 

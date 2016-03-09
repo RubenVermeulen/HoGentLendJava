@@ -258,9 +258,6 @@ public class ReservatieBoxController extends GridPane {
         }
         int uur = Integer.parseInt(tijd.substring(0, tijd.indexOf(":")));
         int minuten = Integer.parseInt(tijd.substring(tijd.indexOf(":") + 1, tijd.length()));
-        System.out.println("dit zoek ik");
-        System.out.println(uur + ":" + minuten);
-        System.out.println(datum.toString());
         LocalTime time = LocalTime.of(uur, minuten);
         return LocalDateTime.of(datum, time);
     }

@@ -263,7 +263,6 @@ public class MateriaalToevoegenController extends BorderPane {
     }
 
     public void initialiseerMateriaalWijzigen(MateriaalView mv) {
-        System.out.println(mv);
 
         // Labels wijzigen
         lblTitel.setText("Wijzig materiaal");

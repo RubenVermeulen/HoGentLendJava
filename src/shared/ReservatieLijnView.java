@@ -90,7 +90,6 @@ public class ReservatieLijnView {
 
     private String formatLocalDateTime(LocalDateTime ldt) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yy HH:mm");
-        System.out.println(ldt.format(formatter));
         return ldt.format(formatter);
     }
 
