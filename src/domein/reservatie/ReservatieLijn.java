@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import util.MyDateUtil;
 
 /**
  *
@@ -104,7 +105,10 @@ public class ReservatieLijn {
         return "ReservatieLijn{" + "id=" + id + ", ophaalmoment=" + ophaalmoment + ", indienmoment=" + indienmoment + ", aantal=" + aantal + '}';
     }
 
-
-    
+    public boolean containsFilter(String sFilter, LocalDateTime dtOphaal, LocalDateTime dtIndien) {
+        boolean filterDatum = MyDateUtil.doesFirstPairOverlapWithSecond(dtOphaal, dtOphaal, ophaalmoment, indienmoment);
+        boolean materiaalFilter = materiaal.containsFilter(sFilter);
+        return filterDatum || materiaalFilter;
+    }
 
 }
