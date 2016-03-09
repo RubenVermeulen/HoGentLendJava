@@ -212,22 +212,22 @@
                                                   <Insets left="5.0" />
                                               </GridPane.margin>
                                           </DatePicker>
-                                          <TextField fx:id="txfOphaalmoment" maxWidth="-Infinity" prefWidth="65.0" visible="false" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+                                          <TextField fx:id="txfOphaalmoment" maxWidth="-Infinity" prefWidth="65.0" visible="false" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                                               <GridPane.margin>
                                                   <Insets left="120.0" />
                                               </GridPane.margin>
                                           </TextField>
                                           <DatePicker fx:id="dpIndienmoment" maxWidth="-Infinity" prefWidth="105.0" visible="false" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                                               <GridPane.margin>
-                                                  <Insets left="5.0" />
+                                                  <Insets left="85.0" />
                                               </GridPane.margin>
                                           </DatePicker>
                                           <TextField fx:id="txfIndienmoment" maxWidth="-Infinity" prefWidth="65.0" visible="false" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                                               <GridPane.margin>
-                                                  <Insets left="120.0" right="5.0" />
+                                                  <Insets left="200.0" right="5.0" />
                                               </GridPane.margin>
                                           </TextField>
-                                          <Label fx:id="lblTotWijzigDetailsReservatie" text="tot" visible="false" GridPane.rowIndex="5" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+                                          <Label fx:id="lblTotWijzigDetailsReservatie" text="tot" visible="false" GridPane.columnSpan="2" GridPane.rowIndex="5" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                                               <GridPane.margin>
                                                   <Insets left="202.0" />
                                               </GridPane.margin>

@@ -96,6 +96,7 @@ public class ReservatieRepository {
         validateOphaalEnIndienMomentsForLijn(rv.getOphaalmoment(), rv.getIndienmoment());
         r.setOphaalmoment(rv.getOphaalmoment());
         r.setIndienmoment(rv.getIndienmoment());
+        r.setOpgehaald(rv.isOpgehaald());
 
         List<ReservatieLijnView> lvn = rv.getReservatieLijnen();
         List<Long> lnIds = r.getReservatielijnen().stream().map(l -> l.getId()).collect(Collectors.toList());
@@ -103,24 +104,38 @@ public class ReservatieRepository {
         for (ReservatieLijnView lv : lvn) {
             if (lv.getId() == null) {
                 voegReservatieLijnToe(r, lv);
-            } else if (!lnIds.contains(lv.getId())) {
-                verwijderReservatieLijn(r, lv.getId());
             } else {
                 pasReservatieLijnAan(r, lv);
             }
         }
+        List<Long> lijnViewIds = lvn.stream().map(l -> l.getId()).collect(Collectors.toList());
+        for (Long lijnId : lnIds) {
+            if (!lijnViewIds.contains(lijnId)) {
+                verwijderReservatieLijn(r, lijnId);
+            }
+        }
+
     }
 
     private void verwijderReservatieLijn(Reservatie r, long rl) {
         em.getTransaction().begin();
+//        for(ReservatieLijn it : r.getReservatielijnen()){
+//            if(it.getId() == rl){
+//                r.getReservatielijnen().remove(it);
+//                break;
+//            }
+//        }
+        System.out.println("omg fuck off alosk" + r.toString() + String.valueOf(rl));
         Iterator<ReservatieLijn> it = r.getReservatielijnen().iterator();
         while (it.hasNext()) {
-            if (it.next().getId() == rl) {
+            ReservatieLijn deRl = it.next();
+            if (deRl.getId() == rl) {
+                System.out.println("FUCKING DALATED XDDD");
                 it.remove();
+                em.remove(deRl);
                 break;
             }
         }
-        em.remove(rl);
         em.getTransaction().commit();
     }
 
@@ -139,6 +154,7 @@ public class ReservatieRepository {
         rl.setAantal(rlv.getAantal());
         rl.setOphaalmoment(rlv.getOphaalmoment());
         rl.setIndienmoment(rlv.getIndienmoment());
+        rl.getMateriaal().setAantalOnbeschikbaar(rlv.getMateriaal().getAantalOnbeschikbaar());
         em.getTransaction().commit();
     }
 
@@ -169,9 +185,9 @@ public class ReservatieRepository {
         for (ReservatieLijnView rlView : reservatieLijnViews) {
 
             MateriaalView mv = rlView.getMateriaal();
-            
-            if(mv.getNaam().equals("")){
-            throw new IllegalArgumentException("Er is geen materiaal ingevuld.");
+
+            if (mv.getNaam().equals("")) {
+                throw new IllegalArgumentException("Er is geen materiaal ingevuld.");
             }
             Materiaal m = matRepo.geefMateriaal(mv.getNaam()).get();
 
@@ -210,7 +226,7 @@ public class ReservatieRepository {
         }
 
         ReservatieView rv = new ReservatieView(r.getId(), r.getLener().getVoornaam() + " " + r.getLener().getAchternaam(),
-                r.getLener().getEmail(), r.getOphaalmoment(), r.getIndienmoment(), r.getReservatiemoment(), 
+                r.getLener().getEmail(), r.getOphaalmoment(), r.getIndienmoment(), r.getReservatiemoment(),
                 r.isOpgehaald(), gereserveerdeMaterialen);
 
         return rv;
@@ -219,11 +235,11 @@ public class ReservatieRepository {
     public int heeftConflicten(ReservatieLijnView rlv, LocalDateTime reservatiemoment) {
 
         System.out.println("Start geef conflicten");
-        
+
         int aantalOver = rlv.getMateriaal().getAantal() - rlv.getMateriaal().getAantalOnbeschikbaar();
 
         System.out.println("Aantal over = " + aantalOver);
-        
+
         if (aantalOver > 0) {
             return 0;
         }
@@ -231,7 +247,6 @@ public class ReservatieRepository {
         LocalDateTime indienmoment = rlv.getIndienmoment();
         LocalDateTime ophaalmoment = rlv.getOphaalmoment();
         long materiaalId = rlv.getMateriaal().getId();
-
 
         for (Reservatie r : reservaties) {
             Optional<ReservatieLijn> lijstItem
@@ -242,15 +257,20 @@ public class ReservatieRepository {
                             || (rl.getOphaalmoment().isAfter(ophaalmoment) && rl.getOphaalmoment().isBefore(indienmoment))))
                             && rl.getReservatie().getReservatiemoment().isAfter(reservatiemoment)
                     ).findFirst();
-            if(lijstItem.isPresent()){
+            if (lijstItem.isPresent()) {
                 aantalOver += lijstItem.get().getAantal();
                 System.out.println("Aantal over (nadat een gevonden is) " + aantalOver);
-                if(aantalOver >= 0)
+                if (aantalOver >= 0) {
                     return 0;
+                }
             }
         }
 
         return aantalOver;
+    }
+
+    public List<MateriaalView> geefMaterialenMetFilter(String filter) {
+        return matRepo.geefMaterialenMetFilter(filter);
     }
 
 }
