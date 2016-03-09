@@ -340,9 +340,9 @@
                               <Button fx:id="btnInstellingenOpslaan" mnemonicParsing="false" onAction="#onActionBtnInstellingenOpslaan" text="Opslaan" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <Label text="Standaard ophaaltijd:" />
                               <Label text="Standaard indientijd:" GridPane.rowIndex="1" />
-                              <Label text="lblMessage" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField fx:id="txfInstellingenIndientijd" maxWidth="70.0" GridPane.columnIndex="1" />
-                              <TextField fx:id="txfInstellingenOphaaltijd" maxWidth="70.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label fx:id="lblInstellingenMessage" text="lblMessage" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="txfInstellingenOphaaltijd" maxWidth="70.0" GridPane.columnIndex="1" />
+                              <TextField fx:id="txfInstellingenIndientijd" maxWidth="70.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
                      </children>

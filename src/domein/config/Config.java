@@ -38,7 +38,7 @@ public class Config {
         this.standaardOphaaltijd = standaardOphaaltijd;
     }
 
-    public LocalTime getStandaardIndoentijd() {
+    public LocalTime getStandaardIndientijd() {
         return standaardIndientijd;
     }
 

@@ -375,6 +375,6 @@ public class DomeinController {
     }
     
     public ConfigView geefConfigView() {
-        return new ConfigView(config.getStandaardIndoentijd(), config.getStandaardOphaaltijd());
+        return new ConfigView(config.getStandaardOphaaltijd(), config.getStandaardIndientijd());
     }
 }
