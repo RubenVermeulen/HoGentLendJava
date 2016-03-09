@@ -184,7 +184,6 @@ public class ReservatieBoxController extends GridPane {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             
-            mv.setAantalOnbeschikbaar(mv.getAantalOnbeschikbaar()-rlv.getAantal());
             
             rv.getReservatieLijnen().remove(rlv);
             dc.wijzigReservatie(rv);

@@ -131,6 +131,7 @@ public class ReservatieRepository {
             ReservatieLijn deRl = it.next();
             if (deRl.getId() == rl) {
                 System.out.println("FUCKING DALATED XDDD");
+                deRl.getMateriaal().setAantalOnbeschikbaar(deRl.getMateriaal().getAantalOnbeschikbaar()-deRl.getAantal());
                 it.remove();
                 em.remove(deRl);
                 break;
