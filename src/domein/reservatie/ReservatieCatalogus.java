@@ -121,9 +121,8 @@ public class ReservatieCatalogus {
         String emailLener = rv.getEmailLener();
         LocalDateTime ophaalmoment = rv.getOphaalmoment();
         LocalDateTime indienmoment = rv.getIndienmoment();
-        String ophaalmomentAlsString = rv.getOphaalmomentAlsString();
-        String indienmomentAlsString = rv.getIndienmomentAlsString();
-        String reservatieLijnenAlsString = rv.getReservatieLijnenAlsString();
+        LocalDateTime reservatiemoment = rv.getReservatiemoment();
+        System.out.println("TOEGEVOEGD : " + rv.getReservatiemoment().toString());
         List<ReservatieLijnView> reservatieLijnViews = rv.getReservatieLijnen();
 
         Optional<Gebruiker> deLenerOpt = gebruikersRepo.geefGebruikerViaEmail(emailLener);
@@ -147,7 +146,7 @@ public class ReservatieCatalogus {
         }
 
         validateOphaalEnIndienMomentsForLijn(ophaalmoment, indienmoment);
-        Reservatie reservatie = new Reservatie(deLener, ophaalmoment, indienmoment);
+        Reservatie reservatie = new Reservatie(deLener, ophaalmoment, indienmoment, reservatiemoment);
 
         reservatie.setReservatielijnen(reservatieLijnen);
 

@@ -425,6 +425,8 @@ public class MainMenuFrameController extends BorderPane {
 
     @FXML
     private void onActionBtnBevestigWijzigingDetails(ActionEvent event) {
+        dpOphaalmoment.setValue(dpOphaalmoment.getConverter().fromString(dpOphaalmoment.getEditor().getText()));
+        dpIndienmoment.setValue(dpIndienmoment.getConverter().fromString(dpIndienmoment.getEditor().getText()));
         geselecteerdeReservatie.setOphaalmoment(convertToLocalDateTime(dpOphaalmoment.getValue(), txfOphaalmoment.getText()));
         geselecteerdeReservatie.setIndienmoment(convertToLocalDateTime(dpIndienmoment.getValue(), txfIndienmoment.getText()));
         try {

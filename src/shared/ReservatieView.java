@@ -45,12 +45,17 @@ public class ReservatieView {
         this.reservatiemomentAlsString = formatLocalDateTime(reservatiemoment);
     }
 
-    public ReservatieView(String emailLener, LocalDateTime ophaalmoment, LocalDateTime indienmoment, LocalDateTime reservatiemoment,List<ReservatieLijnView> reservatieLijnen) {
+    public ReservatieView(String emailLener, LocalDateTime ophaalmoment, LocalDateTime indienmoment,
+            LocalDateTime reservatiemoment,List<ReservatieLijnView> reservatieLijnen) {
         this.emailLener = emailLener;
         this.ophaalmoment = ophaalmoment;
         this.indienmoment = indienmoment;
         this.reservatiemoment = reservatiemoment;
         this.reservatieLijnen = reservatieLijnen;
+        
+        this.ophaalmomentAlsString = formatLocalDateTime(ophaalmoment);
+        this.indienmomentAlsString = formatLocalDateTime(indienmoment);
+        this.reservatiemomentAlsString = formatLocalDateTime(reservatiemoment);
     }
     
     
