@@ -2,8 +2,6 @@ package gui;
 
 import domein.DomeinController;
 import domein.gebruiker.Gebruiker;
-import java.awt.AWTException;
-import java.awt.Robot;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -193,11 +191,22 @@ public class MainMenuFrameController extends BorderPane {
         prompt.show();
     }
 
-    protected void initialiseerTableViewReservaties() {
-
-        tvReservaties.setPlaceholder(new Label("Er zijn nog geen reservaties."));
-
-        List<ReservatieView> reservaties = domCon.geefAlleReservaties();
+    protected void initialiseerTableViewReservaties(){
+        setupTableViewReservaties(domCon.geefAlleReservaties());
+    }
+    
+    protected void initialiseerTableViewReservatiesMetFilter(){
+        setupTableViewReservaties(
+                domCon.geefAlleReservatiesMetFiler(
+                        txfZoekReservatie.getText(),
+                        dtmStartDatum.getValue() == null ? null : LocalDateTime.of(dtmStartDatum.getValue(), LocalTime.of(0,0)),
+                        dtmEindDatum.getValue() == null ? null : LocalDateTime.of(dtmEindDatum.getValue(), LocalTime.of(0,0))
+                )
+        );
+    }
+    
+    protected void setupTableViewReservaties(List<ReservatieView> reservaties) {
+        tvReservaties.setPlaceholder(new Label("Er zijn geen reservaties."));
 
         ObservableList<ReservatieView> observableList = FXCollections.unmodifiableObservableList(
                 FXCollections.observableArrayList(reservaties.stream().collect(Collectors.toList())
@@ -222,6 +231,11 @@ public class MainMenuFrameController extends BorderPane {
                 setVisibilityWijzigDetailsMateriaal(false);
             } else {
                 boxReservatieLijn.getChildren().clear();
+                lblIndienmoment.setText("-");
+                lblOphaalmoment.setText("-");
+                lblReservatiemoment.setText("-");
+                lblLenerNaam.setText("-");
+                lblStatus.setText("-");
             }
         });
 
@@ -346,18 +360,25 @@ public class MainMenuFrameController extends BorderPane {
 
     @FXML
     private void onActionTxfZoekReservatie(ActionEvent event) {
+        onActionBtnZoekReservatie(event);
     }
 
     @FXML
     private void onActionDtmStartDatum(ActionEvent event) {
+        onActionBtnZoekReservatie(event);
     }
 
     @FXML
     private void onActionBtnZoekReservatie(ActionEvent event) {
+        geselecteerdeReservatie = null;
+        applyDatePickerValue(dtmStartDatum);
+        applyDatePickerValue(dtmEindDatum);
+        initialiseerTableViewReservatiesMetFilter();
     }
 
     @FXML
     private void onActionDtmEindDatum(ActionEvent event) {
+        onActionBtnZoekReservatie(event);
     }
 
     @FXML
@@ -417,8 +438,8 @@ public class MainMenuFrameController extends BorderPane {
 
     @FXML
     private void onActionBtnBevestigWijzigingDetails(ActionEvent event) {
-        dpOphaalmoment.setValue(dpOphaalmoment.getConverter().fromString(dpOphaalmoment.getEditor().getText()));
-        dpIndienmoment.setValue(dpIndienmoment.getConverter().fromString(dpIndienmoment.getEditor().getText()));
+        applyDatePickerValue(dpOphaalmoment);
+        applyDatePickerValue(dpIndienmoment);
         geselecteerdeReservatie.setOphaalmoment(convertToLocalDateTime(dpOphaalmoment.getValue(), txfOphaalmoment.getText()));
         geselecteerdeReservatie.setIndienmoment(convertToLocalDateTime(dpIndienmoment.getValue(), txfIndienmoment.getText()));
         try {
@@ -479,6 +500,10 @@ public class MainMenuFrameController extends BorderPane {
         prompt.initOwner(getScene().getWindow());
         prompt.setScene(promptScene);
         prompt.show();
+    }
+
+    private void applyDatePickerValue(DatePicker datumPick) {
+        datumPick.setValue(datumPick.getConverter().fromString(datumPick.getEditor().getText()));
     }
 
 }

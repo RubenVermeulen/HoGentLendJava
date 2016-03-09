@@ -101,4 +101,15 @@ public class Gebruiker {
         return "Gebruiker{" + "id=" + id + ", voornaam=" + voornaam + ", achternaam=" + achternaam + ", email=" + email + ", paswoord=" + paswoord + ", hoofdbeheerder=" + hoofdbeheerder + ", beheerder=" + beheerder + ", lector=" + lector + '}';
     }
 
+    public boolean containsFilter(String filter) {
+        if (filter == null || filter.isEmpty()) {
+            return true;
+        }
+        return hasFilter(email, filter) || hasFilter(voornaam, filter) || hasFilter(achternaam, filter);
+    }
+
+    private boolean hasFilter(String string, String filter) {
+        return string != null && string.toLowerCase().contains(filter.toLowerCase());
+    }
+
 }

@@ -22,6 +22,7 @@ import javax.persistence.Table;
 import shared.ReservatieLijnView;
 import shared.MateriaalView;
 import shared.ReservatieView;
+import util.MyDateUtil;
 
 /**
  *
@@ -76,12 +77,22 @@ public class Reservatie {
         this.opgehaald = opgehaald;
     }
    
-    public boolean containsFilter(String filter){
-        /*
-        Filter zal filteren op 
+    public boolean containsFilter(String sFilter, LocalDateTime dtOphaal, LocalDateTime dtIndien){
+        boolean filterInLijnen = false;
+        for(ReservatieLijn l : reservatielijen){
+            filterInLijnen = l.containsFilter(sFilter, dtOphaal, dtIndien);
+            if (filterInLijnen) break;
+        }
+
         
-        */
-        return false;
+        boolean filterInLener = lener.containsFilter(sFilter);
+        boolean lenerFiltersMatter = (sFilter != null && !sFilter.trim().isEmpty()) || (dtOphaal == null && dtIndien == null);
+        boolean filterDatums = MyDateUtil.doesFirstPairOverlapWithSecond(dtOphaal, dtIndien, ophaalmoment, indienmoment);
+        
+        System.out.println(String.valueOf(dtOphaal) + " ============== " + String.valueOf(dtIndien) + " -------- "+String.valueOf(ophaalmoment)+ " --- " + String.valueOf(indienmoment));
+        System.out.println(filterDatums);
+        
+        return filterInLijnen || (lenerFiltersMatter && filterInLener) || filterDatums;
     }
 
     public Long getId() {
