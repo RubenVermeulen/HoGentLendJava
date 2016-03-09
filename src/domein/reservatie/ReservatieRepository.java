@@ -29,67 +29,43 @@ import util.JPAUtil;
  */
 public class ReservatieRepository {
 
-    private List<Reservatie> reservaties;
+//    private List<Reservatie> reservaties;
     private EntityManager em;
-    private MateriaalRepository matRepo;
-    private GebruikerRepository gebrRepo;
+    private ReservatieCatalogus reservatieCat;
+//    private MateriaalRepository materiaalRepo;
+//    private GebruikerRepository gebruikersRepo;
 
     public ReservatieRepository(MateriaalRepository materiaalRepo, GebruikerRepository gebruikerRepo) {
-        reservaties = new ArrayList<>();
         this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
-        this.matRepo = materiaalRepo;
-        this.gebrRepo = gebruikerRepo;
-        loadReservaties();
+        loadReservatieCatalogus(materiaalRepo, gebruikerRepo);
     }
 
-    private void loadReservaties() {
+    private void loadReservatieCatalogus(MateriaalRepository materiaalRepo, GebruikerRepository gebruikersRepo) {
         Query q = em.createQuery("SELECT r FROM Reservatie r");
-        reservaties = (List<Reservatie>) q.getResultList();
+        List<Reservatie> reservatieLijst = (List<Reservatie>) q.getResultList();
+        reservatieCat = new ReservatieCatalogus(reservatieLijst, materiaalRepo, gebruikersRepo);
     }
 
     public List<Long> geefAlleReservatieIds() {
-        return reservaties.stream().map(Reservatie::getId).collect(Collectors.toList());
+        return reservatieCat.geefAlleReservatieIds();
     }
 
     public List<ReservatieView> geefAlleReservaties() {
-
-        List<ReservatieView> reservatieViews = new ArrayList();
-
-        for (Reservatie r : reservaties) {
-            reservatieViews.add(toReservatieView(r));
-        }
-
-        return reservatieViews;
-
+        return reservatieCat.geefAlleReservaties();
     }
 
     public void verwijderReservatie(ReservatieView rv) {
-        Optional<Reservatie> optR = geefReservatie(rv.getId());
-        if (!optR.isPresent()) {
-            throw new IllegalArgumentException("De gegeven reservatie bestaat niet.");
-        }
-        Reservatie reservatie = optR.get();
-        
-        for(ReservatieLijn rl : reservatie.getReservatielijnen()){
-            rl.getMateriaal().setAantalOnbeschikbaar(rl.getMateriaal().getAantalOnbeschikbaar()-rl.getAantal());
-        }
-                
+        Reservatie reservatie = reservatieCat.verwijderReservatie(rv);
         em.getTransaction().begin();
         em.remove(reservatie);
         em.getTransaction().commit();
-
-        reservaties.remove(reservatie);
     }
 
     public Optional<Reservatie> geefReservatie(long id) {
-        for (Reservatie r : reservaties) {
-            if (r.getId() == id) {
-                return Optional.of(r);
-            }
-        }
-        return Optional.empty();
+        return reservatieCat.geefReservatie(id);
     }
 
+    //kan niet getest worden (test child methodes voegReservatieLijnToe, pasReservatieLijnAan, verwijderReservatieLijn)
     public void wijzigReservatie(ReservatieView rv) {
         Optional<Reservatie> optR = geefReservatie(rv.getId());
         if (!optR.isPresent()) {
@@ -97,7 +73,7 @@ public class ReservatieRepository {
         }
         Reservatie r = optR.get();
 
-        validateOphaalEnIndienMomentsForLijn(rv.getOphaalmoment(), rv.getIndienmoment());
+        reservatieCat.validateOphaalEnIndienMomentsForLijn(rv.getOphaalmoment(), rv.getIndienmoment());
         r.setOphaalmoment(rv.getOphaalmoment());
         r.setIndienmoment(rv.getIndienmoment());
         r.setOpgehaald(rv.isOpgehaald());
@@ -122,83 +98,30 @@ public class ReservatieRepository {
     }
 
     private void verwijderReservatieLijn(Reservatie r, long rl) {
-        em.getTransaction().begin();
-        Iterator<ReservatieLijn> it = r.getReservatielijnen().iterator();
-        while (it.hasNext()) {
-            ReservatieLijn deRl = it.next();
-            if (deRl.getId() == rl) {
-                deRl.getMateriaal().setAantalOnbeschikbaar(deRl.getMateriaal().getAantalOnbeschikbaar()-deRl.getAantal());
-                it.remove();
-                em.remove(deRl);
-                break;
-            }
+        ReservatieLijn deRl = reservatieCat.verwijderReservatieLijn(r, rl);
+        if (deRl != null) {
+            em.getTransaction().begin();
+            em.remove(deRl);
+            em.getTransaction().commit();
         }
-        em.getTransaction().commit();
     }
 
     private void voegReservatieLijnToe(Reservatie r, ReservatieLijnView rlv) {
+        ReservatieLijn rl = reservatieCat.voegReservatieLijnToe(r, rlv);
         em.getTransaction().begin();
-        ReservatieLijn rl = new ReservatieLijn(matRepo.geefMateriaalMetId(rlv.getMateriaal().getId()).get(), rlv.getAantal(), rlv.getOphaalmoment(), rlv.getIndienmoment());
         em.persist(rl);
-        r.getReservatielijnen().add(rl);
         em.getTransaction().commit();
     }
 
     private void pasReservatieLijnAan(Reservatie r, ReservatieLijnView rlv) {
-        ReservatieLijn rl = r.getReservatielijnen().stream().filter(mrl -> mrl.getId() == rlv.getId()).findFirst().get();
-        validateOphaalEnIndienMomentsForLijn(rlv.getOphaalmoment(), rlv.getIndienmoment());
+        reservatieCat.pasReservatieLijnAan(r, rlv);
         em.getTransaction().begin();
-        rl.setAantal(rlv.getAantal());
-        rl.setOphaalmoment(rlv.getOphaalmoment());
-        rl.setIndienmoment(rlv.getIndienmoment());
-        rl.getMateriaal().setAantalOnbeschikbaar(rlv.getMateriaal().getAantalOnbeschikbaar());
         em.getTransaction().commit();
     }
 
-    private void validateOphaalEnIndienMomentsForLijn(LocalDateTime ophaal, LocalDateTime indien) {
-        if (ophaal.isAfter(indien)) {
-            throw new IllegalArgumentException("De ophaal datum kan niet na de indien datum liggen.");
-        }
-    }
-
     public void voegReservatieToe(ReservatieView rv) {
-        long id = rv.getId();
-        String lener = rv.getLener();
-        String emailLener = rv.getEmailLener();
-        LocalDateTime ophaalmoment = rv.getOphaalmoment();
-        LocalDateTime indienmoment = rv.getIndienmoment();
-        String ophaalmomentAlsString = rv.getOphaalmomentAlsString();
-        String indienmomentAlsString = rv.getIndienmomentAlsString();
-        String reservatieLijnenAlsString = rv.getReservatieLijnenAlsString();
-        List<ReservatieLijnView> reservatieLijnViews = rv.getReservatieLijnen();
-
-        Optional<Gebruiker> deLenerOpt = gebrRepo.geefGebruikerViaEmail(emailLener);
-        if (!deLenerOpt.isPresent()) {
-            throw new IllegalArgumentException("Geen gebruiker gevonden met het geven email adres.");
-        }
-        Gebruiker deLener = deLenerOpt.get();
-        List<ReservatieLijn> reservatieLijnen = new ArrayList<>();
-
-        for (ReservatieLijnView rlView : reservatieLijnViews) {
-
-            MateriaalView mv = rlView.getMateriaal();
-
-            if (mv.getNaam().equals("")) {
-                throw new IllegalArgumentException("Er is geen materiaal ingevuld.");
-            }
-            Materiaal m = matRepo.geefMateriaal(mv.getNaam()).get();
-
-            ReservatieLijn rl = new ReservatieLijn(m, rlView.getAantal(), rlView.getOphaalmoment(), rlView.getIndienmoment());
-
-        }
-
-        validateOphaalEnIndienMomentsForLijn(ophaalmoment, indienmoment);
-        Reservatie reservatie = new Reservatie(deLener, ophaalmoment, indienmoment);
-
-        reservatie.setReservatielijnen(reservatieLijnen);
-
-        reservaties.add(reservatie);
-
+        Reservatie reservatie = reservatieCat.voegReservatieToe(rv);
+        
         //reservatielijnen toevoegen aan db
         rv.getReservatieLijnen().stream().forEach((rlv) -> {
             voegReservatieLijnToe(reservatie, rlv);
@@ -212,62 +135,15 @@ public class ReservatieRepository {
     }
 
     public ReservatieView toReservatieView(Reservatie r) {
-        List<ReservatieLijnView> gereserveerdeMaterialen = new ArrayList<>();
-
-        for (ReservatieLijn gm : r.getReservatielijnen()) {
-
-            MateriaalView mv = matRepo.toMateriaalView(gm.getMateriaal());
-            ReservatieLijnView gmv
-                    = new ReservatieLijnView(gm.getId(), gm.getOphaalmoment(), gm.getIndienmoment(), mv, gm.getAantal());
-            gereserveerdeMaterialen.add(gmv);
-        }
-
-        ReservatieView rv = new ReservatieView(r.getId(), r.getLener().getVoornaam() + " " + r.getLener().getAchternaam(),
-                r.getLener().getEmail(), r.getOphaalmoment(), r.getIndienmoment(), r.getReservatiemoment(),
-                r.isOpgehaald(), gereserveerdeMaterialen);
-
-        return rv;
+        return reservatieCat.toReservatieView(r);
     }
 
     public int heeftConflicten(ReservatieLijnView rlv, LocalDateTime reservatiemoment) {
-
-        System.out.println("Start geef conflicten");
-
-        int aantalOver = rlv.getMateriaal().getAantal() - rlv.getMateriaal().getAantalOnbeschikbaar();
-
-        System.out.println("Aantal over = " + aantalOver);
-
-        if (aantalOver > 0) {
-            return 0;
-        }
-
-        LocalDateTime indienmoment = rlv.getIndienmoment();
-        LocalDateTime ophaalmoment = rlv.getOphaalmoment();
-        long materiaalId = rlv.getMateriaal().getId();
-
-        for (Reservatie r : reservaties) {
-            Optional<ReservatieLijn> lijstItem
-                    = r.getReservatielijnen().stream().filter(
-                            rl -> ((rl.getMateriaal().getId() == materiaalId)
-                            && (((rl.getOphaalmoment().isBefore(ophaalmoment) || rl.getOphaalmoment().isEqual(ophaalmoment))
-                            && rl.getIndienmoment().isAfter(ophaalmoment))
-                            || (rl.getOphaalmoment().isAfter(ophaalmoment) && rl.getOphaalmoment().isBefore(indienmoment))))
-                            && rl.getReservatie().getReservatiemoment().isAfter(reservatiemoment)
-                    ).findFirst();
-            if (lijstItem.isPresent()) {
-                aantalOver += lijstItem.get().getAantal();
-                System.out.println("Aantal over (nadat een gevonden is) " + aantalOver);
-                if (aantalOver >= 0) {
-                    return 0;
-                }
-            }
-        }
-
-        return aantalOver;
+        return reservatieCat.heeftConflicten(rlv, reservatiemoment);
     }
 
-    public List<MateriaalView> geefMaterialenMetFilter(String filter) {
-        return matRepo.geefMaterialenMetFilter(filter);
+    public List<ReservatieView> geefReservatiesMetFilter(String filter) {
+        return reservatieCat.geefReservatiesMetFilter(filter);
     }
 
 }

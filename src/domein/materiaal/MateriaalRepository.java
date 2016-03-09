@@ -14,7 +14,7 @@ import java.util.Optional;
 
 public class MateriaalRepository {
 
-    private DomeinController dc;
+//    private DomeinController dc;
 
     private MateriaalCatalogus materiaalCat;
     private EntityManager em;
