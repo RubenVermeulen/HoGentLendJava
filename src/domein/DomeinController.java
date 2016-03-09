@@ -118,7 +118,8 @@ public class DomeinController {
      * zitten.
      *
      * @param csvFilePath het path naar het csv bestand
-     * @throws exceptions.BulkToevoegenMisluktException indien het bulk toevoegen mislukt is
+     * @throws exceptions.BulkToevoegenMisluktException indien het bulk
+     * toevoegen mislukt is
      */
     public void voegMaterialenToeInBulk(String csvFilePath) throws BulkToevoegenMisluktException {
         materiaalRepo.voegMaterialenToeInBulk(csvFilePath);
@@ -245,6 +246,18 @@ public class DomeinController {
         return reservatieRepo.geefAlleReservaties();
     }
 
+    /**
+     * Geeft alle reservatie die voldoen aan de filter gegevens.
+     *
+     * @param filter
+     * @param dtOphaal
+     * @param dtIndien
+     * @return
+     */
+    public List<ReservatieView> geefAlleReservatiesMetFiler(String filter, LocalDateTime dtOphaal, LocalDateTime dtIndien) {
+        return reservatieRepo.geefAlleReservatiesMetFiler(filter, dtOphaal, dtIndien);
+    }
+
     /* -------------------------------- */
     // BEHEERDERS
     /* -------------------------------- */
@@ -337,9 +350,21 @@ public class DomeinController {
 
         return firmaListToString(firmas);
     }
-    
-    public int heeftConflicten(ReservatieLijnView rlv, LocalDateTime reservatiemoment){
+
+    public int heeftConflicten(ReservatieLijnView rlv, LocalDateTime reservatiemoment) {
         return reservatieRepo.heeftConflicten(rlv, reservatiemoment);
+    }
+
+    /* -------------------------------- */
+    // CONFIG
+    /* -------------------------------- */
+    public void saveConfig(ConfigView view) {
+        config.applyvView(view);
+        configLoader.save();
+    }
+        
+    public ConfigView geefConfigView() {
+        return new ConfigView(config.getStandaardOphaaltijd(), config.getStandaardIndientijd(), config.getStandaardOphaalDag(), config.getStandaardIndienDag());
     }
 
     /* -------------------------------- */
@@ -362,19 +387,4 @@ public class DomeinController {
         return firmas.stream().map(f -> f.getNaam()).collect(Collectors.toList());
     }
 
-    public List<ReservatieView> geefAlleReservatiesMetFiler(String filter, LocalDateTime dtOphaal, LocalDateTime dtIndien) {
-        return reservatieRepo.geefAlleReservatiesMetFiler(filter, dtOphaal, dtIndien);
-    }
-
-    /* -------------------------------- */
-    // CONFIG
-    /* -------------------------------- */
-    public void saveConfig(ConfigView view) {
-        config.applyvView(view);
-        configLoader.save();
-    }
-    
-    public ConfigView geefConfigView() {
-        return new ConfigView(config.getStandaardOphaaltijd(), config.getStandaardIndientijd(), config.getStandaardOphaalDag(), config.getStandaardIndienDag());
-    }
 }
