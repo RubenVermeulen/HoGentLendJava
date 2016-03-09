@@ -83,11 +83,16 @@ public class Reservatie {
             filterInLijnen = l.containsFilter(sFilter, dtOphaal, dtIndien);
             if (filterInLijnen) break;
         }
+
         
         boolean filterInLener = lener.containsFilter(sFilter);
+        boolean lenerFiltersMatter = (sFilter != null && !sFilter.trim().isEmpty()) || (dtOphaal == null && dtIndien == null);
         boolean filterDatums = MyDateUtil.doesFirstPairOverlapWithSecond(dtOphaal, dtIndien, ophaalmoment, indienmoment);
         
-        return filterInLijnen || filterInLener || filterDatums;
+        System.out.println(String.valueOf(dtOphaal) + " ============== " + String.valueOf(dtIndien) + " -------- "+String.valueOf(ophaalmoment)+ " --- " + String.valueOf(indienmoment));
+        System.out.println(filterDatums);
+        
+        return filterInLijnen || (lenerFiltersMatter && filterInLener) || filterDatums;
     }
 
     public Long getId() {

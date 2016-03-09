@@ -2,8 +2,6 @@ package gui;
 
 import domein.DomeinController;
 import domein.gebruiker.Gebruiker;
-import java.awt.AWTException;
-import java.awt.Robot;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -201,8 +199,8 @@ public class MainMenuFrameController extends BorderPane {
         setupTableViewReservaties(
                 domCon.geefAlleReservatiesMetFiler(
                         txfZoekReservatie.getText(),
-                        LocalDateTime.of(dtmStartDatum.getValue(), LocalTime.of(0,0)),
-                        LocalDateTime.of(dtmEindDatum.getValue(), LocalTime.of(0,0))
+                        dtmStartDatum.getValue() == null ? null : LocalDateTime.of(dtmStartDatum.getValue(), LocalTime.of(0,0)),
+                        dtmEindDatum.getValue() == null ? null : LocalDateTime.of(dtmEindDatum.getValue(), LocalTime.of(0,0))
                 )
         );
     }
@@ -233,6 +231,11 @@ public class MainMenuFrameController extends BorderPane {
                 setVisibilityWijzigDetailsMateriaal(false);
             } else {
                 boxReservatieLijn.getChildren().clear();
+                lblIndienmoment.setText("-");
+                lblOphaalmoment.setText("-");
+                lblReservatiemoment.setText("-");
+                lblLenerNaam.setText("-");
+                lblStatus.setText("-");
             }
         });
 
@@ -367,6 +370,7 @@ public class MainMenuFrameController extends BorderPane {
 
     @FXML
     private void onActionBtnZoekReservatie(ActionEvent event) {
+        geselecteerdeReservatie = null;
         applyDatePickerValue(dtmStartDatum);
         applyDatePickerValue(dtmEindDatum);
         initialiseerTableViewReservatiesMetFilter();
@@ -435,7 +439,7 @@ public class MainMenuFrameController extends BorderPane {
     @FXML
     private void onActionBtnBevestigWijzigingDetails(ActionEvent event) {
         applyDatePickerValue(dpOphaalmoment);
-                applyDatePickerValue(dpIndienmoment);
+        applyDatePickerValue(dpIndienmoment);
         geselecteerdeReservatie.setOphaalmoment(convertToLocalDateTime(dpOphaalmoment.getValue(), txfOphaalmoment.getText()));
         geselecteerdeReservatie.setIndienmoment(convertToLocalDateTime(dpIndienmoment.getValue(), txfIndienmoment.getText()));
         try {

@@ -106,9 +106,13 @@ public class ReservatieLijn {
     }
 
     public boolean containsFilter(String sFilter, LocalDateTime dtOphaal, LocalDateTime dtIndien) {
-        boolean filterDatum = MyDateUtil.doesFirstPairOverlapWithSecond(dtOphaal, dtOphaal, ophaalmoment, indienmoment);
+        boolean filterDatum = MyDateUtil.doesFirstPairOverlapWithSecond(dtOphaal, dtIndien, ophaalmoment, indienmoment);
+        
+        System.out.println(String.valueOf(dtOphaal) + " ============== " + String.valueOf(dtIndien) + " -------- "+String.valueOf(ophaalmoment) + String.valueOf(indienmoment));
+        System.out.println(filterDatum);
         boolean materiaalFilter = materiaal.containsFilter(sFilter);
-        return filterDatum || materiaalFilter;
+        boolean materiaalFilterMatters = (sFilter != null && !sFilter.trim().isEmpty()) || (dtOphaal == null && dtIndien == null);
+        return filterDatum || (materiaalFilterMatters && materiaalFilter);
     }
 
 }
