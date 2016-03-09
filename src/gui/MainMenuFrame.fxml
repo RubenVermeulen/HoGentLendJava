@@ -106,10 +106,9 @@
                             <children>
                                   <GridPane prefHeight="120.0" prefWidth="720.0">
                                       <columnConstraints>
-                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="720.0" minWidth="10.0" prefWidth="165.0" />
-                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="720.0" minWidth="10.0" prefWidth="215.0" />
-                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="568.0" minWidth="8.0" prefWidth="24.0" />
-                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="568.0" minWidth="0.0" prefWidth="316.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="720.0" minWidth="10.0" prefWidth="377.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="568.0" minWidth="30.0" prefWidth="27.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="568.0" minWidth="0.0" prefWidth="377.0" />
                                       </columnConstraints>
                                       <rowConstraints>
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -117,16 +116,21 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                       <children>
-                                          <Button fx:id="btnVoegResevatieToe" mnemonicParsing="false" onAction="#onActionBtnVoegReservatieToe" prefHeight="25.0" prefWidth="214.0" text="Voeg nieuwe reservatie toe" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                                          <Button fx:id="btnVoegResevatieToe" mnemonicParsing="false" onAction="#onActionBtnVoegReservatieToe" prefHeight="25.0" prefWidth="170.0" text="Voeg nieuwe reservatie toe" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                                               <GridPane.margin>
-                                                  <Insets right="102.0" />
+                                                  <Insets />
                                               </GridPane.margin>
                                           </Button>
-                                          <TextField fx:id="txfZoekReservatie" onAction="#onActionTxfZoekReservatie" prefHeight="25.0" prefWidth="307.0" promptText="zoeken..." GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
-                                          <DatePicker fx:id="dtmStartDatum" onAction="#onActionDtmStartDatum" prefWidth="142.0" promptText="start datum..." GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-                                          <Button fx:id="btnZoekReservatie" mnemonicParsing="false" onAction="#onActionBtnZoekReservatie" prefHeight="25.0" prefWidth="214.0" text="Zoek reservaties" GridPane.columnIndex="3" GridPane.halignment="LEFT" />
-                                          <DatePicker fx:id="dtmEindDatum" onAction="#onActionDtmEindDatum" prefHeight="25.0" prefWidth="142.0" promptText="eind datum..." GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
-                                          <Label text="tot" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                                          <TextField fx:id="txfZoekReservatie" maxWidth="-Infinity" minWidth="-Infinity" onAction="#onActionTxfZoekReservatie" prefHeight="25.0" prefWidth="202.0" promptText="zoeken..." GridPane.halignment="RIGHT" />
+                                          <DatePicker fx:id="dtmStartDatum" onAction="#onActionDtmStartDatum" prefWidth="142.0" promptText="start datum..." GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                                          <Button fx:id="btnZoekReservatie" mnemonicParsing="false" onAction="#onActionBtnZoekReservatie" prefHeight="25.0" prefWidth="109.0" text="Zoek reservaties" GridPane.columnIndex="2" GridPane.halignment="LEFT" />
+                                          <DatePicker fx:id="dtmEindDatum" onAction="#onActionDtmEindDatum" prefHeight="25.0" prefWidth="142.0" promptText="eind datum..." GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+                                          <Label text="tot" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                              <Button mnemonicParsing="false" onAction="#onBtnActionToonAlle" text="Toon alle" GridPane.columnIndex="2">
+                                 <GridPane.margin>
+                                    <Insets left="120.0" />
+                                 </GridPane.margin>
+                              </Button>
                                       </children>
                                   </GridPane>
                                   <TableView fx:id="tvReservaties" prefHeight="554.0" prefWidth="720.0" GridPane.rowIndex="1" GridPane.rowSpan="2">

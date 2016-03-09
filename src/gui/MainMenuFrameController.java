@@ -191,20 +191,20 @@ public class MainMenuFrameController extends BorderPane {
         prompt.show();
     }
 
-    protected void initialiseerTableViewReservaties(){
+    protected void initialiseerTableViewReservaties() {
         setupTableViewReservaties(domCon.geefAlleReservaties());
     }
-    
-    protected void initialiseerTableViewReservatiesMetFilter(){
+
+    protected void initialiseerTableViewReservatiesMetFilter() {
         setupTableViewReservaties(
                 domCon.geefAlleReservatiesMetFiler(
                         txfZoekReservatie.getText(),
-                        dtmStartDatum.getValue() == null ? null : LocalDateTime.of(dtmStartDatum.getValue(), LocalTime.of(0,0)),
-                        dtmEindDatum.getValue() == null ? null : LocalDateTime.of(dtmEindDatum.getValue(), LocalTime.of(0,0))
+                        dtmStartDatum.getValue() == null ? null : LocalDateTime.of(dtmStartDatum.getValue(), LocalTime.of(0, 0)),
+                        dtmEindDatum.getValue() == null ? null : LocalDateTime.of(dtmEindDatum.getValue(), LocalTime.of(0, 0))
                 )
         );
     }
-    
+
     protected void setupTableViewReservaties(List<ReservatieView> reservaties) {
         tvReservaties.setPlaceholder(new Label("Er zijn geen reservaties."));
 
@@ -431,7 +431,6 @@ public class MainMenuFrameController extends BorderPane {
         lblTotWijzigDetailsReservatie.setVisible(b);
     }
 
-
     @FXML
     private void onActionBtnBevestigWijzigingDetails(ActionEvent event) {
         applyDatePickerValue(dpOphaalmoment);
@@ -493,6 +492,14 @@ public class MainMenuFrameController extends BorderPane {
         prompt.initOwner(getScene().getWindow());
         prompt.setScene(promptScene);
         prompt.show();
+    }
+
+    @FXML
+    protected void onBtnActionToonAlle(ActionEvent event) {
+        txfZoekReservatie.setText("");
+        dtmStartDatum.setValue(null);
+        dtmEindDatum.setValue(null);
+        initialiseerTableViewReservatiesMetFilter();
     }
 
     private void applyDatePickerValue(DatePicker datumPick) {
