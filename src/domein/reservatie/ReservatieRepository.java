@@ -69,7 +69,11 @@ public class ReservatieRepository {
             throw new IllegalArgumentException("De gegeven reservatie bestaat niet.");
         }
         Reservatie reservatie = optR.get();
-
+        
+        for(ReservatieLijn rl : reservatie.getReservatielijnen()){
+            rl.getMateriaal().setAantalOnbeschikbaar(rl.getMateriaal().getAantalOnbeschikbaar()-rl.getAantal());
+        }
+                
         em.getTransaction().begin();
         em.remove(reservatie);
         em.getTransaction().commit();
@@ -119,18 +123,10 @@ public class ReservatieRepository {
 
     private void verwijderReservatieLijn(Reservatie r, long rl) {
         em.getTransaction().begin();
-//        for(ReservatieLijn it : r.getReservatielijnen()){
-//            if(it.getId() == rl){
-//                r.getReservatielijnen().remove(it);
-//                break;
-//            }
-//        }
-        System.out.println("omg fuck off alosk" + r.toString() + String.valueOf(rl));
         Iterator<ReservatieLijn> it = r.getReservatielijnen().iterator();
         while (it.hasNext()) {
             ReservatieLijn deRl = it.next();
             if (deRl.getId() == rl) {
-                System.out.println("FUCKING DALATED XDDD");
                 deRl.getMateriaal().setAantalOnbeschikbaar(deRl.getMateriaal().getAantalOnbeschikbaar()-deRl.getAantal());
                 it.remove();
                 em.remove(deRl);

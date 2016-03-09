@@ -206,7 +206,6 @@ public class ReservatieBoxController extends GridPane {
         if (txfGereserveerd.getText() != null && !txfGereserveerd.getText().isEmpty()) {
             int aantalTxf = Integer.parseInt(txfGereserveerd.getText());
             if(aantalRlv != aantalTxf){
-                System.out.println("xdxp"+aantalRlv + " - " + aantalTxf);
                 mv.setAantalOnbeschikbaar(mv.getAantalOnbeschikbaar()-aantalRlv+aantalTxf);
                 rlv.setAantal(aantalTxf);
             }
