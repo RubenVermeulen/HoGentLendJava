@@ -193,11 +193,22 @@ public class MainMenuFrameController extends BorderPane {
         prompt.show();
     }
 
-    protected void initialiseerTableViewReservaties() {
-
-        tvReservaties.setPlaceholder(new Label("Er zijn nog geen reservaties."));
-
-        List<ReservatieView> reservaties = domCon.geefAlleReservaties();
+    protected void initialiseerTableViewReservaties(){
+        setupTableViewReservaties(domCon.geefAlleReservaties());
+    }
+    
+    protected void initialiseerTableViewReservatiesMetFilter(){
+        setupTableViewReservaties(
+                domCon.geefAlleReservatiesMetFiler(
+                        txfZoekReservatie.getText(),
+                        LocalDateTime.of(dtmStartDatum.getValue(), LocalTime.of(0,0)),
+                        LocalDateTime.of(dtmEindDatum.getValue(), LocalTime.of(0,0))
+                )
+        );
+    }
+    
+    protected void setupTableViewReservaties(List<ReservatieView> reservaties) {
+        tvReservaties.setPlaceholder(new Label("Er zijn geen reservaties."));
 
         ObservableList<ReservatieView> observableList = FXCollections.unmodifiableObservableList(
                 FXCollections.observableArrayList(reservaties.stream().collect(Collectors.toList())
@@ -346,18 +357,24 @@ public class MainMenuFrameController extends BorderPane {
 
     @FXML
     private void onActionTxfZoekReservatie(ActionEvent event) {
+        onActionBtnZoekReservatie(event);
     }
 
     @FXML
     private void onActionDtmStartDatum(ActionEvent event) {
+        onActionBtnZoekReservatie(event);
     }
 
     @FXML
     private void onActionBtnZoekReservatie(ActionEvent event) {
+        applyDatePickerValue(dtmStartDatum);
+        applyDatePickerValue(dtmEindDatum);
+        initialiseerTableViewReservatiesMetFilter();
     }
 
     @FXML
     private void onActionDtmEindDatum(ActionEvent event) {
+        onActionBtnZoekReservatie(event);
     }
 
     @FXML
@@ -417,8 +434,8 @@ public class MainMenuFrameController extends BorderPane {
 
     @FXML
     private void onActionBtnBevestigWijzigingDetails(ActionEvent event) {
-        dpOphaalmoment.setValue(dpOphaalmoment.getConverter().fromString(dpOphaalmoment.getEditor().getText()));
-        dpIndienmoment.setValue(dpIndienmoment.getConverter().fromString(dpIndienmoment.getEditor().getText()));
+        applyDatePickerValue(dpOphaalmoment);
+                applyDatePickerValue(dpIndienmoment);
         geselecteerdeReservatie.setOphaalmoment(convertToLocalDateTime(dpOphaalmoment.getValue(), txfOphaalmoment.getText()));
         geselecteerdeReservatie.setIndienmoment(convertToLocalDateTime(dpIndienmoment.getValue(), txfIndienmoment.getText()));
         try {
@@ -479,6 +496,10 @@ public class MainMenuFrameController extends BorderPane {
         prompt.initOwner(getScene().getWindow());
         prompt.setScene(promptScene);
         prompt.show();
+    }
+
+    private void applyDatePickerValue(DatePicker datumPick) {
+        datumPick.setValue(datumPick.getConverter().fromString(datumPick.getEditor().getText()));
     }
 
 }

@@ -54,6 +54,13 @@ public class ReservatieCatalogus {
         return reservatieViews;
 
     }
+    
+    public List<ReservatieView> geefAlleReservatiesMetFiler(String filter, LocalDateTime dtOphaal, LocalDateTime dtIndien) {
+        return reservaties.stream()
+                .filter(r -> r.containsFilter(filter, dtOphaal, dtIndien))
+                .map(r -> toReservatieView(r))
+                .collect(Collectors.toList());
+    }
 
     public Reservatie verwijderReservatie(ReservatieView rv) {
         Optional<Reservatie> optR = geefReservatie(rv.getId());
@@ -245,10 +252,4 @@ public class ReservatieCatalogus {
 
         return rv;
     }
-
-    List<ReservatieView> geefReservatiesMetFilter(String filter) {
-        throw new UnsupportedOperationException("Not supported yet.");
-        //To change body of generated methods, choose Tools | Templates.
-    }
-
 }

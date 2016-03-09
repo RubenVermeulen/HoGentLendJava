@@ -355,4 +355,8 @@ public class DomeinController {
         return firmas.stream().map(f -> f.getNaam()).collect(Collectors.toList());
     }
 
+    public List<ReservatieView> geefAlleReservatiesMetFiler(String filter, LocalDateTime dtOphaal, LocalDateTime dtIndien) {
+        return reservatieRepo.geefAlleReservatiesMetFiler(filter, dtOphaal, dtIndien);
+    }
+
 }
