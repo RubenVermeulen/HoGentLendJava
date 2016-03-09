@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
@@ -139,6 +142,10 @@ public class MainMenuFrameController extends BorderPane {
     private Label lblInstellingenMessage;
     
     private ConfigView configView;
+    @FXML
+    private ComboBox<String> cbInstellingenOphaalDag;
+    @FXML
+    private ComboBox<String> cbInstellingenIndienDag;
 
     public MainMenuFrameController(DomeinController domCon) {
         this.domCon = domCon;
@@ -524,7 +531,9 @@ public class MainMenuFrameController extends BorderPane {
     @FXML
     private void onActionBtnInstellingenOpslaan(ActionEvent event) {
         try {
+            configView.setStandaardOphaalDag(cbInstellingenOphaalDag.getValue());
             configView.setStandaardOphaaltijd(convertToLocalDateTime(txfInstellingenOphaaltijd.getText(), "standaard ophaaltijd"));
+            configView.setStandaardIndienDag(cbInstellingenIndienDag.getValue());
             configView.setStandaardIndientijd(convertToLocalDateTime(txfInstellingenIndientijd.getText(), "standaard indientijd"));
             
             domCon.saveConfig(configView);
@@ -547,6 +556,16 @@ public class MainMenuFrameController extends BorderPane {
         
         txfInstellingenIndientijd.setText(configView.getStandaardIndientijd().format(formatter));
         txfInstellingenOphaaltijd.setText(configView.getStandaardOphaaltijd().format(formatter));
+        
+        List<String> dagen = new ArrayList<>(Arrays.asList("maandag", "dinsdag", "woensdag", "donderdag", "vrijdag"));
+        
+        cbInstellingenOphaalDag.getItems().clear();
+        cbInstellingenOphaalDag.getItems().addAll(dagen);
+        cbInstellingenIndienDag.getItems().clear();
+        cbInstellingenIndienDag.getItems().addAll(dagen);
+        
+        cbInstellingenOphaalDag.getSelectionModel().select(configView.getStandaardOphaalDag());
+        cbInstellingenIndienDag.getSelectionModel().select(configView.getStandaardIndienDag());
     }
     
     private LocalTime convertToLocalDateTime(String tijd, String veld) {
@@ -562,5 +581,29 @@ public class MainMenuFrameController extends BorderPane {
         int minuten = Integer.parseInt(tijd.substring(tijd.indexOf(":") + 1, tijd.length()));
         LocalTime time = LocalTime.of(uur, minuten);
         return time;
+    }
+
+    @FXML
+    private void onKeyPressedTxfInstellingenOphaaltijd(KeyEvent event) {
+        verbergInstellingenLabel();
+    }
+
+    @FXML
+    private void onKeyPressedTxfInstellingenIndientijd(KeyEvent event) {
+        verbergInstellingenLabel();
+    }
+
+    @FXML
+    private void onActionCbInstellingenOphaalDag(ActionEvent event) {
+        verbergInstellingenLabel();
+    }
+
+    @FXML
+    private void onActionCbInstellingenIndiendag(ActionEvent event) {
+        verbergInstellingenLabel();
+    }
+    
+    private void verbergInstellingenLabel() {
+        lblInstellingenMessage.setVisible(false);
     }
 }

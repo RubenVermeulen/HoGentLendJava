@@ -245,6 +245,8 @@ public class StartUp extends Application {// test xd
         Config c = new Config();
         c.setStandaardIndientijd(LocalTime.NOON);
         c.setStandaardOphaaltijd(LocalTime.MIDNIGHT);
+        c.setStandaardOphaalDag("maandag");
+        c.setStandaardIndienDag("vrijdag");
         
         em.getTransaction().begin();
         em.persist(c);
