@@ -29,13 +29,14 @@ public class ReservatieView {
     private boolean opgehaald;
     private List<ReservatieLijnView> reservatieLijnen;
 
-    public ReservatieView(long id, String lener, String emailLener, LocalDateTime ophaalmoment, LocalDateTime indienmoment, LocalDateTime reservatiemoment, List<ReservatieLijnView> gereserveerdeMaterialen) {
+    public ReservatieView(long id, String lener, String emailLener, LocalDateTime ophaalmoment, LocalDateTime indienmoment, LocalDateTime reservatiemoment, boolean opgehaald, List<ReservatieLijnView> gereserveerdeMaterialen) {
         this.id = id;
         this.lener = lener;
         this.emailLener = emailLener;
         this.ophaalmoment = ophaalmoment;
         this.indienmoment = indienmoment;
         this.reservatiemoment = reservatiemoment;
+        this.opgehaald = opgehaald;
         this.reservatieLijnen = gereserveerdeMaterialen;
         this.reservatieLijnenAlsString = reservatieLijnenToString(reservatieLijnen);
 
@@ -92,6 +93,7 @@ public class ReservatieView {
 
     public void setOphaalmoment(LocalDateTime ophaalmoment) {
         this.ophaalmoment = ophaalmoment;
+        this.ophaalmomentAlsString = formatLocalDateTime(ophaalmoment);
     }
 
     public LocalDateTime getIndienmoment() {
@@ -100,6 +102,7 @@ public class ReservatieView {
 
     public void setIndienmoment(LocalDateTime indienmoment) {
         this.indienmoment = indienmoment;
+        this.indienmomentAlsString = formatLocalDateTime(indienmoment);
     }
 
     public LocalDateTime getReservatiemoment() {
@@ -108,6 +111,7 @@ public class ReservatieView {
 
     public void setReservatiemoment(LocalDateTime reservatiemoment) {
         this.reservatiemoment = reservatiemoment;
+        this.reservatiemomentAlsString = formatLocalDateTime(reservatiemoment);
     }
 
     public boolean isOpgehaald() {

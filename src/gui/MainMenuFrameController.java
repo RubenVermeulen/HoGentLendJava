@@ -3,7 +3,9 @@ package gui;
 import domein.DomeinController;
 import domein.gebruiker.Gebruiker;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
@@ -24,8 +26,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -218,6 +218,7 @@ public class MainMenuFrameController extends BorderPane {
         rlv.stream().forEach(rl -> boxReservatieLijn.getChildren().add(new ReservatieBoxController(rl, rv, domCon)));
         lblLenerNaam.setText(rv.getLener());
         lblOphaalmoment.setText(rv.getOphaalmomentAlsString());
+        System.out.println("Hier is het net opgehaald: " + rv.getOphaalmomentAlsString());
         lblIndienmoment.setText(rv.getIndienmomentAlsString());
         lblReservatiemoment.setText(rv.getReservatiemomentAlsString());
         lblStatus.setTextFill(Color.web("#000000"));
@@ -404,7 +405,24 @@ public class MainMenuFrameController extends BorderPane {
 
     @FXML
     private void onActionBtnBevestigWijzigingDetails(ActionEvent event) {
+        geselecteerdeReservatie.setOphaalmoment(convertToLocalDateTime(dpOphaalmoment.getValue(), txfOphaalmoment.getText()));
+        geselecteerdeReservatie.setIndienmoment(convertToLocalDateTime(dpIndienmoment.getValue(), txfIndienmoment.getText()));
+        domCon.wijzigReservatie(geselecteerdeReservatie);
         setVisibilityWijzigDetailsMateriaal(false);
+        initialiseerTableViewReservaties();
+        setupReservatieLijnen(geselecteerdeReservatie);
+    }
+    
+    private LocalDateTime convertToLocalDateTime(LocalDate datum, String tijd){
+        if(!tijd.contains(":")){
+            throw new IllegalArgumentException("Tijd moet er als volgt uit zien: uur:minuten");
+        }
+        int uur = Integer.parseInt(tijd.substring(0,tijd.indexOf(":")));
+        int minuten = Integer.parseInt(tijd.substring(tijd.indexOf(":")+1,tijd.length()));
+        System.out.println("dit zoek ik");
+        System.out.println(uur + ":" + minuten);
+        LocalTime time = LocalTime.of(uur, minuten);
+        return LocalDateTime.of(datum, time);
     }
 
     @FXML
