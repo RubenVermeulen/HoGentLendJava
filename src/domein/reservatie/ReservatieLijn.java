@@ -101,7 +101,10 @@ public class ReservatieLijn {
 
     @Override
     public String toString() {
-        return "GereserveerdMateriaal{" + "id=" + id + ", ophaalmoment=" + ophaalmoment + ", indienmoment=" + indienmoment + ", materiaal=" + materiaal + ", aantal=" + aantal + ", reservatie=" + reservatie + '}';
+        return "ReservatieLijn{" + "id=" + id + ", ophaalmoment=" + ophaalmoment + ", indienmoment=" + indienmoment + ", aantal=" + aantal + '}';
     }
+
+
+    
 
 }

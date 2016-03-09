@@ -198,11 +198,22 @@ public class StartUp extends Application {// test xd
                 LocalDateTime.of(2016, 2, 3, 20, 10));
         
         ReservatieLijn[] lijnenVoorReservatie3 = {
-            new ReservatieLijn(materialen[2], 4, LocalDateTime.of(2016, 3, 7, 10, 30), LocalDateTime.of(2016, 3, 11, 18, 30))};
+            new ReservatieLijn(materialen[2], 5, LocalDateTime.of(2016, 3, 7, 10, 30), LocalDateTime.of(2016, 3, 11, 18, 30))};
 
         lijnenVoorReservatie3[0].setReservatie(r3);
 
         r3.setReservatielijnen(Arrays.asList(lijnenVoorReservatie3));
+        
+        // Reservatie 4
+        Reservatie r4 = new Reservatie(user4, LocalDateTime.of(2016, 3, 7, 10, 30), LocalDateTime.of(2016, 3, 11, 18, 30),
+                LocalDateTime.of(2016, 2, 4, 20, 10));
+        
+        ReservatieLijn[] lijnenVoorReservatie4 = {
+            new ReservatieLijn(materialen[2], 2, LocalDateTime.of(2016, 3, 7, 10, 30), LocalDateTime.of(2016, 3, 11, 18, 30))};
+
+        lijnenVoorReservatie4[0].setReservatie(r4);
+
+        r4.setReservatielijnen(Arrays.asList(lijnenVoorReservatie4));
         
 
         // Reservatielijnen
@@ -212,6 +223,7 @@ public class StartUp extends Application {// test xd
         em.persist(r1);
         em.persist(r2);
         em.persist(r3);
+        em.persist(r4);
 
         em.persist(lijnenVoorReservatie1[0]);
         em.persist(lijnenVoorReservatie1[1]);
@@ -219,6 +231,8 @@ public class StartUp extends Application {// test xd
         em.persist(lijnenVoorReservatie2[0]);
         
         em.persist(lijnenVoorReservatie3[0]);
+        
+        em.persist(lijnenVoorReservatie4[0]);
 
         em.getTransaction().commit();
 

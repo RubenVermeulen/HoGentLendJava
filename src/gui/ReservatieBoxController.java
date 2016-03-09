@@ -8,7 +8,9 @@ package gui;
 import domein.DomeinController;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
@@ -84,7 +86,7 @@ public class ReservatieBoxController extends GridPane {
     private TextField txfIndienmoment;
     @FXML
     private Button btnAnnuleerWijziging;
-    
+
     private MainMenuFrameController parentController;
 
     ReservatieBoxController(ReservatieLijnView rlv, ReservatieView rv, DomeinController dc, MainMenuFrameController parentController) {
@@ -124,10 +126,13 @@ public class ReservatieBoxController extends GridPane {
 
         int conflict = dc.heeftConflicten(rlv, rv.getReservatiemoment());
         if (conflict < 0) {
-            lblAantal.setText(String.format("Conflict! Slechts %d beschikbaar", rlv.getAantal()+conflict));
+            lblAantal.setText(String.format("Conflict! Slechts %d beschikbaar", rlv.getAantal() + conflict));
+            if (rlv.getAantal() + conflict < 0) {
+                lblAantal.setText("Conflict! Geen beschikbaar!");
+            }
             lblAantal.setTextFill(Color.web("#d70000"));
             lblAantalGereserveerd.setTextFill(Color.web("#d70000"));
-        } 
+        }
         lblAantalGereserveerd.setText(String.valueOf(rlv.getAantal()) + " gereserveerd");
         lblOphaalmoment.setText(rlv.getOphaalmomentAlsString());
         lblIndienmoment.setText(rlv.getIndienmomentAlsString());
@@ -175,12 +180,15 @@ public class ReservatieBoxController extends GridPane {
         iv.setFitWidth(70);
         iv.setPreserveRatio(true);
         alert.setGraphic(iv);
-       
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            //dc.wijzigReservatie(rv);
-            ((VBox) getParent()).getChildren().remove(this);
+            
+            
+            rv.getReservatieLijnen().remove(rlv);
+            dc.wijzigReservatie(rv);
+            parentController.initialiseerTableViewReservaties();
+//            ((VBox) getParent()).getChildren().remove(this);
         }
 
     }
@@ -192,6 +200,31 @@ public class ReservatieBoxController extends GridPane {
 
     @FXML
     private void onBtnBevestigWijziging(ActionEvent event) {
+        int aantalRlv = rlv.getAantal();
+        rlv.setOphaalmoment(convertToLocalDateTime(dpOphaalmoment.getValue(), txfOphaalmoment.getText()));
+        rlv.setIndienmoment(convertToLocalDateTime(dpIndienmoment.getValue(), txfIndienmoment.getText()));
+        if (txfGereserveerd.getText() != null && !txfGereserveerd.getText().isEmpty()) {
+            int aantalTxf = Integer.parseInt(txfGereserveerd.getText());
+            if(aantalRlv != aantalTxf){
+                mv.setAantalOnbeschikbaar(mv.getAantalOnbeschikbaar()-aantalRlv+aantalTxf);
+                rlv.setAantal(aantalTxf);
+            }
+        }
+        try {
+            dc.wijzigReservatie(rv);
+            setVisibleBewerken(false);
+            setupReservaties(rlv);
+            parentController.initialiseerTableViewReservaties();
+        } catch (IllegalArgumentException e) {
+            Alert informationAlert = new Alert(Alert.AlertType.ERROR);
+
+            informationAlert.setTitle("Opgelet");
+            informationAlert.setHeaderText("Opgelet");
+            informationAlert.setContentText(e.getMessage());
+
+            informationAlert.showAndWait();
+
+        }
 
     }
 
@@ -217,6 +250,19 @@ public class ReservatieBoxController extends GridPane {
         lblAantalGereserveerd.setVisible(!b);
         lblOphaalmoment.setVisible(!b);
         lblIndienmoment.setVisible(!b);
+    }
+
+    private LocalDateTime convertToLocalDateTime(LocalDate datum, String tijd) {
+        if (!tijd.contains(":")) {
+            throw new IllegalArgumentException("Tijd moet er als volgt uit zien: uur:minuten");
+        }
+        int uur = Integer.parseInt(tijd.substring(0, tijd.indexOf(":")));
+        int minuten = Integer.parseInt(tijd.substring(tijd.indexOf(":") + 1, tijd.length()));
+        System.out.println("dit zoek ik");
+        System.out.println(uur + ":" + minuten);
+        System.out.println(datum.toString());
+        LocalTime time = LocalTime.of(uur, minuten);
+        return LocalDateTime.of(datum, time);
     }
 
 }
