@@ -88,10 +88,7 @@ public class Reservatie {
         boolean filterInLener = lener.containsFilter(sFilter);
         boolean lenerFiltersMatter = (sFilter != null && !sFilter.trim().isEmpty()) || (dtOphaal == null && dtIndien == null);
         boolean filterDatums = MyDateUtil.doesFirstPairOverlapWithSecond(dtOphaal, dtIndien, ophaalmoment, indienmoment);
-        
-        System.out.println(String.valueOf(dtOphaal) + " ============== " + String.valueOf(dtIndien) + " -------- "+String.valueOf(ophaalmoment)+ " --- " + String.valueOf(indienmoment));
-        System.out.println(filterDatums);
-        
+    
         return filterInLijnen || (lenerFiltersMatter && filterInLener) || filterDatums;
     }
 

@@ -247,8 +247,6 @@ public class MainMenuFrameController extends BorderPane {
         rlv.stream().forEach(rl -> boxReservatieLijn.getChildren().add(new ReservatieBoxController(rl, rv, domCon, this)));
         lblLenerNaam.setText(rv.getLener());
         lblOphaalmoment.setText(rv.getOphaalmomentAlsString());
-        System.out.println("Hier is het net opgehaald: " + rv.getOphaalmomentAlsString());
-        System.out.println(rv.getOphaalmoment().toString());
         lblIndienmoment.setText(rv.getIndienmomentAlsString());
         lblReservatiemoment.setText(rv.getReservatiemomentAlsString());
         lblStatus.setTextFill(Color.web("#000000"));
@@ -398,8 +396,6 @@ public class MainMenuFrameController extends BorderPane {
             domCon.verwijderReservatie(geselecteerdeReservatie);
 
             initialiseerTableViewReservaties();
-
-            System.out.println("Reservatie verwijderd");
         }
     }
 
@@ -466,9 +462,6 @@ public class MainMenuFrameController extends BorderPane {
         }
         int uur = Integer.parseInt(tijd.substring(0, tijd.indexOf(":")));
         int minuten = Integer.parseInt(tijd.substring(tijd.indexOf(":") + 1, tijd.length()));
-        System.out.println("dit zoek ik");
-        System.out.println(uur + ":" + minuten);
-        System.out.println(datum.toString());
         LocalTime time = LocalTime.of(uur, minuten);
         return LocalDateTime.of(datum, time);
     }

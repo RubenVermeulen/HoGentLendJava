@@ -15,7 +15,6 @@ public class MyDateUtil {
             a2 = LocalDateTime.MAX;
         }
         if (a2.isBefore(a1) || b2.isBefore(b1)){
-        System.out.println("OMGGGG");
             return false;
         }
         if (a1.isEqual(a2)) {
@@ -30,7 +29,6 @@ public class MyDateUtil {
         if (a1.isBefore(b1) && a2.isAfter(b2)) {
             return true;
         }
-        System.out.println("FUUUU");
         return false;
     }
 

@@ -92,10 +92,6 @@ public class ReservatieToevoegenController extends BorderPane {
         int ophaalHh = Integer.parseInt(ophaalHHmm.substring(0, 2));
         int ophaalMm = Integer.parseInt(ophaalHHmm.substring(3, 5));
 
-        System.out.println("    ayyyy");
-        System.out.println("IndienHh: " + indienHHmm.substring(0, 2));
-        System.out.println("StringBuffer: " + indienHHmm);
-
         ophaalmoment = ophMoment.atTime(indienHh, indienMm);
         indienmoment = indMoment.atTime(ophaalHh, ophaalMm);
 
