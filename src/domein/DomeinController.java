@@ -270,7 +270,7 @@ public class DomeinController {
      */
     public void stelAanAlsBeheerder(String email) {
         Optional<Gebruiker> gebruikerOpt = gebruikerRepo.geefGebruikerViaEmail(email);
-        if (gebruikerOpt.isPresent()) {
+        if ( ! gebruikerOpt.isPresent()) {
             throw new IllegalArgumentException("Geen gebruiker met het geven e-mailadres gevonden.");
         }
         Gebruiker gebruiker = gebruikerOpt.get();
