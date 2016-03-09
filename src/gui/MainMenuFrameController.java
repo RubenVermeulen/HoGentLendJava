@@ -3,6 +3,7 @@ package gui;
 import domein.DomeinController;
 import domein.gebruiker.Gebruiker;
 import java.io.IOException;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -147,6 +148,9 @@ public class MainMenuFrameController extends BorderPane {
     @FXML
     private ComboBox<String> cbInstellingenIndienDag;
 
+    private Color colorSucces = Color.web("#04B431");
+    private Color colorError = Color.web("FF0000");
+    
     public MainMenuFrameController(DomeinController domCon) {
         this.domCon = domCon;
         this.configView = domCon.geefConfigView();
@@ -538,14 +542,22 @@ public class MainMenuFrameController extends BorderPane {
             
             domCon.saveConfig(configView);
             
-            lblInstellingenMessage.setTextFill(Color.web("#04B431"));
+            lblInstellingenMessage.setTextFill(colorSucces);
             lblInstellingenMessage.setText("De instellingen zijn succesvol opgeslagen.");
             
             initialiseerInstellingen();
         }
+        catch (NumberFormatException e) {
+            lblInstellingenMessage.setTextFill(colorError);
+            lblInstellingenMessage.setText("Tijd moet er als volgt uit zien: uur:minuten"); 
+        }
         catch (IllegalArgumentException e) {
-            lblInstellingenMessage.setTextFill(Color.web("#FF0000"));
+            lblInstellingenMessage.setTextFill(colorError);
             lblInstellingenMessage.setText(e.getMessage());   
+        }
+        catch (DateTimeException e) {
+            lblInstellingenMessage.setTextFill(colorError);
+            lblInstellingenMessage.setText("Eén van de velden bevat geen geldige tijd."); 
         }
         
         lblInstellingenMessage.setVisible(true);
