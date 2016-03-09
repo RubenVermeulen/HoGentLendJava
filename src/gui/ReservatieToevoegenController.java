@@ -78,19 +78,23 @@ public class ReservatieToevoegenController extends BorderPane {
     private void btnReservatieToevoegenOnAction(ActionEvent event) {
 
         String emailLener = txfEmailadres.getText().trim();
-        LocalDateTime ophaalmoment = null;
-        LocalDateTime indienmoment = null;
+        LocalDateTime ophaalmoment;
+        LocalDateTime indienmoment;
         LocalDateTime reservatiemoment = LocalDateTime.now();
 
         LocalDate ophMoment = dpOphaalmoment.getValue();
         LocalDate indMoment = dpIndienmoment.getValue();
         StringBuffer indienHHmm = new StringBuffer(txfIndienhhmm.getText().trim());
-        StringBuffer ophaalHHmm = new StringBuffer(txfIndienhhmm.getText().trim());
+        StringBuffer ophaalHHmm = new StringBuffer(txfOphaalhhmm.getText().trim());
 
-        int indienHh = Integer.parseInt(indienHHmm.substring(0, 1));
-        int indienMm = Integer.parseInt(indienHHmm.substring(3, 4));
-        int ophaalHh = Integer.parseInt(ophaalHHmm.substring(0, 1));
-        int ophaalMm = Integer.parseInt(ophaalHHmm.substring(3, 4));
+        int indienHh = Integer.parseInt(indienHHmm.substring(0, 2));
+        int indienMm = Integer.parseInt(indienHHmm.substring(3, 5));
+        int ophaalHh = Integer.parseInt(ophaalHHmm.substring(0, 2));
+        int ophaalMm = Integer.parseInt(ophaalHHmm.substring(3, 5));
+
+        System.out.println("    ayyyy");
+        System.out.println("IndienHh: " + indienHHmm.substring(0, 2));
+        System.out.println("StringBuffer: " + indienHHmm);
 
         ophaalmoment = ophMoment.atTime(indienHh, indienMm);
         indienmoment = indMoment.atTime(ophaalHh, ophaalMm);
@@ -118,7 +122,9 @@ public class ReservatieToevoegenController extends BorderPane {
 
     private void setupAlleMaterialen() {
         combMaterialen.getItems().clear();
+
         combMaterialen.getItems().addAll(dc.geefAlleMaterialen());
+
     }
 
 }
