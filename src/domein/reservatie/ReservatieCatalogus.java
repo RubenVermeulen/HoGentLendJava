@@ -107,6 +107,7 @@ public class ReservatieCatalogus {
 
         for (ReservatieLijnView lv : lvn) {
             if (lv.getId() == null) {
+                System.out.println("VOEG RESERVATIELIJN TOE");
                 toevoegenLijnen.add(lv);
             } else {
                 wijzigenLijnen.add(lv);
