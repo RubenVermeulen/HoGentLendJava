@@ -76,7 +76,13 @@ public class Reservatie {
         this.opgehaald = opgehaald;
     }
    
-    
+    public boolean containsFilter(String filter){
+        /*
+        Filter zal filteren op 
+        
+        */
+        return false;
+    }
 
     public Long getId() {
         return id;
