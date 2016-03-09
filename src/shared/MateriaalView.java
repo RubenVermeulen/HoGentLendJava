@@ -198,7 +198,7 @@ public class MateriaalView {
     
     @Override
     public String toString() {
-        return "MateriaalView{" + "naam=" + naam + ", fotoBytes=" + fotoBytes + ", omschrijving=" + omschrijving + ", artikelNummer=" + artikelNummer + ", prijs=" + prijs + ", aantal=" + aantal + ", aantalOnbeschikbaar=" + aantalOnbeschikbaar + ", uitleenbaarheid=" + uitleenbaarheid + ", plaats=" + plaats + ", firma=" + firma + ", emailFirma=" + emailFirma + ", doelgroepen=" + doelgroepen + ", leergebieden=" + leergebieden + ", id=" + id + ", firmaId=" + firmaId + '}';
+        return naam;
     }
 
 }

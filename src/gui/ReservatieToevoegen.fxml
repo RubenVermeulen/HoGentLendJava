@@ -30,34 +30,34 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root prefHeight="474.0" prefWidth="1309.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="272.0" prefWidth="678.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <left>
-        <VBox prefHeight="578.0" prefWidth="1309.0" BorderPane.alignment="CENTER">
+        <VBox prefHeight="467.0" prefWidth="933.0" BorderPane.alignment="CENTER">
             <children>
                 <HBox prefHeight="121.0" prefWidth="1280.0">
                     <children>
                         <Label alignment="TOP_CENTER" text="Voeg reservatie toe">
                             <font>
-                                <Font name="System Bold" size="40.0" />
+                                <Font name="System Bold" size="26.0" />
                             </font>
                             <HBox.margin>
-                                <Insets bottom="20.0" left="460.0" top="20.0" />
+                                <Insets bottom="20.0" left="340.0" top="20.0" />
                             </HBox.margin>
                         </Label>
                     </children>
                 </HBox>
                 <HBox prefHeight="442.0" prefWidth="1321.0">
                     <children>
-                        <HBox prefHeight="414.0" prefWidth="367.0">
+                        <HBox prefHeight="318.0" prefWidth="300.0">
                             <children>
-                                <VBox prefHeight="414.0" prefWidth="389.0">
+                                <VBox prefHeight="318.0" prefWidth="281.0">
                                     <children>
                                         <Label prefHeight="35.0" prefWidth="213.0" text="Reservatie voor">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
                                  </VBox.margin>
                                  <font>
-                                    <Font name="System Bold" size="24.0" />
+                                    <Font name="System Bold" size="12.0" />
                                  </font></Label>
                                         <TextField fx:id="txfEmailadres" promptText="emailadres">
                                  <VBox.margin>
@@ -70,10 +70,10 @@
                                           <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
                                        </VBox.margin>
                                        <font>
-                                          <Font name="System Bold" size="24.0" />
+                                          <Font name="System Bold" size="12.0" />
                                        </font>
                                     </Label>
-                                    <DatePicker fx:id="dpOphaalmoment">
+                                    <DatePicker fx:id="dpOphaalmoment" prefHeight="31.0" prefWidth="246.0">
                                        <VBox.margin>
                                           <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
                                        </VBox.margin>
@@ -85,10 +85,10 @@
                                                 <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
                                              </VBox.margin>
                                              <font>
-                                                <Font name="System Bold" size="24.0" />
+                                                <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Label>
-                                          <DatePicker fx:id="dpIndienmoment">
+                                          <DatePicker fx:id="dpIndienmoment" prefHeight="31.0" prefWidth="246.0">
                                              <VBox.margin>
                                                 <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
                                              </VBox.margin>
@@ -101,42 +101,42 @@
                                 </VBox>
                             </children>
                         </HBox>
-                        <HBox prefHeight="378.0" prefWidth="944.0">
+                        <HBox prefHeight="318.0" prefWidth="586.0">
                             <children>
-                        <VBox prefHeight="378.0" prefWidth="531.0">
+                        <VBox prefHeight="318.0" prefWidth="331.0">
                            <children>
                                       <Label text="Materiaal">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
                                  </VBox.margin>
                                  <font>
-                                    <Font name="System Bold" size="24.0" />
+                                    <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
                               <HBox prefHeight="66.0" prefWidth="943.0">
                                  <children>
-                                    <ComboBox fx:id="combMaterialen" prefHeight="51.0" prefWidth="461.0">
+                                    <ComboBox fx:id="combMaterialen" prefHeight="31.0" prefWidth="271.0">
                                        <HBox.margin>
-                                          <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                        </HBox.margin>
                                     </ComboBox>
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
-                        <VBox prefHeight="378.0" prefWidth="414.0">
+                        <VBox prefHeight="318.0" prefWidth="249.0">
                            <children>
                               <Label text="Aantal">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
                                  </VBox.margin>
                                  <font>
-                                    <Font name="System Bold" size="24.0" />
+                                    <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
                               <TextField fx:id="txfAantal" prefHeight="51.0" prefWidth="113.0">
                                  <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="150.0" top="10.0" />
+                                    <Insets bottom="10.0" left="10.0" right="50.0" top="10.0" />
                                  </VBox.margin>
                               </TextField>
                               <Label text="Ophaalmoment">
@@ -144,25 +144,25 @@
                                     <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
                                  </VBox.margin>
                                  <font>
-                                    <Font name="System Bold" size="24.0" />
+                                    <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txfOphaalhhmm">
+                              <TextField fx:id="txfOphaalhhmm" promptText="10:30">
                                  <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="150.0" top="10.0" />
+                                    <Insets bottom="10.0" left="10.0" right="50.0" top="10.0" />
                                  </VBox.margin>
                               </TextField>
-                              <Label text="Label">
+                              <Label text="Indienmoment">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
                                  </VBox.margin>
                                  <font>
-                                    <Font name="System Bold" size="24.0" />
+                                    <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txfIndienhhmm">
+                              <TextField fx:id="txfIndienhhmm" promptText="10:00">
                                  <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="150.0" top="10.0" />
+                                    <Insets bottom="10.0" left="10.0" right="50.0" top="10.0" />
                                  </VBox.margin>
                               </TextField>
                            </children>
@@ -175,7 +175,7 @@
                     <children>
                         <Button mnemonicParsing="false" onAction="#btngaTerugOnAction" text="Ga terug">
                      <HBox.margin>
-                        <Insets bottom="20.0" left="420.0" />
+                        <Insets bottom="20.0" left="300.0" />
                      </HBox.margin></Button>
                         <Button mnemonicParsing="false" onAction="#btnReservatieToevoegenOnAction" text="Reservatie toevoegen en opslaan">
                      <HBox.margin>
