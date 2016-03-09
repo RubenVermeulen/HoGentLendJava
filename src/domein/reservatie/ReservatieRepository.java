@@ -167,6 +167,7 @@ public class ReservatieRepository {
         String emailLener = rv.getEmailLener();
         LocalDateTime ophaalmoment = rv.getOphaalmoment();
         LocalDateTime indienmoment = rv.getIndienmoment();
+        LocalDateTime reservatiemoment=rv.getReservatiemoment();
         String ophaalmomentAlsString = rv.getOphaalmomentAlsString();
         String indienmomentAlsString = rv.getIndienmomentAlsString();
         String reservatieLijnenAlsString = rv.getReservatieLijnenAlsString();
@@ -193,7 +194,7 @@ public class ReservatieRepository {
         }
 
         validateOphaalEnIndienMomentsForLijn(ophaalmoment, indienmoment);
-        Reservatie reservatie = new Reservatie(deLener, ophaalmoment, indienmoment);
+        Reservatie reservatie = new Reservatie(deLener, ophaalmoment, indienmoment,reservatiemoment);
 
         reservatie.setReservatielijnen(reservatieLijnen);
 

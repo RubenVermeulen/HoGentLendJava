@@ -23,61 +23,61 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="603.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="449.0" prefWidth="735.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <center>
-        <VBox prefHeight="482.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+        <VBox prefHeight="520.0" prefWidth="492.0" BorderPane.alignment="CENTER">
             <children>
-                <HBox prefHeight="226.0" prefWidth="818.0">
+                <HBox prefHeight="61.0" prefWidth="461.0">
                     <children>
-                        <Label alignment="CENTER" prefHeight="68.0" prefWidth="819.0" text="Voeg materiaal toe in bulk">
+                        <Label alignment="CENTER" prefHeight="38.0" prefWidth="738.0" text="Voeg materiaal toe in bulk">
                             <font>
-                                <Font name="System Bold" size="40.0" />
+                                <Font name="System Bold" size="26.0" />
                             </font>
                         </Label>
                     </children>
                 </HBox>
                 <HBox prefHeight="785.0" prefWidth="818.0">
                     <children>
-                        <VBox prefHeight="372.0" prefWidth="695.0" style="-fx-border-color: #DBDBDB; -fx-border-width: 2 2 2 2;">
+                        <VBox prefHeight="340.0" prefWidth="804.0">
                             <children>
                                 <HBox prefHeight="223.0" prefWidth="393.0">
                                     <children>
-                                        <VBox prefHeight="41.0" prefWidth="599.0">
+                                        <VBox prefHeight="122.0" prefWidth="818.0">
                                             <HBox.margin>
                                                 <Insets />
                                             </HBox.margin>
                                             <children>
-                                                <TextField id="urlFoto" fx:id="urlCsv" editable="false" prefHeight="51.0" prefWidth="817.0" promptText="url van het csvbestand">
+                                                <TextField id="urlFoto" fx:id="urlCsv" editable="false" prefHeight="31.0" prefWidth="302.0" promptText="url van het csvbestand">
                                                     <VBox.margin>
-                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="69.0" />
+                                                        <Insets bottom="10.0" left="120.0" right="120.0" top="40.0" />
                                                     </VBox.margin>
                                                 </TextField>
-                                                <Button fx:id="kiesCsvKnop" mnemonicParsing="false" onAction="#csvbestandKiezenOnAction" prefHeight="41.0" prefWidth="170.0" text="Kies csvbestand">
+                                                <Button fx:id="kiesCsvKnop" mnemonicParsing="false" onAction="#csvbestandKiezenOnAction" text="Kies csvbestand">
                                                     <VBox.margin>
-                                                        <Insets left="220.0" top="10.0" />
+                                                        <Insets left="280.0" top="10.0" />
                                                     </VBox.margin>
                                                 </Button>
                                             </children>
                                         </VBox>
                                     </children>
                                 </HBox>
-                                <Label alignment="TOP_LEFT" prefHeight="83.0" prefWidth="539.0" text="Een csvfile maak je door een excelbestand exporteren. Het bestandstype moet gewijzigd worden naar &quot;CSV&quot;. Dit is een tekstbestandstype waarin alle excelvakjes worden gescheiden door lijstdelingstekens, puntkomma's met andere woorden, het is mogelijk dat je &quot;;&quot; zal moeten selecteren." wrapText="true">
+                                <Label alignment="TOP_LEFT" prefHeight="154.0" prefWidth="533.0" text="Een csvfile maak je door een excelbestand exporteren. Het bestandstype moet gewijzigd worden naar &quot;CSV&quot;. Dit is een tekstbestandstype waarin alle excelvakjes worden gescheiden door lijstdelingstekens, puntkomma's met andere woorden, het is mogelijk dat je &quot;;&quot; zal moeten selecteren." wrapText="true">
                                     <VBox.margin>
-                                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                                        <Insets bottom="30.0" left="120.0" right="120.0" top="30.0" />
                                     </VBox.margin>
                                 </Label>
                             </children>
                         </VBox>
                     </children>
                 </HBox>
-                <HBox prefHeight="499.0" prefWidth="838.0">
+                <HBox prefHeight="113.0" prefWidth="456.0">
                     <children>
-                        <Button id="gaTerugKnop" fx:id="gaTerugKnop" cancelButton="true" mnemonicParsing="false" onAction="#gaTerugOnAction" prefHeight="41.0" prefWidth="170.0" text="Ga terug ">
+                        <Button id="gaTerugKnop" fx:id="gaTerugKnop" cancelButton="true" mnemonicParsing="false" onAction="#gaTerugOnAction" text="Ga terug ">
                             <HBox.margin>
-                                <Insets left="150.0" top="20.0" />
+                                <Insets bottom="30.0" left="220.0" top="20.0" />
                             </HBox.margin>
                         </Button>
-                        <Button id="voegToeKnop" fx:id="voegToeKnop" mnemonicParsing="false" onAction="#voegMateriaalToeOnAction" prefHeight="40.0" prefWidth="170.0" text="Voeg de materialen toe">
+                        <Button id="voegToeKnop" fx:id="voegToeKnop" mnemonicParsing="false" onAction="#voegMateriaalToeOnAction" text="Voeg de materialen toe">
                             <HBox.margin>
                                 <Insets left="10.0" top="20.0" />
                             </HBox.margin>
