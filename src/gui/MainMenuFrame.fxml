@@ -136,10 +136,10 @@
                                   </GridPane>
                                   <TableView fx:id="tvReservaties" prefHeight="554.0" prefWidth="720.0" GridPane.rowIndex="1" GridPane.rowSpan="2">
                                       <columns>
-                                          <TableColumn fx:id="tcOphaalmoment" prefWidth="100.0" text="Ophaalmoment" />
-                                          <TableColumn fx:id="tcIndienmoment" prefWidth="108.0" text="Indienmoment" />
-                                          <TableColumn fx:id="tcLener" prefWidth="235.0" text="Gereserveerd door" />
-                                          <TableColumn fx:id="tcMaterialen" prefWidth="276.0" text="Gereserveerde materialen" />
+                                          <TableColumn fx:id="tcOphaalmoment" prefWidth="110.0" text="Ophaalmoment" />
+                                          <TableColumn fx:id="tcIndienmoment" prefWidth="110.0" text="Indienmoment" />
+                                          <TableColumn fx:id="tcLener" prefWidth="200.0" text="Gereserveerd door" />
+                                          <TableColumn fx:id="tcMaterialen" prefWidth="300.0" text="Gereserveerde materialen" />
                                       </columns>
                            <GridPane.margin>
                               <Insets right="20.0" top="10.0" />
@@ -268,7 +268,7 @@
                                   </GridPane>
                                   <ScrollPane prefHeight="572.0" prefWidth="500.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                       <content>
-                                          <VBox fx:id="boxReservatieLijn" prefHeight="499.0" prefWidth="498.0" />
+                                          <VBox fx:id="boxReservatieLijn" prefHeight="481.0" prefWidth="498.0" />
                                       </content>
                            <GridPane.margin>
                               <Insets top="10.0" />
