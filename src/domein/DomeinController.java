@@ -1,5 +1,7 @@
 package domein;
 
+import domein.config.Config;
+import domein.config.ConfigLoader;
 import domein.gebruiker.GebruikerRepository;
 import domein.gebruiker.Gebruiker;
 import domein.reservatie.ReservatieRepository;
@@ -15,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
+import shared.ConfigView;
 import shared.MateriaalView;
 import shared.ReservatieLijnView;
 import shared.ReservatieView;
@@ -26,6 +29,8 @@ public class DomeinController {
     private ReservatieRepository reservatieRepo;
     private FirmaRepository firmaRepo;
     private Gebruiker aangemelde;
+    private Config config;
+    private ConfigLoader configLoader;
 
     public DomeinController() {
         this(new GebruikerRepository());
@@ -36,7 +41,8 @@ public class DomeinController {
         this.firmaRepo = new FirmaRepository();
         this.materiaalRepo = new MateriaalRepository(firmaRepo);
         this.reservatieRepo = new ReservatieRepository(materiaalRepo, gebruikerRepo);
-
+        this.configLoader = new ConfigLoader();
+        this.config = configLoader.load();
     }
 
     /* -------------------------------- */
@@ -359,4 +365,11 @@ public class DomeinController {
         return reservatieRepo.geefAlleReservatiesMetFiler(filter, dtOphaal, dtIndien);
     }
 
+    /* -------------------------------- */
+    // CONFIG
+    /* -------------------------------- */
+    public void saveConfig(ConfigView view) {
+        config.applyvView(view);
+        configLoader.save();
+    }
 }
