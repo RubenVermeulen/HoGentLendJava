@@ -19,10 +19,6 @@ import shared.MateriaalView;
 import shared.ReservatieLijnView;
 import shared.ReservatieView;
 
-/**
- *
- * @author Xander
- */
 public class ReservatieCatalogus {
 
     private MateriaalRepository materiaalRepo;

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package domein.reservatie;
 
 import domein.gebruiker.Gebruiker;
@@ -24,10 +19,7 @@ import shared.MateriaalView;
 import shared.ReservatieView;
 import util.MyDateUtil;
 
-/**
- *
- * @author Xander
- */
+
 @Entity
 @Table(name = "reservaties")
 public class Reservatie {
@@ -87,9 +79,13 @@ public class Reservatie {
         
         boolean filterInLener = lener.containsFilter(sFilter);
         boolean lenerFiltersMatter = (sFilter != null && !sFilter.trim().isEmpty()) || (dtOphaal == null && dtIndien == null);
-        boolean filterDatums = MyDateUtil.doesFirstPairOverlapWithSecond(dtOphaal, dtIndien, ophaalmoment, indienmoment);
+        boolean filterDatum = MyDateUtil.doesFirstPairOverlapWithSecond(dtOphaal, dtIndien, ophaalmoment, indienmoment);
     
-        return filterInLijnen || (lenerFiltersMatter && filterInLener) || filterDatums;
+        if (lenerFiltersMatter){
+            return (filterDatum || filterInLijnen) && filterInLener;
+        }else{
+            return filterDatum || filterInLijnen;
+        }
     }
 
     public Long getId() {

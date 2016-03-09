@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package domein.reservatie;
 
 import domein.materiaal.Materiaal;
@@ -18,10 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import util.MyDateUtil;
 
-/**
- *
- * @author Xander
- */
 @Entity
 @Table(name = "reservatie_lijn")
 public class ReservatieLijn {
@@ -111,7 +102,27 @@ public class ReservatieLijn {
         
         boolean materiaalFilter = materiaal.containsFilter(sFilter);
         boolean materiaalFilterMatters = (sFilter != null && !sFilter.trim().isEmpty()) || (dtOphaal == null && dtIndien == null);
-        return filterDatum || (materiaalFilterMatters && materiaalFilter);
+        if (materiaalFilterMatters){
+            return filterDatum && materiaalFilter;
+        }else{
+            return filterDatum;
+        }
     }
+    /**
+     
+     * 
+     * 
+     * 
+    return filterDatum && materiaalFilterMatters ? filterDatum && materiaalFilter
+                : !filterDatum && materiaalFilterMatters ? materiaalFilter
+                : filterDatum && !materiaalFilterMatters ? filterDatum
+                : !filterDatum && !materiaalFilterMatters ? false : false;
+    datum en matters -> datum && filter
+    datum niet en matters wel -> filter
+    datum wel en matters niet -> datum
+    datums niet en mattters niet -> false
+     * 
+     * 
+     */
 
 }

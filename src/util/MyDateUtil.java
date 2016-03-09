@@ -6,13 +6,13 @@ public class MyDateUtil {
 
     public static boolean doesFirstPairOverlapWithSecond(LocalDateTime a1, LocalDateTime a2, LocalDateTime b1, LocalDateTime b2) {
         if (a1 == null && a2 == null){
-            return false;
+            return true;
         }
         if (a1 == null) {
-            a1 = LocalDateTime.MIN;
+            a1 = a2;
         }
         if (a2 == null) {
-            a2 = LocalDateTime.MAX;
+            a2 = a1;
         }
         if (a2.isBefore(a1) || b2.isBefore(b1)){
             return false;
