@@ -266,10 +266,7 @@ public class StartUp extends Application {// test xd
         stage.show();
     }
 
-    public static void main(String... args) {
-        System.out.println("WEEK DAY -----------------------");
-        System.out.println(WeekFields.ISO.dayOfWeek());
-        
+    public static void main(String... args) {        
         Application.launch(StartUp.class, args);
     }
 }

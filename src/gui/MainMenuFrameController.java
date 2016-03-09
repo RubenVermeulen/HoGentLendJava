@@ -34,6 +34,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import shared.ConfigView;
 import shared.MateriaalView;
 import shared.ReservatieLijnView;
 import shared.ReservatieView;
@@ -127,6 +128,12 @@ public class MainMenuFrameController extends BorderPane {
     private DatePicker dpIndienmoment;
     @FXML
     private Button btnVoegReservatieLijnToe;
+    @FXML
+    private Button btnInstellingenOpslaan;
+    @FXML
+    private TextField txfInstellingenOphaaltijd;
+    @FXML
+    private TextField txfInstellingenIndientijd;
 
     public MainMenuFrameController(DomeinController domCon) {
         this.domCon = domCon;
@@ -146,6 +153,8 @@ public class MainMenuFrameController extends BorderPane {
         initialiseerTableViewBeheerders();
 
         initialiseerTableViewReservaties();
+        
+        initialiseerInstellingen();
     }
 
     private void setupMaterials(List<MateriaalView> materials) {
@@ -506,4 +515,16 @@ public class MainMenuFrameController extends BorderPane {
         datumPick.setValue(datumPick.getConverter().fromString(datumPick.getEditor().getText()));
     }
 
+    @FXML
+    private void onActionBtnInstellingenOpslaan(ActionEvent event) {
+    }
+
+    private void initialiseerInstellingen() {
+        ConfigView configView = domCon.geefConfigView();
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        
+        txfInstellingenIndientijd.setText(configView.getStandaardIndientijd().format(formatter));
+        txfInstellingenOphaaltijd.setText(configView.getStandaardOphaaltijd().format(formatter));
+    }
 }
