@@ -97,6 +97,7 @@ public class ReservatieCatalogus {
         r.setOphaalmoment(rv.getOphaalmoment());
         r.setIndienmoment(rv.getIndienmoment());
         r.setOpgehaald(rv.isOpgehaald());
+        System.out.println("RESERVATIEMOMENT " + rv.getReservatiemoment());
 
         List<ReservatieLijnView> lvn = rv.getReservatieLijnen();
         List<Long> lnIds = r.getReservatielijnen().stream().map(l -> l.getId()).collect(Collectors.toList());
@@ -140,6 +141,7 @@ public class ReservatieCatalogus {
         ReservatieLijn rl = new ReservatieLijn(materiaalRepo.geefMateriaalMetId(rlv.getMateriaal().getId()).get(),
                 rlv.getAantal(), rlv.getOphaalmoment(), rlv.getIndienmoment());
         r.getReservatielijnen().add(rl);
+        rl.setReservatie(r);
         return rl;
     }
 
@@ -175,25 +177,28 @@ public class ReservatieCatalogus {
         Gebruiker deLener = deLenerOpt.get();
         List<ReservatieLijn> reservatieLijnen = new ArrayList<>();
 
-        for (ReservatieLijnView rlView : reservatieLijnViews) {
-
-            MateriaalView mv = rlView.getMateriaal();
-
-            if (mv.getNaam().equals("")) {
-                throw new IllegalArgumentException("Er is geen materiaal ingevuld.");
-            }
-            Materiaal m = materiaalRepo.geefMateriaal(mv.getNaam()).get();
-
-            ReservatieLijn rl = new ReservatieLijn(m, rlView.getAantal(), rlView.getOphaalmoment(), rlView.getIndienmoment());
-
-        }
+        Reservatie reservatie = new Reservatie(deLener, ophaalmoment, indienmoment, reservatiemoment);
+        
+//        for (ReservatieLijnView rlView : reservatieLijnViews) {
+//
+//            MateriaalView mv = rlView.getMateriaal();
+//
+//            if (mv.getNaam().equals("")) {
+//                throw new IllegalArgumentException("Er is geen materiaal ingevuld.");
+//            }
+//            Materiaal m = materiaalRepo.geefMateriaal(mv.getNaam()).get();
+//
+//            ReservatieLijn rl = new ReservatieLijn(m, rlView.getAantal(), rlView.getOphaalmoment(), rlView.getIndienmoment());
+//            rl.setReservatie(reservatie);
+//
+//        }
 
         validateOphaalEnIndienMomentsForLijn(ophaalmoment, indienmoment);
-        Reservatie reservatie = new Reservatie(deLener, ophaalmoment, indienmoment, reservatiemoment);
+        
 
         reservatie.setReservatielijnen(reservatieLijnen);
 
-        reservaties.add(reservatie);
+//        reservaties.add(reservatie);
 
         return reservatie;
 

@@ -93,6 +93,8 @@ public class ReservatieLijn {
     }
 
     public Reservatie getReservatie() {
+        if(reservatie==null)
+            System.out.println("Sven had gelijk xp");
         return reservatie;
     }
 
