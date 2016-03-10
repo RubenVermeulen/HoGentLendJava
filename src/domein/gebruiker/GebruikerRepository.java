@@ -21,6 +21,12 @@ public class GebruikerRepository {
         loadBeheerderCatalogus();
     }
 
+    
+    //voor te testen
+    public GebruikerRepository(List<Gebruiker> gebruikers){
+    beheerderCat= new BeheerderCatalogus(gebruikers);
+    }
+    
     private void loadBeheerderCatalogus() {
         Query q = em.createQuery("SELECT g FROM Gebruiker g WHERE g.beheerder = true OR g.hoofdbeheerder = true");
         List<Gebruiker> beheerders = (List<Gebruiker>) q.getResultList();
