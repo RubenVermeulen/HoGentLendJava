@@ -67,6 +67,8 @@ public class ReservatieToevoegenController extends BorderPane {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        verbergError();
         setupAlleMaterialen();
     }
 
@@ -103,7 +105,7 @@ public class ReservatieToevoegenController extends BorderPane {
             if (e.getClass().getSimpleName().equals("StringIndexOutOfBoundsException")) {
                 lblError.setText("Je moet een indienmoment invullen.");
             } else {
-
+                lblError.setVisible(true);
                 lblError.setText(e.getMessage());
             }
             return;
@@ -122,9 +124,10 @@ public class ReservatieToevoegenController extends BorderPane {
             ophaalMm = Integer.parseInt(ophaalHHmm.substring(3, 5));
         } catch (IllegalArgumentException | StringIndexOutOfBoundsException e) {
             if (e.getClass().getSimpleName().equals("StringIndexOutOfBoundsException")) {
+                lblError.setVisible(true);
                 lblError.setText("Je moet een ophaalmoment invullen.");
             } else {
-
+                lblError.setVisible(true);
                 lblError.setText(e.getMessage());
             }
             return;
@@ -137,6 +140,7 @@ public class ReservatieToevoegenController extends BorderPane {
             ophaalmoment = ophMoment.atTime(indienHh, indienMm);
 
         } catch (IllegalArgumentException e) {
+            lblError.setVisible(true);
             lblError.setText(e.getMessage());
             return;
 
@@ -148,6 +152,7 @@ public class ReservatieToevoegenController extends BorderPane {
 
             indienmoment = indMoment.atTime(ophaalHh, ophaalMm);
         } catch (IllegalArgumentException e) {
+            lblError.setVisible(true);
             lblError.setText(e.getMessage());
             return;
         }
@@ -162,6 +167,7 @@ public class ReservatieToevoegenController extends BorderPane {
             }
             aantal = Integer.parseInt(txfAantal.getText());
         } catch (IllegalArgumentException e) {
+            lblError.setVisible(true);
             lblError.setText(e.getMessage());
             return;
         }
@@ -180,9 +186,15 @@ public class ReservatieToevoegenController extends BorderPane {
             //System.out.println("ayy");   ga hier naar een de tab van reservatiebeheer
 
         } catch (IllegalArgumentException e) {
+            lblError.setVisible(true);
             lblError.setText(e.getMessage());
 
         }
+
+    }
+
+    public void verbergError() {
+        lblError.setVisible(false);
 
     }
 

@@ -57,7 +57,7 @@ public class MateriaalToevoegenInBulkController extends BorderPane {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
+         verbergError();
     }
 
     @FXML
@@ -78,7 +78,8 @@ public class MateriaalToevoegenInBulkController extends BorderPane {
             try {
                 controlerenOfCsvFileIsIngevuld();
                 domCon.voegMaterialenToeInBulk(urlCsv.getText());
-            } catch (BulkToevoegenMisluktException|IllegalArgumentException e) {
+            } catch (BulkToevoegenMisluktException|IllegalArgumentException|NullPointerException e) {
+                lblError.setVisible(true);
                 lblError.setText(e.getMessage());
                 return;
             }
@@ -108,5 +109,10 @@ public class MateriaalToevoegenInBulkController extends BorderPane {
 
         }
 
+    }
+    
+     public void verbergError() {
+        lblError.setVisible(false);
+        
     }
 }
