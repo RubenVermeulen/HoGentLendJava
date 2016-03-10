@@ -86,7 +86,20 @@ public class ReservatieCatalogusTest {
     }
 
     private boolean compareReservatieViews(ReservatieView rv1, ReservatieView rv2) {
-        return true;
+       return (
+               rv1.getEmailLener().equals(rv2.getEmailLener())&&
+               rv1.getOphaalmoment()==rv2.getOphaalmoment()&&
+               rv1.getIndienmoment()==rv2.getIndienmoment()&&
+               rv1.getReservatieLijnen().toString().equals(rv2.getReservatieLijnen().toString())
+               
+               
+               );
+        
+        
+        
+        
+        
+        
 
     }
 }
