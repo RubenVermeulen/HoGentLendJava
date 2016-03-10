@@ -65,9 +65,9 @@ public class ReservatieCatalogus {
         }
         Reservatie reservatie = optR.get();
 
-        for (ReservatieLijn rl : reservatie.getReservatielijnen()) {
-            rl.getMateriaal().setAantalOnbeschikbaar(rl.getMateriaal().getAantalOnbeschikbaar() - rl.getAantal());
-        }
+//        for (ReservatieLijn rl : reservatie.getReservatielijnen()) {
+//            rl.getMateriaal().setAantalOnbeschikbaar(rl.getMateriaal().getAantalOnbeschikbaar() - rl.getAantal());
+//        }
 
         reservaties.remove(reservatie);
 
@@ -125,7 +125,7 @@ public class ReservatieCatalogus {
         while (it.hasNext()) {
             ReservatieLijn deRl = it.next();
             if (deRl.getId() == rl) {
-                deRl.getMateriaal().setAantalOnbeschikbaar(deRl.getMateriaal().getAantalOnbeschikbaar() - deRl.getAantal());
+//                deRl.getMateriaal().setAantalOnbeschikbaar(deRl.getMateriaal().getAantalOnbeschikbaar() - deRl.getAantal());
                 it.remove();
                 return (deRl);
             }
@@ -147,7 +147,6 @@ public class ReservatieCatalogus {
         rl.setAantal(rlv.getAantal());
         rl.setOphaalmoment(rlv.getOphaalmoment());
         rl.setIndienmoment(rlv.getIndienmoment());
-        rl.getMateriaal().setAantalOnbeschikbaar(rlv.getMateriaal().getAantalOnbeschikbaar());
     }
 
     public void validateOphaalEnIndienMomentsForLijn(LocalDateTime ophaal, LocalDateTime indien) {
@@ -202,36 +201,60 @@ public class ReservatieCatalogus {
     public int heeftConflicten(ReservatieLijnView rlv, LocalDateTime reservatiemoment) {
 
 
-        int aantalOver = rlv.getMateriaal().getAantal() - rlv.getMateriaal().getAantalOnbeschikbaar();
-
-  
-
-        if (aantalOver > 0) {
-            return 0;
-        }
+//        int aantalOver = rlv.getMateriaal().getAantal() - rlv.getMateriaal().getAantalOnbeschikbaar();
+//
+//        if (aantalOver > 0) {
+//            return 0;
+//        }
 
         LocalDateTime indienmoment = rlv.getIndienmoment();
         LocalDateTime ophaalmoment = rlv.getOphaalmoment();
         long materiaalId = rlv.getMateriaal().getId();
 
+        List<ReservatieLijn> lijst = new ArrayList<>();
+        int aantalGereserveerd = 0;
+        int aantalBeschikbaar = rlv.getMateriaal().getAantal() - rlv.getMateriaal().getAantalOnbeschikbaar();
+        
+        System.out.println("aantal beschikbaar vooraf = " + aantalBeschikbaar);
+        
+        //gaat over alle reservatielijnen (ook de deze), checkt op overlappingen
         for (Reservatie r : reservaties) {
-            Optional<ReservatieLijn> lijstItem
-                    = r.getReservatielijnen().stream().filter(
+            r.getReservatielijnen().stream().filter(
                             rl -> ((rl.getMateriaal().getId() == materiaalId)
                             && (((rl.getOphaalmoment().isBefore(ophaalmoment) || rl.getOphaalmoment().isEqual(ophaalmoment))
                             && rl.getIndienmoment().isAfter(ophaalmoment))
                             || (rl.getOphaalmoment().isAfter(ophaalmoment) && rl.getOphaalmoment().isBefore(indienmoment))))
-                            && rl.getReservatie().getReservatiemoment().isAfter(reservatiemoment)
-                    ).findFirst();
-            if (lijstItem.isPresent()) {
-                aantalOver += lijstItem.get().getAantal();
-                if (aantalOver >= 0) {
-                    return 0;
-                }
-            }
+//                            && rl.getReservatie().getReservatiemoment().isAfter(reservatiemoment)
+                    ).forEach(lijst::add);
+//            if (lijstItem.isPresent()) {
+//                aantalOver += lijstItem.get().getAantal();
+//                if (aantalOver >= 0) {
+//                    return 0;
+//                }
+//            }
         }
+        
+        aantalGereserveerd = lijst.stream().map((rl) -> rl.getAantal()).reduce(aantalGereserveerd, Integer::sum);
+        int teller = lijst.size()-1;
+        ReservatieLijn temprl;
+        System.out.println("lijst size : " + teller);
+        while(aantalGereserveerd > aantalBeschikbaar && teller > -1){
+            temprl = lijst.get(teller);
+            if(temprl.getReservatie().getReservatiemoment().isAfter(reservatiemoment)
+                    ||(temprl.getReservatie().getReservatiemoment().isEqual(reservatiemoment)
+                    && temprl.getId()>rlv.getId())){
+                aantalBeschikbaar += temprl.getAantal();
+            }
+            teller--;
+            System.out.println(teller + ": " + aantalBeschikbaar);
+        }
+        
+        System.out.println("gereserveerd" + aantalGereserveerd + ", beschikbaar" + aantalBeschikbaar);
+        
+     
+        System.out.println(lijst);
 
-        return aantalOver;
+        return aantalBeschikbaar-aantalGereserveerd;
     }
 
     public ReservatieView toReservatieView(Reservatie r) {

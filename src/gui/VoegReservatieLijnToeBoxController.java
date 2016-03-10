@@ -102,6 +102,12 @@ public class VoegReservatieLijnToeBoxController extends GridPane {
         
         if(cbMaterialen.getValue() == null)
             throw new IllegalArgumentException("Gelieve een materiaal te selecteren!");
+      
+//        for(ReservatieLijnView rlv : rv.getReservatieLijnen()){
+//            if(rlv.getMateriaal().getId()==cbMaterialen.getValue().getId()){
+//                throw new IllegalArgumentException("Dit materiaal zit al in deze reservatie!");
+//            }
+//        }
         
         if (txfAantal.getText() == null || txfAantal.getText().isEmpty()) {
             throw new IllegalArgumentException("Aantal moet ingevuld zijn!");
