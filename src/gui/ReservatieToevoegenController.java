@@ -21,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -51,6 +52,8 @@ public class ReservatieToevoegenController extends BorderPane {
     private TextField txfOphaalhhmm;
     @FXML
     private TextField txfIndienhhmm;
+    @FXML
+    private Label lblError;
 
     public ReservatieToevoegenController(DomeinController dc) {
         this.dc = dc;
@@ -76,27 +79,92 @@ public class ReservatieToevoegenController extends BorderPane {
 
     @FXML
     private void btnReservatieToevoegenOnAction(ActionEvent event) {
-
         String emailLener = txfEmailadres.getText().trim();
-        LocalDateTime ophaalmoment;
-        LocalDateTime indienmoment;
+
+        LocalDateTime ophaalmoment = null;
+        LocalDateTime indienmoment = null;
         LocalDateTime reservatiemoment = LocalDateTime.now();
 
         LocalDate ophMoment = dpOphaalmoment.getValue();
+
         LocalDate indMoment = dpIndienmoment.getValue();
+
         StringBuffer indienHHmm = new StringBuffer(txfIndienhhmm.getText().trim());
+
+        int indienHh = -1;
+        int indienMm = -1;
+        try {
+            if (indienHHmm == null) {
+                throw new IllegalArgumentException("Je moet een indienmoment invullen.");
+            }
+            indienHh = Integer.parseInt(indienHHmm.substring(0, 2));
+            indienMm = Integer.parseInt(indienHHmm.substring(3, 5));
+        } catch (IllegalArgumentException | StringIndexOutOfBoundsException e) {
+            if (e.getClass().getSimpleName().equals("StringIndexOutOfBoundsException")) {
+                lblError.setText("Je moet een indienmoment invullen.");
+            } else {
+
+                lblError.setText(e.getMessage());
+            }
+            return;
+        }
+
         StringBuffer ophaalHHmm = new StringBuffer(txfOphaalhhmm.getText().trim());
 
-        int indienHh = Integer.parseInt(indienHHmm.substring(0, 2));
-        int indienMm = Integer.parseInt(indienHHmm.substring(3, 5));
-        int ophaalHh = Integer.parseInt(ophaalHHmm.substring(0, 2));
-        int ophaalMm = Integer.parseInt(ophaalHHmm.substring(3, 5));
+        int ophaalHh = -1;
+        int ophaalMm = -1;
+        try {
+            if (ophaalHHmm == null) {
+                throw new IllegalArgumentException("Je moet een ophaalmoment invullen.");
 
-        ophaalmoment = ophMoment.atTime(indienHh, indienMm);
-        indienmoment = indMoment.atTime(ophaalHh, ophaalMm);
+            }
+            ophaalHh = Integer.parseInt(ophaalHHmm.substring(0, 2));
+            ophaalMm = Integer.parseInt(ophaalHHmm.substring(3, 5));
+        } catch (IllegalArgumentException | StringIndexOutOfBoundsException e) {
+            if (e.getClass().getSimpleName().equals("StringIndexOutOfBoundsException")) {
+                lblError.setText("Je moet een ophaalmoment invullen.");
+            } else {
 
+                lblError.setText(e.getMessage());
+            }
+            return;
+        }
+
+        try {
+            if (!(ophaalHh >= 0 && ophaalHh < 24 && ophaalMm >= 0 && ophaalMm < 60)) {
+                throw new IllegalArgumentException("Er is geen geldig ophaalmoment ingevuld.");
+            }
+            ophaalmoment = ophMoment.atTime(indienHh, indienMm);
+
+        } catch (IllegalArgumentException e) {
+            lblError.setText(e.getMessage());
+            return;
+
+        }
+        try {
+            if (!(indienHh >= 0 && indienHh < 24 && indienMm >= 0 && indienMm < 60)) {
+                throw new IllegalArgumentException("Er is geen geldig indienmoment ingevuld.");
+            }
+
+            indienmoment = indMoment.atTime(ophaalHh, ophaalMm);
+        } catch (IllegalArgumentException e) {
+            lblError.setText(e.getMessage());
+            return;
+        }
+        //ayy
         MateriaalView materiaalView = combMaterialen.getValue();
-        int aantal = Integer.parseInt(txfAantal.getText());
+
+        int aantal = -1;
+
+        try {
+            if (txfAantal.getText().isEmpty()) {
+                throw new IllegalArgumentException("Er moet een aantal ingevuld worden.");
+            }
+            aantal = Integer.parseInt(txfAantal.getText());
+        } catch (IllegalArgumentException e) {
+            lblError.setText(e.getMessage());
+            return;
+        }
 
         List<ReservatieLijnView> reservatieLijnen = new ArrayList<>();
 
@@ -106,14 +174,16 @@ public class ReservatieToevoegenController extends BorderPane {
 
         try {
             dc.voegReservatieToe(rv);
+            Stage stage = (Stage) getScene().getWindow();
+            Scene scene = new Scene(new MainMenuFrameController(dc));
+            stage.setScene(scene);
+            //System.out.println("ayy");   ga hier naar een de tab van reservatiebeheer
+
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage()); //moet nog label worden
+            lblError.setText(e.getMessage());
 
         }
 
-        Stage stage = (Stage) getScene().getWindow();
-        Scene scene = new Scene(new MainMenuFrameController(dc));
-        stage.setScene(scene);
     }
 
     private void setupAlleMaterialen() {

@@ -21,7 +21,8 @@ import org.junit.runners.Suite;
     domein.groep.GroepTest.class,
     domein.groep.GroepCatalogusTest.class,
     domein.materiaal.MateriaalTest.class,
-    domein.materiaal.MateriaalCatalogusTest.class,    
+    domein.materiaal.MateriaalCatalogusTest.class,
+domein.reservatie.ReservatieCatalogusTest.class,
 })
 public class TestSuite {
     

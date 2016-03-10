@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -41,6 +42,8 @@ public class MateriaalToevoegenInBulkController extends BorderPane {
     private Button voegToeKnop;
 
     DomeinController domCon;
+    @FXML
+    private Label lblError;
 
     public MateriaalToevoegenInBulkController(DomeinController domCon) {
         this.domCon = domCon;
@@ -71,14 +74,16 @@ public class MateriaalToevoegenInBulkController extends BorderPane {
 
     @FXML
     private void voegMateriaalToeOnAction(ActionEvent event) {
-        if (controlerenOfCsvFileIsIngevuld()) {
-            try{
+      
+            try {
+                controlerenOfCsvFileIsIngevuld();
                 domCon.voegMaterialenToeInBulk(urlCsv.getText());
-            }catch(BulkToevoegenMisluktException e){
-                // TODO voor alosk: de message e.getMessage() aan de gebruiker tonen
+            } catch (BulkToevoegenMisluktException|IllegalArgumentException e) {
+                lblError.setText(e.getMessage());
+                return;
             }
             gaterugNaarmenu();
-        }
+        
 
     }
 
@@ -96,35 +101,12 @@ public class MateriaalToevoegenInBulkController extends BorderPane {
 
     }
 
-    private boolean controlerenOfCsvFileIsIngevuld() {
-        boolean isIngevuld = false;
+    private void controlerenOfCsvFileIsIngevuld() {
 
         if (urlCsv.getText().isEmpty() || (!urlCsv.getText().endsWith("csv"))) {
-            Alert alert = new Alert(
-                    Alert.AlertType.CONFIRMATION,
-                    String.format("Er is nog geen csvfile gekozen."),
-                    ButtonType.OK);
+            throw new IllegalArgumentException("Er is nog geen csv file gekozen.");
 
-            alert.setTitle("Opgelet");
-            alert.setHeaderText("Opgelet");
-
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-
-                ((VBox) getParent()).getChildren().remove(this);
-            }
-
-            /*
-            
-            Stage dialogStage = new Stage();
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.setScene(new Scene(VBoxBuilder.create().
-                    children(new Text("Er is nog geen csvfile gekozen.")).padding(new Insets(30)).build()));
-            dialogStage.show();*/
-        } else {
-            isIngevuld = true;
         }
-        return isIngevuld;
-    }
 
+    }
 }

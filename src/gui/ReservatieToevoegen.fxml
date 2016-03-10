@@ -122,6 +122,11 @@
                                     </ComboBox>
                                  </children>
                               </HBox>
+                              <Label fx:id="lblError" text="Errorplaceholder" textFill="#ff0505" wrapText="true">
+                                 <VBox.margin>
+                                    <Insets left="20.0" top="125.0" />
+                                 </VBox.margin>
+                              </Label>
                            </children>
                         </VBox>
                         <VBox prefHeight="318.0" prefWidth="249.0">
