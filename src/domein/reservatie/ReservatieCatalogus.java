@@ -192,7 +192,7 @@ public class ReservatieCatalogus {
 
         reservatie.setReservatielijnen(reservatieLijnen);
 
-//        reservaties.add(reservatie);
+        reservaties.add(reservatie);
 
         return reservatie;
 

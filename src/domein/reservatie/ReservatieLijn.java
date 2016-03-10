@@ -29,7 +29,7 @@ public class ReservatieLijn {
     private Materiaal materiaal;
     private int aantal;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Reservatie reservatie;
 
     public ReservatieLijn() {
