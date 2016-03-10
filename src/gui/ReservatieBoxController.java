@@ -113,7 +113,7 @@ public class ReservatieBoxController extends GridPane {
 
         lblNaam.setText(mv.getNaam());
         int beschikbaar = mv.getAantal() - mv.getAantalOnbeschikbaar();
-        lblAantal.setText(String.format("Nog %d van de %d beschikbaar", beschikbaar, mv.getAantal()));
+        lblAantal.setText(String.format("%d van de %d beschikbaar", beschikbaar, mv.getAantal()));
 
         imgvFoto.setImage(ImageUtil.byteArrayToImage(mv.getFotoBytes()));
 
@@ -127,11 +127,12 @@ public class ReservatieBoxController extends GridPane {
         int conflict = dc.heeftConflicten(rlv, rv.getReservatiemoment());
         if (conflict < 0) {
             lblAantal.setText(String.format("Conflict! Slechts %d beschikbaar", rlv.getAantal() + conflict));
-            if (rlv.getAantal() + conflict < 0) {
+            if (rlv.getAantal() + conflict <= 0) {
                 lblAantal.setText("Conflict! Geen beschikbaar!");
             }
             lblAantal.setTextFill(Color.web("#d70000"));
             lblAantalGereserveerd.setTextFill(Color.web("#d70000"));
+            parentController.setConflict(rlv);
         }
         lblAantalGereserveerd.setText(String.valueOf(rlv.getAantal()) + " gereserveerd");
         lblOphaalmoment.setText(rlv.getOphaalmomentAlsString());

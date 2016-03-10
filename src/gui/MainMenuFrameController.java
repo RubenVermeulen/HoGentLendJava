@@ -141,7 +141,7 @@ public class MainMenuFrameController extends BorderPane {
     private TextField txfInstellingenIndientijd;
     @FXML
     private Label lblInstellingenMessage;
-    
+
     private ConfigView configView;
     @FXML
     private ComboBox<String> cbInstellingenOphaalDag;
@@ -150,7 +150,7 @@ public class MainMenuFrameController extends BorderPane {
 
     private Color colorSucces = Color.web("#04B431");
     private Color colorError = Color.web("FF0000");
-    
+
     public MainMenuFrameController(DomeinController domCon) {
         this.domCon = domCon;
         this.configView = domCon.geefConfigView();
@@ -170,7 +170,7 @@ public class MainMenuFrameController extends BorderPane {
         initialiseerTableViewBeheerders();
 
         initialiseerTableViewReservaties();
-        
+
         initialiseerInstellingen();
     }
 
@@ -244,6 +244,13 @@ public class MainMenuFrameController extends BorderPane {
         tcMaterialen.setCellValueFactory(new PropertyValueFactory<>("reservatieLijnenAlsString"));
 
         tvReservaties.setItems(observableList);
+        
+//        for(ReservatieView rv : tvReservaties.getItems()){
+//            for(ReservatieLijnView rlv : rv.getReservatieLijnen()){
+//                if(rlv.getMateriaal().getAantalOnbeschikbaar()>rlv.getMateriaal().getAantal()){
+//                    tvReservaties.getSelectionModel().;
+//                }
+//        }
 
         if (geselecteerdeReservatie != null) {
             tvReservaties.getSelectionModel().select(geselecteerdeRij);
@@ -268,9 +275,8 @@ public class MainMenuFrameController extends BorderPane {
     }
 
     private void setupReservatieLijnen(ReservatieView rv) {
-        List<ReservatieLijnView> rlv = rv.getReservatieLijnen();
-        boxReservatieLijn.getChildren().clear();
-        rlv.stream().forEach(rl -> boxReservatieLijn.getChildren().add(new ReservatieBoxController(rl, rv, domCon, this)));
+        
+        //Reservatiedetails
         lblLenerNaam.setText(rv.getLener());
         lblOphaalmoment.setText(rv.getOphaalmomentAlsString());
         lblIndienmoment.setText(rv.getIndienmomentAlsString());
@@ -281,21 +287,27 @@ public class MainMenuFrameController extends BorderPane {
         if (status == true) {
             lblStatus.setText("Opgehaald.");
         } else {
-            boolean check = false;
-            for (ReservatieLijnView rsvlv : rlv) {
-                if (domCon.heeftConflicten(rsvlv, rv.getReservatiemoment()) < 0) {
-                    check = true;
-                    break;
-                }
-            }
-            if (check) {
-                lblStatus.setText("Conflict! Niet alle materialen kunnen worden opgehaald!");
-                lblStatus.setTextFill(Color.web("#d70000"));
-            } else {
-                lblStatus.setText("Nog niet opgehaald");
-            }
+            lblStatus.setText("Nog niet opgehaald");
         }
+        if(rv.isOpgehaald()){
+            btnReservatieOpgehaald.setText("Markeer reservatie als nog niet opgehaald");
+        }
+        else{
+            btnReservatieOpgehaald.setText("Markeer reservatie als opgehaald");
+        }
+        
+        
+        
+        //ReservatieBox
+        List<ReservatieLijnView> rlv = rv.getReservatieLijnen();
+        boxReservatieLijn.getChildren().clear();
+        rlv.stream().forEach(rl -> boxReservatieLijn.getChildren().add(new ReservatieBoxController(rl, rv, domCon, this)));
 
+    }
+
+    public void setConflict(ReservatieLijnView rlv) {
+        lblStatus.setText("Conflict! Niet alle materialen kunnen worden opgehaald!");
+        lblStatus.setTextFill(Color.web("#d70000"));
     }
 
     @FXML
@@ -504,7 +516,7 @@ public class MainMenuFrameController extends BorderPane {
 
     @FXML
     private void onActionBtnReservatieOpgehaald(ActionEvent event) {
-        geselecteerdeReservatie.setOpgehaald(true);
+        geselecteerdeReservatie.setOpgehaald(!geselecteerdeReservatie.isOpgehaald());
         domCon.wijzigReservatie(geselecteerdeReservatie);
         initialiseerTableViewReservaties();
         setupReservatieLijnen(geselecteerdeReservatie);
@@ -539,56 +551,53 @@ public class MainMenuFrameController extends BorderPane {
             configView.setStandaardOphaaltijd(convertToLocalDateTime(txfInstellingenOphaaltijd.getText(), "standaard ophaaltijd"));
             configView.setStandaardIndienDag(cbInstellingenIndienDag.getValue());
             configView.setStandaardIndientijd(convertToLocalDateTime(txfInstellingenIndientijd.getText(), "standaard indientijd"));
-            
+
             domCon.saveConfig(configView);
-            
+
             lblInstellingenMessage.setTextFill(colorSucces);
             lblInstellingenMessage.setText("De instellingen zijn succesvol opgeslagen.");
-            
+
             initialiseerInstellingen();
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             lblInstellingenMessage.setTextFill(colorError);
-            lblInstellingenMessage.setText("Tijd moet er als volgt uit zien: uur:minuten"); 
-        }
-        catch (IllegalArgumentException e) {
+            lblInstellingenMessage.setText("Tijd moet er als volgt uit zien: uur:minuten");
+        } catch (IllegalArgumentException e) {
             lblInstellingenMessage.setTextFill(colorError);
-            lblInstellingenMessage.setText(e.getMessage());   
-        }
-        catch (DateTimeException e) {
+            lblInstellingenMessage.setText(e.getMessage());
+        } catch (DateTimeException e) {
             lblInstellingenMessage.setTextFill(colorError);
-            lblInstellingenMessage.setText("Eén van de velden bevat geen geldige tijd."); 
+            lblInstellingenMessage.setText("Eén van de velden bevat geen geldige tijd.");
         }
-        
+
         lblInstellingenMessage.setVisible(true);
     }
 
     private void initialiseerInstellingen() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        
+
         txfInstellingenIndientijd.setText(configView.getStandaardIndientijd().format(formatter));
         txfInstellingenOphaaltijd.setText(configView.getStandaardOphaaltijd().format(formatter));
-        
+
         List<String> dagen = new ArrayList<>(Arrays.asList("maandag", "dinsdag", "woensdag", "donderdag", "vrijdag"));
-        
+
         cbInstellingenOphaalDag.getItems().clear();
         cbInstellingenOphaalDag.getItems().addAll(dagen);
         cbInstellingenIndienDag.getItems().clear();
         cbInstellingenIndienDag.getItems().addAll(dagen);
-        
+
         cbInstellingenOphaalDag.getSelectionModel().select(configView.getStandaardOphaalDag());
         cbInstellingenIndienDag.getSelectionModel().select(configView.getStandaardIndienDag());
     }
-    
+
     private LocalTime convertToLocalDateTime(String tijd, String veld) {
         if (tijd.isEmpty()) {
             throw new IllegalArgumentException(String.format("Het veld %s mag niet leeg zijn.", veld));
         }
-        
+
         if (!tijd.contains(":")) {
             throw new IllegalArgumentException("Tijd moet er als volgt uit zien: uur:minuten");
         }
-        
+
         int uur = Integer.parseInt(tijd.substring(0, tijd.indexOf(":")));
         int minuten = Integer.parseInt(tijd.substring(tijd.indexOf(":") + 1, tijd.length()));
         LocalTime time = LocalTime.of(uur, minuten);
@@ -614,7 +623,7 @@ public class MainMenuFrameController extends BorderPane {
     private void onActionCbInstellingenIndiendag(ActionEvent event) {
         verbergInstellingenLabel();
     }
-    
+
     private void verbergInstellingenLabel() {
         lblInstellingenMessage.setVisible(false);
     }

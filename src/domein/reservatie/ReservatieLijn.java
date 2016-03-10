@@ -40,7 +40,7 @@ public class ReservatieLijn {
         this.indienmoment = indienmoment;
         this.materiaal = materiaal;
         this.aantal = aantal;
-        materiaal.setAantalOnbeschikbaar(materiaal.getAantalOnbeschikbaar()+aantal);
+//        materiaal.setAantalOnbeschikbaar(materiaal.getAantalOnbeschikbaar()+aantal);
     }
 
     public Long getId() {
