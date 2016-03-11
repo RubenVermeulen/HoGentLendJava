@@ -46,21 +46,19 @@ public class ReservatieView {
     }
 
     public ReservatieView(String emailLener, LocalDateTime ophaalmoment, LocalDateTime indienmoment,
-            LocalDateTime reservatiemoment,List<ReservatieLijnView> reservatieLijnen) {
+            LocalDateTime reservatiemoment, List<ReservatieLijnView> reservatieLijnen) {
         this.emailLener = emailLener;
         this.ophaalmoment = ophaalmoment;
         this.indienmoment = indienmoment;
         this.reservatiemoment = reservatiemoment;
         this.reservatieLijnen = reservatieLijnen;
-        
+
         this.ophaalmomentAlsString = formatLocalDateTime(ophaalmoment);
         this.indienmomentAlsString = formatLocalDateTime(indienmoment);
         this.reservatiemomentAlsString = formatLocalDateTime(reservatiemoment);
-        this.opgehaald=false;
+        this.opgehaald = false;
     }
-    
-    
-    
+
     public String getOphaalmomentAlsString() {
         return ophaalmomentAlsString;
     }
@@ -68,8 +66,8 @@ public class ReservatieView {
     public String getIndienmomentAlsString() {
         return indienmomentAlsString;
     }
-    
-    public String getReservatiemomentAlsString(){
+
+    public String getReservatiemomentAlsString() {
         return reservatiemomentAlsString;
     }
 
@@ -159,4 +157,10 @@ public class ReservatieView {
         this.emailLener = emailLener;
     }
 
+    @Override
+    public String toString() {
+        return id + "  " + lener + "  " + emailLener + "  " + ophaalmoment + "  " + indienmoment + "  " + reservatiemoment + "  " + ophaalmomentAlsString + "  "
+                + indienmomentAlsString + "  " + reservatiemomentAlsString + "  " + reservatieLijnenAlsString + "  " + opgehaald + "  "
+                + reservatieLijnen;
+    }
 }

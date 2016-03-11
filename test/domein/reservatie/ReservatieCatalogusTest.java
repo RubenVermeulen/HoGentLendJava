@@ -55,9 +55,10 @@ public class ReservatieCatalogusTest {
     private final long id1 = 78;
     private final long id2 = 79;
     private final long m1id = 88;
+    private final long nul = 0;
     private Materiaal m1 = new Materiaal("Wereldbol", 5);
     private File tempFotoFile;
-    private final ReservatieLijnView rlv = new ReservatieLijnView(OPHAALMOMENT_CORRECT, INDIENMOMENT_CORRECT, mv, 5);
+    private ReservatieLijnView rlv;
 
     private ReservatieView rv;
 
@@ -75,12 +76,12 @@ public class ReservatieCatalogusTest {
         MockitoAnnotations.initMocks(this);
         m1.setId(m1id);
         tempFotoFile = ImageUtil.getResourceAsFile("/images/default_materiaal_img.png");
+
         rl = new ReservatieLijn(m1, 2, OPHAALMOMENT_CORRECT, INDIENMOMENT_CORRECT);
         r1.setReservatielijnen(Arrays.asList(rl));
         r1.setId(id1);
         r2.setReservatielijnen(Arrays.asList(rl));
         r2.setId(id2);
-        reservaties = new ArrayList<>(Arrays.asList(r1, r2));
 
         mv.setAantalOnbeschikbaar(2)
                 .setDoelgroepen(Arrays.asList("Doelgroep1", "doelgroep2"))
@@ -92,21 +93,69 @@ public class ReservatieCatalogusTest {
                 .setPlaats("Plaats")
                 .setPrijs(2.22)
                 .setUitleenbaarheid(true);
+        rlv = new ReservatieLijnView(OPHAALMOMENT_CORRECT, INDIENMOMENT_CORRECT, mv, 5);
 
         firmaRepository = new FirmaRepository(Arrays.asList(f1));
-        materiaalRepo = new MateriaalRepository(firmaRepository);
-        //   gebruikersRepo = new GebruikerRepository(Arrays.asList(sven, xander));
 
+        //   gebruikersRepo = new GebruikerRepository(Arrays.asList(sven, xander));
         deLenerOpt = Optional.of(sven);
         reservatieLijnen = new ArrayList(Arrays.asList(rlv));
 
         rv = new ReservatieView(EMAIL_CORRECT, OPHAALMOMENT_CORRECT, INDIENMOMENT_CORRECT,
                 RESERVATIEMOMENT_CORRECT, reservatieLijnen);
 
+        rv.setId(78);
+        reservaties = new ArrayList<>(Arrays.asList(r1, r2));
+        materiaalRepo = new MateriaalRepository(firmaRepository);
         resCatalogus = new ReservatieCatalogus(reservaties, materiaalRepo, gebruikersRepoDummy);
 
     }
 
+   
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void voegNieuwReservatieToeRvNull() {
+     resCatalogus.voegReservatieToe(null);
+    
+    }
+    
+     @Test(expected = IllegalArgumentException.class)
+    public void voegNieuwReservatieToeRvGeenEmail() {
+        
+        ReservatieView rvGeenEmail= new ReservatieView("", OPHAALMOMENT_CORRECT,
+                INDIENMOMENT_CORRECT, RESERVATIEMOMENT_CORRECT, reservatieLijnen);
+     resCatalogus.voegReservatieToe(rvGeenEmail);
+    
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void voegNieuwReservatieToeEmailNull() {
+        
+        ReservatieView rvGeenEmail= new ReservatieView(null, OPHAALMOMENT_CORRECT,
+                INDIENMOMENT_CORRECT, RESERVATIEMOMENT_CORRECT, reservatieLijnen);
+     resCatalogus.voegReservatieToe(rvGeenEmail);
+    
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void voegNieuwReservatieToeRvGeenOphaalmoment() {
+        
+        ReservatieView rvGeenReservatieLijnen= new ReservatieView(EMAIL_CORRECT, OPHAALMOMENT_CORRECT,
+                INDIENMOMENT_CORRECT, RESERVATIEMOMENT_CORRECT, null);
+     resCatalogus.voegReservatieToe(rvGeenReservatieLijnen);
+    
+    }
+     @Test(expected = IllegalArgumentException.class)
+    public void voegNieuwReservatieToeRvIndienmomentVoorOphaalmoment() {
+        Mockito.when(
+                gebruikersRepoDummy.geefGebruikerViaEmail(EMAIL_CORRECT)).
+                thenReturn(deLenerOpt);
+        ReservatieView rvGeenReservatieLijnen= new ReservatieView(EMAIL_CORRECT, OPHAALMOMENT_CORRECT,
+                 RESERVATIEMOMENT_CORRECT,INDIENMOMENT_CORRECT, reservatieLijnen);
+        
+     resCatalogus.voegReservatieToe(rvGeenReservatieLijnen);
+    
+    }
+    
     @Test
     public void voegNieuwReservatieToeVolledigCorrect() {
         Mockito.when(
@@ -117,17 +166,40 @@ public class ReservatieCatalogusTest {
                 INDIENMOMENT_CORRECT, RESERVATIEMOMENT_CORRECT, reservatieLijnen);
 
         rv.setId(id1);
-
+        int aantalRes = reservaties.size();
         resCatalogus.voegReservatieToe(rv);
-        
-        assertTrue(compareReservatieViews(rv, resCatalogus.geefAlleReservaties().get(2)));
 
+        // assertTrue(compareReservatieViews(rv, resCatalogus.geefAlleReservaties().get(2)));
+        // assertEquals(rv.getEmailLener(), reservaties.get(2).getLener().getEmail());
+        assertEquals(aantalRes + 1, reservaties.size());
+
+       
     }
-
+    
+    @Test
     public void verwijderReservatieVolledigCorrect() {
+        System.out.println("r1 id: " + r1.toString());
+        System.out.println("rv id: " + rv.toString());
+
         assertEquals(r1, resCatalogus.verwijderReservatie(rv));
 
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void verwijderReservatieRvNull() {
+
+        resCatalogus.verwijderReservatie(null);
+
+    }
+
+    @Test
+    public void geefReservatie() {
+        assertEquals(r1, resCatalogus.geefReservatie(r1.getId()).get());
+    }
+    
+    
+    
+    
 
     private boolean compareReservatieViews(ReservatieView rv1, ReservatieView rv2) {
         return (rv1.getEmailLener().equals(rv2.getEmailLener())
