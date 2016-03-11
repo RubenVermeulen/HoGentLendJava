@@ -222,7 +222,9 @@ public class ReservatieCatalogus {
     }
 
     public int heeftConflicten(ReservatieLijnView rlv, LocalDateTime reservatiemoment) {
-
+         if(rlv==null){
+         throw new IllegalArgumentException();
+         }
 //        int aantalOver = rlv.getMateriaal().getAantal() - rlv.getMateriaal().getAantalOnbeschikbaar();
 //
 //        if (aantalOver > 0) {

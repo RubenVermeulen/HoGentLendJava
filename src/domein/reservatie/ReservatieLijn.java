@@ -99,6 +99,10 @@ public class ReservatieLijn {
     }
 
     public boolean containsFilter(String sFilter, LocalDateTime dtOphaal, LocalDateTime dtIndien) {
+        if(sFilter.isEmpty()||sFilter==null){
+        throw new IllegalArgumentException();
+        }
+        
         boolean filterDatum = MyDateUtil.doesFirstPairOverlapWithSecond(dtOphaal, dtIndien, ophaalmoment, indienmoment);
         
         

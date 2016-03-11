@@ -26,28 +26,26 @@ public class BulkToevoeger {
         materialen = readCsvFile(csvFile);
 
         for (String[] materiaal : materialen) {
-            String naam = materiaal[1];
+            String naam = materiaal[0];
 
-            String fotoUrl = materiaal[0];
-
-            String omschrijving = materiaal[2];
-            String artikelNummer = materiaal[3];
-            double prijs = NumberUtils.toDouble(materiaal[4], 0);
+            String omschrijving = materiaal[1];
+            String artikelNummer = materiaal[2];
+            double prijs = NumberUtils.toDouble(materiaal[3], 0);
             int aantal;
 
-            aantal = NumberUtils.toInt(materiaal[5], 0);
+            aantal = NumberUtils.toInt(materiaal[4], 0);
             boolean uitleenbaarheid;
             if (!materiaal[6].isEmpty()) {
-                uitleenbaarheid = Boolean.parseBoolean(materiaal[6]);
+                uitleenbaarheid = Boolean.parseBoolean(materiaal[5]);
             } else {
                 uitleenbaarheid = true;
             }
 
-            String plaats = materiaal[7];
-            String firma = materiaal[8];
-            String emailFirma = materiaal[9];
-            String doelgroepen = materiaal[10];
-            String leergebieden = materiaal[11];
+            String plaats = materiaal[6];
+            String firma = materiaal[7];
+            String emailFirma = materiaal[8];
+            String doelgroepen = materiaal[9];
+            String leergebieden = materiaal[10];
 
             MateriaalView matView = new MateriaalView(naam, aantal);
 
@@ -89,7 +87,6 @@ public class BulkToevoeger {
             }
 
             matView.setFirma(firma);
-            matView.setNewFotoUrl(fotoUrl);
             matView.setLeergebieden(leerGroepkes);
             matView.setOmschrijving(omschrijving);
             matView.setPlaats(plaats);

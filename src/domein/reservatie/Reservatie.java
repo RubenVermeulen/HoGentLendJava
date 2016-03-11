@@ -68,8 +68,25 @@ public class Reservatie {
         setReservatiemoment(reservatiemoment);
         this.opgehaald = opgehaald;
     }
+
+   //deze constructie is voor het testen
+    Reservatie(Gebruiker lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment, LocalDateTime reservatiemoment, boolean opgehaald, List<ReservatieLijn> reservatieLijnen) {
+        this.lener = lener;
+        this.ophaalmoment = ophaalmoment;
+        this.indienmoment = indienmoment;
+        setReservatiemoment(reservatiemoment);
+        this.opgehaald = opgehaald;
+    
+        this.reservatielijen=reservatieLijnen;
+    }
+
+    
    
     public boolean containsFilter(String sFilter, LocalDateTime dtOphaal, LocalDateTime dtIndien){
+        if(sFilter.isEmpty()||sFilter==null){
+        throw new IllegalArgumentException();
+        }
+        
         boolean filterInLijnen = false;
         for(ReservatieLijn l : reservatielijen){
             filterInLijnen = l.containsFilter(sFilter, dtOphaal, dtIndien);
