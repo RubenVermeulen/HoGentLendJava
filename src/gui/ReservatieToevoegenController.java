@@ -82,7 +82,11 @@ public class ReservatieToevoegenController extends BorderPane {
     @FXML
     private void btnReservatieToevoegenOnAction(ActionEvent event) {
         String emailLener = txfEmailadres.getText().trim();
-
+if (emailLener == null||emailLener.isEmpty()) {
+            lblError.setText("Je moet een e-mailadres invullen.");
+            lblError.setVisible(true);
+            return;
+        }
         LocalDateTime ophaalmoment = null;
         LocalDateTime indienmoment = null;
         LocalDateTime reservatiemoment = LocalDateTime.now();
