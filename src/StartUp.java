@@ -247,6 +247,7 @@ public class StartUp extends Application {// test xd
         c.setStandaardOphaaltijd(LocalTime.MIDNIGHT);
         c.setStandaardOphaalDag("maandag");
         c.setStandaardIndienDag("vrijdag");
+        c.setLeentermijn(1);
         
         em.getTransaction().begin();
         em.persist(c);

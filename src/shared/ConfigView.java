@@ -8,12 +8,14 @@ public class ConfigView {
     private LocalTime standaardIndientijd;
     private String standaardOphaalDag;
     private String standaardIndienDag;
+    private int leentermijn;
 
-    public ConfigView(LocalTime standaardOphaaltijd, LocalTime standaardIndientijd, String standaardOphaalDag, String standaardIndienDag) {
+    public ConfigView(LocalTime standaardOphaaltijd, LocalTime standaardIndientijd, String standaardOphaalDag, String standaardIndienDag, int leentermijn) {
         this.standaardOphaaltijd = standaardOphaaltijd;
         this.standaardIndientijd = standaardIndientijd;
         this.standaardOphaalDag = standaardOphaalDag;
         this.standaardIndienDag = standaardIndienDag;
+        this.leentermijn = leentermijn;
     }
 
     public LocalTime getStandaardOphaaltijd() {
@@ -46,6 +48,14 @@ public class ConfigView {
 
     public void setStandaardIndienDag(String standaardIndienDag) {
         this.standaardIndienDag = standaardIndienDag;
+    }
+
+    public int getLeentermijn() {
+        return leentermijn;
+    }
+
+    public void setLeentermijn(int leentermijn) {
+        this.leentermijn = leentermijn;
     }
     
     
