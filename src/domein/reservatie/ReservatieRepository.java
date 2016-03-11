@@ -87,6 +87,7 @@ public class ReservatieRepository {
 
     private void voegReservatieLijnToe(Reservatie r, ReservatieLijnView rlv) {
         ReservatieLijn rl = reservatieCat.voegReservatieLijnToe(r, rlv);
+
         em.getTransaction().begin();
         em.persist(rl);
         em.getTransaction().commit();

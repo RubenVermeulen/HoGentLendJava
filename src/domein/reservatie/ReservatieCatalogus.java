@@ -44,6 +44,7 @@ public class ReservatieCatalogus {
         List<ReservatieView> reservatieViews = new ArrayList();
 
         for (Reservatie r : reservaties) {
+            System.out.println(r.toString());
             reservatieViews.add(toReservatieView(r));
         }
 
@@ -173,19 +174,17 @@ public class ReservatieCatalogus {
 
         Reservatie reservatie = new Reservatie(deLener, ophaalmoment, indienmoment, reservatiemoment);
         
-//        for (ReservatieLijnView rlView : reservatieLijnViews) {
-//
-//            MateriaalView mv = rlView.getMateriaal();
-//
-//            if (mv.getNaam().equals("")) {
-//                throw new IllegalArgumentException("Er is geen materiaal ingevuld.");
-//            }
-//            Materiaal m = materiaalRepo.geefMateriaal(mv.getNaam()).get();
-//
-//            ReservatieLijn rl = new ReservatieLijn(m, rlView.getAantal(), rlView.getOphaalmoment(), rlView.getIndienmoment());
-//            rl.setReservatie(reservatie);
-//
-//        }
+        for (ReservatieLijnView rlView : reservatieLijnViews) {
+
+            MateriaalView mv = rlView.getMateriaal();
+
+            if (mv.getNaam().equals("")) {
+                throw new IllegalArgumentException("Er is geen materiaal geselecteerd.");
+          }
+           
+            
+
+        }
 
         validateOphaalEnIndienMomentsForLijn(ophaalmoment, indienmoment);
         
@@ -268,7 +267,7 @@ public class ReservatieCatalogus {
             gereserveerdeMaterialen.add(gmv);
         }
 
-        ReservatieView rv = new ReservatieView(r.getId(), r.getLener().getVoornaam() + " " + r.getLener().getAchternaam(),
+        ReservatieView rv = new ReservatieView(Long.max(r.getId(),0), r.getLener().getVoornaam() + " " + r.getLener().getAchternaam(),
                 r.getLener().getEmail(), r.getOphaalmoment(), r.getIndienmoment(), r.getReservatiemoment(),
                 r.isOpgehaald(), gereserveerdeMaterialen);
 

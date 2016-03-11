@@ -56,6 +56,7 @@ public class ReservatieView {
         this.ophaalmomentAlsString = formatLocalDateTime(ophaalmoment);
         this.indienmomentAlsString = formatLocalDateTime(indienmoment);
         this.reservatiemomentAlsString = formatLocalDateTime(reservatiemoment);
+        this.opgehaald=false;
     }
     
     

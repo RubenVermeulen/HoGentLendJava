@@ -88,8 +88,18 @@ public class ReservatieToevoegenController extends BorderPane {
         LocalDateTime reservatiemoment = LocalDateTime.now();
 
         LocalDate ophMoment = dpOphaalmoment.getValue();
+        if (ophMoment == null) {
+            lblError.setText("Je moet een ophaaldatum selecteren.");
+            lblError.setVisible(true);
+            return;
+        }
 
         LocalDate indMoment = dpIndienmoment.getValue();
+        if (indMoment == null) {
+            lblError.setText("Je moet een indiendatum selecteren.");
+            lblError.setVisible(true);
+            return;
+        }
 
         StringBuffer indienHHmm = new StringBuffer(txfIndienhhmm.getText().trim());
 
@@ -104,9 +114,13 @@ public class ReservatieToevoegenController extends BorderPane {
         } catch (IllegalArgumentException | StringIndexOutOfBoundsException e) {
             if (e.getClass().getSimpleName().equals("StringIndexOutOfBoundsException")) {
                 lblError.setText("Je moet een indienmoment invullen.");
-            } else {
                 lblError.setVisible(true);
+                System.out.println("show error");
+            } else {
+
                 lblError.setText(e.getMessage());
+                lblError.setVisible(true);
+                System.out.println("show error");
             }
             return;
         }
@@ -124,11 +138,15 @@ public class ReservatieToevoegenController extends BorderPane {
             ophaalMm = Integer.parseInt(ophaalHHmm.substring(3, 5));
         } catch (IllegalArgumentException | StringIndexOutOfBoundsException e) {
             if (e.getClass().getSimpleName().equals("StringIndexOutOfBoundsException")) {
-                lblError.setVisible(true);
+
                 lblError.setText("Je moet een ophaalmoment invullen.");
-            } else {
                 lblError.setVisible(true);
+                System.out.println("show error");
+            } else {
+
                 lblError.setText(e.getMessage());
+                lblError.setVisible(true);
+                System.out.println("show error");
             }
             return;
         }
@@ -137,11 +155,13 @@ public class ReservatieToevoegenController extends BorderPane {
             if (!(ophaalHh >= 0 && ophaalHh < 24 && ophaalMm >= 0 && ophaalMm < 60)) {
                 throw new IllegalArgumentException("Er is geen geldig ophaalmoment ingevuld.");
             }
-            ophaalmoment = ophMoment.atTime(indienHh, indienMm);
+            ophaalmoment = ophMoment.atTime(ophaalHh, ophaalMm);
 
         } catch (IllegalArgumentException e) {
-            lblError.setVisible(true);
+
             lblError.setText(e.getMessage());
+            lblError.setVisible(true);
+            System.out.println("show error");
             return;
 
         }
@@ -150,13 +170,21 @@ public class ReservatieToevoegenController extends BorderPane {
                 throw new IllegalArgumentException("Er is geen geldig indienmoment ingevuld.");
             }
 
-            indienmoment = indMoment.atTime(ophaalHh, ophaalMm);
+            indienmoment = indMoment.atTime(indienHh, indienMm);
         } catch (IllegalArgumentException e) {
-            lblError.setVisible(true);
+
             lblError.setText(e.getMessage());
+            lblError.setVisible(true);
+            System.out.println("show error");
             return;
         }
-        //ayy
+
+        if (combMaterialen.getValue() == null) {
+            lblError.setText("Je moet een materiaal selecteren.");
+            lblError.setVisible(true);
+            return;
+        }
+
         MateriaalView materiaalView = combMaterialen.getValue();
 
         int aantal = -1;
@@ -164,11 +192,14 @@ public class ReservatieToevoegenController extends BorderPane {
         try {
             if (txfAantal.getText().isEmpty()) {
                 throw new IllegalArgumentException("Er moet een aantal ingevuld worden.");
+                
             }
             aantal = Integer.parseInt(txfAantal.getText());
         } catch (IllegalArgumentException e) {
-            lblError.setVisible(true);
+
             lblError.setText(e.getMessage());
+            lblError.setVisible(true);
+            System.out.println("show error");
             return;
         }
 
@@ -186,16 +217,17 @@ public class ReservatieToevoegenController extends BorderPane {
             //System.out.println("ayy");   ga hier naar een de tab van reservatiebeheer
 
         } catch (IllegalArgumentException e) {
-            lblError.setVisible(true);
-            lblError.setText(e.getMessage());
 
+            lblError.setText(e.getMessage());
+            lblError.setVisible(true);
+            System.out.println("show error");
         }
 
     }
 
     public void verbergError() {
         lblError.setVisible(false);
-
+        System.out.println("Verberg error");
     }
 
     private void setupAlleMaterialen() {
