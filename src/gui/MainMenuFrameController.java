@@ -147,9 +147,12 @@ public class MainMenuFrameController extends BorderPane {
     private ComboBox<String> cbInstellingenOphaalDag;
     @FXML
     private ComboBox<String> cbInstellingenIndienDag;
-
+    @FXML
+    private ComboBox<String> cbInstellingenLeentermijn;
+    
     private Color colorSucces = Color.web("#04B431");
     private Color colorError = Color.web("FF0000");
+    
 
     public MainMenuFrameController(DomeinController domCon) {
         this.domCon = domCon;
@@ -551,6 +554,7 @@ public class MainMenuFrameController extends BorderPane {
             configView.setStandaardOphaaltijd(convertToLocalDateTime(txfInstellingenOphaaltijd.getText(), "standaard ophaaltijd"));
             configView.setStandaardIndienDag(cbInstellingenIndienDag.getValue());
             configView.setStandaardIndientijd(convertToLocalDateTime(txfInstellingenIndientijd.getText(), "standaard indientijd"));
+            configView.setLeentermijn(Integer.parseInt(cbInstellingenLeentermijn.getValue()));
 
             domCon.saveConfig(configView);
 
@@ -587,6 +591,13 @@ public class MainMenuFrameController extends BorderPane {
 
         cbInstellingenOphaalDag.getSelectionModel().select(configView.getStandaardOphaalDag());
         cbInstellingenIndienDag.getSelectionModel().select(configView.getStandaardIndienDag());
+        
+        List<String> weken = new ArrayList<>(Arrays.asList("1","2","3","4","5"));
+        
+        cbInstellingenLeentermijn.getItems().clear();
+        cbInstellingenLeentermijn.getItems().addAll(weken);
+        
+        cbInstellingenLeentermijn.getSelectionModel().select(Integer.toString(configView.getLeentermijn()));
     }
 
     private LocalTime convertToLocalDateTime(String tijd, String veld) {
@@ -626,5 +637,10 @@ public class MainMenuFrameController extends BorderPane {
 
     private void verbergInstellingenLabel() {
         lblInstellingenMessage.setVisible(false);
+    }
+
+    @FXML
+    private void onActionCbInstellingenLeentermijn(ActionEvent event) {
+        verbergInstellingenLabel();
     }
 }

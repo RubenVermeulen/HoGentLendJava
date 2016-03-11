@@ -336,20 +336,23 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button fx:id="btnInstellingenOpslaan" mnemonicParsing="false" onAction="#onActionBtnInstellingenOpslaan" text="Opslaan" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <Button fx:id="btnInstellingenOpslaan" mnemonicParsing="false" onAction="#onActionBtnInstellingenOpslaan" text="Opslaan" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                               <Label text="Standaard ophaaltijd:" GridPane.rowIndex="1" />
                               <Label text="Standaard indientijd:" GridPane.rowIndex="3" />
-                              <Label fx:id="lblInstellingenMessage" text="lblMessage" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label fx:id="lblInstellingenMessage" text="lblMessage" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                               <TextField fx:id="txfInstellingenOphaaltijd" maxWidth="70.0" onKeyPressed="#onKeyPressedTxfInstellingenOphaaltijd" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <TextField fx:id="txfInstellingenIndientijd" maxWidth="70.0" onKeyPressed="#onKeyPressedTxfInstellingenIndientijd" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <Label text="Standaard ophaaldag:" />
                               <Label text="Standaard indiendag:" GridPane.rowIndex="2" />
                               <ComboBox fx:id="cbInstellingenOphaalDag" onAction="#onActionCbInstellingenOphaalDag" prefWidth="200.0" promptText="-- selecteer een dag --" GridPane.columnIndex="1" />
                               <ComboBox fx:id="cbInstellingenIndienDag" onAction="#onActionCbInstellingenIndiendag" prefWidth="200.0" promptText="-- selecteer een dag --" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label text="Leentermijn (weken):" GridPane.rowIndex="4" />
+                              <ComboBox fx:id="cbInstellingenLeentermijn" onAction="#onActionCbInstellingenLeentermijn" prefWidth="200.0" promptText="-- selecteer aantal weken --" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                            </children>
                         </GridPane>
                      </children>

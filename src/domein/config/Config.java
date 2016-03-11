@@ -22,6 +22,7 @@ public class Config {
     private LocalTime standaardIndientijd;
     private String standaardOphaalDag;
     private String standaardIndienDag;
+    private int leentermijn;
     
     public long getId() {
         
@@ -64,10 +65,19 @@ public class Config {
         this.standaardIndienDag = standaardIndienDag;
     }
 
+    public int getLeentermijn() {
+        return leentermijn;
+    }
+
+    public void setLeentermijn(int leentermijn) {
+        this.leentermijn = leentermijn;
+    }
+    
     public void applyvView(ConfigView view){
         standaardOphaaltijd = view.getStandaardOphaaltijd();
         standaardIndientijd = view.getStandaardIndientijd();
         standaardOphaalDag = view.getStandaardOphaalDag();
         standaardIndienDag = view.getStandaardIndienDag();
+        leentermijn = view.getLeentermijn();
     }
 }
