@@ -51,11 +51,11 @@ public class ReservatieCatalogusTest {
     private List<ReservatieLijnView> reservatieLijnen;
     private final Firma f1 = new Firma("Firma", "email@firma.be");
 
-    private final Gebruiker sven = new Gebruiker("Sven", "Dedeene", "sven", EMAIL_CORRECT, true, true, true);
-    private final Gebruiker xander = new Gebruiker("Xander", "Berkein", "xander", "xander@hogent.be", true, true, true);
+    private final Gebruiker sven = new Gebruiker("Sven", "Dedeene", EMAIL_CORRECT, "sven", true, true, true);
+    private final Gebruiker xander = new Gebruiker("Xander", "Berkein", "xander@hogent.be", "xander", true, true, true);
 
     private final MateriaalView mv = new MateriaalView("wereldbol", 5);
-     private MateriaalView mv2 = new MateriaalView("Geodriehoek", 15);
+    private MateriaalView mv2 = new MateriaalView("Geodriehoek", 15);
 
     private final long id1 = 78;
     private final long id2 = 79;
@@ -114,7 +114,7 @@ public class ReservatieCatalogusTest {
                 .setPlaats("Plaats")
                 .setPrijs(2.22)
                 .setUitleenbaarheid(true);
-        
+
         rlv = new ReservatieLijnView(OPHAALMOMENT_CORRECT, INDIENMOMENT_CORRECT, mv, 5);
         rlv2 = new ReservatieLijnView(OPHAALMOMENT_VEELLATER, INDIENMOMENT_VEELLATER, mv, 5);
         rlv3 = new ReservatieLijnView(OPHAALMOMENT_VEELLATER, INDIENMOMENT_VEELLATER, mv, 5);
@@ -193,11 +193,10 @@ public class ReservatieCatalogusTest {
         int aantalRes = reservaties.size();
         resCatalogus.voegReservatieToe(rv);
 
-        // assertTrue(compareReservatieViews(rv, resCatalogus.geefAlleReservaties().get(2)));
-        // assertEquals(rv.getEmailLener(), reservaties.get(2).getLener().getEmail());
+        
+        assertEquals(rv.getEmailLener(), reservaties.get(2).getLener().getEmail());
         assertEquals(aantalRes + 1, reservaties.size());
-        
-        
+
     }
 
     @Test
@@ -234,8 +233,6 @@ public class ReservatieCatalogusTest {
 
         resCatalogus.heeftConflicten(null, RESERVATIEMOMENT_CORRECT);
     }
-
-    
 
     private boolean compareReservatieViews(ReservatieView rv1, ReservatieView rv2) {
         return (rv1.getEmailLener().equals(rv2.getEmailLener())
