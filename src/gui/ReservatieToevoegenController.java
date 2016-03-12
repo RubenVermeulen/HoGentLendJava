@@ -82,7 +82,7 @@ public class ReservatieToevoegenController extends BorderPane {
     @FXML
     private void btnReservatieToevoegenOnAction(ActionEvent event) {
         String emailLener = txfEmailadres.getText().trim();
-if (emailLener == null||emailLener.isEmpty()) {
+        if (emailLener == null || emailLener.isEmpty()) {
             lblError.setText("Je moet een e-mailadres invullen.");
             lblError.setVisible(true);
             return;
@@ -104,28 +104,27 @@ if (emailLener == null||emailLener.isEmpty()) {
             lblError.setVisible(true);
             return;
         }
+        if (combMaterialen.getValue() == null) {
+            lblError.setText("Je moet een materiaal selecteren.");
+            lblError.setVisible(true);
+            return;
+        }
 
-        StringBuffer indienHHmm = new StringBuffer(txfIndienhhmm.getText().trim());
+        MateriaalView materiaalView = combMaterialen.getValue();
 
-        int indienHh = -1;
-        int indienMm = -1;
+        int aantal = -1;
+
         try {
-            if (indienHHmm == null) {
-                throw new IllegalArgumentException("Je moet een indienmoment invullen.");
-            }
-            indienHh = Integer.parseInt(indienHHmm.substring(0, 2));
-            indienMm = Integer.parseInt(indienHHmm.substring(3, 5));
-        } catch (IllegalArgumentException | StringIndexOutOfBoundsException e) {
-            if (e.getClass().getSimpleName().equals("StringIndexOutOfBoundsException")) {
-                lblError.setText("Je moet een indienmoment invullen.");
-                lblError.setVisible(true);
-                System.out.println("show error");
-            } else {
+            if (txfAantal.getText().isEmpty()) {
+                throw new IllegalArgumentException("Er moet een aantal ingevuld worden.");
 
-                lblError.setText(e.getMessage());
-                lblError.setVisible(true);
-                System.out.println("show error");
             }
+            aantal = Integer.parseInt(txfAantal.getText());
+        } catch (IllegalArgumentException e) {
+
+            lblError.setText(e.getMessage());
+            lblError.setVisible(true);
+            System.out.println("show error");
             return;
         }
 
@@ -144,6 +143,29 @@ if (emailLener == null||emailLener.isEmpty()) {
             if (e.getClass().getSimpleName().equals("StringIndexOutOfBoundsException")) {
 
                 lblError.setText("Je moet een ophaalmoment invullen.");
+                lblError.setVisible(true);
+                System.out.println("show error");
+            } else {
+
+                lblError.setText(e.getMessage());
+                lblError.setVisible(true);
+                System.out.println("show error");
+            }
+            return;
+        }
+        StringBuffer indienHHmm = new StringBuffer(txfIndienhhmm.getText().trim());
+
+        int indienHh = -1;
+        int indienMm = -1;
+        try {
+            if (indienHHmm == null) {
+                throw new IllegalArgumentException("Je moet een indienmoment invullen.");
+            }
+            indienHh = Integer.parseInt(indienHHmm.substring(0, 2));
+            indienMm = Integer.parseInt(indienHHmm.substring(3, 5));
+        } catch (IllegalArgumentException | StringIndexOutOfBoundsException e) {
+            if (e.getClass().getSimpleName().equals("StringIndexOutOfBoundsException")) {
+                lblError.setText("Je moet een indienmoment invullen.");
                 lblError.setVisible(true);
                 System.out.println("show error");
             } else {
@@ -175,30 +197,6 @@ if (emailLener == null||emailLener.isEmpty()) {
             }
 
             indienmoment = indMoment.atTime(indienHh, indienMm);
-        } catch (IllegalArgumentException e) {
-
-            lblError.setText(e.getMessage());
-            lblError.setVisible(true);
-            System.out.println("show error");
-            return;
-        }
-
-        if (combMaterialen.getValue() == null) {
-            lblError.setText("Je moet een materiaal selecteren.");
-            lblError.setVisible(true);
-            return;
-        }
-
-        MateriaalView materiaalView = combMaterialen.getValue();
-
-        int aantal = -1;
-
-        try {
-            if (txfAantal.getText().isEmpty()) {
-                throw new IllegalArgumentException("Er moet een aantal ingevuld worden.");
-                
-            }
-            aantal = Integer.parseInt(txfAantal.getText());
         } catch (IllegalArgumentException e) {
 
             lblError.setText(e.getMessage());

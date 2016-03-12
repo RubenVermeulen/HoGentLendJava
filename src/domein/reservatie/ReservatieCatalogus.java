@@ -157,7 +157,7 @@ public class ReservatieCatalogus {
 
     public void validateOphaalEnIndienMomentsForLijn(LocalDateTime ophaal, LocalDateTime indien) {
         if (ophaal.isAfter(indien)) {
-            throw new IllegalArgumentException("De ophaal datum kan niet na de indien datum liggen.");
+            throw new IllegalArgumentException("De ophaaldatum kan niet na de indiendatum liggen.");
         }
     }
 
