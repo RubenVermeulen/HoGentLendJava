@@ -196,7 +196,8 @@ public class ReservatieCatalogusTest {
         // assertTrue(compareReservatieViews(rv, resCatalogus.geefAlleReservaties().get(2)));
         // assertEquals(rv.getEmailLener(), reservaties.get(2).getLener().getEmail());
         assertEquals(aantalRes + 1, reservaties.size());
-
+        
+        
     }
 
     @Test

@@ -93,5 +93,25 @@ public class ReservatieLijnTest {
         assertTrue(reservatieLijn.containsFilter(sFilter, OPHAALMOMENT_TUSSEN, INDIENMOMENT_TUSSEN));
     }
     
+    @Test
+    public void containsFilterGeenFilterdatums() {
+        String sFilter = "WERELDBOL";
+
+        assertTrue(reservatieLijn.containsFilter(sFilter, null, null));
+    }
+    
+    @Test
+    public void containsFilterFilterHetzelfdeAlsReservatiedatums() {
+        String sFilter = "WERELDBOL";
+
+        assertTrue(reservatieLijn.containsFilter(sFilter, OPHAALMOMENT_CORRECT, INDIENMOMENT_CORRECT));
+    }
+    
+    @Test
+    public void containsFilterGeenFilterOpMateriaal() {
+        String sFilter = null;
+
+        assertTrue(reservatieLijn.containsFilter(sFilter, null, null));
+    }
     
 }

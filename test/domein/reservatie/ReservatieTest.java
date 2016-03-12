@@ -105,7 +105,25 @@ public class ReservatieTest {
         assertTrue(r1.containsFilter(sFilter, OPHAALMOMENT_TUSSEN, INDIENMOMENT_TUSSEN));
     }
 
+    @Test
+    public void containsFilterFilterDatumHetzelfdeAlsReservatieDatum() {
+        String sFilter = "SVEN";
+
+        assertTrue(r1.containsFilter(sFilter, OPHAALMOMENT_CORRECT, INDIENMOMENT_CORRECT));
+    }
+    @Test
+    public void containsFilterGeenFilterDatum() {
+        String sFilter = "SVEN";
+
+        assertTrue(r1.containsFilter(sFilter, null,null));
+    }
     
+    @Test
+    public void containsFilterGeenFilterOpGebruiker() {
+        String sFilter = "";
+
+        assertTrue(r1.containsFilter(sFilter, FILTER_OPHAALMOMENT_CORRECT,FILTER_INDIEN_CORRECT));
+    }
     
      @Test
     public void containsFilterFilterenOpEmail() {
