@@ -107,11 +107,6 @@ public class ReservatieLijnTest {
         assertTrue(reservatieLijn.containsFilter(sFilter, OPHAALMOMENT_CORRECT, INDIENMOMENT_CORRECT));
     }
     
-    @Test
-    public void containsFilterGeenFilterOpMateriaal() {
-        String sFilter = null;
-
-        assertTrue(reservatieLijn.containsFilter(sFilter, null, null));
-    }
+    
     
 }

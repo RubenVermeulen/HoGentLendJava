@@ -69,8 +69,8 @@ public class ReservatieTest {
 
         assertTrue(r1.containsFilter(sFilter, FILTER_OPHAALMOMENT_CORRECT, FILTER_INDIEN_CORRECT));
     }
-    
-     @Test
+
+    @Test
     public void containsFilterLowerEnUpppercase() {
         String sFilter = "sVen";
 
@@ -111,26 +111,19 @@ public class ReservatieTest {
 
         assertTrue(r1.containsFilter(sFilter, OPHAALMOMENT_CORRECT, INDIENMOMENT_CORRECT));
     }
+
     @Test
     public void containsFilterGeenFilterDatum() {
         String sFilter = "SVEN";
 
-        assertTrue(r1.containsFilter(sFilter, null,null));
+        assertTrue(r1.containsFilter(sFilter, null, null));
     }
-    
-    @Test
-    public void containsFilterGeenFilterOpGebruiker() {
-        String sFilter = "";
 
-        assertTrue(r1.containsFilter(sFilter, FILTER_OPHAALMOMENT_CORRECT,FILTER_INDIEN_CORRECT));
-    }
-    
-     @Test
+    @Test
     public void containsFilterFilterenOpEmail() {
         String sFilter = "sven@hogent.be";
 
         assertTrue(r1.containsFilter(sFilter, FILTER_OPHAALMOMENT_CORRECT, FILTER_INDIEN_CORRECT));
     }
-    
-    
+
 }
