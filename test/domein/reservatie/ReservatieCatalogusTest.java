@@ -223,7 +223,7 @@ public class ReservatieCatalogusTest {
     @Test
     public void heeftConflictenVolledigCorrect() {
 
-        int conflicten = resCatalogus.heeftConflicten(rlv, RESERVATIEMOMENT_CORRECT);
+        int conflicten = resCatalogus.heeftConflicten(rlv, rv);
 
         assertEquals(3, conflicten);
     }
@@ -231,7 +231,13 @@ public class ReservatieCatalogusTest {
     @Test(expected = IllegalArgumentException.class)
     public void heeftConflictenRlvNull() {
 
-        resCatalogus.heeftConflicten(null, RESERVATIEMOMENT_CORRECT);
+        resCatalogus.heeftConflicten(null, rv);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void heeftConflictenRvNull() {
+
+        resCatalogus.heeftConflicten(rlv, null);
     }
 
     private boolean compareReservatieViews(ReservatieView rv1, ReservatieView rv2) {

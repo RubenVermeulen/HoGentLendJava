@@ -45,12 +45,6 @@ public class Reservatie {
     public Reservatie() {
     }
 
-//    public Reservatie(Gebruiker lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment, List<ReservatieLijn> materialen) {
-//        this.lener = lener;
-//        this.ophaalmoment = ophaalmoment;
-//        this.indienmoment = indienmoment;
-//        this.materialen = materialen;
-//    }
     public Reservatie(Gebruiker lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment) {
         this(lener, ophaalmoment, indienmoment, LocalDateTime.now());
     }
@@ -70,7 +64,7 @@ public class Reservatie {
     }
 
    //deze constructie is voor het testen
-    Reservatie(Gebruiker lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment, LocalDateTime reservatiemoment, boolean opgehaald, List<ReservatieLijn> reservatieLijnen) {
+    public Reservatie(Gebruiker lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment, LocalDateTime reservatiemoment, boolean opgehaald, List<ReservatieLijn> reservatieLijnen) {
         this.lener = lener;
         this.ophaalmoment = ophaalmoment;
         this.indienmoment = indienmoment;

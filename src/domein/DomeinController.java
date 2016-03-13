@@ -245,6 +245,18 @@ public class DomeinController {
     public List<ReservatieView> geefAlleReservaties() {
         return reservatieRepo.geefAlleReservaties();
     }
+    
+    /**
+     * Geeft het aantal materialen terug die tekort zijn om te voldoen aan het aantal dat de gebruiker
+     * wenste te reserveren.
+     * 
+     * @param rlv
+     * @param rv
+     * @return aantal materialen van de reservatielijn die niet beschikbaar zijn
+     */
+    public int heeftConflicten(ReservatieLijnView rlv, ReservatieView rv) {
+        return reservatieRepo.heeftConflicten(rlv, rv);
+    }
 
     /**
      * Geeft alle reservatie die voldoen aan de filter gegevens.
@@ -351,9 +363,6 @@ public class DomeinController {
         return firmaListToString(firmas);
     }
 
-    public int heeftConflicten(ReservatieLijnView rlv, LocalDateTime reservatiemoment) {
-        return reservatieRepo.heeftConflicten(rlv, reservatiemoment);
-    }
 
     /* -------------------------------- */
     // CONFIG

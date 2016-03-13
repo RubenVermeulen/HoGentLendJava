@@ -124,7 +124,7 @@ public class ReservatieBoxController extends GridPane {
             lblLocatie.setText(mv.getPlaats());
         }
 
-        int conflict = dc.heeftConflicten(rlv, rv.getReservatiemoment());
+        int conflict = dc.heeftConflicten(rlv, rv);
         if (conflict < 0) {
             lblAantal.setText(String.format("Conflict! Slechts %d beschikbaar", rlv.getAantal() + conflict));
             if (rlv.getAantal() + conflict <= 0) {

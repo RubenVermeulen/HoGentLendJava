@@ -118,8 +118,8 @@ public class ReservatieRepository {
         return reservatieCat.toReservatieView(r);
     }
 
-    public int heeftConflicten(ReservatieLijnView rlv, LocalDateTime reservatiemoment) {
-        return reservatieCat.heeftConflicten(rlv, reservatiemoment);
+    public int heeftConflicten(ReservatieLijnView rlv, ReservatieView rv) {
+        return reservatieCat.heeftConflicten(rlv, rv);
     }
 
     public List<ReservatieView> geefAlleReservatiesMetFiler(String filter, LocalDateTime dtOphaal, LocalDateTime dtIndien) {
