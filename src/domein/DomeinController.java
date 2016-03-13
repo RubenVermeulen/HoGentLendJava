@@ -247,8 +247,11 @@ public class DomeinController {
     }
     
     /**
-     * Geeft het aantal materialen terug die tekort zijn om te voldoen aan het aantal dat de gebruiker
-     * wenste te reserveren.
+     * Geeft het aantal materialen(*) terug die tekort zijn om te voldoen aan het aantal dat de gebruiker
+     * wenste te reserveren 
+     * 
+     * (*) = het aantal materialen in de reservatielijn van de gebruiker die niet meer beschikbaar zijn voor
+     * uitlening, en die de gebruiker dus niet zal meekrijgen wanneer hij zijn reservatie komt ophalen
      * 
      * @param rlv
      * @param rv
@@ -264,7 +267,7 @@ public class DomeinController {
      * @param filter
      * @param dtOphaal
      * @param dtIndien
-     * @return
+     * @return lijst met reservatieviews
      */
     public List<ReservatieView> geefAlleReservatiesMetFiler(String filter, LocalDateTime dtOphaal, LocalDateTime dtIndien) {
         return reservatieRepo.geefAlleReservatiesMetFiler(filter, dtOphaal, dtIndien);
