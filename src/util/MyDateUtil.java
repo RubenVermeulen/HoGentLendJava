@@ -18,7 +18,8 @@ public class MyDateUtil {
             return false;
         }
         if (a1.isEqual(a2)) {
-            return a1.isAfter(b1) && a1.isBefore(b2);
+            a1 = a1.withHour(0).withMinute(0).withSecond(0);
+            a2 = a1.withHour(23).withMinute(59).withSecond(59);
         }
         if (a2.isAfter(b1) && a2.isBefore(b2)) {
             return true;
