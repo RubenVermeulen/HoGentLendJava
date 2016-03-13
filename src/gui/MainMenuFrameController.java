@@ -152,6 +152,8 @@ public class MainMenuFrameController extends BorderPane {
     
     private Color colorSucces = Color.web("#04B431");
     private Color colorError = Color.web("FF0000");
+    @FXML
+    private TableColumn<?, ?> tcConflict;
     
 
     public MainMenuFrameController(DomeinController domCon) {
