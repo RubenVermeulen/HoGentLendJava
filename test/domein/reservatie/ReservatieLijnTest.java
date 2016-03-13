@@ -72,11 +72,11 @@ public class ReservatieLijnTest {
         assertFalse(reservatieLijn.containsFilter(sFilter, FILTER_OPHAALMOMENT_CORRECT, FILTER_INDIEN_CORRECT));
     }
     
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void containsFilterGeenFilter() {
         String sFilter = "";
 
-        assertFalse(reservatieLijn.containsFilter(sFilter, FILTER_OPHAALMOMENT_CORRECT, FILTER_INDIEN_CORRECT));
+        assertTrue(reservatieLijn.containsFilter(sFilter, FILTER_OPHAALMOMENT_CORRECT, FILTER_INDIEN_CORRECT));
     }
     
     @Test
