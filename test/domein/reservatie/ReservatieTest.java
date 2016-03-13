@@ -84,13 +84,6 @@ public class ReservatieTest {
         assertFalse(r1.containsFilter(sFilter, FILTER_OPHAALMOMENT_CORRECT, FILTER_INDIEN_CORRECT));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void containsFilterGeenFilter() {
-        String sFilter = "";
-
-        assertFalse(r1.containsFilter(sFilter, FILTER_OPHAALMOMENT_CORRECT, FILTER_INDIEN_CORRECT));
-    }
-
     @Test
     public void containsFilterGeenOverlapping() {
         String sFilter = "SVEN";

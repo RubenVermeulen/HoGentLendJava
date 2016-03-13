@@ -72,13 +72,6 @@ public class ReservatieLijnTest {
         assertFalse(reservatieLijn.containsFilter(sFilter, FILTER_OPHAALMOMENT_CORRECT, FILTER_INDIEN_CORRECT));
     }
     
-    @Test(expected = IllegalArgumentException.class)
-    public void containsFilterGeenFilter() {
-        String sFilter = "";
-
-        assertFalse(reservatieLijn.containsFilter(sFilter, FILTER_OPHAALMOMENT_CORRECT, FILTER_INDIEN_CORRECT));
-    }
-    
     @Test
     public void containsFilterGeenOverlapping() {
         String sFilter = "WERELDBOL";
