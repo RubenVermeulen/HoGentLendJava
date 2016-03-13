@@ -301,11 +301,8 @@ public class ReservatieCatalogus {
     }
 
     /**
-     * Geeft het aantal materialen(*) terug die tekort zijn om te voldoen aan het aantal dat de gebruiker
-     * wenste te reserveren 
-     * 
-     * (*) = het aantal materialen in de reservatielijn van de gebruiker die niet meer beschikbaar zijn voor
-     * uitlening, en die de gebruiker dus niet zal meekrijgen wanneer hij zijn reservatie komt ophalen
+     * Geeft het aantal beschikbare materialen(*) terug van het totaal aantal materialen die 
+     * de gebruiker wenste te reserveren
      * 
      * @param rlv
      * @param rv
@@ -391,5 +388,19 @@ public class ReservatieCatalogus {
                 r.isOpgehaald(), gereserveerdeMaterialen);
 
         return rv;
+    }
+
+    void setReservatieViewConflict(ReservatieView rv) {
+        boolean check = false;
+        
+        for(ReservatieLijnView rlv : rv.getReservatieLijnen()){
+            if(heeftConflicten(rlv, rv) > 0){
+                check = true;
+                break;
+            }
+        }
+        
+        rv.setConflict(check);
+        
     }
 }

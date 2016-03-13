@@ -247,11 +247,8 @@ public class DomeinController {
     }
     
     /**
-     * Geeft het aantal materialen(*) terug die tekort zijn om te voldoen aan het aantal dat de gebruiker
-     * wenste te reserveren 
-     * 
-     * (*) = het aantal materialen in de reservatielijn van de gebruiker die niet meer beschikbaar zijn voor
-     * uitlening, en die de gebruiker dus niet zal meekrijgen wanneer hij zijn reservatie komt ophalen
+     * * Geeft het aantal beschikbare materialen(*) terug van het totaal aantal materialen die 
+     * de gebruiker wenste te reserveren
      * 
      * @param rlv
      * @param rv
@@ -259,6 +256,10 @@ public class DomeinController {
      */
     public int heeftConflicten(ReservatieLijnView rlv, ReservatieView rv) {
         return reservatieRepo.heeftConflicten(rlv, rv);
+    }
+    
+    public void setReservatieViewConflict(ReservatieView rv){
+        reservatieRepo.setReservatieViewConflict(rv);
     }
 
     /**

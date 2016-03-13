@@ -26,7 +26,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="768.0" prefWidth="1280.0" type="BorderPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainMenuFrameController">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="768.0" prefWidth="1280.0" type="BorderPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <MenuBar prefHeight="22.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
             <menus>
@@ -136,11 +136,12 @@
                                   </GridPane>
                                   <TableView fx:id="tvReservaties" prefHeight="554.0" prefWidth="720.0" GridPane.rowIndex="1" GridPane.rowSpan="2">
                                       <columns>
-                                          <TableColumn fx:id="tcOphaalmoment" prefWidth="105.0" text="Ophaalmoment" />
-                                          <TableColumn fx:id="tcIndienmoment" prefWidth="105.0" text="Indienmoment" />
+                                          <TableColumn fx:id="tcOphaalmoment" prefWidth="110.0" text="Ophaalmoment" />
+                                          <TableColumn fx:id="tcIndienmoment" prefWidth="110.0" text="Indienmoment" />
                                           <TableColumn fx:id="tcLener" prefWidth="200.0" text="Gereserveerd door" />
                                           <TableColumn fx:id="tcMaterialen" prefWidth="280.0" text="Gereserveerde materialen" />
-                              <TableColumn fx:id="tcConflict" prefWidth="75.0" />
+                              <TableColumn fx:id="tcConflict" prefWidth="20.0" resizable="false" style="-fx-text-fill: red;" />
+                              <TableColumn fx:id="tcConflict1" prefWidth="75.0" resizable="false" style="-fx-text-fill: red;" />
                                       </columns>
                            <GridPane.margin>
                               <Insets right="20.0" top="10.0" />

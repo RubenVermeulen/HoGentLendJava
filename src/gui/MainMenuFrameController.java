@@ -82,6 +82,8 @@ public class MainMenuFrameController extends BorderPane {
     @FXML
     private TableColumn<ReservatieView, String> tcMaterialen;
     @FXML
+    private TableColumn<?, ?> tcConflict;
+    @FXML
     private VBox boxReservatieLijn;
     @FXML
     private Label lblLenerNaam;
@@ -152,8 +154,6 @@ public class MainMenuFrameController extends BorderPane {
     
     private Color colorSucces = Color.web("#04B431");
     private Color colorError = Color.web("FF0000");
-    @FXML
-    private TableColumn<?, ?> tcConflict;
     
 
     public MainMenuFrameController(DomeinController domCon) {
@@ -238,6 +238,8 @@ public class MainMenuFrameController extends BorderPane {
 
     protected void setupTableViewReservaties(List<ReservatieView> reservaties) {
         tvReservaties.setPlaceholder(new Label("Er zijn geen reservaties."));
+        
+        reservaties.stream().forEach(r -> domCon.setReservatieViewConflict(r));
 
         ObservableList<ReservatieView> observableList = FXCollections.unmodifiableObservableList(
                 FXCollections.observableArrayList(reservaties.stream().collect(Collectors.toList())
@@ -247,6 +249,9 @@ public class MainMenuFrameController extends BorderPane {
         tcIndienmoment.setCellValueFactory(new PropertyValueFactory<>("indienmomentAlsString"));
         tcLener.setCellValueFactory(new PropertyValueFactory<>("lener"));
         tcMaterialen.setCellValueFactory(new PropertyValueFactory<>("reservatieLijnenAlsString"));
+        tcConflict.setCellValueFactory(new PropertyValueFactory<>("conflict"));
+//        
+//        tcConflict.setStyle(se);
 
         tvReservaties.setItems(observableList);
         

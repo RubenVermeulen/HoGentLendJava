@@ -27,6 +27,7 @@ public class ReservatieView {
     private String reservatiemomentAlsString;
     private String reservatieLijnenAlsString;
     private boolean opgehaald;
+    private String conflict;
     private List<ReservatieLijnView> reservatieLijnen;
 
     public ReservatieView(long id, String lener, String emailLener, LocalDateTime ophaalmoment, LocalDateTime indienmoment, LocalDateTime reservatiemoment, boolean opgehaald, List<ReservatieLijnView> gereserveerdeMaterialen) {
@@ -155,6 +156,18 @@ public class ReservatieView {
 
     public void setEmailLener(String emailLener) {
         this.emailLener = emailLener;
+    }
+    
+    //is nodig voor de MainMenuFrameController - reservatielijst
+    public String getConflict(){
+        return conflict;
+    }
+    
+    public void setConflict(boolean conflict){
+        if(conflict)
+            this.conflict="";
+        else
+            this.conflict="!!!";
     }
 
     @Override

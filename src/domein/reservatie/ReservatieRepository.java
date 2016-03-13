@@ -126,4 +126,8 @@ public class ReservatieRepository {
         return reservatieCat.geefAlleReservatiesMetFiler(filter, dtOphaal, dtIndien);
     }
 
+    public void setReservatieViewConflict(ReservatieView rv) {
+        reservatieCat.setReservatieViewConflict(rv);
+    }
+
 }
