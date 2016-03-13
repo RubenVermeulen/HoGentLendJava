@@ -84,8 +84,9 @@ public class ReservatieLijn {
     }
 
     public Reservatie getReservatie() {
-        if(reservatie==null)
+        if (reservatie == null) {
             System.out.println("Sven had gelijk xp");
+        }
         return reservatie;
     }
 
@@ -99,36 +100,35 @@ public class ReservatieLijn {
     }
 
     public boolean containsFilter(String sFilter, LocalDateTime dtOphaal, LocalDateTime dtIndien) {
-        if(sFilter.isEmpty()||sFilter==null){
-        throw new IllegalArgumentException();
-        }
-        
+
         boolean filterDatum = MyDateUtil.doesFirstPairOverlapWithSecond(dtOphaal, dtIndien, ophaalmoment, indienmoment);
-        
-        
+
         boolean materiaalFilter = materiaal.containsFilter(sFilter);
         boolean materiaalFilterMatters = (sFilter != null && !sFilter.trim().isEmpty()) || (dtOphaal == null && dtIndien == null);
-        if (materiaalFilterMatters){
-            return filterDatum && materiaalFilter;
-        }else{
+
+        if (materiaalFilterMatters) {
+            if (dtOphaal == null && dtIndien == null) {
+                return filterDatum || materiaalFilter;
+            } else {
+                return filterDatum && materiaalFilter;
+            }
+        } else {
             return filterDatum;
         }
     }
     /**
-     
-     * 
-     * 
-     * 
-    return filterDatum && materiaalFilterMatters ? filterDatum && materiaalFilter
-                : !filterDatum && materiaalFilterMatters ? materiaalFilter
-                : filterDatum && !materiaalFilterMatters ? filterDatum
-                : !filterDatum && !materiaalFilterMatters ? false : false;
-    datum en matters -> datum && filter
-    datum niet en matters wel -> filter
-    datum wel en matters niet -> datum
-    datums niet en mattters niet -> false
-     * 
-     * 
+     *
+     *
+     *
+     *
+     * return filterDatum && materiaalFilterMatters ? filterDatum &&
+     * materiaalFilter : !filterDatum && materiaalFilterMatters ?
+     * materiaalFilter : filterDatum && !materiaalFilterMatters ? filterDatum :
+     * !filterDatum && !materiaalFilterMatters ? false : false; datum en matters
+     * -> datum && filter datum niet en matters wel -> filter datum wel en
+     * matters niet -> datum datums niet en mattters niet -> false
+     *
+     *
      */
 
 }

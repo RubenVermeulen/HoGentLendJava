@@ -6,7 +6,7 @@ public class MyDateUtil {
 
     public static boolean doesFirstPairOverlapWithSecond(LocalDateTime a1, LocalDateTime a2, LocalDateTime b1, LocalDateTime b2) {
         if (a1 == null && a2 == null){
-            return true;
+            return false;
         }
         if (a1 == null) {
             a1 = a2;

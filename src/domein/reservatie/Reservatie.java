@@ -19,7 +19,6 @@ import shared.MateriaalView;
 import shared.ReservatieView;
 import util.MyDateUtil;
 
-
 @Entity
 @Table(name = "reservaties")
 public class Reservatie {
@@ -36,7 +35,7 @@ public class Reservatie {
     private LocalDateTime ophaalmoment;
     private LocalDateTime indienmoment;
     private LocalDateTime reservatiemoment;
-    
+
     private boolean opgehaald;
 
     @OneToMany(mappedBy = "reservatie", fetch = FetchType.EAGER, orphanRemoval = true)
@@ -48,14 +47,14 @@ public class Reservatie {
     public Reservatie(Gebruiker lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment) {
         this(lener, ophaalmoment, indienmoment, LocalDateTime.now());
     }
-    
-     public Reservatie(Gebruiker lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment,
-             LocalDateTime reservatiemoment) {
+
+    public Reservatie(Gebruiker lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment,
+            LocalDateTime reservatiemoment) {
         this(lener, ophaalmoment, indienmoment, reservatiemoment, false);
     }
-    
-   public Reservatie(Gebruiker lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment, 
-           LocalDateTime reservatiemoment, boolean opgehaald) {
+
+    public Reservatie(Gebruiker lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment,
+            LocalDateTime reservatiemoment, boolean opgehaald) {
         this.lener = lener;
         this.ophaalmoment = ophaalmoment;
         this.indienmoment = indienmoment;
@@ -63,38 +62,39 @@ public class Reservatie {
         this.opgehaald = opgehaald;
     }
 
-   //deze constructie is voor het testen
+    //deze constructie is voor het testen
     public Reservatie(Gebruiker lener, LocalDateTime ophaalmoment, LocalDateTime indienmoment, LocalDateTime reservatiemoment, boolean opgehaald, List<ReservatieLijn> reservatieLijnen) {
         this.lener = lener;
         this.ophaalmoment = ophaalmoment;
         this.indienmoment = indienmoment;
         setReservatiemoment(reservatiemoment);
         this.opgehaald = opgehaald;
-    
-        this.reservatielijen=reservatieLijnen;
+
+        this.reservatielijen = reservatieLijnen;
     }
 
-    
-   
-    public boolean containsFilter(String sFilter, LocalDateTime dtOphaal, LocalDateTime dtIndien){
-        if(sFilter.isEmpty()||sFilter==null){
-        throw new IllegalArgumentException();
-        }
-        
+    public boolean containsFilter(String sFilter, LocalDateTime dtOphaal, LocalDateTime dtIndien) {
         boolean filterInLijnen = false;
-        for(ReservatieLijn l : reservatielijen){
+        for (ReservatieLijn l : reservatielijen) {
             filterInLijnen = l.containsFilter(sFilter, dtOphaal, dtIndien);
-            if (filterInLijnen) break;
+            if (filterInLijnen) {
+                break;
+            }
         }
 
-        
         boolean filterInLener = lener.containsFilter(sFilter);
+
         boolean lenerFiltersMatter = (sFilter != null && !sFilter.trim().isEmpty()) || (dtOphaal == null && dtIndien == null);
+
         boolean filterDatum = MyDateUtil.doesFirstPairOverlapWithSecond(dtOphaal, dtIndien, ophaalmoment, indienmoment);
-    
-        if (lenerFiltersMatter){
-            return (filterDatum || filterInLijnen) && filterInLener;
-        }else{
+
+        if (lenerFiltersMatter) {
+            if (dtOphaal == null && dtIndien == null) {
+                return filterDatum || filterInLijnen || filterInLener;
+            } else {
+                return (filterDatum  && filterInLener) || filterInLijnen;
+            }
+        } else {
             return filterDatum || filterInLijnen;
         }
     }

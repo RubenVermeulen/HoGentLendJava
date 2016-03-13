@@ -178,8 +178,8 @@ public class StartUp extends Application {// test xd
         Reservatie r1 = new Reservatie(user, LocalDateTime.of(2016, 2, 3, 10, 30), LocalDateTime.of(2016, 2, 10, 10, 30));
 
         ReservatieLijn[] lijnenVoorReservatie1 = {
-            new ReservatieLijn(materialen[0], 1, LocalDateTime.now(), LocalDateTime.of(2016, 5, 2, 20, 10)),
-            new ReservatieLijn(materialen[1], 1, LocalDateTime.now(), LocalDateTime.of(2016, 8, 2, 20, 10)),};
+            new ReservatieLijn(materialen[0], 1, LocalDateTime.of(2016, 2, 3, 10, 30), LocalDateTime.of(2016, 5, 2, 20, 10)),
+            new ReservatieLijn(materialen[1], 1, LocalDateTime.of(2016, 2, 3, 10, 30), LocalDateTime.of(2016, 8, 2, 20, 10)),};
 
         lijnenVoorReservatie1[0].setReservatie(r1);
         lijnenVoorReservatie1[1].setReservatie(r1);
