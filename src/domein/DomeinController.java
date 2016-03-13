@@ -258,6 +258,13 @@ public class DomeinController {
         return reservatieRepo.heeftConflicten(rlv, rv);
     }
     
+    /**
+     * Controleert voor elke reservatieviewlijn in meegegeven reservatie, of er een conflict is of niet, en past nadien
+     * het attribuutje "conflict" aan in de reservatieview
+     * Deze methode wordt gebruikt door de MateriaalBoxController 
+     *
+     * @param rv reservatieview waarvan de conflicten gecontroleerd moeten worden
+     */
     public void setReservatieViewConflict(ReservatieView rv){
         reservatieRepo.setReservatieViewConflict(rv);
     }
