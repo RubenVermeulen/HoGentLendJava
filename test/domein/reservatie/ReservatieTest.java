@@ -84,12 +84,14 @@ public class ReservatieTest {
         assertFalse(r1.containsFilter(sFilter, FILTER_OPHAALMOMENT_CORRECT, FILTER_INDIEN_CORRECT));
     }
 
+
     
     public void containsFilterGeenFilter() {
         String sFilter = "";
 
         assertTrue(r1.containsFilter(sFilter, FILTER_OPHAALMOMENT_CORRECT, FILTER_INDIEN_CORRECT));
     }
+
 
     @Test
     public void containsFilterGeenOverlapping() {

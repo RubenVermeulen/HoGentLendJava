@@ -17,10 +17,10 @@ public class MyDateUtil {
         if (a2.isBefore(a1) || b2.isBefore(b1)){
             return false;
         }
-        if (a1.isEqual(a2)) {
-            a1 = a1.withHour(0).withMinute(0).withSecond(0);
-            a2 = a1.withHour(23).withMinute(59).withSecond(59);
-        }
+        
+        a1 = a1.withHour(0).withMinute(0).withSecond(0);
+        a2 = a2.withHour(23).withMinute(59).withSecond(59);
+        
         if (a2.isAfter(b1) && a2.isBefore(b2)) {
             return true;
         }
