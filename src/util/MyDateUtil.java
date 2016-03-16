@@ -38,7 +38,7 @@ public class MyDateUtil {
     }
 
     public static LocalTime convertToLocalTime(String tijd) {
-        if (!tijd.contains(":") || tijd.length() > 5 ) {
+        if (!tijd.contains(":") || tijd.length() > 5) {
             throw new IllegalArgumentException("Tijd moet er als volgt uit zien: uur:minuten");
         }
 
@@ -46,18 +46,18 @@ public class MyDateUtil {
         try {
             uur = Integer.parseInt(tijd.substring(0, tijd.indexOf(":")));
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Tijd moet er als volgt uit zien: uur:minuten");
+            throw new IllegalArgumentException("Er is geen geldig uur gegeven.");
 
         }
         int minuten;
         try {
             minuten = Integer.parseInt(tijd.substring(tijd.indexOf(":") + 1, tijd.length()));
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Tijd moet er als volgt uit zien: uur:minuten");
+            throw new IllegalArgumentException("Er is geen geldige minuut gegeven.");
         }
 
         if (uur < 0 || uur > 23 || minuten < 0 || minuten > 59) {
-            throw new IllegalArgumentException("Tijd moet er als volgt uit zien: uur:minuten");
+            throw new IllegalArgumentException("Er is geen geldige tijd meegegeven.");
         }
 
         LocalTime time = LocalTime.of(uur, minuten);

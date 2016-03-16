@@ -73,7 +73,7 @@
                                           <Font name="System Bold" size="12.0" />
                                        </font>
                                     </Label>
-                                    <DatePicker fx:id="dpOphaalmoment" prefHeight="31.0" prefWidth="246.0">
+                                    <DatePicker fx:id="dpOphaalmoment" editable="false" prefHeight="31.0" prefWidth="246.0">
                                        <VBox.margin>
                                           <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
                                        </VBox.margin>
@@ -88,7 +88,7 @@
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Label>
-                                          <DatePicker fx:id="dpIndienmoment" prefHeight="31.0" prefWidth="246.0">
+                                          <DatePicker fx:id="dpIndienmoment" editable="false" prefHeight="31.0" prefWidth="246.0">
                                              <VBox.margin>
                                                 <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
                                              </VBox.margin>
