@@ -131,7 +131,7 @@
                                                 <Insets left="20.0" right="20.0" top="20.0" />
                                             </VBox.margin>
                                         </Label>
-                                        <TextArea id="beschrijving" fx:id="beschrijving" prefHeight="200.0" prefWidth="200.0" promptText="Plaaats hier een beschrijving van het item">
+                                        <TextArea id="beschrijving" fx:id="beschrijving" prefHeight="200.0" prefWidth="200.0" promptText="Plaats hier een beschrijving van het item">
                                             <VBox.margin>
                                                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                             </VBox.margin>

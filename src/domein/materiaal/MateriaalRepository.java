@@ -11,6 +11,8 @@ import domein.DomeinController;
 import domein.firma.Firma;
 import exceptions.BulkToevoegenMisluktException;
 import java.util.Optional;
+import shared.ReservatieLijnView;
+import shared.ReservatieView;
 
 public class MateriaalRepository {
 
@@ -56,8 +58,11 @@ public class MateriaalRepository {
         em.getTransaction().commit();
     }
     
-    public void verwijderMateriaal(String materiaalNaam) {
-        Materiaal mat = materiaalCat.verwijderMateriaal(materiaalNaam);
+    public void verwijderMateriaal(String materiaalNaam,List<ReservatieView> reservaties) {
+       
+        
+        
+        Materiaal mat = materiaalCat.verwijderMateriaal(materiaalNaam,reservaties);
         em.getTransaction().begin();
         em.remove(mat);
         em.getTransaction().commit();
