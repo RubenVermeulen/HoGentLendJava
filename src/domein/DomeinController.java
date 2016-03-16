@@ -384,6 +384,9 @@ public class DomeinController {
     // CONFIG
     /* -------------------------------- */
     public void saveConfig(ConfigView view) {
+        if (!aangemelde.isHoofdbeheerder()) {
+            throw new GeenToegangException("Je moet hoofdbeheerder zijn om de configuraties te wijzigen.");
+        }
         config.applyvView(view);
         configLoader.save();
     }
