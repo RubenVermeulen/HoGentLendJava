@@ -95,9 +95,11 @@ public class MateriaalCatalogusTest {
 
     @Test
     public void voegNieuwMateriaalToeEnkelNaamEnAantal() {
-        MateriaalView mv = new MateriaalView(CORRECT_NAAM, CORRECT_AANTAL);
+      //  MateriaalView mv = new MateriaalView(CORRECT_NAAM, CORRECT_AANTAL);
         materiaalCatalogus.voegMateriaalToe(mv);
-
+        System.out.println("Ayyyyyyyyyyyyy"+mv.toString());
+        System.out.println("Lmaoooooo"+materiaalCatalogus.geefAlleMaterialenViews().get(2));
+        
         assertTrue(compareMateriaalViews(mv, materiaalCatalogus.geefAlleMaterialenViews().get(2)));
     }
 
