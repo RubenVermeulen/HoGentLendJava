@@ -17,7 +17,6 @@ import shared.ReservatieView;
 public class MateriaalRepository {
 
 //    private DomeinController dc;
-
     private MateriaalCatalogus materiaalCat;
     private EntityManager em;
 
@@ -39,7 +38,7 @@ public class MateriaalRepository {
     public Optional<Materiaal> geefMateriaalMetId(long id) {
         return materiaalCat.geefMateriaalMetId(id);
     }
-    
+
     public void voegMateriaalToe(MateriaalView mv) {
         Materiaal materiaal = materiaalCat.voegMateriaalToe(mv);
         em.getTransaction().begin();
@@ -57,21 +56,19 @@ public class MateriaalRepository {
         em.getTransaction().begin();
         em.getTransaction().commit();
     }
-    
-    public void verwijderMateriaal(String materiaalNaam,List<ReservatieView> reservaties) {
-       
-        
-        
-        Materiaal mat = materiaalCat.verwijderMateriaal(materiaalNaam,reservaties);
+
+    public void verwijderMateriaal(String materiaalNaam, List<ReservatieView> reservaties) {
+
+        Materiaal mat = materiaalCat.verwijderMateriaal(materiaalNaam, reservaties);
         em.getTransaction().begin();
         em.remove(mat);
         em.getTransaction().commit();
     }
-    
+
     public List<MateriaalView> geefAlleMaterialen() {
         return materiaalCat.geefAlleMaterialenViews();
     }
-    
+
     public List<MateriaalView> geefMaterialenMetFilter(String filter) {
         return materiaalCat.geefMaterialenMetFilter(filter);
     }
@@ -83,7 +80,7 @@ public class MateriaalRepository {
     public void verwijderGroep(String groepStr, boolean isLeerGroep) {
         materiaalCat.verwijderGroep(groepStr, isLeerGroep);
     }
-    
+
     public List<Groep> geefAlleDoelgroepen() {
         return materiaalCat.geefAlleDoelgroepen();
     }
@@ -97,9 +94,9 @@ public class MateriaalRepository {
     }
 
     public MateriaalView geefMateriaalView(String materiaalNaam) {
-       return materiaalCat.geefMateriaalView(materiaalNaam);
+        return materiaalCat.geefMateriaalView(materiaalNaam);
     }
-    
+
     public MateriaalView toMateriaalView(Materiaal materiaal) {
         return materiaalCat.toMateriaalView(materiaal);
     }

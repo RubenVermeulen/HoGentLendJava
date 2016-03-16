@@ -26,13 +26,13 @@ public class MateriaalCatalogus {
         this.firmaRepo = firmaRepo;
         groepRepo = new GroepRepository();
     }
-    
+
     /**
      * Enkel gebruikt voor testklasse.
-     * 
+     *
      * @param materialen
      * @param firmaRepo
-     * @param groepRepo 
+     * @param groepRepo
      */
     public MateriaalCatalogus(List<Materiaal> materialen, FirmaRepository firmaRepo, GroepRepository groepRepo) {
         this.materialen = materialen;
@@ -97,10 +97,10 @@ public class MateriaalCatalogus {
         //Exceptions werpen
         validatieMateriaalView(newFotoUrl, naam, aantal, prijs, aantalOnbeschikbaar);
 
-        if (materialen.stream().anyMatch(m -> m.getNaam().equalsIgnoreCase(naam))){
+        if (materialen.stream().anyMatch(m -> m.getNaam().equalsIgnoreCase(naam))) {
             throw new IllegalArgumentException("naam");
         }
-        
+
         Materiaal materiaal = new Materiaal(naam, aantal);
 
         Optional<Firma> firmaOpt = firmaRepo.geefFirma(firmaNaam);
@@ -110,7 +110,7 @@ public class MateriaalCatalogus {
         List<Groep> leerGroepen = groepRepo.convertStringListToLeerGebiedenList(leergebiedenStr);
 
         //maak materiaal aan met gegevens uit de MateriaalView
-        if (newFotoUrl != null && !newFotoUrl.trim().isEmpty()){
+        if (newFotoUrl != null && !newFotoUrl.trim().isEmpty()) {
             materiaal.setFotoBytes(ImageUtil.imageFileToByteArray(newFotoUrl));
         }
         materiaal.setBeschrijving(beschrijving)
@@ -137,22 +137,22 @@ public class MateriaalCatalogus {
      * @throws IllegalArgumentException indien de naam niet geldig is of geen
      * materiaal bestaat met de naam
      */
-    public Materiaal verwijderMateriaal(String materiaalNaam,List<ReservatieView> reservaties) {
+    public Materiaal verwijderMateriaal(String materiaalNaam, List<ReservatieView> reservaties) {
         if (materiaalNaam == null || materiaalNaam.isEmpty()) {
             throw new IllegalArgumentException("De materiaal naam is verplicht.");
         }
 
-        for(ReservatieView rv:reservaties){
-        List<ReservatieLijnView> rlvs=rv.getReservatieLijnen();
-        for(ReservatieLijnView rlv: rlvs){
-        if(rlv.getMateriaal().getNaam().equals(materiaalNaam)){
-        throw new IllegalArgumentException("Reservatie van persoon "+rv.getLener() +" die loopt van "+rv.getOphaalmomentAlsString()+" tot "
-            +rv.getIndienmomentAlsString()    + " bevat het te verwijderen materiaal ("+materiaalNaam+").");
+        for (ReservatieView rv : reservaties) {
+            List<ReservatieLijnView> rlvs = rv.getReservatieLijnen();
+            for (ReservatieLijnView rlv : rlvs) {
+                if (rlv.getMateriaal().getNaam().equals(materiaalNaam)) {
+                    throw new IllegalArgumentException("Reservatie van persoon " + rv.getLener() + " die loopt van " + rv.getOphaalmomentAlsString() + " tot "
+                            + rv.getIndienmomentAlsString() + " bevat het te verwijderen materiaal (" + materiaalNaam + ").");
+                }
+            }
+
         }
-        }
-        
-        }
-        
+
         Optional<Materiaal> materiaalOpt = geefMateriaal(materiaalNaam);
         if (!materiaalOpt.isPresent()) {
             throw new IllegalArgumentException("Er is geen materiaal met deze naam.");
@@ -209,7 +209,7 @@ public class MateriaalCatalogus {
             throw new IllegalArgumentException("Er bestaat geen materiaal voor de materiaal view.");
         }
         Materiaal materiaal = matOpt.get();
-        
+
         String newFotoUrl = mv.getNewFotoUrl();
         String naam = mv.getNaam();
         int aantal = mv.getAantal();
@@ -222,17 +222,17 @@ public class MateriaalCatalogus {
         // Valideer de gegevens
         validatieMateriaalView(newFotoUrl, naam, aantal, prijs, aantalOnbeschikbaar);
 
-        if (materialen.stream().anyMatch(m -> m.getId() != mv.getId() && m.getNaam().equalsIgnoreCase(naam))){
+        if (materialen.stream().anyMatch(m -> m.getId() != mv.getId() && m.getNaam().equalsIgnoreCase(naam))) {
             throw new IllegalArgumentException("naam");
         }
-        
+
         Optional<Firma> firmaOpt = firmaRepo.geefFirma(firmanaam);
         Firma firma = firmaOpt.isPresent() ? firmaOpt.get() : null;
 
         List<Groep> doelGroepen = groepRepo.geefDoelgroep(doelgroepenStr);
         List<Groep> leerGroepen = groepRepo.convertStringListToLeerGebiedenList(leergebiedenStr);
 
-        if (newFotoUrl != null && !newFotoUrl.trim().isEmpty()){
+        if (newFotoUrl != null && !newFotoUrl.trim().isEmpty()) {
             materiaal.setFotoBytes(ImageUtil.imageFileToByteArray(newFotoUrl));
         }
         materiaal.setAantal(mv.getAantal())
@@ -254,7 +254,7 @@ public class MateriaalCatalogus {
      * @param mat het om te zetten materiaal
      * @return de materiaalview met dezelde gegevens als het opgegeven materiaal
      */
-    public MateriaalView toMateriaalView(Materiaal mat) {        
+    public MateriaalView toMateriaalView(Materiaal mat) {
         MateriaalView mv = new MateriaalView(mat.getNaam(), mat.getAantal());
         mv.setFotoBytes(mat.getFotoBytes())
                 .setOmschrijving(mat.getBeschrijving())
@@ -289,14 +289,15 @@ public class MateriaalCatalogus {
     protected void voegGroepToe(String groepNaam, boolean isLeergroep) {
         groepRepo.voegGroepToe(groepNaam, isLeergroep);
     }
-    
+
     protected void voegFirmaToe(String firma, String emailFirma) {
         firmaRepo.voegFirmaToe(firma, emailFirma);
     }
+
     protected void wijzigFirmas(Firma firma, String nieuweNaam, String nieuwEmailadres) {
         firmaRepo.wijzigFirmas(firma, nieuweNaam, nieuwEmailadres, materialen);
     }
-    
+
     protected List<Groep> geefAlleLeergebieden() {
         return groepRepo.getLeerGebieden();
     }
@@ -334,9 +335,10 @@ public class MateriaalCatalogus {
     }
 
     private List<String> groepListToString(List<Groep> groepen) {
-        if (groepen == null)
+        if (groepen == null) {
             return null;
-        
+        }
+
         return groepen.stream().map(g -> g.getGroep()).collect(Collectors.toList());
     }
 }

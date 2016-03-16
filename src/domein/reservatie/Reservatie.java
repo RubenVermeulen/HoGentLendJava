@@ -92,7 +92,7 @@ public class Reservatie {
             if (dtOphaal == null && dtIndien == null) {
                 return filterDatum || filterInLijnen || filterInLener;
             } else {
-                return (filterDatum  && filterInLener) || filterInLijnen;
+                return (filterDatum && filterInLener) || filterInLijnen;
             }
         } else {
             return filterDatum || filterInLijnen;
