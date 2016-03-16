@@ -83,10 +83,15 @@ public class ReservatieCatalogus {
      * @return lijst van reservatieviews
      */
     public List<ReservatieView> geefAlleReservatiesMetFiler(String filter, LocalDateTime dtOphaal, LocalDateTime dtIndien) {
-        return reservaties.stream()
+        List<ReservatieView> reservatieViews =  reservaties.stream()
                 .filter(r -> r.containsFilter(filter, dtOphaal, dtIndien))
                 .map(r -> toReservatieView(r))
                 .collect(Collectors.toList());
+        
+        Comparator<ReservatieView> comparator = (f1, f2) -> f1.getOphaalmoment().compareTo(f2.getOphaalmoment());
+        Collections.sort(reservatieViews, comparator);
+        
+        return reservatieViews;
     }
 
     /**

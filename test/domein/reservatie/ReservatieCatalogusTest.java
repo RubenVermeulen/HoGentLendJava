@@ -173,8 +173,8 @@ public class ReservatieCatalogusTest {
         Mockito.when(
                 gebruikersRepoDummy.geefGebruikerViaEmail(EMAIL_CORRECT)).
                 thenReturn(deLenerOpt);
-        ReservatieView rvGeenReservatieLijnen = new ReservatieView(EMAIL_CORRECT, OPHAALMOMENT_CORRECT,
-                RESERVATIEMOMENT_CORRECT, INDIENMOMENT_CORRECT, reservatieLijnen);
+        ReservatieView rvGeenReservatieLijnen = new ReservatieView(EMAIL_CORRECT,  INDIENMOMENT_CORRECT ,
+                OPHAALMOMENT_CORRECT, RESERVATIEMOMENT_CORRECT, reservatieLijnen);
 
         resCatalogus.voegReservatieToe(rvGeenReservatieLijnen);
 

@@ -31,7 +31,7 @@ import shared.ReservatieView;
  * @author Xander
  */
 public class VoegReservatieLijnToeBoxController extends GridPane {
-
+    
     DomeinController dc;
     ReservatieView rv;
     MainMenuFrameController parent;
@@ -75,7 +75,7 @@ public class VoegReservatieLijnToeBoxController extends GridPane {
     }
     
     private void setupVoegReseravtieLijnToeBox(ReservatieView rv) {
-        lblTitel.setText(String.format("Voeg materiaal toe aan de reservatie van", rv.getLener()));
+        lblTitel.setText(String.format("Voeg materiaal toe aan de reservatie van %s", rv.getLener()));
         
         cbMaterialen.getItems().clear();
         cbMaterialen.getItems().addAll(dc.geefAlleMaterialen());
@@ -87,40 +87,38 @@ public class VoegReservatieLijnToeBoxController extends GridPane {
         dpIndienmoment.setValue(rv.getIndienmoment().toLocalDate());
         txfIndienmoment.setText(rv.getIndienmoment().format(formatter));
         
+        lblError.setVisible(false);
         
     }
-
+    
     @FXML
     private void onActionBtnVoegReservatieLijnToe(ActionEvent event) {
         dpOphaalmoment.setValue(dpOphaalmoment.getConverter().fromString(dpOphaalmoment.getEditor().getText()));
         dpIndienmoment.setValue(dpIndienmoment.getConverter().fromString(dpIndienmoment.getEditor().getText()));
         
-        try{
-        LocalDateTime ophaalmoment = convertToLocalDateTime(dpOphaalmoment.getValue(), txfOphaalmoment.getText());
-        LocalDateTime indienmoment = convertToLocalDateTime(dpIndienmoment.getValue(), txfIndienmoment.getText());
-        
-        
-        if(cbMaterialen.getValue() == null)
-            throw new IllegalArgumentException("Gelieve een materiaal te selecteren!");
-      
-//        for(ReservatieLijnView rlv : rv.getReservatieLijnen()){
-//            if(rlv.getMateriaal().getId()==cbMaterialen.getValue().getId()){
-//                throw new IllegalArgumentException("Dit materiaal zit al in deze reservatie!");
-//            }
-//        }
-        
-        if (txfAantal.getText() == null || txfAantal.getText().isEmpty()) {
-            throw new IllegalArgumentException("Aantal moet ingevuld zijn!");
-        }
-        
-        int aantal = Integer.parseInt(txfAantal.getText());
-        MateriaalView mv = cbMaterialen.getValue();
-        
-        ReservatieLijnView rlv = new ReservatieLijnView(ophaalmoment, indienmoment, mv, aantal);
-        rv.getReservatieLijnen().add(rlv);
-        dc.wijzigReservatie(rv);
-        }
-        catch(IllegalArgumentException e){
+        try {
+            LocalDateTime ophaalmoment = convertToLocalDateTime(dpOphaalmoment.getValue(), txfOphaalmoment.getText());
+            LocalDateTime indienmoment = convertToLocalDateTime(dpIndienmoment.getValue(), txfIndienmoment.getText());
+            
+            if (cbMaterialen.getValue() == null) {
+                throw new IllegalArgumentException("Gelieve een materiaal te selecteren!");
+            }
+
+            if (txfAantal.getText() == null || txfAantal.getText().isEmpty()) {
+                throw new IllegalArgumentException("Aantal moet ingevuld zijn!");
+            }
+            
+            if(ophaalmoment.isAfter(indienmoment)){
+                throw new IllegalArgumentException("Ophaaldatum kan niet na het indienmoment liggen!");
+            }
+            
+            int aantal = Integer.parseInt(txfAantal.getText());
+            MateriaalView mv = cbMaterialen.getValue();
+            
+            ReservatieLijnView rlv = new ReservatieLijnView(ophaalmoment, indienmoment, mv, aantal);
+            rv.getReservatieLijnen().add(rlv);
+            dc.wijzigReservatie(rv);
+        } catch (IllegalArgumentException e) {
             lblError.setText(e.getMessage());
             lblError.setVisible(true);
             return;
@@ -131,7 +129,7 @@ public class VoegReservatieLijnToeBoxController extends GridPane {
         stage.close();
         
     }
-
+    
     @FXML
     private void onActionBtnAnnuleer(ActionEvent event) {
         Stage stage = (Stage) lblTitel.getScene().getWindow();
@@ -147,7 +145,5 @@ public class VoegReservatieLijnToeBoxController extends GridPane {
         LocalTime time = LocalTime.of(uur, minuten);
         return LocalDateTime.of(datum, time);
     }
-
     
-
 }
