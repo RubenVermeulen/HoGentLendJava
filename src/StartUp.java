@@ -28,8 +28,7 @@ public class StartUp extends Application {// test xd
 
     @Override
     public void start(Stage stage) {
-        
-        
+
         // Database test
         EntityManagerFactory emf = JPAUtil.getEntityManagerFactory();
         EntityManager em = emf.createEntityManager();
@@ -50,11 +49,21 @@ public class StartUp extends Application {// test xd
         Gebruiker user5 = new Gebruiker("Nieuwe", "Beheerder", "nieuwe.beheerder@hogent.be",
                 passwordEncryptor.encryptPassword(""), false, true, true); // beheerder
 
+        Gebruiker user6 = new Gebruiker("Jan", "Jansens", "jan.jansen.v8254@student.hogent.be",
+                passwordEncryptor.encryptPassword(""), false, false, false);
+        Gebruiker user7 = new Gebruiker("Tom", "Waes", "tom.waes.v7220@student.hogent.be",
+                passwordEncryptor.encryptPassword(""), false, false, false);
+        Gebruiker user8 = new Gebruiker("Sofie", "Devreeze", "sofie.devreeze.v8102@student.hogent.be",
+                passwordEncryptor.encryptPassword(""), false, false, false);
+
         em.persist(user);
         em.persist(user2);
         em.persist(user3);
         em.persist(user4);
         em.persist(user5);
+        em.persist(user6);
+        em.persist(user7);
+        em.persist(user8);
         em.getTransaction().commit();
         em.getTransaction().begin();
         // Materialen aanmaken
@@ -175,11 +184,12 @@ public class StartUp extends Application {// test xd
         // Reservaties
         //==================================
         // Reservatie 1
-        Reservatie r1 = new Reservatie(user, LocalDateTime.of(2016, 2, 3, 10, 30), LocalDateTime.of(2016, 2, 10, 10, 30));
+        Reservatie r1 = new Reservatie(user, LocalDateTime.of(2016, 3, 21, 10, 30), LocalDateTime.of(2016, 3, 25, 10, 30),
+                LocalDateTime.of(2016, 3, 10, 10, 50));
 
         ReservatieLijn[] lijnenVoorReservatie1 = {
-            new ReservatieLijn(materialen[0], 1, LocalDateTime.of(2016, 2, 3, 10, 30), LocalDateTime.of(2016, 5, 2, 20, 10)),
-            new ReservatieLijn(materialen[1], 1, LocalDateTime.of(2016, 2, 3, 10, 30), LocalDateTime.of(2016, 8, 2, 20, 10)),};
+            new ReservatieLijn(materialen[0], 1, LocalDateTime.of(2016, 3, 21, 10, 30), LocalDateTime.of(2016, 3, 25, 10, 30)),
+            new ReservatieLijn(materialen[1], 1, LocalDateTime.of(2016, 3, 21, 10, 30), LocalDateTime.of(2016, 3, 25, 10, 30))};
 
         lijnenVoorReservatie1[0].setReservatie(r1);
         lijnenVoorReservatie1[1].setReservatie(r1);
@@ -187,39 +197,52 @@ public class StartUp extends Application {// test xd
         r1.setReservatielijnen(Arrays.asList(lijnenVoorReservatie1));
 
         // Reservatie 2 
-        Reservatie r2 = new Reservatie(user2, LocalDateTime.of(2016, 3, 7, 10, 30), LocalDateTime.of(2016, 3, 9, 18, 30),
-                LocalDateTime.of(2016, 2, 2, 20, 10));
+        Reservatie r2 = new Reservatie(user7, LocalDateTime.of(2016, 3, 14, 10, 30), LocalDateTime.of(2016, 3, 18, 18, 30),
+                LocalDateTime.of(2016, 3, 2, 20, 35));
 
         ReservatieLijn[] lijnenVoorReservatie2 = {
-            new ReservatieLijn(materialen[2], 5, LocalDateTime.of(2016, 3, 7, 10, 30), LocalDateTime.of(2016, 3, 9, 18, 30))};
+            new ReservatieLijn(materialen[2], 5, LocalDateTime.of(2016, 3, 14, 10, 30), LocalDateTime.of(2016, 3, 18, 18, 30))};
 
         lijnenVoorReservatie2[0].setReservatie(r2);
 
         r2.setReservatielijnen(Arrays.asList(lijnenVoorReservatie2));
 
         // Reservatie 3
-        Reservatie r3 = new Reservatie(user3, LocalDateTime.of(2016, 3, 9, 10, 30), LocalDateTime.of(2016, 3, 10, 18, 30),
-                LocalDateTime.of(2016, 2, 3, 20, 10));
-        
+        Reservatie r3 = new Reservatie(user6, LocalDateTime.of(2016, 3, 14, 10, 30), LocalDateTime.of(2016, 3, 18, 16, 30),
+                LocalDateTime.of(2016, 3, 3, 20, 10));
+
         ReservatieLijn[] lijnenVoorReservatie3 = {
-            new ReservatieLijn(materialen[2], 5, LocalDateTime.of(2016, 3, 9, 10, 30), LocalDateTime.of(2016, 3, 10, 18, 30))};
+            new ReservatieLijn(materialen[2], 5, LocalDateTime.of(2016, 3, 14, 10, 30), LocalDateTime.of(2016, 3, 18, 16, 30)),
+            new ReservatieLijn(materialen[1], 3, LocalDateTime.of(2016, 3, 14, 10, 30), LocalDateTime.of(2016, 3, 18, 16, 30))};
 
         lijnenVoorReservatie3[0].setReservatie(r3);
+        lijnenVoorReservatie3[1].setReservatie(r3);
 
         r3.setReservatielijnen(Arrays.asList(lijnenVoorReservatie3));
-        
+
         // Reservatie 4
-        Reservatie r4 = new Reservatie(user4, LocalDateTime.of(2016, 3, 7, 15, 30), LocalDateTime.of(2016, 3, 20, 18, 30),
-                LocalDateTime.of(2016, 2, 4, 20, 10));
-        
+        Reservatie r4 = new Reservatie(user4, LocalDateTime.of(2016, 3, 16, 10, 30), LocalDateTime.of(2016, 3, 18, 18, 30),
+                LocalDateTime.of(2016, 3, 12, 20, 10));
+
         ReservatieLijn[] lijnenVoorReservatie4 = {
-            new ReservatieLijn(materialen[2], 2, LocalDateTime.of(2016, 3, 7, 10, 30), LocalDateTime.of(2016, 3, 20, 18, 30))};
+            new ReservatieLijn(materialen[2], 2, LocalDateTime.of(2016, 3, 16, 10, 30), LocalDateTime.of(2016, 3, 18, 18, 30))};
 
         lijnenVoorReservatie4[0].setReservatie(r4);
 
         r4.setReservatielijnen(Arrays.asList(lijnenVoorReservatie4));
-        
 
+        // Reservatie 5
+        Reservatie r5 = new Reservatie(user8, LocalDateTime.of(2016, 4, 11, 10, 30), LocalDateTime.of(2016, 4, 15, 16, 30),
+                LocalDateTime.of(2016, 3, 5, 21, 50));
+        
+        ReservatieLijn[] lijnenVoorReservatie5 = {
+            new ReservatieLijn(materialen[0], 3, LocalDateTime.of(2016, 4, 11, 10, 30), LocalDateTime.of(2016, 4, 15, 16, 30))
+        };
+                
+        lijnenVoorReservatie5[0].setReservatie(r5);
+        
+        r5.setReservatielijnen(Arrays.asList(lijnenVoorReservatie5));
+                
         // Reservatielijnen
         //==================================
         em.getTransaction().begin();
@@ -228,15 +251,19 @@ public class StartUp extends Application {// test xd
         em.persist(r2);
         em.persist(r3);
         em.persist(r4);
+        em.persist(r5);
 
         em.persist(lijnenVoorReservatie1[0]);
         em.persist(lijnenVoorReservatie1[1]);
 
         em.persist(lijnenVoorReservatie2[0]);
-        
+
         em.persist(lijnenVoorReservatie3[0]);
-        
+        em.persist(lijnenVoorReservatie3[1]);
+
         em.persist(lijnenVoorReservatie4[0]);
+        
+        em.persist(lijnenVoorReservatie5[0]);
 
         em.getTransaction().commit();
 
@@ -248,11 +275,11 @@ public class StartUp extends Application {// test xd
         c.setStandaardOphaalDag("maandag");
         c.setStandaardIndienDag("vrijdag");
         c.setLeentermijn(1);
-        
+
         em.getTransaction().begin();
         em.persist(c);
         em.getTransaction().commit();
-        
+
         em.close();
 
         // niet sluiten want de domein laag heeft nu al andere acties met de emf
@@ -269,7 +296,7 @@ public class StartUp extends Application {// test xd
         stage.show();
     }
 
-    public static void main(String... args) {        
+    public static void main(String... args) {
         Application.launch(StartUp.class, args);
     }
 }

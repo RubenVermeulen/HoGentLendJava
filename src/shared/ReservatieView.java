@@ -165,9 +165,9 @@ public class ReservatieView {
     
     public void setConflict(boolean conflict){
         if(conflict)
-            this.conflict="";
-        else
             this.conflict="!!!";
+        else
+            this.conflict="";
     }
 
     @Override

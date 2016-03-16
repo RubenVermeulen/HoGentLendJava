@@ -115,7 +115,6 @@ public class ReservatieCatalogus {
      * @return de optionele reservatie, leeg indien geen reservatie met opgegeven id werd gevonden
      */
     public Optional<Reservatie> geefReservatie(long id) {
-        System.out.println(id);
         for (Reservatie r : reservaties) {
             if (r.getId() == id) {
                 return Optional.of(r);
@@ -141,7 +140,7 @@ public class ReservatieCatalogus {
         r.setOphaalmoment(rv.getOphaalmoment());
         r.setIndienmoment(rv.getIndienmoment());
         r.setOpgehaald(rv.isOpgehaald());
-        System.out.println("RESERVATIEMOMENT " + rv.getReservatiemoment());
+//        System.out.println("RESERVATIEMOMENT " + rv.getReservatiemoment());
 
         List<ReservatieLijnView> lvn = rv.getReservatieLijnen();
         List<Long> lnIds = r.getReservatielijnen().stream().map(l -> l.getId()).collect(Collectors.toList());
@@ -152,7 +151,7 @@ public class ReservatieCatalogus {
 
         for (ReservatieLijnView lv : lvn) {
             if (lv.getId() == null) {
-                System.out.println("VOEG RESERVATIELIJN TOE");
+//                System.out.println("VOEG RESERVATIELIJN TOE");
                 toevoegenLijnen.add(lv);
             } else {
                 wijzigenLijnen.add(lv);
@@ -325,7 +324,6 @@ public class ReservatieCatalogus {
         int aantalGereserveerd = 0;
         int aantalBeschikbaar = rlv.getMateriaal().getAantal() - rlv.getMateriaal().getAantalOnbeschikbaar();
 
-        System.out.println("aantal beschikbaar vooraf = " + aantalBeschikbaar);
 
         //gaat over alle reservatielijnen (ook de deze), checkt op overlappingen, voeg toe aan lijst
         for (Reservatie r : reservaties) {
@@ -340,7 +338,7 @@ public class ReservatieCatalogus {
         aantalGereserveerd = lijst.stream().map((rl) -> rl.getAantal()).reduce(aantalGereserveerd, Integer::sum);
         int teller = lijst.size() - 1;
         ReservatieLijn temprl;
-        System.out.println("lijst size : " + teller);
+        
         while (aantalGereserveerd > aantalBeschikbaar && teller > -1) {
             temprl = lijst.get(teller);
             
@@ -356,12 +354,8 @@ public class ReservatieCatalogus {
                 aantalBeschikbaar += temprl.getAantal();
             }
             teller--;
-            System.out.println(teller + ": " + aantalBeschikbaar);
+            
         }
-
-        System.out.println("gereserveerd" + aantalGereserveerd + ", beschikbaar" + aantalBeschikbaar);
-
-        System.out.println(lijst);
 
         return aantalBeschikbaar - aantalGereserveerd;
     }
@@ -382,7 +376,7 @@ public class ReservatieCatalogus {
                     = new ReservatieLijnView(gm.getId(), gm.getOphaalmoment(), gm.getIndienmoment(), mv, gm.getAantal());
             gereserveerdeMaterialen.add(gmv);
         }
-        System.out.println("id in toreservatieview: " + r.getId());
+        
         ReservatieView rv = new ReservatieView(Long.max(r.getId(), 0), r.getLener().getVoornaam() + " " + r.getLener().getAchternaam(),
                 r.getLener().getEmail(), r.getOphaalmoment(), r.getIndienmoment(), r.getReservatiemoment(),
                 r.isOpgehaald(), gereserveerdeMaterialen);
@@ -396,18 +390,20 @@ public class ReservatieCatalogus {
      * Deze methode wordt gebruikt door de MateriaalBoxController 
      *
      * @param rv reservatieview waarvan de conflicten gecontroleerd moeten worden
+     * @return boolean indien een conflict is gevonden
      */
-    public void setReservatieViewConflict(ReservatieView rv) {
+    public boolean setReservatieViewConflict(ReservatieView rv) {
         boolean check = false;
         
         for(ReservatieLijnView rlv : rv.getReservatieLijnen()){
-            if(heeftConflicten(rlv, rv) > 0){
+            if(heeftConflicten(rlv, rv) < 0){
                 check = true;
                 break;
             }
         }
         
         rv.setConflict(check);
+        return check;
         
     }
 }

@@ -250,17 +250,8 @@ public class MainMenuFrameController extends BorderPane {
         tcLener.setCellValueFactory(new PropertyValueFactory<>("lener"));
         tcMaterialen.setCellValueFactory(new PropertyValueFactory<>("reservatieLijnenAlsString"));
         tcConflict.setCellValueFactory(new PropertyValueFactory<>("conflict"));
-//        
-//        tcConflict.setStyle(se);
 
-        tvReservaties.setItems(observableList);
-        
-//        for(ReservatieView rv : tvReservaties.getItems()){
-//            for(ReservatieLijnView rlv : rv.getReservatieLijnen()){
-//                if(rlv.getMateriaal().getAantalOnbeschikbaar()>rlv.getMateriaal().getAantal()){
-//                    tvReservaties.getSelectionModel().;
-//                }
-//        }
+        tvReservaties.setItems(observableList);  
 
         if (geselecteerdeReservatie != null) {
             tvReservaties.getSelectionModel().select(geselecteerdeRij);
@@ -287,7 +278,7 @@ public class MainMenuFrameController extends BorderPane {
     private void setupReservatieLijnen(ReservatieView rv) {
         
         //Reservatiedetails
-        lblLenerNaam.setText(rv.getLener());
+        lblLenerNaam.setText(rv.getLener() + " (" + rv.getEmailLener() + ")");
         lblOphaalmoment.setText(rv.getOphaalmomentAlsString());
         lblIndienmoment.setText(rv.getIndienmomentAlsString());
         lblReservatiemoment.setText(rv.getReservatiemomentAlsString());
