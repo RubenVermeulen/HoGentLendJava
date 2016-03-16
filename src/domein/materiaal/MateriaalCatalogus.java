@@ -172,8 +172,7 @@ public class MateriaalCatalogus {
         for (Materiaal m : materialen) {
             materiaalViews.add(toMateriaalView(m));
         }
-        Comparator<MateriaalView> comparator = (f1, f2) -> f1.getNaam().compareToIgnoreCase(f2.getNaam());
-        Collections.sort(materiaalViews, comparator);
+        
         return materiaalViews;
     }
 

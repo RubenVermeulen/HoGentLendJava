@@ -10,6 +10,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -193,6 +195,8 @@ public class MainMenuFrameController extends BorderPane {
     }
 
     private void setupMaterials(List<MateriaalView> materials) {
+        Comparator<MateriaalView> comparator = (f1, f2) -> f1.getNaam().compareToIgnoreCase(f2.getNaam());
+        Collections.sort(materials, comparator);
         materialenBox.getChildren().clear();
         materials.stream().forEach(mv -> materialenBox.getChildren().add(new MateriaalBoxController(mv, domCon)));
     }
