@@ -157,6 +157,16 @@ public class MainMenuFrameController extends BorderPane {
     private Color colorError = Color.web("FF0000");
     @FXML
     private Tooltip ttGereserveerdDoor;
+    @FXML
+    private Label lblStandaardOphaaldagPlaceholder;
+    @FXML
+    private Label lblStandaardIndiendagPlaceholder;
+    @FXML
+    private Label lblLeentermijnPlaceholder;
+    @FXML
+    private Label lblStandaardOphaaltijdPlaceholder;
+    @FXML
+    private Label lblStandaardIndientijdPlaceholder;
     
 
     public MainMenuFrameController(DomeinController domCon) {
@@ -602,6 +612,31 @@ public class MainMenuFrameController extends BorderPane {
         cbInstellingenLeentermijn.getItems().addAll(weken);
         
         cbInstellingenLeentermijn.getSelectionModel().select(Integer.toString(configView.getLeentermijn()));
+        
+        if ( ! domCon.isAangemeldeHoofdbeheerder()) {
+            lblStandaardOphaaldagPlaceholder.setText(configView.getStandaardOphaalDag());
+            lblStandaardOphaaltijdPlaceholder.setText(configView.getStandaardOphaaltijd().format(formatter));
+        
+            lblStandaardIndiendagPlaceholder.setText(configView.getStandaardIndienDag());
+            lblStandaardIndientijdPlaceholder.setText(configView.getStandaardIndientijd().format(formatter));
+            
+            lblLeentermijnPlaceholder.setText(Integer.toString(configView.getLeentermijn()));
+            
+            lblStandaardOphaaldagPlaceholder.setVisible(true);
+            lblStandaardOphaaltijdPlaceholder.setVisible(true);
+            lblStandaardIndiendagPlaceholder.setVisible(true);
+            lblStandaardIndientijdPlaceholder.setVisible(true);
+            lblLeentermijnPlaceholder.setVisible(true);
+            
+            txfInstellingenIndientijd.setVisible(false);
+            txfInstellingenOphaaltijd.setVisible(false);
+            cbInstellingenOphaalDag.setVisible(false);
+            cbInstellingenIndienDag.setVisible(false);
+            cbInstellingenLeentermijn.setVisible(false);
+            
+            btnInstellingenOpslaan.setVisible(false);
+            btnInstellingenOpslaan.setDisable(false);
+        }
     }
 
     private LocalTime convertToLocalDateTime(String tijd, String veld) {

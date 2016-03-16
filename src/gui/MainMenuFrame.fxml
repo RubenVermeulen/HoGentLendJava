@@ -357,6 +357,11 @@
                               <ComboBox fx:id="cbInstellingenIndienDag" onAction="#onActionCbInstellingenIndiendag" prefWidth="200.0" promptText="-- selecteer een dag --" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <Label text="Leentermijn (weken):" GridPane.rowIndex="4" />
                               <ComboBox fx:id="cbInstellingenLeentermijn" onAction="#onActionCbInstellingenLeentermijn" prefWidth="200.0" promptText="-- selecteer aantal weken --" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label fx:id="lblStandaardOphaaldagPlaceholder" text="lblStandaardOphaaldagPlaceholder" visible="false" GridPane.columnIndex="1" />
+                              <Label fx:id="lblStandaardIndiendagPlaceholder" text="lblStandaardIndiendagPlaceholder" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label fx:id="lblLeentermijnPlaceholder" text="lblLeentermijnPlaceholder" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label fx:id="lblStandaardOphaaltijdPlaceholder" text="lblStandaardOphaaltijdPlaceholder" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label fx:id="lblStandaardIndientijdPlaceholder" text="lblStandaardIndientijdPlaceholder" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                            </children>
                         </GridPane>
                      </children>
