@@ -89,12 +89,12 @@
                                         <TextField id="naam" fx:id="naam" onKeyTyped="#naamOnKey" promptText="naam" GridPane.rowIndex="1" />
                                         <TextField id="artikelcode" fx:id="artikelcode" promptText="artikelcode" GridPane.rowIndex="3" />
                                         <TextField id="aantal" fx:id="aantal" onKeyTyped="#aantalOnKey" promptText="aantal stuks" GridPane.rowIndex="5" />
+                                        <TextField fx:id="onbeschikbaar" onKeyTyped="#onbeschikbaarOnKey" promptText="aantal onbeschikbaar" GridPane.rowIndex="7" />
                                         <TextField id="prijs" fx:id="prijs" onKeyTyped="#prijsOnKey" promptText="prijs in € (vb notatie: 10.99)" GridPane.rowIndex="9" />
                                         <Label text="Prijs (€)" GridPane.rowIndex="8" />
                                         <Label text="Locatie" GridPane.rowIndex="10" />
                                         <TextField fx:id="locatie" promptText="locatie" GridPane.rowIndex="11" />
                                         <Label text="Aantal onbeschikbaar" GridPane.rowIndex="6" />
-                                        <TextField fx:id="onbeschikbaar" onKeyTyped="#onbeschikbaarOnKey" promptText="aantal onbeschikbaar" GridPane.rowIndex="7" />
                                         <ImageView fx:id="errorNaam" fitHeight="30.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                                             <image>
                                                 <Image url="@../images/errorred.png" />
