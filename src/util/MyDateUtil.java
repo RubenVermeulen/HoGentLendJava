@@ -57,7 +57,7 @@ public class MyDateUtil {
         }
 
         if (uur < 0 || uur > 23 || minuten < 0 || minuten > 59) {
-            throw new IllegalArgumentException("Er is geen geldige tijd meegegeven.");
+            throw new IllegalArgumentException("Eén van de velden bevat geen geldige tijd.");
         }
 
         LocalTime time = LocalTime.of(uur, minuten);
