@@ -141,7 +141,6 @@
                                           <TableColumn fx:id="tcLener" prefWidth="200.0" text="Gereserveerd door" />
                                           <TableColumn fx:id="tcMaterialen" prefWidth="280.0" text="Gereserveerde materialen" />
                               <TableColumn fx:id="tcConflict" prefWidth="20.0" resizable="false" style="-fx-text-fill: red;" />
-                              <TableColumn fx:id="tcConflict1" prefWidth="75.0" resizable="false" style="-fx-text-fill: red;" />
                                       </columns>
                            <GridPane.margin>
                               <Insets right="20.0" top="10.0" />
@@ -164,7 +163,10 @@
                                       </rowConstraints>
                                       <children>
                                           <Label text="Gereserveerd door" GridPane.rowIndex="3" />
-                                          <Label fx:id="lblLenerNaam" text=" - " GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <Label fx:id="lblLenerNaam" text=" - " GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <tooltip>
+                                    <Tooltip fx:id="ttGereserveerdDoor" text="Empty Tooltip" />
+                                 </tooltip></Label>
                                           <Label fx:id="lblReservatiemoment" text=" - " GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                           <Label fx:id="lblDetailOphaalmoment" text="Ophaalmoment" GridPane.rowIndex="5" />
                                           <Label fx:id="lblDetailIndienmoment" text="Indienmoment" GridPane.rowIndex="6" />
@@ -264,7 +266,7 @@
                                  </tooltip>
                                           </Button>
                               <Label text="Status" GridPane.rowIndex="2" />
-                              <Label fx:id="lblStatus" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label fx:id="lblStatus" text=" -" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <Label text="Gereserveerd op" GridPane.rowIndex="4" />
                                       </children>
                                   </GridPane>

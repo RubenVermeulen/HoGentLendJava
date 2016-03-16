@@ -7,10 +7,11 @@ package domein.reservatie;
 
 import domein.gebruiker.Gebruiker;
 import domein.gebruiker.GebruikerRepository;
-import domein.materiaal.Materiaal;
 import domein.materiaal.MateriaalRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -64,6 +65,9 @@ public class ReservatieCatalogus {
             System.out.println(r.toString());
             reservatieViews.add(toReservatieView(r));
         }
+        
+        Comparator<ReservatieView> comparator = (f1, f2) -> f1.getOphaalmoment().compareTo(f2.getOphaalmoment());
+        Collections.sort(reservatieViews, comparator);
 
         return reservatieViews;
 
