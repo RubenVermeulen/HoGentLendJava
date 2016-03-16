@@ -5,6 +5,8 @@ import domein.groep.Groep;
 import domein.firma.FirmaRepository;
 import domein.firma.Firma;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -157,6 +159,8 @@ public class MateriaalCatalogus {
         for (Materiaal m : materialen) {
             materiaalViews.add(toMateriaalView(m));
         }
+        Comparator<MateriaalView> comparator = (f1, f2) -> f1.getNaam().compareToIgnoreCase(f2.getNaam());
+        Collections.sort(materiaalViews, comparator);
         return materiaalViews;
     }
 
@@ -176,6 +180,8 @@ public class MateriaalCatalogus {
                 matViews.add(toMateriaalView(mat));
             }
         }
+        Comparator<MateriaalView> comparator = (f1, f2) -> f1.getNaam().compareToIgnoreCase(f2.getNaam());
+        Collections.sort(matViews, comparator);
         return matViews;
     }
 

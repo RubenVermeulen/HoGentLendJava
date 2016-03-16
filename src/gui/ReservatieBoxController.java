@@ -217,6 +217,7 @@ public class ReservatieBoxController extends GridPane {
             setupReservaties(rlv);
             parentController.initialiseerTableViewReservaties();
         } catch (IllegalArgumentException e) {
+            System.out.println("gecatched in box");
             Alert informationAlert = new Alert(Alert.AlertType.ERROR);
 
             informationAlert.setTitle("Opgelet");

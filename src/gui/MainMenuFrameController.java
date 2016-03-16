@@ -31,6 +31,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -154,6 +155,8 @@ public class MainMenuFrameController extends BorderPane {
     
     private Color colorSucces = Color.web("#04B431");
     private Color colorError = Color.web("FF0000");
+    @FXML
+    private Tooltip ttGereserveerdDoor;
     
 
     public MainMenuFrameController(DomeinController domCon) {
@@ -278,7 +281,9 @@ public class MainMenuFrameController extends BorderPane {
     private void setupReservatieLijnen(ReservatieView rv) {
         
         //Reservatiedetails
-        lblLenerNaam.setText(rv.getLener() + " (" + rv.getEmailLener() + ")");
+        String lenerdetails = String.format("%s (%s)", rv.getLener(), rv.getEmailLener());
+        lblLenerNaam.setText(lenerdetails);
+        ttGereserveerdDoor.setText(lenerdetails);
         lblOphaalmoment.setText(rv.getOphaalmomentAlsString());
         lblIndienmoment.setText(rv.getIndienmomentAlsString());
         lblReservatiemoment.setText(rv.getReservatiemomentAlsString());
@@ -482,6 +487,7 @@ public class MainMenuFrameController extends BorderPane {
             initialiseerTableViewReservaties();
             setupReservatieLijnen(geselecteerdeReservatie);
         } catch (IllegalArgumentException e) {
+            System.out.println("gecatched in main");
             Alert informationAlert = new Alert(Alert.AlertType.ERROR);
 
             informationAlert.setTitle("Opgelet");
