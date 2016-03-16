@@ -52,7 +52,7 @@
                             <children>
                                 <VBox prefHeight="318.0" prefWidth="281.0">
                                     <children>
-                                        <Label prefHeight="35.0" prefWidth="213.0" text="Reservatie voor">
+                                        <Label prefHeight="35.0" prefWidth="213.0" text="Reservatie voor (emailadres)">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
                                  </VBox.margin>
@@ -152,7 +152,7 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txfOphaalhhmm" promptText="10:30">
+                              <TextField fx:id="txfOphaalhhmm">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="50.0" top="10.0" />
                                  </VBox.margin>
@@ -165,7 +165,7 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txfIndienhhmm" promptText="10:00">
+                              <TextField fx:id="txfIndienhhmm">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="50.0" top="10.0" />
                                  </VBox.margin>

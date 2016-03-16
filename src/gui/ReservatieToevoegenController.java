@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ import javafx.stage.Stage;
 import shared.MateriaalView;
 import shared.ReservatieView;
 import shared.ReservatieLijnView;
+import util.MyDateUtil;
 
 /**
  * FXML Controller class
@@ -70,6 +72,9 @@ public class ReservatieToevoegenController extends BorderPane {
 
         verbergError();
         setupAlleMaterialen();
+        txfOphaalhhmm.setText(dc.geefConfigView().getStandaardOphaaltijd().toString());
+        txfIndienhhmm.setText(dc.geefConfigView().getStandaardIndientijd().toString());
+
     }
 
     @FXML
@@ -127,7 +132,7 @@ public class ReservatieToevoegenController extends BorderPane {
             System.out.println("show error");
             return;
         }
-
+        /*
         StringBuffer ophaalHHmm = new StringBuffer(txfOphaalhhmm.getText().trim());
 
         int ophaalHh = -1;
@@ -204,7 +209,26 @@ public class ReservatieToevoegenController extends BorderPane {
             System.out.println("show error");
             return;
         }
+         */
 
+        LocalTime indienTijd;
+        try {
+            indienTijd = MyDateUtil.convertToLocalTime(txfIndienhhmm.getText().trim());
+            indienmoment = indMoment.atTime(indienTijd);
+        } catch (IllegalArgumentException e) {
+            lblError.setText(e.getMessage());
+            return;
+        }
+        LocalTime ophaalTijd;
+        try{
+        ophaalTijd = MyDateUtil.convertToLocalTime(txfOphaalhhmm.getText().trim());
+        ophaalmoment = ophMoment.atTime(ophaalTijd);
+        } catch(IllegalArgumentException e){
+            lblError.setText(e.getMessage());
+            return;
+        }
+        
+        
         List<ReservatieLijnView> reservatieLijnen = new ArrayList<>();
 
         reservatieLijnen.add(new ReservatieLijnView(ophaalmoment, indienmoment, materiaalView, aantal));

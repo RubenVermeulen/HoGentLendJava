@@ -50,7 +50,7 @@ public class MateriaalCatalogusTest {
 
     private MateriaalView mv;
     private MateriaalView mv2;
-    
+
     private File tempFotoFile;
 
     private ReservatieView rv;
@@ -78,28 +78,28 @@ public class MateriaalCatalogusTest {
         materiaalCatalogus = new MateriaalCatalogus(materialen, firmaRepository, groepsRepository);
 
         mv = new MateriaalView(CORRECT_NAAM, CORRECT_AANTAL);
-        mv2=new MateriaalView("Wereldbol", CORRECT_AANTAL);
+        mv2 = new MateriaalView("Wereldbol", CORRECT_AANTAL);
 
         tempFotoFile = ImageUtil.getResourceAsFile("/images/default_materiaal_img.png");
         rlv = new ReservatieLijnView(OPHAALMOMENT_CORRECT, INDIENMOMENT_CORRECT, mv, 5);
-        rlv2= new ReservatieLijnView(OPHAALMOMENT_CORRECT, INDIENMOMENT_CORRECT, mv2, 5);
+        rlv2 = new ReservatieLijnView(OPHAALMOMENT_CORRECT, INDIENMOMENT_CORRECT, mv2, 5);
         reservatieLijnen = new ArrayList(Arrays.asList(rlv));
-        reservatieLijnen2=new ArrayList(Arrays.asList(rlv2));
+        reservatieLijnen2 = new ArrayList(Arrays.asList(rlv2));
         rv = new ReservatieView(EMAIL_CORRECT, OPHAALMOMENT_CORRECT, INDIENMOMENT_CORRECT,
                 RESERVATIEMOMENT_CORRECT, reservatieLijnen);
         rv2 = new ReservatieView(EMAIL_CORRECT, OPHAALMOMENT_CORRECT, INDIENMOMENT_CORRECT,
                 RESERVATIEMOMENT_CORRECT, reservatieLijnen2);
-        reservaties=new ArrayList(Arrays.asList(rv));
-        reservatiesWaaronderZelfdeMateriaal=new ArrayList(Arrays.asList(rv2));
+        reservaties = new ArrayList(Arrays.asList(rv));
+        reservatiesWaaronderZelfdeMateriaal = new ArrayList(Arrays.asList(rv2));
     }
 
     @Test
     public void voegNieuwMateriaalToeEnkelNaamEnAantal() {
-      //  MateriaalView mv = new MateriaalView(CORRECT_NAAM, CORRECT_AANTAL);
+        MateriaalView mv = new MateriaalView(CORRECT_NAAM, CORRECT_AANTAL);
         materiaalCatalogus.voegMateriaalToe(mv);
-        System.out.println("Ayyyyyyyyyyyyy"+mv.toString());
-        System.out.println("Lmaoooooo"+materiaalCatalogus.geefAlleMaterialenViews().get(2));
-        
+        System.out.println("Ayyyyyyyyyyyyy" + mv.toString());
+        System.out.println("Lmaoooooo" + materiaalCatalogus.geefAlleMaterialenViews().get(2));
+
         assertTrue(compareMateriaalViews(mv, materiaalCatalogus.geefAlleMaterialenViews().get(2)));
     }
 
@@ -209,29 +209,29 @@ public class MateriaalCatalogusTest {
 
     @Test
     public void verwijderMateriaalBestaandMateriaal() {
-        assertEquals(m1, materiaalCatalogus.verwijderMateriaal(m1.getNaam(),reservaties));
+        assertEquals(m1, materiaalCatalogus.verwijderMateriaal(m1.getNaam(), reservaties));
         assertEquals(1, materiaalCatalogus.geefAlleMaterialenViews().size());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void verwijderMateriaalNietBestaandMateriaal() {
-        materiaalCatalogus.verwijderMateriaal("blabla",reservaties);
+        materiaalCatalogus.verwijderMateriaal("blabla", reservaties);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void verwijderMateriaalNaamIsNull() {
-        materiaalCatalogus.verwijderMateriaal(null,reservaties);
+        materiaalCatalogus.verwijderMateriaal(null, reservaties);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void verwijderMateriaalNaamIsEmpty() {
-        materiaalCatalogus.verwijderMateriaal("",reservaties);
+        materiaalCatalogus.verwijderMateriaal("", reservaties);
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void verwijderMateriaalBestaandMateriaalNogInReservatie() {
-        materiaalCatalogus.verwijderMateriaal(m1.getNaam(),reservatiesWaaronderZelfdeMateriaal);
-        
+        materiaalCatalogus.verwijderMateriaal(m1.getNaam(), reservatiesWaaronderZelfdeMateriaal);
+
     }
 
     @Test
