@@ -177,12 +177,11 @@ public class MateriaalBoxController extends VBox {
                 Alert nietVerwijderd = new Alert(
                         Alert.AlertType.ERROR,
                         String.format(e.getMessage()),
-                        
                         ButtonType.OK);
 
                 nietVerwijderd.setTitle("Error");
-               nietVerwijderd.setHeaderText("Het materiaal werd niet verwijderd.");
-                
+                nietVerwijderd.setHeaderText("Het materiaal werd niet verwijderd.");
+
                 nietVerwijderd.setGraphic(iv);
                 nietVerwijderd.showAndWait();
                 return;

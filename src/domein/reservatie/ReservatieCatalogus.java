@@ -65,7 +65,7 @@ public class ReservatieCatalogus {
             System.out.println(r.toString());
             reservatieViews.add(toReservatieView(r));
         }
-        
+
         Comparator<ReservatieView> comparator = (f1, f2) -> f1.getOphaalmoment().compareTo(f2.getOphaalmoment());
         Collections.sort(reservatieViews, comparator);
 
@@ -74,7 +74,8 @@ public class ReservatieCatalogus {
     }
 
     /**
-     * Retourneert alle reservaties (geconverteerd naar een reservatieview), die voldoen aan de meegegeven voorwaarden
+     * Retourneert alle reservaties (geconverteerd naar een reservatieview), die
+     * voldoen aan de meegegeven voorwaarden
      *
      * @param filter de filter met het trefwoord
      * @param dtOphaal de filter van het ophaalmoment
@@ -93,7 +94,8 @@ public class ReservatieCatalogus {
      *
      * @param rv reservatieview waarvan het materiaal verwijderd moet worden
      * @return de verwijderde reservatie
-     * @throws IllegalArgumentException indien de reservatieview niet overeenkomt met een bestaande reservatie
+     * @throws IllegalArgumentException indien de reservatieview niet
+     * overeenkomt met een bestaande reservatie
      */
     public Reservatie verwijderReservatie(ReservatieView rv) {
         if (rv == null) {
@@ -116,7 +118,8 @@ public class ReservatieCatalogus {
      * Retourneert de reservatie met het opgegeven id
      *
      * @param id van de gewenste reservatie
-     * @return de optionele reservatie, leeg indien geen reservatie met opgegeven id werd gevonden
+     * @return de optionele reservatie, leeg indien geen reservatie met
+     * opgegeven id werd gevonden
      */
     public Optional<Reservatie> geefReservatie(long id) {
         for (Reservatie r : reservaties) {
@@ -128,10 +131,12 @@ public class ReservatieCatalogus {
     }
 
     /**
-     * Retourneert een ReservatieChanges object, dat de toe te voegen, te wijzigen of te verwijderen reservatielijnen
-     * bevat van de opgegeven reservatie(view)
+     * Retourneert een ReservatieChanges object, dat de toe te voegen, te
+     * wijzigen of te verwijderen reservatielijnen bevat van de opgegeven
+     * reservatie(view)
      *
-     * @param rv reservatieview dat gewijzigde, verwijderde of toegevoegde reservatielijnen bevat
+     * @param rv reservatieview dat gewijzigde, verwijderde of toegevoegde
+     * reservatielijnen bevat
      * @return ReservatieChanges object
      */
     public ReservatieChanges geefReservatieChanges(ReservatieView rv) {
@@ -176,7 +181,8 @@ public class ReservatieCatalogus {
      *
      * @param r reservatie waarvan een lijn wordt verwijderd
      * @param rl lijn die wordt verwijderd
-     * @return ReservatieLijn die werd verwijderd, null indien de reservatielijn niet gevonden werd
+     * @return ReservatieLijn die werd verwijderd, null indien de reservatielijn
+     * niet gevonden werd
      */
     public ReservatieLijn verwijderReservatieLijn(Reservatie r, long rl) {
         Iterator<ReservatieLijn> it = r.getReservatielijnen().iterator();
@@ -191,8 +197,9 @@ public class ReservatieCatalogus {
     }
 
     /**
-     * Maakt een nieuwe ReservatieLijn met de gegevens van de meegegeven ReservatieLijnView
-     * Voegt het nieuwe ReservatieLijn object toe aan de meegegeven Reservatie
+     * Maakt een nieuwe ReservatieLijn met de gegevens van de meegegeven
+     * ReservatieLijnView Voegt het nieuwe ReservatieLijn object toe aan de
+     * meegegeven Reservatie
      *
      * @param r reservatie waaraan de lijn moet worden toegevoegd
      * @param rlv lijn die moet worden toegevoegd
@@ -207,10 +214,12 @@ public class ReservatieCatalogus {
     }
 
     /**
-     * Wijzigt de ReservatieLijn die overeenkomt met de meegegeven ReservatieLijnView
+     * Wijzigt de ReservatieLijn die overeenkomt met de meegegeven
+     * ReservatieLijnView
      *
      * @param r reservatie waartoe de te wijzigen reservatielijn behoort
-     * @param rlv reservatielijnview met wijzigingen die moeten worden aangebracht aan de bijhorende reservatielijn
+     * @param rlv reservatielijnview met wijzigingen die moeten worden
+     * aangebracht aan de bijhorende reservatielijn
      */
     public void pasReservatieLijnAan(Reservatie r, ReservatieLijnView rlv) {
         ReservatieLijn rl = r.getReservatielijnen().stream().filter(mrl -> mrl.getId() == rlv.getId()).findFirst().get();
@@ -221,11 +230,13 @@ public class ReservatieCatalogus {
     }
 
     /**
-     * Valideert of het ophaalmoment van een reservatielijn voor zijn indienmoment ligt
+     * Valideert of het ophaalmoment van een reservatielijn voor zijn
+     * indienmoment ligt
      *
      * @param ophaal ophaalmoment van de reservatielijn
      * @param indien indienmoment van de reservatielijn
-     * @throws IllegalArgumentException wanneer het ophaalmoment na het indienmoment valt
+     * @throws IllegalArgumentException wanneer het ophaalmoment na het
+     * indienmoment valt
      */
     public void validateOphaalEnIndienMomentsForLijn(LocalDateTime ophaal, LocalDateTime indien) {
         if (ophaal.isAfter(indien)) {
@@ -234,15 +245,17 @@ public class ReservatieCatalogus {
     }
 
     /**
-     * Voegt nieuwe reservatie toe met de gegevens van de meegeleverde reservatieview
+     * Voegt nieuwe reservatie toe met de gegevens van de meegeleverde
+     * reservatieview
      *
      * @param rv reservatieview met de gegevens van de te maken reservatie
      * @return het nieuwe Reservatie object
-     * @throws IllegalArgumentException indien een van de gegevens in de reservatieview niet voldoen aan de opgelegde
-     * restricties
-     * @throws IllegalArgumentException indien geen gebruiker werd gevonden met het meegegeven emailadres
-     * @throws IllegalArgumentException indien de meegeleverde reservatieview geen reservatielijn met materiaal
-     * bevat
+     * @throws IllegalArgumentException indien een van de gegevens in de
+     * reservatieview niet voldoen aan de opgelegde restricties
+     * @throws IllegalArgumentException indien geen gebruiker werd gevonden met
+     * het meegegeven emailadres
+     * @throws IllegalArgumentException indien de meegeleverde reservatieview
+     * geen reservatielijn met materiaal bevat
      */
     public Reservatie voegReservatieToe(ReservatieView rv) {
         if (rv == null) {
@@ -304,21 +317,22 @@ public class ReservatieCatalogus {
     }
 
     /**
-     * Geeft het aantal beschikbare materialen(*) terug van het totaal aantal materialen die 
-     * de gebruiker wenste te reserveren
-     * 
+     * Geeft het aantal beschikbare materialen(*) terug van het totaal aantal
+     * materialen die de gebruiker wenste te reserveren
+     *
      * @param rlv
      * @param rv
      * @return aantal materialen van de reservatielijn die niet beschikbaar zijn
-     * @throws IllegalArgumentException wanneer de reservatielijnview of reservatieview null zijn
+     * @throws IllegalArgumentException wanneer de reservatielijnview of
+     * reservatieview null zijn
      */
     public int heeftConflicten(ReservatieLijnView rlv, ReservatieView rv) {
-        if (rlv == null || rv ==null) {
+        if (rlv == null || rv == null) {
             throw new IllegalArgumentException("Reservatie of reservatieview niet meegegeven!");
         }
 
         Reservatie meegegevenReservatie = geefReservatie(rv.getId()).get();
-        
+
         LocalDateTime reservatiemoment = rv.getReservatiemoment();
         LocalDateTime indienmoment = rlv.getIndienmoment();
         LocalDateTime ophaalmoment = rlv.getOphaalmoment();
@@ -327,7 +341,6 @@ public class ReservatieCatalogus {
         List<ReservatieLijn> lijst = new ArrayList<>();
         int aantalGereserveerd = 0;
         int aantalBeschikbaar = rlv.getMateriaal().getAantal() - rlv.getMateriaal().getAantalOnbeschikbaar();
-
 
         //gaat over alle reservatielijnen (ook de deze), checkt op overlappingen, voeg toe aan lijst
         for (Reservatie r : reservaties) {
@@ -342,23 +355,20 @@ public class ReservatieCatalogus {
         aantalGereserveerd = lijst.stream().map((rl) -> rl.getAantal()).reduce(aantalGereserveerd, Integer::sum);
         int teller = lijst.size() - 1;
         ReservatieLijn temprl;
-        
+
         while (aantalGereserveerd > aantalBeschikbaar && teller > -1) {
             temprl = lijst.get(teller);
-            
-            if(!meegegevenReservatie.getLener().isLector() && temprl.getReservatie().getLener().isLector()){
-                
-            }
-            else if (
-                    ((!temprl.getReservatie().getLener().isLector()) && meegegevenReservatie.getLener().isLector())
-                    ||
-                    temprl.getReservatie().getReservatiemoment().isAfter(reservatiemoment)
+
+            if (!meegegevenReservatie.getLener().isLector() && temprl.getReservatie().getLener().isLector()) {
+
+            } else if (((!temprl.getReservatie().getLener().isLector()) && meegegevenReservatie.getLener().isLector())
+                    || temprl.getReservatie().getReservatiemoment().isAfter(reservatiemoment)
                     || (temprl.getReservatie().getReservatiemoment().isEqual(reservatiemoment)
-                    && temprl.getId() > rlv.getId()))   {
+                    && temprl.getId() > rlv.getId())) {
                 aantalBeschikbaar += temprl.getAantal();
             }
             teller--;
-            
+
         }
 
         return aantalBeschikbaar - aantalGereserveerd;
@@ -380,7 +390,7 @@ public class ReservatieCatalogus {
                     = new ReservatieLijnView(gm.getId(), gm.getOphaalmoment(), gm.getIndienmoment(), mv, gm.getAantal());
             gereserveerdeMaterialen.add(gmv);
         }
-        
+
         ReservatieView rv = new ReservatieView(Long.max(r.getId(), 0), r.getLener().getVoornaam() + " " + r.getLener().getAchternaam(),
                 r.getLener().getEmail(), r.getOphaalmoment(), r.getIndienmoment(), r.getReservatiemoment(),
                 r.isOpgehaald(), gereserveerdeMaterialen);
@@ -389,25 +399,27 @@ public class ReservatieCatalogus {
     }
 
     /**
-     * Controleert voor elke reservatieviewlijn in meegegeven reservatie, of er een conflict is of niet, en past nadien
-     * het attribuutje "conflict" aan in de reservatieview
-     * Deze methode wordt gebruikt door de MateriaalBoxController 
+     * Controleert voor elke reservatieviewlijn in meegegeven reservatie, of er
+     * een conflict is of niet, en past nadien het attribuutje "conflict" aan in
+     * de reservatieview Deze methode wordt gebruikt door de
+     * MateriaalBoxController
      *
-     * @param rv reservatieview waarvan de conflicten gecontroleerd moeten worden
+     * @param rv reservatieview waarvan de conflicten gecontroleerd moeten
+     * worden
      * @return boolean indien een conflict is gevonden
      */
     public boolean setReservatieViewConflict(ReservatieView rv) {
         boolean check = false;
-        
-        for(ReservatieLijnView rlv : rv.getReservatieLijnen()){
-            if(heeftConflicten(rlv, rv) < 0){
+
+        for (ReservatieLijnView rlv : rv.getReservatieLijnen()) {
+            if (heeftConflicten(rlv, rv) < 0) {
                 check = true;
                 break;
             }
         }
-        
+
         rv.setConflict(check);
         return check;
-        
+
     }
 }
