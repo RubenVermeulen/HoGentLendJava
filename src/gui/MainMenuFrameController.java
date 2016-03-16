@@ -501,7 +501,6 @@ public class MainMenuFrameController extends BorderPane {
             initialiseerTableViewReservaties();
             setupReservatieLijnen(geselecteerdeReservatie);
         } catch (IllegalArgumentException e) {
-            System.out.println("gecatched in main");
             Alert informationAlert = new Alert(Alert.AlertType.ERROR);
 
             informationAlert.setTitle("Opgelet");
