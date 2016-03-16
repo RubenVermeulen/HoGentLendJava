@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import shared.MateriaalView;
+import shared.ReservatieLijnView;
+import shared.ReservatieView;
 import util.ImageUtil;
 
 public class MateriaalCatalogus {
@@ -133,11 +135,22 @@ public class MateriaalCatalogus {
      * @throws IllegalArgumentException indien de naam niet geldig is of geen
      * materiaal bestaat met de naam
      */
-    public Materiaal verwijderMateriaal(String materiaalNaam) {
+    public Materiaal verwijderMateriaal(String materiaalNaam,List<ReservatieView> reservaties) {
         if (materiaalNaam == null || materiaalNaam.isEmpty()) {
             throw new IllegalArgumentException("De materiaal naam is verplicht.");
         }
 
+        for(ReservatieView rv:reservaties){
+        List<ReservatieLijnView> rlvs=rv.getReservatieLijnen();
+        for(ReservatieLijnView rlv: rlvs){
+        if(rlv.getMateriaal().getNaam().equals(materiaalNaam)){
+        throw new IllegalArgumentException("Reservatie van persoon "+rv.getLener() +" die loopt van "+rv.getOphaalmomentAlsString()+" tot "
+            +rv.getIndienmomentAlsString()    + " bevat het te verwijderen materiaal ("+materiaalNaam+").");
+        }
+        }
+        
+        }
+        
         Optional<Materiaal> materiaalOpt = geefMateriaal(materiaalNaam);
         if (!materiaalOpt.isPresent()) {
             throw new IllegalArgumentException("Er is geen materiaal met deze naam.");

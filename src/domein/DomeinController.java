@@ -141,7 +141,12 @@ public class DomeinController {
      * @param materiaalNaam de materiaal naam
      */
     public void verwijderMateriaal(String materiaalNaam) {
-        materiaalRepo.verwijderMateriaal(materiaalNaam);
+        
+        
+        List<ReservatieView> reservaties=reservatieRepo.geefAlleReservaties();
+        
+        
+        materiaalRepo.verwijderMateriaal(materiaalNaam,reservaties);
     }
 
     /**

@@ -170,8 +170,24 @@ public class MateriaalBoxController extends VBox {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            dc.verwijderMateriaal(mv.getNaam());
-            ((VBox) getParent()).getChildren().remove(this);
+            try {
+                dc.verwijderMateriaal(mv.getNaam());
+                ((VBox) getParent()).getChildren().remove(this);
+            } catch (IllegalArgumentException e) {
+                Alert nietVerwijderd = new Alert(
+                        Alert.AlertType.ERROR,
+                        String.format(e.getMessage()),
+                        
+                        ButtonType.OK);
+
+                nietVerwijderd.setTitle("Error");
+               nietVerwijderd.setHeaderText("Het materiaal werd niet verwijderd.");
+                
+                nietVerwijderd.setGraphic(iv);
+                nietVerwijderd.showAndWait();
+                return;
+            }
+
         }
 
     }

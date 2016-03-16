@@ -10,6 +10,8 @@ import domein.firma.FirmaRepository;
 import domein.groep.Groep;
 import domein.groep.GroepRepository;
 import java.io.File;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +22,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import shared.MateriaalView;
+import shared.ReservatieLijnView;
+import shared.ReservatieView;
 import util.ImageUtil;
 
 public class MateriaalCatalogusTest {
@@ -45,7 +49,22 @@ public class MateriaalCatalogusTest {
     private List<Materiaal> materialen;
 
     private MateriaalView mv;
+    private MateriaalView mv2;
+    
     private File tempFotoFile;
+
+    private ReservatieView rv;
+    private ReservatieView rv2;
+    private final String EMAIL_CORRECT = "sven@hogent.be";
+    private final LocalDateTime OPHAALMOMENT_CORRECT = LocalDateTime.of(2016, Month.MARCH, 14, 15, 30);
+    private final LocalDateTime INDIENMOMENT_CORRECT = LocalDateTime.of(2016, Month.MARCH, 21, 15, 30);
+    private final LocalDateTime RESERVATIEMOMENT_CORRECT = LocalDateTime.now();
+    private ReservatieLijnView rlv;
+    private ReservatieLijnView rlv2;
+    private List<ReservatieLijnView> reservatieLijnen;
+    private List<ReservatieLijnView> reservatieLijnen2;
+    private List<ReservatieView> reservaties;
+    private List<ReservatieView> reservatiesWaaronderZelfdeMateriaal;
 
     @Before
     public void before() {
@@ -59,8 +78,19 @@ public class MateriaalCatalogusTest {
         materiaalCatalogus = new MateriaalCatalogus(materialen, firmaRepository, groepsRepository);
 
         mv = new MateriaalView(CORRECT_NAAM, CORRECT_AANTAL);
+        mv2=new MateriaalView("Wereldbol", CORRECT_AANTAL);
 
         tempFotoFile = ImageUtil.getResourceAsFile("/images/default_materiaal_img.png");
+        rlv = new ReservatieLijnView(OPHAALMOMENT_CORRECT, INDIENMOMENT_CORRECT, mv, 5);
+        rlv2= new ReservatieLijnView(OPHAALMOMENT_CORRECT, INDIENMOMENT_CORRECT, mv2, 5);
+        reservatieLijnen = new ArrayList(Arrays.asList(rlv));
+        reservatieLijnen2=new ArrayList(Arrays.asList(rlv2));
+        rv = new ReservatieView(EMAIL_CORRECT, OPHAALMOMENT_CORRECT, INDIENMOMENT_CORRECT,
+                RESERVATIEMOMENT_CORRECT, reservatieLijnen);
+        rv2 = new ReservatieView(EMAIL_CORRECT, OPHAALMOMENT_CORRECT, INDIENMOMENT_CORRECT,
+                RESERVATIEMOMENT_CORRECT, reservatieLijnen2);
+        reservaties=new ArrayList(Arrays.asList(rv));
+        reservatiesWaaronderZelfdeMateriaal=new ArrayList(Arrays.asList(rv2));
     }
 
     @Test
@@ -70,7 +100,7 @@ public class MateriaalCatalogusTest {
 
         assertTrue(compareMateriaalViews(mv, materiaalCatalogus.geefAlleMaterialenViews().get(2)));
     }
-    
+
     @Test
     public void voegNieuwMateriaalToeVolledigCorrect() {
         mv.setAantalOnbeschikbaar(CORRECT_AANTAL)
@@ -92,12 +122,12 @@ public class MateriaalCatalogusTest {
         assertTrue(compareMateriaalViews(mv, toegevoegdMv));
         assertEquals(mv.getPrijs(), toegevoegdMv.getPrijs(), 0.001);
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void voegNieuwMateriaalMetNaamDieAlBestaat() {
         materiaalCatalogus.voegMateriaalToe(new MateriaalView(m1.getNaam(), CORRECT_AANTAL));
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void voegNieuwMateriaalToeNaamIsEmpty() {
         mv.setNaam("");
@@ -177,23 +207,29 @@ public class MateriaalCatalogusTest {
 
     @Test
     public void verwijderMateriaalBestaandMateriaal() {
-        assertEquals(m1, materiaalCatalogus.verwijderMateriaal(m1.getNaam()));
+        assertEquals(m1, materiaalCatalogus.verwijderMateriaal(m1.getNaam(),reservaties));
         assertEquals(1, materiaalCatalogus.geefAlleMaterialenViews().size());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void verwijderMateriaalNietBestaandMateriaal() {
-        materiaalCatalogus.verwijderMateriaal("blabla");
+        materiaalCatalogus.verwijderMateriaal("blabla",reservaties);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void verwijderMateriaalNaamIsNull() {
-        materiaalCatalogus.verwijderMateriaal(null);
+        materiaalCatalogus.verwijderMateriaal(null,reservaties);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void verwijderMateriaalNaamIsEmpty() {
-        materiaalCatalogus.verwijderMateriaal("");
+        materiaalCatalogus.verwijderMateriaal("",reservaties);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void verwijderMateriaalBestaandMateriaalNogInReservatie() {
+        materiaalCatalogus.verwijderMateriaal(m1.getNaam(),reservatiesWaaronderZelfdeMateriaal);
+        
     }
 
     @Test
@@ -270,28 +306,23 @@ public class MateriaalCatalogusTest {
 
         assertTrue(compareMateriaalViewWithMateriaal(mv, m1));
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
-    public void wijsAttributenMateriaalViewToeMetBestaandeNaam(){
+    public void wijsAttributenMateriaalViewToeMetBestaandeNaam() {
         materiaalCatalogus.wijsAttributenMateriaalViewToeAanMateriaal(new MateriaalView(m2.getNaam(), 1).setId(m1Id));
     }
-    
+
     private boolean compareMateriaalViews(MateriaalView mv1, MateriaalView mv2) {
 
         return (mv1.getNaam().equals(mv2.getNaam()))
                 && (mv1.getAantal() == mv2.getAantal())
                 && (mv1.getFirma() == null ? mv2.getFirma() == null : mv1.getFirma().equals(mv2.getFirma()))
                 && (mv1.getEmailFirma() == null ? mv2.getEmailFirma() == null : mv1.getEmailFirma().equals(mv2.getEmailFirma()))
-                && 
-                (
-                    mv1.getNewFotoUrl() != null
-                        ?
-                        (mv2.getNewFotoUrl() != null ? mv1.getNewFotoUrl().equals(mv2.getNewFotoUrl()) 
-                            : Arrays.equals(ImageUtil.imageFileToByteArray(mv1.getNewFotoUrl()), mv2.getFotoBytes()))
-                        : 
-                        (mv2.getNewFotoUrl() != null ? Arrays.equals(ImageUtil.imageFileToByteArray(mv2.getNewFotoUrl()), mv1.getFotoBytes())
-                            : Arrays.equals(mv1.getFotoBytes(), mv2.getFotoBytes()))
-                )
+                && (mv1.getNewFotoUrl() != null
+                        ? (mv2.getNewFotoUrl() != null ? mv1.getNewFotoUrl().equals(mv2.getNewFotoUrl())
+                                : Arrays.equals(ImageUtil.imageFileToByteArray(mv1.getNewFotoUrl()), mv2.getFotoBytes()))
+                        : (mv2.getNewFotoUrl() != null ? Arrays.equals(ImageUtil.imageFileToByteArray(mv2.getNewFotoUrl()), mv1.getFotoBytes())
+                                : Arrays.equals(mv1.getFotoBytes(), mv2.getFotoBytes())))
                 && (mv1.getOmschrijving() == null ? mv2.getOmschrijving() == null : mv1.getOmschrijving().equals(mv2.getOmschrijving()))
                 && (mv1.getArtikelNummer() == null ? mv2.getArtikelNummer() == null : mv1.getArtikelNummer().equals(mv2.getArtikelNummer()))
                 && (mv1.getAantalOnbeschikbaar() == mv2.getAantalOnbeschikbaar())
@@ -307,13 +338,9 @@ public class MateriaalCatalogusTest {
                 && (mv.getAantal() == mat.getAantal())
                 && (mv.getFirma() == null ? mat.getFirma() == null : mat.getFirma() == null ? false : mv.getFirma().equals(mat.getFirma().getNaam()))
                 && (mv.getEmailFirma() == null ? mat.getFirma() == null : mat.getFirma() == null ? false : mv.getEmailFirma().equals(mat.getFirma().getEmail()))
-                && (
-                    mv.getNewFotoUrl() == null
-                    ?
-                    mat.getFotoBytes() == null ? mv.getFotoBytes() == null : Arrays.equals(mv.getFotoBytes(), mat.getFotoBytes())
-                    :
-                    mat.getFotoBytes() == null ? false : Arrays.equals(ImageUtil.imageFileToByteArray(mv.getNewFotoUrl()), mat.getFotoBytes())
-                )
+                && (mv.getNewFotoUrl() == null
+                        ? mat.getFotoBytes() == null ? mv.getFotoBytes() == null : Arrays.equals(mv.getFotoBytes(), mat.getFotoBytes())
+                        : mat.getFotoBytes() == null ? false : Arrays.equals(ImageUtil.imageFileToByteArray(mv.getNewFotoUrl()), mat.getFotoBytes()))
                 && (mv.getOmschrijving() == null ? mat.getBeschrijving() == null : mv.getOmschrijving().equals(mat.getBeschrijving()))
                 && (mv.getArtikelNummer() == null ? mat.getArtikelnummer() == null : mv.getArtikelNummer().equals(mat.getArtikelnummer()))
                 && (mv.getAantalOnbeschikbaar() == mat.getAantalOnbeschikbaar())
