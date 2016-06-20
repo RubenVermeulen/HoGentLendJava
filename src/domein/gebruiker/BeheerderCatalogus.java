@@ -27,6 +27,7 @@ public class BeheerderCatalogus {
         if (email == null || userPass == null) {
             return Optional.empty(); // zal geen gebruikers hebben zonder email of wachtwoord
         }
+        System.out.println(beheerders);
         Optional<Gebruiker> gebruiker = beheerders.stream()
                 .filter(g -> g.getEmail().equalsIgnoreCase(email) && passwordEncryptor.checkPassword(userPass, g.getPaswoord()))
                 .findAny();

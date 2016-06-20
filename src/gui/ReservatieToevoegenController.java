@@ -217,7 +217,7 @@ public class ReservatieToevoegenController extends BorderPane {
             indienmoment = indMoment.atTime(indienTijd);
         } catch (IllegalArgumentException e) {
             lblError.setText(e.getMessage());
-             lblError.setVisible(true);
+            lblError.setVisible(true);
             return;
         }
         LocalTime ophaalTijd;
@@ -226,7 +226,7 @@ public class ReservatieToevoegenController extends BorderPane {
         ophaalmoment = ophMoment.atTime(ophaalTijd);
         } catch(IllegalArgumentException e){
             lblError.setText(e.getMessage());
-             lblError.setVisible(true);
+            lblError.setVisible(true);
             return;
         }
         

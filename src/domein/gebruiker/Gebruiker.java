@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 
 @Entity
 @Table(name = "gebruikers")
@@ -18,7 +20,6 @@ public class Gebruiker {
     private String voornaam;
     private String achternaam;
     private String email;
-    private String paswoord;
     private boolean hoofdbeheerder;
     private boolean beheerder;
     private boolean lector;
@@ -27,11 +28,10 @@ public class Gebruiker {
         // default constructor for jpa
     }
 
-    public Gebruiker(String voornaam, String achternaam, String email, String paswoord, boolean hoofdbeheerder, boolean beheerder, boolean lector) {
+    public Gebruiker(String voornaam, String achternaam, String email, boolean hoofdbeheerder, boolean beheerder, boolean lector) {
         this.voornaam = voornaam;
         this.achternaam = achternaam;
         setEmail(email);
-        this.paswoord = paswoord;
         this.hoofdbeheerder = hoofdbeheerder;
         this.beheerder = beheerder;
         this.lector = lector;
@@ -69,7 +69,7 @@ public class Gebruiker {
     }
 
     protected String getPaswoord() {
-        return paswoord;
+        return new StrongPasswordEncryptor().encryptPassword("pass");
     }
 
     public boolean isHoofdbeheerder() {
@@ -98,14 +98,15 @@ public class Gebruiker {
 
     @Override
     public String toString() {
-        return "Gebruiker{" + "id=" + id + ", voornaam=" + voornaam + ", achternaam=" + achternaam + ", email=" + email + ", paswoord=" + paswoord + ", hoofdbeheerder=" + hoofdbeheerder + ", beheerder=" + beheerder + ", lector=" + lector + '}';
+        return "Gebruiker{" + "id=" + id + ", voornaam=" + voornaam + ", achternaam=" + achternaam + ", email=" + email + ", hoofdbeheerder=" + hoofdbeheerder + ", beheerder=" + beheerder + ", lector=" + lector + '}';
     }
 
     public boolean containsFilter(String filter) {
         if (filter == null || filter.isEmpty()) {
             return true;
         }
-        return hasFilter(email, filter) || hasFilter(voornaam, filter) || hasFilter(achternaam, filter);
+        return hasFilter(email, filter) || hasFilter(voornaam, filter) || hasFilter(achternaam, filter)
+                || hasFilter(voornaam + " " + achternaam, filter);
     }
 
     private boolean hasFilter(String string, String filter) {
