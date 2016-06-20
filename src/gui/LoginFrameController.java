@@ -134,7 +134,6 @@ public class LoginFrameController extends BorderPane {
             Scene scene = new Scene(new MainMenuFrameController(this.dc));
             stage.setScene(scene);
             stage.show();
-
         } catch (OngeldigeLoginException e) {
             pfWachtwoord.setText("");
             lblIncorrect.setVisible(true);

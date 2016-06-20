@@ -62,7 +62,6 @@ public class ReservatieCatalogus {
         List<ReservatieView> reservatieViews = new ArrayList();
 
         for (Reservatie r : reservaties) {
-            System.out.println(r.toString());
             reservatieViews.add(toReservatieView(r));
         }
 
@@ -154,7 +153,6 @@ public class ReservatieCatalogus {
         r.setOphaalmoment(rv.getOphaalmoment());
         r.setIndienmoment(rv.getIndienmoment());
         r.setOpgehaald(rv.isOpgehaald());
-//        System.out.println("RESERVATIEMOMENT " + rv.getReservatiemoment());
 
         List<ReservatieLijnView> lvn = rv.getReservatieLijnen();
         List<Long> lnIds = r.getReservatielijnen().stream().map(l -> l.getId()).collect(Collectors.toList());
@@ -165,7 +163,6 @@ public class ReservatieCatalogus {
 
         for (ReservatieLijnView lv : lvn) {
             if (lv.getId() == null) {
-//                System.out.println("VOEG RESERVATIELIJN TOE");
                 toevoegenLijnen.add(lv);
             } else {
                 wijzigenLijnen.add(lv);

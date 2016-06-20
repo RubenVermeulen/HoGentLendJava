@@ -123,9 +123,9 @@
                                               </GridPane.margin>
                                           </Button>
                                           <TextField fx:id="txfZoekReservatie" maxWidth="-Infinity" minWidth="-Infinity" onAction="#onActionTxfZoekReservatie" prefHeight="25.0" prefWidth="202.0" promptText="zoeken..." GridPane.halignment="RIGHT" />
-                                          <DatePicker fx:id="dtmStartDatum" onAction="#onActionDtmStartDatum" prefWidth="142.0" promptText="start datum..." GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                                          <DatePicker fx:id="dtmStartDatum" onAction="#onActionDtmStartDatum" prefWidth="142.0" promptText="startdatum..." GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
                                           <Button fx:id="btnZoekReservatie" mnemonicParsing="false" onAction="#onActionBtnZoekReservatie" prefHeight="25.0" prefWidth="109.0" text="Zoek reservaties" GridPane.columnIndex="2" GridPane.halignment="LEFT" />
-                                          <DatePicker fx:id="dtmEindDatum" onAction="#onActionDtmEindDatum" prefHeight="25.0" prefWidth="142.0" promptText="eind datum..." GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+                                          <DatePicker fx:id="dtmEindDatum" onAction="#onActionDtmEindDatum" prefHeight="25.0" prefWidth="142.0" promptText="einddatum..." GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
                                           <Label text="tot" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                               <Button mnemonicParsing="false" onAction="#onBtnActionToonAlle" text="Toon alle" GridPane.columnIndex="2">
                                  <GridPane.margin>

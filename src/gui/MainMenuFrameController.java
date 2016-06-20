@@ -7,6 +7,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -501,7 +502,6 @@ public class MainMenuFrameController extends BorderPane {
             initialiseerTableViewReservaties();
             setupReservatieLijnen(geselecteerdeReservatie);
         } catch (IllegalArgumentException e) {
-            System.out.println("gecatched in main");
             Alert informationAlert = new Alert(Alert.AlertType.ERROR);
 
             informationAlert.setTitle("Opgelet");
@@ -643,7 +643,7 @@ public class MainMenuFrameController extends BorderPane {
         }
     }
 
-    private LocalTime convertToLocalDateTime(String tijd, String veld) {
+    private LocalDateTime convertToLocalDateTime(String tijd, String veld) {
         if (tijd.isEmpty()) {
             throw new IllegalArgumentException(String.format("Het veld %s mag niet leeg zijn.", veld));
         }
@@ -654,7 +654,7 @@ public class MainMenuFrameController extends BorderPane {
 
         int uur = Integer.parseInt(tijd.substring(0, tijd.indexOf(":")));
         int minuten = Integer.parseInt(tijd.substring(tijd.indexOf(":") + 1, tijd.length()));
-        LocalTime time = LocalTime.of(uur, minuten);
+        LocalDateTime time = LocalDateTime.of(2000, 2, 2, uur, minuten);
         return time;
     }
 

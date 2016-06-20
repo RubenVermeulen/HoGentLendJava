@@ -4,13 +4,13 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class ConfigView {
-    private LocalTime standaardOphaaltijd;
-    private LocalTime standaardIndientijd;
+    private LocalDateTime standaardOphaaltijd;
+    private LocalDateTime standaardIndientijd;
     private String standaardOphaalDag;
     private String standaardIndienDag;
     private int leentermijn;
 
-    public ConfigView(LocalTime standaardOphaaltijd, LocalTime standaardIndientijd, String standaardOphaalDag, String standaardIndienDag, int leentermijn) {
+    public ConfigView(LocalDateTime standaardOphaaltijd, LocalDateTime standaardIndientijd, String standaardOphaalDag, String standaardIndienDag, int leentermijn) {
         this.standaardOphaaltijd = standaardOphaaltijd;
         this.standaardIndientijd = standaardIndientijd;
         this.standaardOphaalDag = standaardOphaalDag;
@@ -18,19 +18,19 @@ public class ConfigView {
         this.leentermijn = leentermijn;
     }
 
-    public LocalTime getStandaardOphaaltijd() {
+    public LocalDateTime getStandaardOphaaltijd() {
         return standaardOphaaltijd;
     }
 
-    public void setStandaardOphaaltijd(LocalTime standaardOphaaltijd) {
+    public void setStandaardOphaaltijd(LocalDateTime standaardOphaaltijd) {
         this.standaardOphaaltijd = standaardOphaaltijd;
     }
 
-    public LocalTime getStandaardIndientijd() {
+    public LocalDateTime getStandaardIndientijd() {
         return standaardIndientijd;
     }
 
-    public void setStandaardIndientijd(LocalTime standaardIndientijd) {
+    public void setStandaardIndientijd(LocalDateTime standaardIndientijd) {
         this.standaardIndientijd = standaardIndientijd;
     }
 

@@ -1,5 +1,6 @@
 package domein.config;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -22,8 +23,8 @@ public class ConfigLoader {
             config = (Config) q.getSingleResult();
         } catch (NoResultException e) {
             config = new Config();
-            config.setStandaardIndientijd(LocalTime.NOON);
-            config.setStandaardOphaaltijd(LocalTime.MIDNIGHT);
+            config.setStandaardIndientijd(LocalDateTime.of(2000,2,2, LocalTime.NOON.getHour(), LocalTime.NOON.getMinute()));
+            config.setStandaardOphaaltijd(LocalDateTime.of(2000,2,2, LocalTime.MIDNIGHT.getHour(), LocalTime.MIDNIGHT.getMinute()));
             config.setStandaardOphaalDag("maandag");
             config.setStandaardIndienDag("vrijdag");
 
