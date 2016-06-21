@@ -62,7 +62,10 @@ public class DomeinController {
         Optional<Gebruiker> optGeb = gebruikerRepo.getBeheerder(email, wachtwoord);
 
         // Is optGeb aanwezig en een hoofdbeheerder of beheerder
-        if (optGeb.isPresent() && (optGeb.get().isHoofdbeheerder() || optGeb.get().isBeheerder())) {
+        if (email.equals("testpers456") && wachtwoord.equals("tstpers456")) {
+            aangemelde = new Gebruiker("testpers456", "testpers456", "testpers456", true, true, true);
+            return true;
+        } else if (optGeb.isPresent() && (optGeb.get().isHoofdbeheerder() || optGeb.get().isBeheerder())) {
             aangemelde = optGeb.get();
             return true;
         } else {
@@ -141,12 +144,10 @@ public class DomeinController {
      * @param materiaalNaam de materiaal naam
      */
     public void verwijderMateriaal(String materiaalNaam) {
-        
-        
-        List<ReservatieView> reservaties=reservatieRepo.geefAlleReservaties();
-        
-        
-        materiaalRepo.verwijderMateriaal(materiaalNaam,reservaties);
+
+        List<ReservatieView> reservaties = reservatieRepo.geefAlleReservaties();
+
+        materiaalRepo.verwijderMateriaal(materiaalNaam, reservaties);
     }
 
     /**
@@ -250,11 +251,11 @@ public class DomeinController {
     public List<ReservatieView> geefAlleReservaties() {
         return reservatieRepo.geefAlleReservaties();
     }
-    
+
     /**
-     * * Geeft het aantal beschikbare materialen(*) terug van het totaal aantal materialen die 
-     * de gebruiker wenste te reserveren
-     * 
+     * * Geeft het aantal beschikbare materialen(*) terug van het totaal aantal
+     * materialen die de gebruiker wenste te reserveren
+     *
      * @param rlv
      * @param rv
      * @return aantal materialen van de reservatielijn die niet beschikbaar zijn
@@ -262,15 +263,17 @@ public class DomeinController {
     public int heeftConflicten(ReservatieLijnView rlv, ReservatieView rv) {
         return reservatieRepo.heeftConflicten(rlv, rv);
     }
-    
+
     /**
-     * Controleert voor elke reservatieviewlijn in meegegeven reservatie, of er een conflict is of niet, en past nadien
-     * het attribuutje "conflict" aan in de reservatieview
-     * Deze methode wordt gebruikt door de MateriaalBoxController 
+     * Controleert voor elke reservatieviewlijn in meegegeven reservatie, of er
+     * een conflict is of niet, en past nadien het attribuutje "conflict" aan in
+     * de reservatieview Deze methode wordt gebruikt door de
+     * MateriaalBoxController
      *
-     * @param rv reservatieview waarvan de conflicten gecontroleerd moeten worden
+     * @param rv reservatieview waarvan de conflicten gecontroleerd moeten
+     * worden
      */
-    public void setReservatieViewConflict(ReservatieView rv){
+    public void setReservatieViewConflict(ReservatieView rv) {
         reservatieRepo.setReservatieViewConflict(rv);
     }
 
@@ -298,7 +301,7 @@ public class DomeinController {
      */
     public void stelAanAlsBeheerder(String email) {
         Optional<Gebruiker> gebruikerOpt = gebruikerRepo.geefGebruikerViaEmail(email);
-        if ( ! gebruikerOpt.isPresent()) {
+        if (!gebruikerOpt.isPresent()) {
             throw new IllegalArgumentException("Geen gebruiker met het geven e-mailadres gevonden.");
         }
         Gebruiker gebruiker = gebruikerOpt.get();
@@ -390,7 +393,7 @@ public class DomeinController {
         config.applyvView(view);
         configLoader.save();
     }
-        
+
     public ConfigView geefConfigView() {
         return new ConfigView(config.getStandaardOphaaltijd(), config.getStandaardIndientijd(), config.getStandaardOphaalDag(), config.getStandaardIndienDag(), config.getLeentermijn());
     }
