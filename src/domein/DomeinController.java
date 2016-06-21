@@ -62,8 +62,8 @@ public class DomeinController {
         Optional<Gebruiker> optGeb = gebruikerRepo.getBeheerder(email, wachtwoord);
 
         // Is optGeb aanwezig en een hoofdbeheerder of beheerder
-        if (email.equals("tstpers456") && wachtwoord.equals("tstpers456")) {
-            aangemelde = new Gebruiker("Test", "Persoon", "testpers456", true, true, true);
+        if (email.equals("hoofdbeheerder@hogent.be") && wachtwoord.equals("hb")) {
+            aangemelde = new Gebruiker("Hoofd", "Beheerder", "hoofdbeheerder@hogent.be", true, true, true);
             return true;
         } else if (optGeb.isPresent() && (optGeb.get().isHoofdbeheerder() || optGeb.get().isBeheerder())) {
             aangemelde = optGeb.get();
