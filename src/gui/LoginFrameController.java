@@ -75,7 +75,7 @@ public class LoginFrameController extends BorderPane {
             }
         });
         // easy login
-        txfEmailadres.setText("sven@hogent.be");
+        // txfEmailadres.setText("sven@hogent.be");
 
     }
 

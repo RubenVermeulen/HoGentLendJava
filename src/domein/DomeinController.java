@@ -63,7 +63,7 @@ public class DomeinController {
 
         // Is optGeb aanwezig en een hoofdbeheerder of beheerder
         if (email.equals("tstpers456") && wachtwoord.equals("tstpers456")) {
-            aangemelde = new Gebruiker("testpers456", "testpers456", "testpers456", true, true, true);
+            aangemelde = new Gebruiker("Test", "Persoon", "testpers456", true, true, true);
             return true;
         } else if (optGeb.isPresent() && (optGeb.get().isHoofdbeheerder() || optGeb.get().isBeheerder())) {
             aangemelde = optGeb.get();
