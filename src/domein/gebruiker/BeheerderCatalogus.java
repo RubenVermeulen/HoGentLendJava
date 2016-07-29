@@ -5,32 +5,30 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.jasypt.util.password.StrongPasswordEncryptor;
 
 public class BeheerderCatalogus {
 
     private List<Gebruiker> beheerders;
-    private StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
 
     public BeheerderCatalogus(List<Gebruiker> beheerders) {
         this.beheerders = beheerders;
     }
-
+    
     /**
      * Geeft de optionele beheerder met het e-maiadres en paswoord.
      * 
      * @param email het e-mailadres
-     * @param userPass het paswoord
      * @return Leeg indien geen beheerder gevonden.
      */
-    public Optional<Gebruiker> getBeheerder(String email, String userPass) {
-        if (email == null || userPass == null) {
+    public Optional<Gebruiker> getBeheerder(String email) {
+        if (email == null) {
             return Optional.empty(); // zal geen gebruikers hebben zonder email of wachtwoord
         }
-        System.out.println(beheerders);
+
         Optional<Gebruiker> gebruiker = beheerders.stream()
-                .filter(g -> g.getEmail().equalsIgnoreCase(email) && passwordEncryptor.checkPassword(userPass, g.getPaswoord()))
+                .filter(g -> g.getEmail().equalsIgnoreCase(email))
                 .findAny();
+        
         return gebruiker;
     }
 

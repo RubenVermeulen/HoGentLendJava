@@ -33,9 +33,9 @@ public class GebruikerRepository {
         System.out.println(beheerders);
         this.beheerderCat = new BeheerderCatalogus(beheerders);
     }
-
-    public Optional<Gebruiker> getBeheerder(String email, String userPass) {
-        return beheerderCat.getBeheerder(email, userPass);
+    
+    public Optional<Gebruiker> getBeheerder(String email) {
+        return beheerderCat.getBeheerder(email);
     }
 
     public void verwijderBeheerder(Gebruiker gebruiker) {

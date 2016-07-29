@@ -1,5 +1,7 @@
 package domein;
 
+import auth.AuthProvider;
+import auth.HoGentAuthProvider;
 import domein.config.Config;
 import domein.config.ConfigLoader;
 import domein.gebruiker.GebruikerRepository;
@@ -11,9 +13,7 @@ import domein.firma.FirmaRepository;
 import domein.firma.Firma;
 import exceptions.BulkToevoegenMisluktException;
 import exceptions.GeenToegangException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -26,10 +26,11 @@ import shared.ReservatieView;
 public class DomeinController {
 
     private GebruikerRepository gebruikerRepo;
+    private AuthProvider authProvider;
     private MateriaalRepository materiaalRepo;
     private ReservatieRepository reservatieRepo;
     private FirmaRepository firmaRepo;
-    private Gebruiker aangemelde;
+    private Gebruiker aangemelde = null;
     private Config config;
     private ConfigLoader configLoader;
 
@@ -39,6 +40,7 @@ public class DomeinController {
 
     public DomeinController(GebruikerRepository gebruikerRepo) {
         this.gebruikerRepo = gebruikerRepo;
+        this.authProvider = new HoGentAuthProvider(gebruikerRepo);
         this.firmaRepo = new FirmaRepository();
         this.materiaalRepo = new MateriaalRepository(firmaRepo);
         this.reservatieRepo = new ReservatieRepository(materiaalRepo, gebruikerRepo);
@@ -59,19 +61,16 @@ public class DomeinController {
      * en/of wachtwoord verkeerd waren.
      */
     public boolean meldAan(String email, String wachtwoord) {
-        Optional<Gebruiker> optGeb = gebruikerRepo.getBeheerder(email, wachtwoord);
+        //Optional<Gebruiker> optGeb = gebruikerRepo.getBeheerder(email, wachtwoord);
 
-        // Is optGeb aanwezig en een hoofdbeheerder of beheerder
-        if (email.equals("hoofdbeheerder@hogent.be") && wachtwoord.equals("hb")) {
-            aangemelde = new Gebruiker("Hoofd", "Beheerder", "hoofdbeheerder@hogent.be", true, true, true);
+        Optional<Gebruiker> gebruiker = authProvider.authenticate(email, wachtwoord);
+        
+        if (gebruiker.isPresent()) {
+            aangemelde = gebruiker.get();
             return true;
-        } else if (optGeb.isPresent() && (optGeb.get().isHoofdbeheerder() || optGeb.get().isBeheerder())) {
-            aangemelde = optGeb.get();
-            return true;
-        } else {
-            aangemelde = null;
-            return false;
         }
+        
+        return false;
     }
 
     /**
