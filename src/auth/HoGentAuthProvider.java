@@ -9,17 +9,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import domein.gebruiker.Gebruiker;
 import domein.gebruiker.GebruikerRepository;
-import java.io.IOException;
 import java.lang.reflect.Type;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 import java.util.Optional;
-import javax.xml.bind.DatatypeConverter;
-import org.apache.commons.io.IOUtils;
+import static util.HashUtil.getSha256;
+import static util.JsonUtil.getJson;
 
 public class HoGentAuthProvider implements AuthProvider {
 
@@ -56,25 +50,5 @@ public class HoGentAuthProvider implements AuthProvider {
             return Optional.empty();
         
         return user;
-    }
-    
-    private String getSha256(String value) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            
-            byte[] hash = digest.digest(value.getBytes(StandardCharsets.UTF_8));
-            
-            return DatatypeConverter.printHexBinary(hash);
-        } catch (NoSuchAlgorithmException ex) {
-            return null;
-        }
-    }
-    
-    private String getJson(String url) {
-        try {
-            return IOUtils.toString(new URL(url), (Charset) null);
-        } catch (IOException ex) {
-            return null;
-        }
     }
 }
