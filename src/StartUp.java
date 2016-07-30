@@ -1,27 +1,13 @@
 
 import domein.DomeinController;
-import domein.config.Config;
-import domein.firma.Firma;
-import domein.gebruiker.Gebruiker;
-import domein.reservatie.ReservatieLijn;
-import domein.groep.Groep;
-import domein.materiaal.Materiaal;
-import domein.reservatie.Reservatie;
+import gui.ConnectionController;
 import gui.LoginFrameController;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.temporal.WeekFields;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import org.jasypt.util.password.StrongPasswordEncryptor;
-import util.ImageUtil;
 import util.JPAUtil;
 
 /**
@@ -41,10 +27,10 @@ public class StartUp extends Application {// test xd
     public void start(Stage stage) {
 
         // Database test
-        EntityManagerFactory emf = JPAUtil.getEntityManagerFactory();
-        EntityManager em = emf.createEntityManager();
-
-        em.getTransaction().begin();
+//        EntityManagerFactory emf = JPAUtil.getEntityManagerFactory();
+//        EntityManager em = emf.createEntityManager();
+//
+//        em.getTransaction().begin();
 
 //        // Gebruikers aanmaken
 //        StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
@@ -297,6 +283,7 @@ public class StartUp extends Application {// test xd
 //        emf.close();
 //        System.out.println("Closed");
         DomeinController domCont = new DomeinController();
+        domCont.setPimaryStage(stage);
         //      domCont.geefAlleReservaties().toString();
         Scene scene = new Scene(new LoginFrameController(domCont));
 //        Scene scene = new Scene(new MainMenuFrameController(domCont));

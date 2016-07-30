@@ -13,11 +13,16 @@ import domein.firma.FirmaRepository;
 import domein.firma.Firma;
 import exceptions.BulkToevoegenMisluktException;
 import exceptions.GeenToegangException;
+import gui.ConnectionController;
+import gui.LoginFrameController;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import shared.ConfigView;
 import shared.MateriaalView;
 import shared.ReservatieLijnView;
@@ -33,19 +38,31 @@ public class DomeinController {
     private Gebruiker aangemelde = null;
     private Config config;
     private ConfigLoader configLoader;
+    private Stage primaryStage;
+    
+    private boolean connectionAlive = false;
 
     public DomeinController() {
         this(new GebruikerRepository());
     }
 
-    public DomeinController(GebruikerRepository gebruikerRepo) {
-        this.gebruikerRepo = gebruikerRepo;
+    public DomeinController(GebruikerRepository gebruikerRepository) {   
+        this.gebruikerRepo = gebruikerRepository;
         this.authProvider = new HoGentAuthProvider(gebruikerRepo);
+        
+        Thread t = new Thread(new CheckDatabaseConnection(this));
+        
+        t.setDaemon(true);
+        t.start();
+    }
+    
+    public void initialize() {
+        
         this.firmaRepo = new FirmaRepository();
         this.materiaalRepo = new MateriaalRepository(firmaRepo);
         this.reservatieRepo = new ReservatieRepository(materiaalRepo, gebruikerRepo);
         this.configLoader = new ConfigLoader();
-        this.config = configLoader.load();
+        this.config = configLoader.load(); 
     }
 
     /* -------------------------------- */
@@ -61,11 +78,14 @@ public class DomeinController {
      * en/of wachtwoord verkeerd waren.
      */
     public boolean meldAan(String email, String wachtwoord) {
-        //Optional<Gebruiker> optGeb = gebruikerRepo.getBeheerder(email, wachtwoord);
-
+        promptLostConnection();
+        
+        gebruikerRepo.initialiseerBeheerderCatalogus();
+        
         Optional<Gebruiker> gebruiker = authProvider.authenticate(email, wachtwoord);
         
         if (gebruiker.isPresent()) {
+            initialize();
             aangemelde = gebruiker.get();
             return true;
         }
@@ -79,7 +99,7 @@ public class DomeinController {
      *
      * @return String[3] - voornaam, achternaam, email
      */
-    public String[] geefGegevensAangemeldeGebruiker() {
+    public String[] geefGegevensAangemeldeGebruiker() {       
         if (aangemelde != null) {
             return new String[]{aangemelde.getVoornaam(), aangemelde.getAchternaam(), aangemelde.getEmail()};
         } else {
@@ -110,7 +130,7 @@ public class DomeinController {
      *
      * @param mv de materiaalview
      */
-    public void voegMateriaalToe(MateriaalView mv) {
+    public void voegMateriaalToe(MateriaalView mv) {        
         materiaalRepo.voegMateriaalToe(mv);
 
     }
@@ -123,7 +143,7 @@ public class DomeinController {
      * @throws exceptions.BulkToevoegenMisluktException indien het bulk
      * toevoegen mislukt is
      */
-    public void voegMaterialenToeInBulk(String csvFilePath) throws BulkToevoegenMisluktException {
+    public void voegMaterialenToeInBulk(String csvFilePath) throws BulkToevoegenMisluktException {        
         materiaalRepo.voegMaterialenToeInBulk(csvFilePath);
     }
 
@@ -133,7 +153,7 @@ public class DomeinController {
      *
      * @param mv het aan te passen materiaal in de vorm van een materiaalview
      */
-    public void wijzigMateriaal(MateriaalView mv) {
+    public void wijzigMateriaal(MateriaalView mv) {        
         materiaalRepo.wijzigMateriaal(mv);
     }
 
@@ -142,8 +162,7 @@ public class DomeinController {
      *
      * @param materiaalNaam de materiaal naam
      */
-    public void verwijderMateriaal(String materiaalNaam) {
-
+    public void verwijderMateriaal(String materiaalNaam) {        
         List<ReservatieView> reservaties = reservatieRepo.geefAlleReservaties();
 
         materiaalRepo.verwijderMateriaal(materiaalNaam, reservaties);
@@ -178,7 +197,7 @@ public class DomeinController {
      * @param text de naam van de nieuwe groep
      * @param isLeerGroep of het een doelgroep of leergebied is.
      */
-    public void voegGroepToe(String text, boolean isLeerGroep) {
+    public void voegGroepToe(String text, boolean isLeerGroep) {        
         materiaalRepo.voegGroepToe(text, isLeerGroep);
     }
 
@@ -188,7 +207,7 @@ public class DomeinController {
      * @param groep de naam van de te verwijderen groep
      * @param isLeerGroep of het een doelgroep of leergebied is
      */
-    public void verwijderGroep(String groep, boolean isLeerGroep) {
+    public void verwijderGroep(String groep, boolean isLeerGroep) {        
         materiaalRepo.verwijderGroep(groep, isLeerGroep);
     }
 
@@ -219,7 +238,7 @@ public class DomeinController {
      *
      * @param rv de reservatieview
      */
-    public void voegReservatieToe(ReservatieView rv) {
+    public void voegReservatieToe(ReservatieView rv) {        
         reservatieRepo.voegReservatieToe(rv);
     }
 
@@ -229,7 +248,7 @@ public class DomeinController {
      *
      * @param rv het aan te passen reservaite in de vorm van een reservatieview
      */
-    public void wijzigReservatie(ReservatieView rv) {
+    public void wijzigReservatie(ReservatieView rv) {        
         reservatieRepo.wijzigReservatie(rv);
     }
 
@@ -238,7 +257,7 @@ public class DomeinController {
      *
      * @param rv de reservatieview
      */
-    public void verwijderReservatie(ReservatieView rv) {
+    public void verwijderReservatie(ReservatieView rv) {        
         reservatieRepo.verwijderReservatie(rv);
     }
 
@@ -298,10 +317,10 @@ public class DomeinController {
      * @throws IllegalArgumentException indien geen gebruiker is gevonden met
      * het gegeven e-mailadres
      */
-    public void stelAanAlsBeheerder(String email) {
+    public void stelAanAlsBeheerder(String email) {        
         Optional<Gebruiker> gebruikerOpt = gebruikerRepo.geefGebruikerViaEmail(email);
         if (!gebruikerOpt.isPresent()) {
-            throw new IllegalArgumentException("Geen gebruiker met het geven e-mailadres gevonden.");
+            throw new IllegalArgumentException("Geen gebruiker met het gegeven e-mailadres gevonden.");
         }
         Gebruiker gebruiker = gebruikerOpt.get();
         checkKanAangemeldeBeheerderStatusWijzigenVan(gebruiker);
@@ -313,7 +332,7 @@ public class DomeinController {
      *
      * @param gebruiker de te degraderen gebruiker
      */
-    public void verwijderBeheerder(Gebruiker gebruiker) {
+    public void verwijderBeheerder(Gebruiker gebruiker) {        
         checkKanAangemeldeBeheerderStatusWijzigenVan(gebruiker);
         gebruikerRepo.verwijderBeheerder(gebruiker);
     }
@@ -336,7 +355,7 @@ public class DomeinController {
      * @param naam de naam
      * @param email het email adres
      */
-    public void voegFirmaToe(String naam, String email) {
+    public void voegFirmaToe(String naam, String email) {        
         firmaRepo.voegFirmaToe(naam, email);
     }
 
@@ -347,7 +366,7 @@ public class DomeinController {
      * @param nieuweNaam de nieuwe naam
      * @param nieuwEmailadres het nieuwe e-mailadres
      */
-    public void wijzigFirmas(Firma firma, String nieuweNaam, String nieuwEmailadres) {
+    public void wijzigFirmas(Firma firma, String nieuweNaam, String nieuwEmailadres) {        
         materiaalRepo.wijzigFirmas(firma, nieuweNaam, nieuwEmailadres);
     }
 
@@ -356,7 +375,7 @@ public class DomeinController {
      *
      * @param naam de naam van de te verwijderen firma
      */
-    public void verwijderFirma(String naam) {
+    public void verwijderFirma(String naam) {        
         firmaRepo.verwijderFirma(naam, materiaalRepo.geefAlleMaterialen());
     }
 
@@ -385,7 +404,7 @@ public class DomeinController {
     /* -------------------------------- */
     // CONFIG
     /* -------------------------------- */
-    public void saveConfig(ConfigView view) {
+    public void saveConfig(ConfigView view) {        
         if (!aangemelde.isHoofdbeheerder()) {
             throw new GeenToegangException("Je moet hoofdbeheerder zijn om de configuraties te wijzigen.");
         }
@@ -416,5 +435,37 @@ public class DomeinController {
     private List<String> firmaListToString(List<Firma> firmas) {
         return firmas.stream().map(f -> f.getNaam()).collect(Collectors.toList());
     }
+    
+    public void promptLostConnection() {
+        if ( ! isConnectionAlive()) {
+            Scene promptScene = new Scene(new ConnectionController(this));
+            Stage prompt = new Stage();
+            prompt.initModality(Modality.APPLICATION_MODAL);
+            prompt.initOwner(primaryStage.getScene().getWindow());
+            prompt.setScene(promptScene);
+            prompt.showAndWait();
+        }
+    }
 
+    /* -------------------------------- */
+    // GETTERS
+    /* -------------------------------- */
+    public boolean isConnectionAlive() {
+        return connectionAlive;
+    }
+    
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    /* -------------------------------- */
+    // SETTERS
+    /* -------------------------------- */
+    public void setConnectionAlive(boolean connectionAlive) {
+        this.connectionAlive = connectionAlive;
+    }
+    
+    public void setPimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
 }
