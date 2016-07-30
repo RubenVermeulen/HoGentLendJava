@@ -68,10 +68,6 @@ public class Gebruiker {
         this.email = email;
     }
 
-    protected String getPaswoord() {
-        return new StrongPasswordEncryptor().encryptPassword("pass");
-    }
-
     public boolean isHoofdbeheerder() {
         return hoofdbeheerder;
     }
