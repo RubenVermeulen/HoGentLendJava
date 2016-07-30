@@ -30,9 +30,6 @@ public class CheckDatabaseConnection implements Runnable {
         createConnection();
 
         while (true) {
-
-            System.out.println(dc.isConnectionAlive());
-
             try {
                 stmt.executeQuery("SELECT 1");
                 dc.setConnectionAlive(true);
