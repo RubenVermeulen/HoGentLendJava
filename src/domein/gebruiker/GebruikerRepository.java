@@ -17,7 +17,7 @@ public class GebruikerRepository {
     private EntityManager em;
 
     public GebruikerRepository() {
-        this.em = JPAUtil.getEntityManagerFactory().createEntityManager();;
+        this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
         loadBeheerderCatalogus();
     }
 
