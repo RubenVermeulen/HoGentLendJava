@@ -13,12 +13,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class LoginFrameController extends BorderPane {
@@ -49,7 +47,7 @@ public class LoginFrameController extends BorderPane {
     public LoginFrameController(DomeinController dc) {
 
         this.dc = dc;
-
+        
         FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginFrame.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -74,9 +72,6 @@ public class LoginFrameController extends BorderPane {
                 }
             }
         });
-        // easy login
-        // txfEmailadres.setText("sven@hogent.be");
-
     }
 
     @FXML
