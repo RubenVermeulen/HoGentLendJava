@@ -10,7 +10,7 @@ public class GebruikerTest {
     public void testEmailWordLowerCase(){
         final String emailUpper = "EEN@Email.Com";
         final String emailLower = "een@email.com";
-        Gebruiker gebruiker = new Gebruiker(null, null, emailUpper, null, false, false, false);
+        Gebruiker gebruiker = new Gebruiker(null, null, emailUpper, false, false, false);
         Assert.assertEquals(emailLower, gebruiker.getEmail());
     }
     
@@ -22,7 +22,7 @@ public class GebruikerTest {
         final String[] GELDIGE_FILTERS = new String[]{
             "een@", "EmaIL", "sven", "VEN", "Ded", "DEen", null, ""};
         final String[] ONGELDIGE_FILTERS = new String[]{"eeen", "een willekeurige string", "ddeene", "\t\t"};
-        Gebruiker gebruiker = new Gebruiker(voornaam, naam, email, null, false, false, false);
+        Gebruiker gebruiker = new Gebruiker(voornaam, naam, email, false, false, false);
         verifyContainsFilterResult(gebruiker, true, GELDIGE_FILTERS);
         verifyContainsFilterResult(gebruiker, false, ONGELDIGE_FILTERS);
     }
