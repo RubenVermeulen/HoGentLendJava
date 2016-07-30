@@ -61,6 +61,7 @@ public class BeheerderCatalogus {
         if (!gebruiker.isLector()) {
             throw new IllegalArgumentException("De gebruiker moet een lector zijn.");
         }
+        
         gebruiker.setBeheerder(true);
         beheerders.add(gebruiker);
     }
