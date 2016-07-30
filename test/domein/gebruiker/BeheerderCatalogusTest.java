@@ -24,35 +24,32 @@ public class BeheerderCatalogusTest {
         hoofdBeheerder = new Gebruiker("HoofdBeheer Voornaam",
                 "HoofdBeheer Naam",
                 "voornaam.naam@hoofdbeheerder.com",
-                PASSWORD_HASH,
                 true, false, false);
 
         beheerder = new Gebruiker("Beheer Voornaam",
                 "Beheerder Naam",
                 "voornaam.naam@beheer.com",
-                PASSWORD_HASH,
                 false, true, false);
         beheerders = new ArrayList<>(Arrays.asList(hoofdBeheerder, beheerder));
         beheerderCat = new BeheerderCatalogus(beheerders);
     }
 
     @Test
-    public void testGetBeheerderGeeftLeegIncorrectEmailOfPass() {
-        Assert.assertFalse(beheerderCat.getBeheerder("incorrect email", "incorrect password").isPresent());
-        Assert.assertFalse(beheerderCat.getBeheerder(beheerder.getEmail(), "incorrect password").isPresent());
-        Assert.assertFalse(beheerderCat.getBeheerder("incorrect email", PASSWORD).isPresent());
+    public void testGetBeheerderGeeftLeegIncorrectEmail() {
+        Assert.assertFalse(beheerderCat.getBeheerder("incorrect email").isPresent());
+        Assert.assertFalse(beheerderCat.getBeheerder("jef@hoofdbeheerder.com").isPresent());
     }
 
     @Test
     public void testGetBeheerderGeeftBeheerderCorrectEmailEnPass() {
-        Gebruiker result = beheerderCat.getBeheerder(beheerder.getEmail(), PASSWORD).get();
+        Gebruiker result = beheerderCat.getBeheerder(beheerder.getEmail()).get();
         Assert.assertEquals(beheerder, result);
     }
 
     @Test
     public void testNaVerwijderBeheerderGeeftBeheerderNietMeerTerug() {
         beheerderCat.verwijderBeheerder(beheerder);
-        Assert.assertFalse(beheerderCat.getBeheerder(beheerder.getEmail(), PASSWORD).isPresent());
+        Assert.assertFalse(beheerderCat.getBeheerder(beheerder.getEmail()).isPresent());
     }
 
     @Test
@@ -67,7 +64,6 @@ public class BeheerderCatalogusTest {
         Gebruiker student = new Gebruiker("student Voornaam",
                 "student Naam",
                 "voornaam.naam@student.com",
-                PASSWORD_HASH,
                 false, false, false);
         beheerderCat.voegToeAlsBeheerder(student);
     }
@@ -77,9 +73,8 @@ public class BeheerderCatalogusTest {
         Gebruiker lector = new Gebruiker("lector Voornaam",
                 "lector Naam",
                 "voornaam.naam@lector.com",
-                PASSWORD_HASH,
                 false, false, true);
         beheerderCat.voegToeAlsBeheerder(lector);
-        Assert.assertEquals(lector, beheerderCat.getBeheerder(lector.getEmail(), PASSWORD).get());
+        Assert.assertEquals(lector, beheerderCat.getBeheerder(lector.getEmail()).get());
     }
 }
