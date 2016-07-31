@@ -25,7 +25,7 @@ public class ConnectionController extends BorderPane {
     private Color colorSucces = Color.web("#04B431");
     private Color colorNeutral = Color.web("#000000");
     private Thread t;
-     
+    
     public ConnectionController(DomeinController dc) {
 
         this.dc = dc;
@@ -48,12 +48,7 @@ public class ConnectionController extends BorderPane {
 
     @FXML
     private void btnContinueAction(ActionEvent event) {
-        t.stop();
-        
-//        Stage stage = dc.getPrimaryStage();
-//        Scene scene = new Scene(new LoginFrameController(this.dc));
-//        stage.setScene(scene);
-//        stage.show();
+        t.interrupt();
 
         Stage stage = (Stage) btnContinue.getScene().getWindow();
         stage.close();
@@ -61,12 +56,12 @@ public class ConnectionController extends BorderPane {
     
     class TestConnection implements Runnable {
 
+        private volatile boolean execute = true;
+        
         @Override
         public void run() {
-            try {
-                Thread.sleep(2000);
-                
-                while (true) {
+            try {                
+                while ( ! Thread.currentThread().isInterrupted()) {
                     Thread.sleep(1000);
                     
                     if (dc.isConnectionAlive()) {
@@ -83,6 +78,10 @@ public class ConnectionController extends BorderPane {
             } catch (InterruptedException ex) {
                 Logger.getLogger(ConnectionController.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+        
+        public void stopExecuting() {
+            execute = false;
         }
     }
 }
