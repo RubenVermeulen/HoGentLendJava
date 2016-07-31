@@ -17,7 +17,7 @@ import static util.JsonUtil.getJson;
 
 public class HoGentAuthProvider implements AuthProvider {
 
-    private String url = "https://studservice.hogent.be/auth";
+    private String urlBegin = "https://studservice.hogent.be/auth";
     private final GebruikerRepository gebruikerRepository;
 
     public HoGentAuthProvider(GebruikerRepository gebruikerRepository) {
@@ -29,7 +29,7 @@ public class HoGentAuthProvider implements AuthProvider {
         if (userId == null || password == null || userId.isEmpty() || password.isEmpty()) 
             return Optional.empty();
         
-        url = String.format("%s/%s/%s", url, userId, getSha256(password));
+        String url = String.format("%s/%s/%s", urlBegin, userId, getSha256(password));
         
         String json = getJson(url);
         
