@@ -33,7 +33,7 @@
                     <children>
                         <ImageView fx:id="imgvFoto" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                             <image>
-                                <Image url="@../images/default_materiaal_img.png" />
+                                <Image url="@../images/default-placeholder.png" />
                             </image>
                             <viewport>
                                 <Rectangle2D />

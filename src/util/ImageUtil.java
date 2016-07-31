@@ -46,7 +46,7 @@ public class ImageUtil {
     public static Image byteArrayToImage(byte[] byteArray) {
         if (byteArray == null) {
             return defaultImage != null ? defaultImage
-                    : (defaultImage = new Image(ImageUtil.class.getResourceAsStream("/images/default_materiaal_img.png")));
+                    : (defaultImage = new Image(ImageUtil.class.getResourceAsStream("/images/default-placeholder.png")));
         }
         return new Image(new ByteArrayInputStream(byteArray));
     }

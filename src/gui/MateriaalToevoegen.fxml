@@ -39,7 +39,7 @@
                                     <children>
                                         <ImageView id="imagePreview" fx:id="previewFoto" fitHeight="175.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@../images/default_materiaal_img.png" />
+                                                <Image url="@../images/default-placeholder.png" />
                                             </image>
                                             <HBox.margin>
                                                 <Insets bottom="40.0" left="40.0" right="20.0" top="40.0" />

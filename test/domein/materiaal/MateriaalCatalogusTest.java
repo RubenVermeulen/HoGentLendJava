@@ -80,7 +80,7 @@ public class MateriaalCatalogusTest {
         mv = new MateriaalView(CORRECT_NAAM, CORRECT_AANTAL);
         mv2 = new MateriaalView("Wereldbol", CORRECT_AANTAL);
 
-        tempFotoFile = ImageUtil.getResourceAsFile("/images/default_materiaal_img.png");
+        tempFotoFile = ImageUtil.getResourceAsFile("/images/default-placeholder.png");
         rlv = new ReservatieLijnView(OPHAALMOMENT_CORRECT, INDIENMOMENT_CORRECT, mv, 5);
         rlv2 = new ReservatieLijnView(OPHAALMOMENT_CORRECT, INDIENMOMENT_CORRECT, mv2, 5);
         reservatieLijnen = new ArrayList(Arrays.asList(rlv));

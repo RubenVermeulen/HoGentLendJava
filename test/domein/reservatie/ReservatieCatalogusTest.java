@@ -85,7 +85,7 @@ public class ReservatieCatalogusTest {
         MockitoAnnotations.initMocks(this);
         m1.setId(m1id);
         m2.setId(99);
-        tempFotoFile = ImageUtil.getResourceAsFile("/images/default_materiaal_img.png");
+        tempFotoFile = ImageUtil.getResourceAsFile("/images/default-placeholder.png");
 
         rl = new ReservatieLijn(m1, 2, OPHAALMOMENT_CORRECT, INDIENMOMENT_CORRECT);
 
