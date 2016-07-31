@@ -1,5 +1,6 @@
 package domein;
 
+import util.CheckDatabaseConnection;
 import auth.AuthProvider;
 import auth.HoGentAuthProvider;
 import domein.config.Config;

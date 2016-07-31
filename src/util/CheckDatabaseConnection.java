@@ -1,4 +1,4 @@
-package domein;
+package util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,14 +7,12 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import config.DatabaseConfig;
+import domein.DomeinController;
 
 public class CheckDatabaseConnection implements Runnable {
 
-    private final int interval = 1000;
-    private final String userName = "remote";
-    private final String password = "remote";
-    private final String connectionString = "jdbc:sqlserver://192.168.56.101\\SQLEXPRESS:1433;databaseName=HoGentLend";
-    
+    private final int interval = 1000;    
     private Connection conn;
     private Statement stmt;
     private DomeinController dc;
@@ -57,7 +55,10 @@ public class CheckDatabaseConnection implements Runnable {
                 isBooting = false;
             }
 
-            conn = DriverManager.getConnection(connectionString, userName, password);
+            conn = DriverManager.getConnection(DatabaseConfig.getPersistenceMap().get("javax.persistence.jdbc.url"), 
+                    DatabaseConfig.getPersistenceMap().get("javax.persistence.jdbc.user"), 
+                    DatabaseConfig.getPersistenceMap().get("javax.persistence.jdbc.password")
+            );
             stmt = conn.createStatement();
         } catch (SQLException ex) {
             createConnection();

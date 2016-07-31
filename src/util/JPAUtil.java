@@ -5,6 +5,7 @@
  */
 package util;
 
+import config.DatabaseConfig;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -14,7 +15,7 @@ import javax.persistence.Persistence;
  */
 public class JPAUtil {
 
-    private final static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence");
+    private final static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence", DatabaseConfig.getPersistenceMap());
 
     private JPAUtil() {
     }
