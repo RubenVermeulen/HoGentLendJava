@@ -28,8 +28,8 @@ public class StartUp extends Application {// test xd
         Scene scene = new Scene(new LoginFrameController(domCont));
         scene.getStylesheets().add("/gui/styles.css");
         stage.setScene(scene);
-        stage.setTitle("HoGentLend");
-        stage.getIcons().add(new Image("/images/HoGentLendIcon.png"));
+        stage.setTitle("HoGent Lend");
+        stage.getIcons().add(new Image("/images/hogent-lend.png"));
         stage.show();
     }
 
