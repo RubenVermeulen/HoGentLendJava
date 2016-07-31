@@ -2,14 +2,11 @@ package domein;
 
 import domein.gebruiker.Gebruiker;
 import domein.gebruiker.GebruikerRepository;
-import domein.gebruiker.GebruikerRepository;
 import java.util.Optional;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class DomeinControllerTest {

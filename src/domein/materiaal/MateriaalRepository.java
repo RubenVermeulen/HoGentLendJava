@@ -1,18 +1,16 @@
 package domein.materiaal;
 
-import domein.groep.Groep;
+import domein.firma.Firma;
 import domein.firma.FirmaRepository;
+import domein.groep.Groep;
+import exceptions.BulkToevoegenMisluktException;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import shared.MateriaalView;
-import util.JPAUtil;
-import domein.DomeinController;
-import domein.firma.Firma;
-import exceptions.BulkToevoegenMisluktException;
-import java.util.Optional;
-import shared.ReservatieLijnView;
 import shared.ReservatieView;
+import util.JPAUtil;
 
 public class MateriaalRepository {
 

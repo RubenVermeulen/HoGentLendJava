@@ -1,9 +1,9 @@
 package domein.materiaal;
 
-import domein.groep.GroepRepository;
-import domein.groep.Groep;
-import domein.firma.FirmaRepository;
 import domein.firma.Firma;
+import domein.firma.FirmaRepository;
+import domein.groep.Groep;
+import domein.groep.GroepRepository;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

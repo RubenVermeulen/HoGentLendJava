@@ -1,7 +1,7 @@
 package domein.materiaal;
 
-import domein.groep.Groep;
 import domein.firma.Firma;
+import domein.groep.Groep;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -16,7 +16,6 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import shared.MateriaalView;
 
 @Entity
 @Table(name = "materialen")

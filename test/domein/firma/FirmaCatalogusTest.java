@@ -1,7 +1,5 @@
 package domein.firma;
 
-import domein.firma.FirmaCatalogus;
-import domein.firma.Firma;
 import domein.materiaal.Materiaal;
 import java.util.ArrayList;
 import java.util.Arrays;

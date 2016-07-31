@@ -5,7 +5,6 @@ import java.time.LocalTime;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
-import shared.ConfigView;
 import util.JPAUtil;
 
 public class ConfigLoader {

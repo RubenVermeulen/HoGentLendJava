@@ -5,7 +5,6 @@
  */
 package shared;
 
-import domein.reservatie.Reservatie;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

@@ -1,15 +1,12 @@
 package domein.config;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import shared.ConfigView;
-import util.LocalDateTimeAttributeConverter;
 
 @Entity
 @Table(name = "config")

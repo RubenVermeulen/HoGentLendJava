@@ -1,7 +1,6 @@
 package shared;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 public class ConfigView {
     private LocalDateTime standaardOphaaltijd;

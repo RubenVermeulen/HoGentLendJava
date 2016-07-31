@@ -1,6 +1,5 @@
 package domein.gebruiker;
 
-import domein.groep.Groep;
 import org.junit.Assert;
 import org.junit.Test;
 

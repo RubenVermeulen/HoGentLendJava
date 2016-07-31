@@ -1,5 +1,8 @@
 package util;
 
+import config.DatabaseConfig;
+import domein.DomeinController;
+import domein.gebruiker.GebruikerRepository;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -7,9 +10,6 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
-import config.DatabaseConfig;
-import domein.DomeinController;
-import domein.gebruiker.GebruikerRepository;
 
 public class CheckDatabaseConnection implements Runnable {
 

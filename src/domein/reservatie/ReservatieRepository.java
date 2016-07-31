@@ -5,21 +5,14 @@
  */
 package domein.reservatie;
 
-import domein.gebruiker.Gebruiker;
 import domein.gebruiker.GebruikerRepository;
-import domein.materiaal.Materiaal;
 import domein.materiaal.MateriaalRepository;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import shared.ReservatieLijnView;
-import shared.MateriaalView;
 import shared.ReservatieView;
 import util.JPAUtil;
 

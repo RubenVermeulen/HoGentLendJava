@@ -4,10 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import org.jasypt.util.password.StrongPasswordEncryptor;
 
 @Entity
 @Table(name = "gebruikers")

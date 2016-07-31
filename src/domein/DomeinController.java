@@ -1,21 +1,19 @@
 package domein;
 
-import util.CheckDatabaseConnection;
 import auth.AuthProvider;
 import auth.HoGentAuthProvider;
 import domein.config.Config;
 import domein.config.ConfigLoader;
-import domein.gebruiker.GebruikerRepository;
-import domein.gebruiker.Gebruiker;
-import domein.reservatie.ReservatieRepository;
-import domein.materiaal.MateriaalRepository;
-import domein.groep.Groep;
-import domein.firma.FirmaRepository;
 import domein.firma.Firma;
+import domein.firma.FirmaRepository;
+import domein.gebruiker.Gebruiker;
+import domein.gebruiker.GebruikerRepository;
+import domein.groep.Groep;
+import domein.materiaal.MateriaalRepository;
+import domein.reservatie.ReservatieRepository;
 import exceptions.BulkToevoegenMisluktException;
 import exceptions.GeenToegangException;
 import gui.ConnectionController;
-import gui.LoginFrameController;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -24,11 +22,11 @@ import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javax.persistence.EntityManager;
 import shared.ConfigView;
 import shared.MateriaalView;
 import shared.ReservatieLijnView;
 import shared.ReservatieView;
+import util.CheckDatabaseConnection;
 
 public class DomeinController {
 

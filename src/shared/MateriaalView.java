@@ -5,7 +5,6 @@
  */
 package shared;
 
-import domein.groep.Groep;
 import java.util.List;
 
 /**

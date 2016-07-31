@@ -1,7 +1,5 @@
 package domein.groep;
 
-import domein.groep.Groep;
-import domein.groep.GroepCatalogus;
 import domein.materiaal.Materiaal;
 import java.util.ArrayList;
 import java.util.Arrays;
