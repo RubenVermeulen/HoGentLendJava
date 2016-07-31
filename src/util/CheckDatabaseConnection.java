@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 import config.DatabaseConfig;
 import domein.DomeinController;
+import domein.gebruiker.GebruikerRepository;
 
 public class CheckDatabaseConnection implements Runnable {
 
@@ -30,6 +31,11 @@ public class CheckDatabaseConnection implements Runnable {
         while (true) {
             try {
                 stmt.executeQuery("SELECT 1");
+                
+                if ( ! dc.isInitialized()) {
+                    dc.initialize(new GebruikerRepository());
+                }
+                
                 dc.setConnectionAlive(true);
             } catch (SQLException ex) {
                 if (dc.isConnectionAlive()) {

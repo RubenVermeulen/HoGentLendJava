@@ -18,7 +18,6 @@ public class DomeinControllerTest {
     private final String CORRECT_ACHTERNAAM = "Email";
     private final String CORRECT_EMAIL = "testemail@test.com";
     private final String CORRECT_PASSWORD = "rubsup";
-    private final String CORRECT_PASSWORD_HASH = "phQwxXirQXoxORs1hBuWctW6AuGTX5MiaYuMgs1N/BJOAWkFU6I0GGqZv7jYL1xY";
     private final String FOUT_EMAIL = "emailtest@test.com";
     private final String FOUT_PASSWORD = "blahblah";
     private final boolean HOOFDBEEHERDER = true;
@@ -34,10 +33,10 @@ public class DomeinControllerTest {
     public void before() {
         // GebruikerRepository dummy training
         dummyGebruikerRepo = mock(GebruikerRepository.class, "dummyGebruikerRepo");
-        when(dummyGebruikerRepo.getBeheerder(anyString(), anyString()))
+        when(dummyGebruikerRepo.getBeheerder(anyString()))
                 .thenReturn(Optional.empty());
-        when(dummyGebruikerRepo.getBeheerder(CORRECT_EMAIL, CORRECT_PASSWORD))
-                .thenReturn(Optional.of(new Gebruiker(CORRECT_VOORNAAM, CORRECT_ACHTERNAAM, CORRECT_EMAIL, CORRECT_PASSWORD_HASH, HOOFDBEEHERDER, BEHEERDER, LECTOR)));
+        when(dummyGebruikerRepo.getBeheerder(CORRECT_EMAIL))
+                .thenReturn(Optional.of(new Gebruiker(CORRECT_VOORNAAM, CORRECT_ACHTERNAAM, CORRECT_EMAIL, HOOFDBEEHERDER, BEHEERDER, LECTOR)));
 
         domCon = new DomeinController(dummyGebruikerRepo);
     }

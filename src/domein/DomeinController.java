@@ -24,6 +24,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javax.persistence.EntityManager;
 import shared.ConfigView;
 import shared.MateriaalView;
 import shared.ReservatieLijnView;
@@ -31,7 +32,7 @@ import shared.ReservatieView;
 
 public class DomeinController {
 
-    private GebruikerRepository gebruikerRepo;
+    private GebruikerRepository gebruikerRepo = null;
     private AuthProvider authProvider;
     private MateriaalRepository materiaalRepo;
     private ReservatieRepository reservatieRepo;
@@ -40,30 +41,37 @@ public class DomeinController {
     private Config config;
     private ConfigLoader configLoader;
     private Stage primaryStage;
+    private boolean initialized = false;
     
     private boolean connectionAlive = false;
 
-    public DomeinController() {
-        this(new GebruikerRepository());
-    }
-
-    public DomeinController(GebruikerRepository gebruikerRepository) {   
-        this.gebruikerRepo = gebruikerRepository;
-        this.authProvider = new HoGentAuthProvider(gebruikerRepo);
-        
+    public DomeinController() {   
         Thread t = new Thread(new CheckDatabaseConnection(this));
         
         t.setDaemon(true);
         t.start();
     }
     
-    public void initialize() {
-        
+    /**
+     * Mag enkel gebruikt worden voor testen.
+     * 
+     * @param gebruikerRepository 
+     */
+    public DomeinController(GebruikerRepository gebruikerRepository) {   
+        setConnectionAlive(true);
+        initialize(gebruikerRepository);
+    }
+    
+    public void initialize(GebruikerRepository gebruikerRepository) {
+        this.gebruikerRepo = new GebruikerRepository();
+        this.authProvider = new HoGentAuthProvider(gebruikerRepo);
         this.firmaRepo = new FirmaRepository();
         this.materiaalRepo = new MateriaalRepository(firmaRepo);
         this.reservatieRepo = new ReservatieRepository(materiaalRepo, gebruikerRepo);
         this.configLoader = new ConfigLoader();
-        this.config = configLoader.load(); 
+        this.config = configLoader.load();
+        
+        setInitialized(true);
     }
 
     /* -------------------------------- */
@@ -81,12 +89,9 @@ public class DomeinController {
     public boolean meldAan(String email, String wachtwoord) {
         promptLostConnection();
         
-        gebruikerRepo.initialiseerBeheerderCatalogus();
-        
         Optional<Gebruiker> gebruiker = authProvider.authenticate(email, wachtwoord);
         
         if (gebruiker.isPresent()) {
-            initialize();
             aangemelde = gebruiker.get();
             return true;
         }
@@ -459,6 +464,10 @@ public class DomeinController {
         return primaryStage;
     }
 
+    public boolean isInitialized() {
+        return initialized;
+    }
+    
     /* -------------------------------- */
     // SETTERS
     /* -------------------------------- */
@@ -468,5 +477,9 @@ public class DomeinController {
     
     public void setPimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
+    }
+
+    public void setInitialized(boolean initialized) {
+        this.initialized = initialized;
     }
 }

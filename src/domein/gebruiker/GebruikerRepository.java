@@ -10,11 +10,12 @@ import util.JPAUtil;
 
 public class GebruikerRepository {
 
-    private BeheerderCatalogus beheerderCatalogus = null;
+    private BeheerderCatalogus beheerderCatalogus;
     private EntityManager em;
 
     public GebruikerRepository() {
-        
+        em = JPAUtil.getEntityManagerFactory().createEntityManager();
+        initialiseerBeheerderCatalogus();
     }
 
     /**
@@ -30,10 +31,6 @@ public class GebruikerRepository {
      * Initialiseert alle beheerders in een catalogus.
      */
     public void initialiseerBeheerderCatalogus() {
-        if (beheerderCatalogus != null) return;
-        
-        this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
-        
         Query q = em.createQuery("SELECT g FROM Gebruiker g WHERE g.beheerder = true OR g.hoofdbeheerder = true");
         List<Gebruiker> beheerders = (List<Gebruiker>) q.getResultList();
 
