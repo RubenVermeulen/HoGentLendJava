@@ -51,8 +51,8 @@ public class ReservatieCatalogusTest {
     private List<ReservatieLijnView> reservatieLijnen;
     private final Firma f1 = new Firma("Firma", "email@firma.be");
 
-    private final Gebruiker sven = new Gebruiker("Sven", "Dedeene", EMAIL_CORRECT, "sven", true, true, true);
-    private final Gebruiker xander = new Gebruiker("Xander", "Berkein", "xander@hogent.be", "xander", true, true, true);
+    private final Gebruiker sven = new Gebruiker("Sven", "Dedeene", EMAIL_CORRECT, true, true, true);
+    private final Gebruiker xander = new Gebruiker("Xander", "Berkein", "xander@hogent.be", true, true, true);
 
     private final MateriaalView mv = new MateriaalView("wereldbol", 5);
     private MateriaalView mv2 = new MateriaalView("Geodriehoek", 15);

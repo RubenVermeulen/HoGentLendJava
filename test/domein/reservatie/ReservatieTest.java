@@ -32,7 +32,7 @@ public class ReservatieTest {
     private boolean opgehaald;
     private List<ReservatieLijn> reservatieLijnen;
 
-    private final Gebruiker sven = new Gebruiker("Sven", "Dedeene", "sven@hogent.be", "sven", true, true, true);
+    private final Gebruiker sven = new Gebruiker("Sven", "Dedeene", "sven@hogent.be", true, true, true);
     private final LocalDateTime OPHAALMOMENT_CORRECT = LocalDateTime.of(2016, Month.MARCH, 14, 15, 30);
     private final LocalDateTime INDIENMOMENT_CORRECT = LocalDateTime.of(2016, Month.MARCH, 21, 15, 30);
 
