@@ -195,6 +195,10 @@ public class MateriaalView {
         return newFotoUrl;
     }
     
+    public int getAantalBeschikbaar() {
+        return aantal - aantalOnbeschikbaar;
+    }
+    
     @Override
     public String toString() {
         return naam;
