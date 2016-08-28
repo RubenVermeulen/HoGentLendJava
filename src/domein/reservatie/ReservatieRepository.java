@@ -18,11 +18,8 @@ import util.JPAUtil;
 
 public class ReservatieRepository {
 
-//    private List<Reservatie> reservaties;
     private EntityManager em;
     private ReservatieCatalogus reservatieCat;
-//    private MateriaalRepository materiaalRepo;
-//    private GebruikerRepository gebruikersRepo;
 
     public ReservatieRepository(MateriaalRepository materiaalRepo, GebruikerRepository gebruikerRepo) {
         this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
