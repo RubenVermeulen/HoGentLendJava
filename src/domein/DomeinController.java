@@ -60,6 +60,11 @@ public class DomeinController {
         initialize(gebruikerRepository);
     }
     
+    /**
+     * Initialiseert alle repositories.
+     * 
+     * @param gebruikerRepository 
+     */
     public void initialize(GebruikerRepository gebruikerRepository) {
         this.gebruikerRepo = new GebruikerRepository();
         this.authProvider = new HoGentAuthProvider(gebruikerRepo);
