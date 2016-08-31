@@ -19,6 +19,8 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -168,6 +170,8 @@ public class MainMenuFrameController extends BorderPane {
     private Label lblStandaardOphaaltijdPlaceholder;
     @FXML
     private Label lblStandaardIndientijdPlaceholder;
+    @FXML
+    private Tab tabReservatieBeheer;
     
 
     public MainMenuFrameController(DomeinController domCon) {
@@ -188,9 +192,15 @@ public class MainMenuFrameController extends BorderPane {
 
         initialiseerTableViewBeheerders();
 
-        initialiseerTableViewReservaties();
-
         initialiseerInstellingen();
+        
+        tabReservatieBeheer.setOnSelectionChanged((Event event) -> {
+            if (tabReservatieBeheer.isSelected()) {
+                System.out.println("Selected");
+                initialiseerTableViewReservaties();
+                initialiseerTableViewReservatiesMetFilter();
+            }
+        });
     }
 
     private void setupMaterials(List<MateriaalView> materials) {
@@ -683,5 +693,12 @@ public class MainMenuFrameController extends BorderPane {
     @FXML
     private void onActionCbInstellingenLeentermijn(ActionEvent event) {
         verbergInstellingenLabel();
+    }
+
+    @FXML
+    private void onActionTabReservatieBeheer(Event event) {
+        System.out.println("Tab geopend");
+        
+        
     }
 }

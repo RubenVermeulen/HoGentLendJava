@@ -19,24 +19,35 @@ import util.JPAUtil;
 public class ReservatieRepository {
 
     private EntityManager em;
+    private MateriaalRepository materiaalRepository;
+    private GebruikerRepository gebruikerRepository;
     private ReservatieCatalogus reservatieCat;
 
     public ReservatieRepository(MateriaalRepository materiaalRepo, GebruikerRepository gebruikerRepo) {
         this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
-        loadReservatieCatalogus(materiaalRepo, gebruikerRepo);
+        this.materiaalRepository = materiaalRepo;
+        this.gebruikerRepository = gebruikerRepo;
     }
 
-    private void loadReservatieCatalogus(MateriaalRepository materiaalRepo, GebruikerRepository gebruikersRepo) {
+    /**
+     * Haalt alle reservaties op uit de database
+     * en maakt een catalogus aan.
+     */
+    private void loadReservatieCatalogus() {
         Query q = em.createQuery("SELECT r FROM Reservatie r");
         List<Reservatie> reservatieLijst = (List<Reservatie>) q.getResultList();
-        reservatieCat = new ReservatieCatalogus(reservatieLijst, materiaalRepo, gebruikersRepo);
+        reservatieCat = new ReservatieCatalogus(reservatieLijst, materiaalRepository, gebruikerRepository);
     }
 
     public List<Long> geefAlleReservatieIds() {
+        loadReservatieCatalogus();
+        
         return reservatieCat.geefAlleReservatieIds();
     }
 
     public List<ReservatieView> geefAlleReservaties() {
+        loadReservatieCatalogus();
+        
         return reservatieCat.geefAlleReservaties();
     }
 
@@ -113,6 +124,8 @@ public class ReservatieRepository {
     }
 
     public List<ReservatieView> geefAlleReservatiesMetFiler(String filter, LocalDateTime dtOphaal, LocalDateTime dtIndien) {
+        loadReservatieCatalogus();
+        
         return reservatieCat.geefAlleReservatiesMetFiler(filter, dtOphaal, dtIndien);
     }
 
