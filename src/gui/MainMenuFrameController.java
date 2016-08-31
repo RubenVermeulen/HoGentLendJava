@@ -254,7 +254,7 @@ public class MainMenuFrameController extends BorderPane {
 
     protected void initialiseerTableViewReservatiesMetFilter() {
         setupTableViewReservaties(
-                domCon.geefAlleReservatiesMetFiler(
+                domCon.geefAlleReservatiesMetFilter(
                         txfZoekReservatie.getText(),
                         dtmStartDatum.getValue() == null ? null : LocalDateTime.of(dtmStartDatum.getValue(), LocalTime.of(0, 0)),
                         dtmEindDatum.getValue() == null ? null : LocalDateTime.of(dtmEindDatum.getValue(), LocalTime.of(0, 0))

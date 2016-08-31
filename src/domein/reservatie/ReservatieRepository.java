@@ -123,10 +123,10 @@ public class ReservatieRepository {
         return reservatieCat.heeftConflicten(rlv, rv);
     }
 
-    public List<ReservatieView> geefAlleReservatiesMetFiler(String filter, LocalDateTime dtOphaal, LocalDateTime dtIndien) {
+    public List<ReservatieView> geefAlleReservatiesMetFilter(String filter, LocalDateTime dtOphaal, LocalDateTime dtIndien) {
         loadReservatieCatalogus();
         
-        return reservatieCat.geefAlleReservatiesMetFiler(filter, dtOphaal, dtIndien);
+        return reservatieCat.geefAlleReservatiesMetFilter(filter, dtOphaal, dtIndien);
     }
 
     public void setReservatieViewConflict(ReservatieView rv) {

@@ -312,8 +312,8 @@ public class DomeinController {
      * @param dtIndien
      * @return lijst met reservatieviews
      */
-    public List<ReservatieView> geefAlleReservatiesMetFiler(String filter, LocalDateTime dtOphaal, LocalDateTime dtIndien) {
-        return reservatieRepo.geefAlleReservatiesMetFiler(filter, dtOphaal, dtIndien);
+    public List<ReservatieView> geefAlleReservatiesMetFilter(String filter, LocalDateTime dtOphaal, LocalDateTime dtIndien) {
+        return reservatieRepo.geefAlleReservatiesMetFilter(filter, dtOphaal, dtIndien);
     }
 
     /* -------------------------------- */

@@ -81,7 +81,7 @@ public class ReservatieCatalogus {
      * @param dtIndien de filter van het indienmoment
      * @return lijst van reservatieviews
      */
-    public List<ReservatieView> geefAlleReservatiesMetFiler(String filter, LocalDateTime dtOphaal, LocalDateTime dtIndien) {
+    public List<ReservatieView> geefAlleReservatiesMetFilter(String filter, LocalDateTime dtOphaal, LocalDateTime dtIndien) {
         List<ReservatieView> reservatieViews =  reservaties.stream()
                 .filter(r -> r.containsFilter(filter, dtOphaal, dtIndien))
                 .map(r -> toReservatieView(r))
