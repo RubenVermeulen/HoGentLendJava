@@ -11,3 +11,10 @@ This as a Java desktop application. It functions as the admin panel to manage ev
 ## Requirements
 
 Supported versions of java: Java(FX) 8u40 or more recent
+
+## Team members
+
+Xander Berkein
+Sven Dedeene
+Alexander Van Damme
+Ruben Vermeulen
